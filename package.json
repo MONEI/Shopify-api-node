@@ -1,0 +1,19 @@
+{
+  "author": "Carlos Villuendas <carlosvillu@gmail.com>",
+  "name": "nodify",
+  "description": "Unofficial Shopify API client",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Shopfrogs/Nodify.git"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "engines": {
+    "node": "~0.6.3"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
