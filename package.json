@@ -9,11 +9,14 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {
     "node": "~0.6.3"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "0.12.x",
+    "should": "0.5.x"
+  }
 }
