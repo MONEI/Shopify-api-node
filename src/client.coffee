@@ -1,18 +1,14 @@
 class Client
-  resources =
-    article: ''
-    asset: ''
   
+  resources = ['blog']
+
   constructor: (@pass, @key) ->
     throw new Error 'pass or key missing' unless pass? and key?
-
-  get: (resource, opts) ->
-    throw new Error 'resource id missing or invalid' unless resource? and resources["#{resource}"]?
-
-    unless (typeof resources["#{resource}"] is 'function')
-      Resource = require "./resources/#{resource}"
-      resources["#{resource}"] = new Resource(opts)
-    
-    resources["#{resource}"]
+    for resource in resources
+      do (resource) =>
+        @["#{resource}"] = (=>
+          Resource = require "./resources/#{resource}"
+          new Resource
+        )()
 
 module.exports = Client
