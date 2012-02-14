@@ -9,7 +9,7 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "cake test"
   },
   "engines": {
     "node": "~0.6.3"
