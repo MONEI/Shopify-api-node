@@ -32,6 +32,7 @@ describe 'Client', ->
 
       it "key should be #{key}", ->
         @client.key.should.eql key
+
   describe '#blog', ->
 
     beforeEach ->

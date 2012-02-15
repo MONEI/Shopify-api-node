@@ -11,7 +11,7 @@ describe 'Nodify', ->
   it 'should be a object', ->
     Nodify.should.be.a 'object'
   
-  describe 'Nodify#Client', ->
+  describe 'Nodify.Client', ->
   
     it 'should exist', ->
       should.exist Nodify.Client
