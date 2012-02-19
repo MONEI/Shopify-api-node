@@ -17,3 +17,5 @@ task 'test', 'Run all tests', ->
    runCommand './node_modules/mocha/bin/mocha', '-c'
    runCommand './node_modules/mocha/bin/mocha', '-c', "test/resources/#{resource}.coffee" for resource in resources
 
+task 'docs', 'Generate all Docs', ->
+  runCommand './node_modules/docco/bin/docco', 'src/'

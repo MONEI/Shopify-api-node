@@ -2,6 +2,8 @@ class Blog
 
   constructor: ->
 
-  add: ->
+  all: (cb) ->
+    cb(null, [])
+
 
 module.exports = Blog

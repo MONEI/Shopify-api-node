@@ -14,9 +14,14 @@
   "engines": {
     "node": "~0.6.3"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "mocha": "0.12.x",
-    "should": "0.5.x"
+    "should": "0.5.x",
+    "nock": "0.10.x",
+    "docco": "0.3.x",
+    "coffee-script": "1.2.x",
+    "paige": "0.1.x"
   }
 }
