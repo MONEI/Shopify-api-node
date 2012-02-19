@@ -1,0 +1,16 @@
+<!DOCTYPE html>  <html> <head>   <title>client.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="rocco.css" /> </head> <body> <div id="navbar">     <h3>Nodify - Unofficial Shopify API client<em></em></h3>   </div>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">           <a class="source" href="index.html">Index</a>                                           <a class="source" href="client.html">                 client.coffee               </a>                                           <a class="source" href="index.html">                 index.coffee               </a>                                           <a class="source" href="article.html">                 article.coffee               </a>                                           <a class="source" href="asset.html">                 asset.coffee               </a>                                           <a class="source" href="blog.html">                 blog.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               client.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Client</span>
+  
+  <span class="nv">resources = </span><span class="p">[</span><span class="s1">&#39;blog&#39;</span><span class="p">]</span>
+
+  <span class="nv">constructor: </span><span class="nf">(@pass, @key) -&gt;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s1">&#39;pass or key missing&#39;</span> <span class="nx">unless</span> <span class="nx">pass</span><span class="o">?</span> <span class="o">and</span> <span class="nx">key</span><span class="o">?</span>
+    <span class="k">for</span> <span class="nx">resource</span> <span class="k">in</span> <span class="nx">resources</span>
+      <span class="nx">do</span> <span class="p">(</span><span class="nx">resource</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="err">@</span><span class="p">[</span><span class="s2">&quot;#{resource}&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">=&gt;</span>
+          <span class="nv">Resource = </span><span class="nx">require</span> <span class="s2">&quot;./resources/#{resource}&quot;</span>
+          <span class="k">new</span> <span class="nx">Resource</span>
+        <span class="p">)()</span>
+
+<span class="nv">module.exports = </span><span class="nx">Client</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
