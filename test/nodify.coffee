@@ -1,5 +1,5 @@
 should = require 'should'
-Nodify = require '../lib'
+Nodify = require '../lib/main'
 
 pass = 'MY_DUMMY_PASS'
 key = 'MY_DUMMY_KEY'
