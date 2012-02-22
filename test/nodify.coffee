@@ -5,7 +5,7 @@ pass = 'MY_DUMMY_PASS'
 key = 'MY_DUMMY_KEY'
 
 describe 'Nodify', ->
-  it 'should exits', ->
+  it 'should exist', ->
     should.exist Nodify
 
   it 'should be a object', ->

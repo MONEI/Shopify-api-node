@@ -38,10 +38,10 @@ describe 'Client', ->
     beforeEach ->
       @client = new Client pass, key
 
-    it 'should not throw exection', ->
+    it 'should not throw exception', ->
       (=> @client.blog).should.not.throw()
 
-    it 'should return a instance of ', ->
+    it 'should return a instance of', ->
       @client.blog.should.be.an.instanceof Blog
 
     it 'should have instance method´s blog', ->
