@@ -1,3 +1,3 @@
-Client = require './Client'
+Client = require './client'
 
 exports.Client = Client
