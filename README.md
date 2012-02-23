@@ -4,17 +4,17 @@ Talk to Shopify API speaking node!
 
 Besides of hooking up to the whole Shopify API, this connector does authentication for your app with any Shopify store. Billing and sample data is also provided.
 
-== Installation
+### Installation
 
     # 1
     # 2
     # 3
 
-== Usage
+### Usage
 
     # 1
 
-If you don't have the API key and Shared Secret yet, create a [Shopify Partner account](https://app.shopify.com/services/partners/signup/), and create your first app. You can also create test shops
+If you don't have the API key and Shared Secret yet, create a [Shopify Partner account](https://app.shopify.com/services/partners/signup/), and create your first app. You can also create test stores
 once you're logged in as a partner.
 
 When you create your app in the Shopify Partner Account, set the return URL to
