@@ -21,5 +21,5 @@ describe 'Nodify', ->
     
     it 'client should be a instance of Client', ->
       client = new Nodify.Client(pass, key)
-      client.should.be.a.instanceof Nodify.Client
+      client.should.be.an.instanceof Nodify.Client
 
