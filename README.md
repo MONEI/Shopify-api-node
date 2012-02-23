@@ -1,4 +1,4 @@
-= Node.js connector for the Shopify API
+# Node.js connector for the Shopify API
 
 == Description
 
@@ -16,8 +16,7 @@ Besides of hooking up to the whole Shopify API, this connector does authenticati
 
     # 1
 
-If you don't have the API key and Shared Secret yet, create a Shopify Partner account at
-https://app.shopify.com/services/partners/signup and create your first app. You can also create test shops
+If you don't have the API key and Shared Secret yet, create a [Shopify Partner account](https://app.shopify.com/services/partners/signup/), and create your first app. You can also create test shops
 once you're logged in as a partner.
 
 When you create your app in the Shopify Partner Account, set the return URL to
@@ -26,7 +25,7 @@ When you create your app in the Shopify Partner Account, set the return URL to
 You can also create a private application that only works for your store by
 visiting https://YOUR-SHOP.myshopify.com/admin/api
 
-# We deeply explain how to work with Proxy to help Shopify do more brand awareness and to give user a stronger feel that he's working inside his Shopify admin panel. (Carlos, any help?)
+We deeply explain how to work with Proxy to help Shopify do more brand awareness and to give user a stronger feel that he's working inside his Shopify admin panel. (Carlos, any help?)
 
 http://api.shopify.com/app_proxy.html
 
