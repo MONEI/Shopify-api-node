@@ -19,7 +19,7 @@ describe 'Nodify', ->
     it 'Nodify.Client should be typeof Function', ->
       Nodify.Client.should.be.a 'function'
     
-    it 'client should be an instance of Client', ->
+    it 'client should be a instance of Client', ->
       client = new Nodify.Client(pass, key)
       client.should.be.a.instanceof Nodify.Client
 
