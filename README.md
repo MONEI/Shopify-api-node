@@ -44,7 +44,7 @@ Head over to: http://localhost:3000 (or whichever we call it) and enter the url 
 After your application has been given read or read/write API permission by the
 store, you're ready to start experimenting with the Shopify API.
 
-### Be a master of the Shopify ecosystem:
+### Be a master of the Shopify ecosystem
 
 http://wiki.shopify.com/Shopify_App_Development <= the roots
 
