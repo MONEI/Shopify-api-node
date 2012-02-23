@@ -14,7 +14,7 @@ Besides of hooking up to the whole Shopify API, this connector does authenticati
 
     # 1
 
-If you don't have the API key and Shared Secret yet, create a [Shopify Partner account](https://app.shopify.com/services/partners/signup/), and create your first app. You can also create test stores
+If you don't have the API key and Shared Secret yet, sign up for a [Shopify Partner account](https://app.shopify.com/services/partners/signup/), and create your first app. You can also create test stores
 once you're logged in as a partner.
 
 When you create your app in the Shopify Partner Account, set the return URL to
@@ -27,24 +27,24 @@ We deeply explain how to work with Proxy to help Shopify do more brand awareness
 
 http://api.shopify.com/app_proxy.html
 
-=== Example
+### Example
 
     # 1
 
 This will create the Nodify environment with sample views.
 
-== After running the generator
+### After running the generator
 
 First, start your application:
 
     #how to start the node connector
 
-Head over: http://localhost:3000 (or whichever we call it) and enter the url of your Shopify store.
+Head over to: http://localhost:3000 (or whichever we call it) and enter the url of your Shopify store.
 
 After your application has been given read or read/write API permission by the
 store, you're ready to start experimenting with the Shopify API.
 
-== Be a master of the Shopify ecosystem:
+### Be a master of the Shopify ecosystem:
 
 http://wiki.shopify.com/Shopify_App_Development <= the roots
 
