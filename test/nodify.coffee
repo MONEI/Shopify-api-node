@@ -9,7 +9,7 @@ describe 'Nodify', ->
     should.exist Nodify
 
   it 'should be an object', ->
-    Nodify.should.be.an 'object'
+    Nodify.should.be.a 'object'
   
   describe 'Nodify.Client', ->
   
