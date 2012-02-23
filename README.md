@@ -37,7 +37,7 @@ This will create the Nodify environment with sample views.
 
 First, start your application:
 
-    #how to start the node connector
+    # how to start the node connector
 
 Head over to: http://localhost:3000 (or whichever we call it) and enter the url of your Shopify store.
 
