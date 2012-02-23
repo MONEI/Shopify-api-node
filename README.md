@@ -54,7 +54,7 @@ http://api.shopify.com <= API docs
 
 https://groups.google.com/forum/#!forum/shopify-api <= Shopify API Group
 
-licence data
+license data
 
 [Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
 
