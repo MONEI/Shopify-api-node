@@ -1,11 +1,9 @@
 # Node.js connector for the Shopify API
-
+***
 Talk to Shopify API speaking node!
 
 Besides of hooking up to the whole Shopify API, this connector does authentication for your app with any Shopify store. Billing and sample data is also provided.
 
-
-***
 == Installation
 
     # 1
