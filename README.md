@@ -1,4 +1,4 @@
-# Node.js connector for the Shopify API
+# Node.js connector for the Shopify API [![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
 ***
 Talk to Shopify API speaking node!
 
@@ -57,6 +57,3 @@ https://groups.google.com/forum/#!forum/shopify-api <= Shopify API Group
 license data
 
 [Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
-
-
-[![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
