@@ -8,8 +8,8 @@ describe 'Nodify', ->
   it 'should exist', ->
     should.exist Nodify
 
-  it 'should be a object', ->
-    Nodify.should.be.a 'object'
+  it 'should be an object', ->
+    Nodify.should.be.an 'object'
   
   describe 'Nodify.Client', ->
   
@@ -19,7 +19,7 @@ describe 'Nodify', ->
     it 'Nodify.Client should be typeof Function', ->
       Nodify.Client.should.be.a 'function'
     
-    it 'client should be a instance of Client', ->
+    it 'client should be an instance of Client', ->
       client = new Nodify.Client(pass, key)
       client.should.be.an.instanceof Nodify.Client
 
