@@ -1,7 +1,7 @@
 {spawn, exec} = require 'child_process'
 sys = require 'util' #util might be outdated on your system
 
-resources = []
+resources = ['blog']
 
 runCommand = (name, args...) ->
   proc = spawn name, args
