@@ -1,4 +1,4 @@
-{get} = require 'http'
+request = require 'request'
 # ###Blog
 # Clase para manejar el recurso Blog
 # sobre un blog podemos hacer
@@ -23,29 +23,12 @@ class Blog
   # * shop, el nombre de la tienda
   #
   # **Nunca** se debería de instanciar directamente esta clase ya que eso lo hará la clase del cliente
-  constructor: (key, pass, shop) ->
+  constructor: (@key, @pass, @shop) ->
     throw new Error 'Blog missing parameters' if not pass? or not key? or not shop?
     
-    # Devuelve el objeto para la configuración de la llamada `get`
-    @options = (->
-      hostname: "http://#{key}:#{pass}@#{shop}.myshopify.com"
-      path: "/admin")()
-
   all: (cb) ->
-
-    get @options, (res) ->
-      response = ''
-      console.log res.headers
-      res.setEncoding('utf8')
-      res.on 'data', (data) ->
-        response += data
-      res.on 'end', ->
-        console.log res
-        error = new Error 'Request Error #{res.statusCode}' unless res.statusCode is 200
-        process.nextTick ->
-          cb(error, JSON.parse(response))
-
-
-
+    request "http://#{@key}:#{@pass}@#{@shop}.shopify.com/admin/blogs", (_,_,body) ->
+      process.nextTick ->
+        cb(null, JSON.parse body)
 
 module.exports = Blog

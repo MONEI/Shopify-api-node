@@ -4,6 +4,7 @@ Blog = require '../lib/resources/blog'
 
 pass = 'MY_DUMMY_PASS'
 key = 'MY_DUMMY_KEY'
+shop = 'MY_SHOP'
 
 describe 'Client', ->
 
@@ -12,20 +13,21 @@ describe 'Client', ->
 
   describe '#constructor', ->
 
-    it 'should throw exception if not call with pass and key', ->
-      (-> new Client()).should.throw('pass or key missing')
-      (-> new Client(key)).should.throw('pass or key missing')
+    it 'should throw exception if not call with pass, key or shop', ->
+      (-> new Client()).should.throw('pass, key or shop missing')
+      (-> new Client(key)).should.throw('pass, key or shop missing')
 
     it 'should not throw an exception if call with pass and key', ->
-      (-> new Client(pass, key)).should.not.throw()
+      (-> new Client(pass, key, shop)).should.not.throw()
 
     describe 'pass and key value', ->
       beforeEach ->
-        @client = new Client pass, key
+        @client = new Client pass, key, shop
 
-      it 'should have a pass and key like instance variable', ->
+      it 'should have a pass, key and shop like instance variable', ->
         should.exist @client.pass
         should.exist @client.key
+        should.exist @client.shop
 
       it "pass should be #{pass}", ->
         @client.pass.should.eql pass
@@ -33,10 +35,13 @@ describe 'Client', ->
       it "key should be #{key}", ->
         @client.key.should.eql key
 
+      it "shop should be #{key}", ->
+        @client.shop.should.eql shop
+
   describe '#blog', ->
 
     beforeEach ->
-      @client = new Client pass, key
+      @client = new Client pass, key, shop
 
     it 'should not throw exception', ->
       (=> @client.blog).should.not.throw()
