@@ -1,4 +1,4 @@
-{KEY, PASSWORD, STORE, fakeweb, loadFixture} = require './../helper/common'
+{KEY, PASSWORD, STORE, nock, loadFixture} = require './../helper/common'
 
 should = require 'should'
 
@@ -14,25 +14,21 @@ describe 'Blog', ->
       (-> new Blog(KEY, PASSWORD)).should.throw 'Blog missing parameters'
       (-> new Blog(KEY, PASSWORD, STORE)).should.not.throw()
 
-  describe 'options', ->
-    it 'should been setup properly the options'
-
-
-
   describe 'Receive a list of all Blogs', ->
     before ->
       @fixture = loadFixture 'blog/blogs'
-      fakeweb.allowNetConnect = false
-      fakeweb.registerUri({uri: "http://#{STORE}.shopify.com:80/admin/blogs", body: @fixture})
+      @url = "http://#{STORE}.myshopify.com"
       @blog = new Blog KEY, PASSWORD, STORE
 
 
-    it 'should be possible get a list of all blog like an Array', (done) ->
+    it 'should be possible get a list of all blog like an Object', (done) ->
+      nock(@url).get('/').reply(200, @fixture)
       @blog.all (err, blogs) =>
         blogs.should.be.an.instanceof Object
         done(err)
     
     it 'should call at server to get the blogs', (done)->
+      nock(@url).get('/').reply(200, @fixture)
       @blog.all (err, blogs) =>
         blogs.should.eql JSON.parse @fixture
         done(err)

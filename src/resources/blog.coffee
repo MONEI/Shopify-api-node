@@ -1,4 +1,5 @@
-request = require 'request'
+{request} = require 'http'
+
 # ###Blog
 # Clase para manejar el recurso Blog
 # sobre un blog podemos hacer
@@ -27,8 +28,14 @@ class Blog
     throw new Error 'Blog missing parameters' if not pass? or not key? or not shop?
     
   all: (cb) ->
-    request "http://#{@key}:#{@pass}@#{@shop}.shopify.com/admin/blogs", (_,_,body) ->
-      process.nextTick ->
-        cb(null, JSON.parse body)
+    
+    request {host:"http://#{@shop}.myshopify.com", path: '/', method: 'GET'}, (res) ->
+      data = ''
+      res.on 'data', (chuck) ->
+        data += chuck
+      res.on 'end', ->
+        process.nextTick ->
+          cb null, JSON.parse data
+    request.end()
 
 module.exports = Blog
