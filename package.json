@@ -15,6 +15,7 @@
     "node": "~0.6.3"
   },
   "dependencies": {
+    "request": "2.9.x"
   },
   "devDependencies": {
     "mocha": "0.12.x",

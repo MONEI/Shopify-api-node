@@ -1,4 +1,5 @@
-{request} = require 'http'
+request = require 'request'
+#{request} = require 'http'
 
 # ###Blog
 # Clase para manejar el recurso Blog
@@ -29,13 +30,8 @@ class Blog
     
   all: (cb) ->
     
-    request {host:"http://#{@shop}.myshopify.com", path: '/', method: 'GET'}, (res) ->
-      data = ''
-      res.on 'data', (chuck) ->
-        data += chuck
-      res.on 'end', ->
-        process.nextTick ->
-          cb null, JSON.parse data
-    request.end()
+    request "http://#{@shop}.myshopify.com", ( err, response ,body) ->
+      process.nextTick ->
+        cb null, JSON.parse body
 
 module.exports = Blog
