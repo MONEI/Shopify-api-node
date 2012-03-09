@@ -1,7 +1,7 @@
 {readFileSync} = require 'fs'
 
 loadFixture = (fixture) ->
-  readFileSync "#{__dirname}/../fixtures/#{fixture}.json", 'utf8'
+  JSON.parse(readFileSync "#{__dirname}/../fixtures/#{fixture}.json", 'utf8')
   
 #exports.nock = require 'nock'
 exports.nock = require 'nock'

@@ -1,5 +1,4 @@
 request = require 'request'
-#{request} = require 'http'
 
 # ###Blog
 # Clase para manejar el recurso Blog
@@ -28,10 +27,45 @@ class Blog
   constructor: (@key, @pass, @shop) ->
     throw new Error 'Blog missing parameters' if not pass? or not key? or not shop?
     
-  all: (cb) ->
+  # Metodo _privado_ que se encarga de hacer las llamadas al server
+  __get__: (path, cb) ->
+    request "http://#{@shop}.myshopify.com/admin#{path}", ( err, response ,body) ->
+      status = parseInt response.statusCode
+      # En caso de tener una respues distinta a 20x se concidera la peticion al servidor como erronea y se devolvera un `Error`
+      # especificando la respuesta del servidor en el mensaje de respuesta
+      if status >= 300 then err = new Error "Status code #{status}" else err = null
+      unless err?
+        process.nextTick ->
+          cb err, JSON.parse body
+      else
+        process.nextTick ->
+          cb err
+
+  # Obtiene todos los blogs de una tienda en concreto.
+  # es posible especificar un parametro especial `since` para obtener todos los blogs a partir de esa id
+  #
+  #     cb = (err, blogs) ->
+  #       throw err unless err?
+  #       console.dir blogs // Array con todos los blogs encontrados
+  #
+  # Como caso especial seria posible en el tercer parametro agregar un path nuevo para la peticion cosa que no deberia ser necesario
+  all: (since, cb, path = '/blogs.json') ->
     
-    request "http://#{@shop}.myshopify.com", ( err, response ,body) ->
-      process.nextTick ->
-        cb null, JSON.parse body
+    if typeof since is 'function'
+      cb = since
+    else
+      path += "?since_id=#{since}" if typeof since is 'number'
+
+    @__get__ path, cb
+
+  # Obtendra la cantidad total de blogs asignadas a esa tienda
+  #
+  #     cb = (err, count) ->
+  #       throw err unless err?
+  #       console.log count.count //-> Numero de blogs que contiene esa tienda
+  count: (cb, path = '/blogs/count.json')->
+    @__get__ path, cb
+
+
 
 module.exports = Blog
