@@ -1,0 +1,106 @@
+<!DOCTYPE html>  <html> <head>   <title>blog.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="rocco.css" /> </head> <body> <div id="navbar">     <h3>Nodify - Unofficial Shopify API client<em></em></h3>   </div>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">           <a class="source" href="index.html">Index</a>                                           <a class="source" href="client.html">                 client.coffee               </a>                                           <a class="source" href="main.html">                 main.coffee               </a>                                           <a class="source" href="article.html">                 article.coffee               </a>                                           <a class="source" href="asset.html">                 asset.coffee               </a>                                           <a class="source" href="blog.html">                 blog.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               blog.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">request = </span><span class="nx">require</span> <span class="s1">&#39;request&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>Blog</h3>
+
+<p>Clase para manejar el recurso Blog
+sobre un blog podemos hacer</p>
+
+<ul>
+<li><p>Un listado de todos los blogs</p></li>
+<li><p>Recibir la cantidad de blogs</p></li>
+<li><p>Recibir un único blog</p></li>
+<li><p>Crear un nuevo blog</p></li>
+<li><p>Modificar un blog existente</p></li>
+<li><p>Eliminar un blog de la base de datos</p></li>
+</ul>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">Blog</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Son obligatorios pasar 3 parámetros</p>
+
+<ul>
+<li><p>Key y pass para el proceso de autentificación</p></li>
+<li><p>shop, el nombre de la tienda</p></li>
+</ul>
+
+<p><strong>Nunca</strong> se debería de instanciar directamente esta clase ya que eso lo hará la clase del cliente</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">constructor: </span><span class="nf">(@key, @pass, @shop) -&gt;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s1">&#39;Blog missing parameters&#39;</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">pass</span><span class="o">?</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">key</span><span class="o">?</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">shop</span><span class="o">?</span>
+    </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Metodo <em>privado</em> que se encarga de hacer las llamadas al server y devolver la respues en forma de callback
+Tanto <code>path</code>como <code>method</code> son <em>obligatorios</em>. En mientras que <code>body</code> es opcional y solo sera requeriodo si la llamada
+es de tipo <em>post</em> o <em>put</em></p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">__request__: </span><span class="nf">(path, method, body, cb) -&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Tenemos body?</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">body</span> <span class="o">is</span> <span class="s1">&#39;function&#39;</span>
+      <span class="nv">cb = </span><span class="nx">body</span>
+      <span class="nv">body = </span><span class="kc">null</span>
+
+    <span class="nv">options =</span>
+      <span class="nv">uri: </span><span class="s2">&quot;http://#{@shop}.myshopify.com/admin#{path}&quot;</span>
+      <span class="nv">method: </span><span class="nx">method</span>
+    <span class="nv">options.body = </span><span class="nx">body</span> <span class="k">if</span> <span class="nx">body</span><span class="o">?</span>
+
+    <span class="nx">request</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">( err, response ,body) -&gt;</span>
+      <span class="nv">status = </span><span class="nb">parseInt</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>En caso de tener una respues distinta a 20x se concidera la peticion al servidor como erronea y se devolvera un <code>Error</code>
+especificando la respuesta del servidor en el mensaje de respuesta</p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">if</span> <span class="nx">status</span> <span class="o">&gt;=</span> <span class="mi">300</span> <span class="k">then</span> <span class="nv">err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s2">&quot;Status code #{status}&quot;</span> <span class="k">else</span> <span class="nv">err = </span><span class="kc">null</span>
+      <span class="nx">unless</span> <span class="nx">err</span><span class="o">?</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span> <span class="o">-&gt;</span>
+          <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">body</span>
+      <span class="k">else</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span> <span class="o">-&gt;</span>
+          <span class="nx">cb</span> <span class="nx">err</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Para una llamada de tipo de <em>GET</em> solo necesitamos el PATH de llamada y la funcion de <em>callback</em></p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">__get__: </span><span class="nf">(path, cb) -&gt;</span>
+    <span class="nx">@__request__</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Si la llamada es de tipo <em>POST</em> ademas del PATH tambien vamos a necesitar el cuerpo de la llamada
+Este debe ser de tipo <em>Object</em></p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">__post__: </span><span class="nf">(path, body, cb) -&gt;</span>
+    <span class="nx">@__request__</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">),</span> <span class="nx">cb</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Hace llamadas de tipo <em>PUT</em> para poder actualizar cualquier recurso, tanto <code>path</code> como <code>body</code> son
+obligatorios en este metodo</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">__update__: </span><span class="nf">(path, body, cb) -&gt;</span>
+    <span class="nx">@__request__</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">),</span> <span class="nx">cb</span><span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Obtiene todos los blogs de una tienda en concreto.
+es posible especificar un parametro especial <code>since</code> para obtener todos los blogs a partir de esa id</p>
+
+<pre><code>cb = (err, blogs) -&gt;
+  throw err unless err?
+  console.dir blogs // Array con todos los blogs encontrados</code></pre>
+
+<p>Como caso especial seria posible en el tercer parametro agregar un path nuevo para la peticion cosa que no deberia ser necesario</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">all: </span><span class="nf">(since, cb, path = &#39;/blogs.json&#39;) -&gt;</span>
+    
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">since</span> <span class="o">is</span> <span class="s1">&#39;function&#39;</span>
+      <span class="nv">cb = </span><span class="nx">since</span>
+    <span class="k">else</span>
+      <span class="nx">path</span> <span class="o">+=</span> <span class="s2">&quot;?since_id=#{since}&quot;</span>
+
+    <span class="nx">@__get__</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">cb</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>Obtendra la cantidad total de blogs asignadas a esa tienda</p>
+
+<pre><code>cb = (err, count) -&gt;
+  throw err unless err?
+  console.log count.count //-&gt; Numero de blogs que contiene esa tienda</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">count: </span><span class="nf">(cb, path = &#39;/blogs/count.json&#39;)-&gt;</span>
+    <span class="nx">@__get__</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">cb</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Dado un <code>id</code> de un blog este metodo devuelve toda la informacion asociada al blog.
+Lanza un exception <code>missing id</code> si no se le pasa el <em>id</em> del blog.</p>
+
+<pre><code>cb = (err, blog) -&gt;
+  throw err unless err?
+  console.log blog.blog.id //-&gt; Id del blog que se acaba de obtener</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">get: </span><span class="nf">(id, cb) -&gt;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s1">&#39;missing id&#39;</span> <span class="nx">unless</span> <span class="nx">id</span><span class="o">?</span>
+    <span class="nx">@__get__</span> <span class="s2">&quot;/blogs/#{id}.json&quot;</span><span class="p">,</span> <span class="nx">cb</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Este metodo sera el encargado de crear un nuevo blog para ello necesita que se le pase el titulo
+Si no se le pasa el titulo lanzara una exception <code>missing title</code>
+El parametro <code>metas</code> es completamente opcional y en caso de existir consistara en un array de metafields que se agregaran al blog
+La funcion de callback contien la respuesta del server que debe ser la informacion del nuevo blog creado</p>
+
+<pre><code>cb = (err, response) -&gt;
+  throw err unless err?
+  console.dir response // -&gt; Objecto con todos los datos del nuevo blog creado</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">create: </span><span class="nf">(title, metas, cb, path = &#39;/blogs.json&#39;) -&gt;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s1">&#39;missing title&#39;</span> <span class="nx">unless</span> <span class="nx">title</span><span class="o">?</span>
+
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">metas</span> <span class="o">is</span> <span class="s1">&#39;function&#39;</span>
+      <span class="nv">cb = </span><span class="nx">metas</span>
+      <span class="nv">metas = </span><span class="kc">null</span>
+
+    <span class="nv">body =</span>
+      <span class="nv">blog:</span>
+        <span class="nv">title: </span><span class="nx">title</span>
+    <span class="nv">body.blog.metafields = </span><span class="nx">metas</span> <span class="k">if</span> <span class="nx">metas</span><span class="o">?</span>
+
+    <span class="nx">@__post__</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">cb</span></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Metodo generico para actualizar o el titulo o los metadatos de un blog.
+Por lo que id del blog sera obligatorio asi como un campo a actualizar (titulo o metadatos). En caso de faltar alguno de 
+estos dos sera lanzada una exception</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">update: </span><span class="nf">(id, field, cb) -&gt;</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s1">&#39;missing params&#39;</span> <span class="k">if</span> <span class="o">!</span><span class="nx">id</span><span class="o">?</span> <span class="o">or</span> <span class="o">!</span><span class="nx">field</span><span class="o">?</span>
+    
+    <span class="nv">body =</span>
+      <span class="nv">blog:</span>
+        <span class="nv">id: </span><span class="nx">id</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">field</span> <span class="o">is</span> <span class="s1">&#39;string&#39;</span> <span class="k">then</span> <span class="nv">body.blog.title = </span><span class="nx">field</span> <span class="k">else</span> <span class="nv">body.blog.metafields = </span><span class="nx">field</span>
+
+    <span class="nx">@__update__</span> <span class="s2">&quot;/blogs/#{id}.json&quot;</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+<span class="nv">module.exports = </span><span class="nx">Blog</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
