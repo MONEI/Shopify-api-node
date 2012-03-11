@@ -1,0 +1,13 @@
+{
+  "blog": {
+    "title": "Apple main blog",
+    "metafields": [
+      {
+        "key": "new",
+        "value": "newvalue",
+        "value_type": "string",
+        "namespace": "global"
+      }
+    ]
+  }
+}
