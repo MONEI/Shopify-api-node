@@ -25,49 +25,7 @@ class Blog
   # * shop, el nombre de la tienda
   #
   # **Nunca** se debería de instanciar directamente esta clase ya que eso lo hará la clase del cliente
-  constructor: (@key, @pass, @shop) ->
-    throw new Error 'Blog missing parameters' if not pass? or not key? or not shop?
-    
-  # Metodo _privado_ que se encarga de hacer las llamadas al server y devolver la respues en forma de callback
-  # Tanto `path`como `method` son *obligatorios*. En mientras que `body` es opcional y solo sera requeriodo si la llamada
-  # es de tipo _post_ o _put_
-  __request__: (path, method, body, cb) ->
-
-    # Tenemos body?
-    if typeof body is 'function'
-      cb = body
-      body = null
-
-    options =
-      uri: "http://#{@shop}.myshopify.com/admin#{path}"
-      method: method
-    options.body = body if body?
-
-    request options, ( err, response ,body) ->
-      status = parseInt response.statusCode
-      # En caso de tener una respues distinta a 20x se concidera la peticion al servidor como erronea y se devolvera un `Error`
-      # especificando la respuesta del servidor en el mensaje de respuesta
-      if status >= 300 then err = new Error "Status code #{status}" else err = null
-      unless err?
-        process.nextTick ->
-          cb err, JSON.parse body
-      else
-        process.nextTick ->
-          cb err
-
-  # Para una llamada de tipo de _GET_ solo necesitamos el PATH de llamada y la funcion de _callback_
-  __get__: (path, cb) ->
-    @__request__(path, 'GET', cb)
-
-  # Si la llamada es de tipo _POST_ ademas del PATH tambien vamos a necesitar el cuerpo de la llamada
-  # Este debe ser de tipo *Object*
-  __post__: (path, body, cb) ->
-    @__request__(path, 'POST', JSON.stringify(body), cb)
-
-  # Hace llamadas de tipo _PUT_ para poder actualizar cualquier recurso, tanto `path` como `body` son
-  # obligatorios en este metodo
-  __update__: (path, body, cb) ->
-    @__request__(path, 'PUT', JSON.stringify(body), cb)
+  constructor: (@request) ->
 
   # Obtiene todos los blogs de una tienda en concreto.
   # es posible especificar un parametro especial `since` para obtener todos los blogs a partir de esa id
