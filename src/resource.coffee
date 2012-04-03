@@ -1,44 +1,65 @@
 request = require 'request'
+querystring = require 'querystring'
 
 class Resource
 
-  format: "json"
-
   constructor: () ->  
-
-  __request__: (path, method, body, cb) ->
-
-    if typeof body is 'function'
-      cb = body
-      body = null
+  #TODO: add object name as a param to all request to parse results properly  
+  __request__: (url, method, fields, callback) ->
+    [fields, callback] = [callback, fields] if typeof fields is 'function'
 
     options =
-      uri: "https://#{@key}:#{@pass}@#{@shop}.myshopify.com/admin#{path}"
+      uri: url
       method: method
-    options.body = body if body?
+      json: true
 
-    request options, ( err, response ,body) ->
+    if fields? 
+      options.body = JSON.stringify(fields)
+      
+    request options, ( err, response, body) ->
       status = parseInt response.statusCode
 
       if status >= 300 then err = new Error "Status code #{status}" else err = null
       unless err?
         process.nextTick ->
-          cb err, JSON.parse body
+          for b of body
+            body = body[b]
+            break
+          callback err, body
       else
         process.nextTick ->
-          cb err
+          console.log body
+          callback err
 
-  get: (path, cb) ->
-    @__request__(path, 'GET', cb)
+  get: (url, callback) ->
+    @__request__(url, 'GET', callback)
 
-  post: (path, body, cb) ->
-    @__request__(path, 'POST', JSON.stringify(body), cb)
+  post: (url, fields, callback) ->
+    @__request__(url, 'POST', fields, callback)
 
-  update: (path, body, cb) ->
-    @__request__(path, 'PUT', JSON.stringify(body), cb)
+  put: (url, fields, callback) ->
+    @__request__(url, 'PUT', fields, callback)
+
+  delete: (url, callback) ->
+    @__request__(url, 'DELETE', callback)
+
+  queryString: (url, params, format = "json") ->
+    query = "#{url}.#{format}"
+
+    if params
+      query += "?"
+      query += querystring.stringify params
+
+    return query
 
 
-module.exports = Response
+
+
+
+
+
+
+module.exports = new Resource
 
 
 

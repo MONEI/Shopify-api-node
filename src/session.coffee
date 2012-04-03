@@ -1,4 +1,8 @@
 crypto = require 'crypto';
+Blog = require './resources/blog'
+Product = require './resources/product'
+
+
 
 trim = (string) ->
   string.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
@@ -24,7 +28,7 @@ sortObj = (o) ->
 
 isNumeric = (n) ->
   !isNaN(parseFloat(n)) and isFinite(n)
-  
+
 
 class Session
 
@@ -33,14 +37,16 @@ class Session
   constructor: (@url, @token = '', @apiKey, @secret, @params = {}) ->
     @token = @url if empty(@token)
     if @params['signature']?
-      timestamp = @params['timestamp']
+      timestamp = (new Date(@params['timestamp'])).getTime()
       expireTime = (new Date).getTime() - (24 * 84600)
-      if not @validateSignature(@params)
+      if not @validateSignature(@params) and expireTime > timestamp
         throw new Error 'Invalid signature: Possible malicious login.'
       
     @url = @prepareUrl(@url)
 
-    #if @valid
+    if @valid
+      @blog = new Blog(@site())
+      @product = new Product(@site())
 
   createPermissionUrl: ->
     "http://#{@url}/admin/api/auth?api_key=#{@apiKey}" if not empty(@url) and not empty(@apiKey)
@@ -68,7 +74,6 @@ class Session
       if k isnt "signature" and k isnt "action" and k isnt "controller" and not isNumeric(k) and k?
         generatedSignature += "#{k}=#{v}"
 
-    #removes any undefines in the s
     generatedSignature = generatedSignature.replace(new RegExp("undefined=undefined"), '')
     generatedSignature = crypto.createHash('md5').update("#{generatedSignature}").digest("hex")    
     generatedSignature is @signature   
