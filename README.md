@@ -56,4 +56,8 @@ https://groups.google.com/forum/#!forum/shopify-api <= Shopify API Group
 
 license data
 
+Special thanks for great support, magic and knowledge to:
+Carlos Villuendas (https://github.com/carlosvillu/)
+Alexandre Saiz (https://github.com/alexandresaiz/)
+
 [Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
