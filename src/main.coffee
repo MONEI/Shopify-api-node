@@ -1,3 +1,5 @@
-Client = require './client'
+Session = require './session'
 
-exports.Client = Client
+
+exports.createSession = (url, token, apiKey, secret, params) ->
+	new Session(url, token, apiKey, secret, params)
