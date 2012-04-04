@@ -1,8 +1,8 @@
 resource = require '../resource'
 
-class Product
-	slug: "product"
-	prefix: "/products"
+class Order
+	slug: "order"
+	prefix: "/orders"
 
 	constructor: (site) ->
 		@prefix = "#{site}#{@prefix}"
@@ -24,11 +24,22 @@ class Product
 		console.log url
 		resource.get url, @slug, callback
 
-	create: (fields, callback) ->
-		callback new Error 'Title is required' unless fields.title?
-		url = resource.queryString @prefix
-		resource.post url, @slug, fields, callback
+	close: (id, callback) ->
+		callback new Error 'missing id' unless id?
+		url = resource.queryString "#{@prefix}/#{id}/close"
+		resource.get url, @slug, callback
 
+	open: (id, callback) ->
+		callback new Error 'missing id' unless id?
+		url = resource.queryString "#{@prefix}/#{id}/open"
+		resource.get url, @slug, callback
+
+	cancel: (id, params, callback) ->
+		[params, callback] = [callback, params] if typeof params is 'function'
+		callback new Error 'missing id' unless id?
+		url = resource.queryString "#{@prefix}/#{id}/cancel", params
+		resource.get url, @slug, callback
+	
 	update: (id, fields, callback) ->
 		callback new Error 'missing id' unless id?
 		url = resource.queryString "#{@prefix}/#{id}"
@@ -40,4 +51,4 @@ class Product
 		resource.delete url, id, callback
 
 
-module.exports = Product
+module.exports = Order
