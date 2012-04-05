@@ -15,7 +15,7 @@ task 'project:watch', 'Watch source files and build JS', (options) ->
 
 task 'test', 'Run all tests', ->
    runCommand './node_modules/mocha/bin/mocha', '-c'
-   runCommand './node_modules/mocha/bin/mocha', '-c', "test/resources/#{resource}.coffee" for resource in resources
+   # runCommand './node_modules/mocha/bin/mocha', '-c', "test/resources/#{resource}.coffee" for resource in resources
 
 task 'docs', 'Generate all Docs', ->
   runCommand './node_modules/paige/bin/paige',  './paige.config'
