@@ -43,8 +43,6 @@ Install dependencies:
 [Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
 
 
-```
-
 ## License 
 
 (The MIT License)
