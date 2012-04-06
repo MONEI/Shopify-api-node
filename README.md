@@ -6,7 +6,7 @@ Node module used by Nodify App to grab all Shopify API resources. It also handle
 
 ### Installation:
 
-    # npm install nodify-shopify (http://search.npmjs.org/#/nodify-shopify)
+    npm install nodify-shopify (http://search.npmjs.org/#/nodify-shopify)
 
 ### Dependencies:
 
@@ -14,6 +14,9 @@ Node module used by Nodify App to grab all Shopify API resources. It also handle
 
 ### Be a master of the Shopify ecosystem
 ___
+
+https://app.shopify.com/services/partners/signup <= Become a Shopify App Developer
+
 http://wiki.shopify.com/Shopify_App_Development <= the roots
 
 http://forums.shopify.com/categories/9 <= talk to other masters
@@ -22,14 +25,16 @@ http://api.shopify.com <= API docs
 
 https://groups.google.com/forum/#!forum/shopify-api <= Shopify API Group
 
->Choose the license you hate the most and put it here.
 
->Special thanks for great support, magic and knowledge to:
+Choose the license you like the most and put it here.
 
->[Carlos Villuendas] (https://github.com/carlosvillu/)
 
->[Kenrick Beckett] (https://github.com/kenrick/)
+Special thanks for great support, magic and knowledge to:
 
->[Alexandre Saiz] (https://github.com/alexandresaiz/)
+[Carlos Villuendas] (https://github.com/carlosvillu/)
 
->[Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
+[Kenrick Beckett] (https://github.com/kenrick/)
+
+[Alexandre Saiz] (https://github.com/alexandresaiz/)
+
+[Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
