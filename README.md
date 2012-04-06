@@ -5,14 +5,15 @@ Talk to Shopify API speaking node!
 Node module used by Nodify App to grab all Shopify API resources. It also handles authentication and billing.
 
 ### Installation
-   
+___   
     # npm install nodify-shopify (http://search.npmjs.org/#/nodify-shopify)
 
 ### Dependencies
+___
 [Request] (http://search.npmjs.org/#/request)
 
 ### Be a master of the Shopify ecosystem
-
+___
 http://wiki.shopify.com/Shopify_App_Development <= the roots
 
 http://forums.shopify.com/categories/9 <= talk to other masters
