@@ -1,8 +1,10 @@
-# Nodify-Shopify  [![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
+# [Nodify-Shopify] (http://search.npmjs.org/#/nodify-shopify)  [![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
 
 	Node.js connector for the Shopify API. Talk to Shopify API speaking node!
 
-	Node.js module used by [Nodify App] (https://github.com/Shopfrogs/Nodify-App/) to grab all Shopify API resources. It also handles authentication and billing.
+	Use Nodify-Shopify to grab all Shopify API resources. 
+
+	It also handles authentication and billing.
 
 		var nodify = require('nodify-shopify');
 		session = nodify.createSession(shop, token, apiKey, secret);
@@ -13,7 +15,7 @@
 
 ## Installation:
 
-    $ npm install [nodify-shopify] (http://search.npmjs.org/#/nodify-shopify)
+    $ npm install nodify-shopify
 
 ## Dependencies:
 
