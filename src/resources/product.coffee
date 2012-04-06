@@ -21,7 +21,6 @@ class Product
 		[params, callback] = [callback, params] if typeof params is 'function'
 		callback new Error 'missing id' unless id?
 		url = resource.queryString "#{@prefix}/#{id}", params
-		console.log url
 		resource.get url, @slug, callback
 
 	create: (fields, callback) ->

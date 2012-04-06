@@ -14,6 +14,7 @@ class Resource
       json: true
 
     if fields?
+      params = {}
       params[slug] = fields
       options.body = JSON.stringify(params)
 
