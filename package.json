@@ -1,7 +1,7 @@
 {
-  "author": "Carlos Villuendas <carlosvillu@gmail.com>",
+  "author": "Shopfrogs <info@shopfrogs.com>",
   "name": "nodify-shopify",
-  "description": "Unofficial Shopify API client",
+  "description": "Shopify API client",
   "version": "0.1.0",
   "repository": {
     "type": "git",
