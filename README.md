@@ -6,7 +6,7 @@ Node module used by Nodify App to grab all Shopify API resources. It also handle
 
 ### Installation
    
-   # npm install [nodify-shopify] (http://search.npmjs.org/#/nodify-shopify)
+    # npm install [nodify-shopify] (http://search.npmjs.org/#/nodify-shopify)
 
 ### Dependencies
 [Request] (http://search.npmjs.org/#/request)
