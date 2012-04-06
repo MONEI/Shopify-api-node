@@ -33,8 +33,6 @@ Install dependencies:
 
 
 ## Contributors
-
-```
 [Carlos Villuendas] (https://github.com/carlosvillu/)
 [Kenrick Beckett] (https://github.com/kenrick/)
 [Alexandre Saiz] (https://github.com/alexandresaiz/)
