@@ -2,7 +2,7 @@
 ***
 Talk to Shopify API speaking node!
 
-Node module used by Nodify App to grab all Shopify API resources. It also handles authentication and billing.
+Node.js module used by [Nodify App] (https://github.com/Shopfrogs/Nodify-App/) to grab all Shopify API resources. It also handles authentication and billing.
 
 ### Installation:
 
@@ -26,10 +26,10 @@ http://api.shopify.com <= API docs
 https://groups.google.com/forum/#!forum/shopify-api <= Shopify API Group
 
 
-Choose the license you like the most and put it here.
+*Choose the license you like the most and put it here.*
 
 
-Special thanks for great support, magic and knowledge to:
+**Special thanks for great support, magic and knowledge to:**
 
 [Carlos Villuendas] (https://github.com/carlosvillu/)
 
