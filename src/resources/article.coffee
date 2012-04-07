@@ -1,4 +1,5 @@
 BaseChild = require './base_child'
+Metafields = require './metafield'
 
 class Article extends BaseChild
 	parent: "/blogs"

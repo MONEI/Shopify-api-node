@@ -1,7 +1,7 @@
 BaseChild = require './base_child'
 
 class Fulfillment extends BaseChild
-	parent: "/order"
+	parent: "/orders"
 	slug: "fulfillment"
 	child: "/fulfillments"
 
