@@ -3,7 +3,7 @@
 Node.js connector for the Shopify API. Talk to Shopify API speaking node!
 
 Use Nodify-Shopify to grab all Shopify API resources. 
-It also handles authentication and billing.
+It also handles authentication* and billing.
 
 	var nodify = require('nodify-shopify');
 	session = nodify.createSession(shop, token, apiKey, secret);
@@ -47,7 +47,7 @@ Install dependencies:
 
 (The MIT License)
 
-Copyright (c) 2012 Shopfrogs &lt;support@shopfrogs.com&gt;
+Copyright (c) 2012 Shopfrogs &lt;info@shopfrogs.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -67,3 +67,11 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## *Heads up! Oauth 2.0 
+
+Shopify just got married with Oauth 2.0. They will eventually deprecate old authentication custom made method. 
+If you're planning to start from scratch and code your first Shopify App, we highly encourage you to do all the Authentication with Oauth 2.0.
+This connector was started some time ago when no Oauth hunch was around. Feel free to contribute and help us replace the old with new authentication method.
+
+[Shopify announcement - Oauth 2.0] (http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived)
