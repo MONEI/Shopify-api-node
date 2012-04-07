@@ -92,7 +92,4 @@ describe('Blog', function() {
     
  	 });
 
-
-
-
 });

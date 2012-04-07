@@ -1,7 +1,12 @@
-class Article
-  blog = null
-  constructor: (opts) ->
-    throw new Error 'missing blog id' unless opts?.blog?
-    blog = opts.blog
+BaseChild = require './base_child'
+
+class Article extends BaseChild
+	parent: "/blogs"
+	slug: "article"
+	child: "/articles"
+
+	constructor: (site) ->
+		super(site)
+
 
 module.exports = Article

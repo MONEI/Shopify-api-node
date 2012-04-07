@@ -23,7 +23,6 @@ class Base
 		@resource.get url, @slug, callback
 
 	create: (fields, callback) ->
-		callback new Error 'Title is required' unless fields.title?
 		url = @resource.queryString @prefix
 		@resource.post url, @slug, fields, callback
 
