@@ -4,11 +4,11 @@ helper.setObject("blog");
 var Resource = helper.resource();
 
 
-// helper.nock(helper.test_shop)
-//   .get('/admin/blogs.json')
-//   .reply(200, helper.load("blogs"), { server: 'nginx',
-//   	 status: '200 OK',
-// });
+helper.nock(helper.test_shop)
+  .get('/admin/blogs.json')
+  .reply(200, helper.load("blogs"), { server: 'nginx',
+  	 status: '200 OK',
+});
 
 
 helper.nock(helper.test_shop)
@@ -40,14 +40,14 @@ describe('Blog', function() {
 	var site = "https://api_key:pass@test.myshopify.com/admin"; 
 	var resource = new Resource(site);
 
-	// it('should get all blogs', function(done) {
-	// 	resource.all(function(err, res){
-	// 	  res.should.not.be.empty;
-	// 	  res[0].should.have.property('id');
-	// 	  done();
-	// 	});
+	it('should get all blogs', function(done) {
+		resource.all(function(err, res){
+		  res.should.not.be.empty;
+		  res[0].should.have.property('id');
+		  done();
+		});
 
-	// });
+	});
 
 
 	it('should get blog', function(done) {
