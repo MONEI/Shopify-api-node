@@ -18,13 +18,13 @@ helper.nock(helper.test_shop)
 });
 
 helper.nock(helper.test_shop)
-  .post('/admin/blogs.json')
+  .post('/admin/blogs.json', {"blog":{"title":"New Blog"}})
   .reply(201, helper.load("create"), { server: 'nginx',
   	 status: '200 OK',
 });
 
 helper.nock(helper.test_shop)
-  .put('/admin/blogs/450789469.json')
+  .put('/admin/blogs/450789469.json', {"blog":{"title":"New Blog Modded"}})
   .reply(201, helper.load("update"), { server: 'nginx',
   	 status: '200 OK',
 });
@@ -76,7 +76,7 @@ describe('Blog', function() {
 	      "title": "New Blog Modded"
 	  	};
 
-	    resource.update("450789469" , mod, function(err, _resource){
+	    resource.update("450789469" , _mod, function(err, _resource){
 	      _resource.should.have.property('id');
 	      done();
 	    });
