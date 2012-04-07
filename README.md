@@ -33,7 +33,7 @@ Install dependencies:
 * [Looking up the Shopify API Group] (https://groups.google.com/forum/#!forum/shopify-api) 
 
 
-## Contributors
+## Contributors:
 [Carlos Villuendas] (https://github.com/carlosvillu/)
 
 [Kenrick Beckett] (https://github.com/kenrick/)
