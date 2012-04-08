@@ -2,17 +2,17 @@
   "author": "Shopfrogs <info@shopfrogs.com>",
   "name": "nodify-shopify",
   "description": "Shopify API client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Shopfrogs/Nodify.git"
+    "url": "git://github.com:Shopfrogs/Nodify.git"
   },
   "main": "./lib/main.js",
   "scripts": {
     "test": "cake test"
   },
   "engines": {
-    "node": "~0.6.3"
+    "node": "0.6.x"
   },
   "dependencies": {
     "request": "2.9.x"

@@ -3,7 +3,9 @@
 Node.js connector for the Shopify API. Talk to Shopify API speaking node!
 
 Use Nodify-Shopify to grab all Shopify API resources. 
-It also handles authentication* and billing.
+It also handles authentication* and billing.	
+
+## Usage:
 
 	var nodify = require('nodify-shopify');
 	session = nodify.createSession(shop, token, apiKey, secret);
@@ -11,6 +13,8 @@ It also handles authentication* and billing.
 		if(err) { console.log(orders); throw err;}
 		console.log(orders);
 	});
+
+We also build a reference guide app, to get he ball rolling, called [Nodify-App](https://github.com/Shopfrogs/Nodify-App). Check that out to get a better understand of how the module works
 
 ## Installation:
 
