@@ -14,7 +14,7 @@ It also handles authentication* and billing.
 		console.log(orders);
 	});
 
-We also build a reference guide app, to get he ball rolling, called [Nodify-App](https://github.com/Shopfrogs/Nodify-App). Check that out to get a better understand of how the module works
+You also have a Demo app to get he ball rolling, called [Nodify-App](https://github.com/Shopfrogs/Nodify-App). Check that out to get a better understanding of how this module works.
 
 ## Installation:
 
