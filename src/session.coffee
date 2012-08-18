@@ -1,4 +1,4 @@
-crypto = require 'crypto';
+crypto = require 'crypto'
 Blog = require './resources/blog'
 Product = require './resources/product'
 Order = require './resources/order'
@@ -58,7 +58,7 @@ class Session
     not empty(@url) and not empty(@token)
 
   computedPassword: ->
-    crypto.createHash('md5').update("#{@secret}#{@token}").digest("hex");
+    crypto.createHash('md5').update("#{@secret}#{@token}").digest("hex")
 
   prepareUrl: (url) ->
     return '' if empty(url)

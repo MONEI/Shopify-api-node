@@ -25,7 +25,7 @@ helper.nock(helper.test_shop)
 
 
 describe('Order', function() {
-	var site = "https://api_key:pass@test.myshopify.com/admin"; 
+	var site = helper.endpoint; 
 	var resource = new Resource(site);
 
 	it('should get all orders', function(done) {

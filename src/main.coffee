@@ -1,4 +1,4 @@
-Session = require './session'
+Session = require './session-oauth'
 
 
 exports.createSession = (url, token, apiKey, secret, params) ->
