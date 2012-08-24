@@ -10,8 +10,8 @@ runCommand = (name, args...) ->
   proc.on 'exit', (status) -> process.exit(1) if status isnt 0
 
 task 'project:watch', 'Watch source files and build JS', (options) ->
-  runCommand 'coffee', '-o', 'lib/', '-wc', 'src/'
-  runCommand 'coffee', '-o', 'lib/resources', '-wc', 'src/resources'
+  runCommand './node_modules/.bin/coffee', '-o', 'lib/', '-wc', 'src/'
+  runCommand './node_modules/.bin/coffee', '-o', 'lib/resources', '-wc', 'src/resources'
 
 task 'test', 'Run all tests', ->
    runCommand './node_modules/mocha/bin/mocha', '-c'
