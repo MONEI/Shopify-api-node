@@ -15,7 +15,8 @@ class SessionOAuth extends Session
       temp_token = code.split('=')[1]
       @requestPermanentAccessToken temp_token, (@persistent_token)=>
         @registerOAuthToken()
-        do cb
+        process.nextTick ->
+          do cb
 
   requestPermanentAccessToken:(temp_token, cb)->
     params = "client_id=#{@api_key}&client_secret=#{@secret}&code=#{temp_token}"
@@ -24,7 +25,8 @@ class SessionOAuth extends Session
         throw err
         return
       response = JSON.parse response
-      cb response.access_token
+      process.nextTick ->
+        cb response.access_token
 
 
   site:()->
