@@ -1,9 +1,10 @@
 request = require 'request'
 querystring = require 'querystring'
+singleton = require 'singleton'
 
-class Resource
+class Resource extends singleton
 
-  constructor: () ->  
+  constructor: (@oauth = no) ->  
 
   __request__: (url, slug, method, fields, callback) ->
     [fields, callback] = [callback, fields] if typeof fields is 'function'
@@ -11,12 +12,16 @@ class Resource
     options =
       uri: url
       method: method
-      json: true
+      json: slug isnt 'oauth'
+      headers:if @oauth is yes and @oauth_token? then {'X-Shopify-Access-Token':@oauth_token} else {}
 
     if fields?
       params = {}
-      params[slug] = fields
-      options.body = JSON.stringify(params)
+      if slug isnt 'oauth' 
+        params[slug] = fields 
+        options.body = JSON.stringify(params)
+      else
+        options.body = fields
 
     request options, ( err, response, body) ->
       status = parseInt response.statusCode
@@ -24,7 +29,7 @@ class Resource
       if status >= 300 then err = new Error "Status code #{status}" else err = null
       unless err?
         process.nextTick ->
-          body = body[slug]
+          body = body[slug] if slug isnt 'oauth'
           body = slug if method is "DELETE"
           callback err, body
       else
@@ -54,8 +59,10 @@ class Resource
     return query
 
 
+  setOAuthToken:(@oauth_token)->
+    @oauth = @oauth_token?
 
-module.exports = new Resource
+module.exports = Resource.get()
 
 
 

@@ -3,15 +3,17 @@ var assert = require('assert')
   , nock   = require('nock')
   , object;
   
+var config = require('../config.js');
 
 var loadFixture = function(name) {
 	return require("./fixtures/"+ object +"/"+ name +".json");
 }
 
 exports.load = loadFixture;
-exports.test_shop = "https://test.myshopify.com";
+var shop = exports.test_shop = config.test_shop; 
 exports.nock = nock;
 exports.should = should;
+exports.endpoint = shop + '/admin'
 
 exports.setObject = function(name){  object = name; }
 exports.resource = function(){ return require('../lib/resources/'+ object +'.js')}
