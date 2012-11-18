@@ -62,6 +62,7 @@ class Resource extends singleton
   setOAuthToken:(@oauth_token)->
     @oauth = @oauth_token?
 
+
 module.exports = Resource.get()
 
 
