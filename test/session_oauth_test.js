@@ -1,21 +1,46 @@
 var assert = require('assert')
   , should = require('should')
-  , Session = require('../lib/session-oauth.js');
+  , nock   = require('nock')
+  , config = require('../config.js')
+  , Session = require('../lib/session-oauth.js')
+  ;
 
-var config = require('../config.js');
+
 describe('SessionOAuth', function() {
-/*
-  it('should exchange the temporary token for a permanent access token on redirectURL', function(done) {
-    var session = new Session(config.shop, config.client_id, config.secret);
-    session.onRedirectUrl("/myredirect?code=" + config.code + "&store=test_store", function(token){
-      assert(session.persistent_token != null, true);
-      done();
+  it('should ask shopify for a temporary token ', function(done) {
+    var temporaryTokenToPermanentReq = nock(config.test_shop)
+      //.log(console.log)
+      .post('/admin/oauth/access_token', 'client_id='+config.client_id+'&client_secret='+config.secret+'&code='+config.code)
+      .reply(200, {access_token: config.persistent_token})
+
+    var session = new Session(config.shop, config.client_id, config.secret, {
+      scope: {orders: "read"},
+      uriForTemporaryToken: config.test_shop+"/login/finalize/token",
+      onAskToken: onToken
     });
+
+    function onToken (err, url) { 
+      should.not.exist(err);
+      url.should.be.a.string('scope=read_orders');
+
+      this.onRedirectUrl("/myredirect?code=" + config.code + "&store="+config.shop, function(store, token){
+
+        temporaryTokenToPermanentReq.done();
+        should.exist(store);
+        should.exist(token);
+        should.exist(session.persistent_token);
+        session.persistent_token.should.equal(token);
+
+        done();
+
+      });
+    }
   });
-*/
-  it('should use the pesistent_token on creation if applicable', function(done){
-    var session = new Session(config.shop, '','', config.persistent_token);
-    assert(session.persistent_token != null, true);
+
+  it('should use the persistent_token on creation if applicable', function(done){
+    var session = new Session(config.shop, config.client_id, config.secret, config.persistent_token);
+    should.exist(session.persistent_token);
+    session.persistent_token.should.equal(config.persistent_token);
     done();
   });
 

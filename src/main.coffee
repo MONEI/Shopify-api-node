@@ -1,5 +1,5 @@
 Session = require './session-oauth'
 
 
-exports.createSession = (url, token, apiKey, secret, params) ->
-	new Session(url, token, apiKey, secret, params)
+exports.createSession = (storename, apiKey, secret, params) ->
+	new Session(storename, apiKey, secret, params)
