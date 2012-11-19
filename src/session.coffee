@@ -33,8 +33,8 @@ class Session
 
   protocol: "https"
 
-  constructor: (@url, @token = '', @apiKey, @secret, @params = {}) ->
-    @token = @url if empty(@token)
+  constructor: (@url, @apiKey, @secret, @params = {}) ->
+
     if @params['signature']?
       timestamp = (new Date(@params['timestamp'])).getTime()
       expireTime = (new Date).getTime() - (24 * 84600)
@@ -55,10 +55,7 @@ class Session
     "#{@protocol}://#{@apiKey}:#{@computedPassword()}@#{@url}/admin"
 
   valid: ->
-    not empty(@url) and not empty(@token)
-
-  computedPassword: ->
-    crypto.createHash('md5').update("#{@secret}#{@token}").digest("hex")
+    not empty(@url)
 
   prepareUrl: (url) ->
     return '' if empty(url)

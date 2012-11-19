@@ -1,5 +1,5 @@
 var assert = require('assert')
-  , should = require('should')
+  , should = require('chai').should()
   , nock   = require('nock')
   , Product = require('../lib/resources/product.js')
   , helper = require('./common');
