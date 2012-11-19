@@ -46,6 +46,8 @@ Install dependencies:
 
 [Alexandre Saiz] (https://github.com/alexandresaiz/)
 
+[Florian Traverse] (https://github.com/temsa/)
+
 [Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
 
 
