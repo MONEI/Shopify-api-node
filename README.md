@@ -1,6 +1,6 @@
 # [Nodify-Shopify] (http://search.npmjs.org/#/nodify-shopify)  [![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
 
-Node.js connector for the Shopify API. Talk to Shopify API speaking node!
+Node connector for the Shopify API. Talk to Shopify API speaking node!
 
 Use Nodify-Shopify to grab all Shopify API resources. 
 It also handles authentication (using [the new OAuth2 API](http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived)) and billing.	
@@ -55,7 +55,7 @@ Install dependencies:
 
 (The MIT License)
 
-Copyright (c) 2012 Shopfrogs &lt;info@shopfrogs.com&gt;
+Copyright (c) 2011-2013 Shopfrogs &lt;info@shopfrogs.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
