@@ -36,7 +36,7 @@ Install dependencies:
 * [Checking out the roots] (http://wiki.shopify.com/Shopify_App_Development) 
 * [Talking To Other Masters] (http://forums.shopify.com/categories/9) 
 * [Reading API Docs] (http://api.shopify.com) 
-* [Looking up the Shopify API Group] (https://groups.google.com/forum/#!forum/shopify-api) 
+* [Learning from others] (http://stackoverflow.com/questions/tagged/shopify) 
 
 
 ## Contributors:
@@ -55,7 +55,7 @@ Install dependencies:
 
 (The MIT License)
 
-Copyright (c) 2011-2013 Shopfrogs &lt;info@shopfrogs.com&gt;
+Copyright (c) 2012-2013 Shopfrogs &lt;info@shopfrogs.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
