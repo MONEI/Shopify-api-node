@@ -15,6 +15,8 @@ class Resource extends singleton
       json: slug isnt 'oauth'
       headers:if @oauth is yes and @oauth_token? then {'X-Shopify-Access-Token':@oauth_token} else {}
 
+    options.headers['Content-Type'] = 'application/x-www-form-urlencoded' if method is "POST"
+
     if fields?
       params = {}
       if slug isnt 'oauth' 
