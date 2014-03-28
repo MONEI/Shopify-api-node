@@ -14,7 +14,7 @@ It also handles authentication (using [the new OAuth2 API](http://www.shopify.co
 		console.log(orders);
 	});
 
-You also have a Demo app to get the ball rolling, called [Nodify-App](https://github.com/Shopfrogs/Nodify-App).
+You also have a Demo app to get the ball rolling, called [Nodify-App](https://github.com/microapps/Nodify-App).
 Check that out to get a better understanding of how this module works, notably in case you want to dynamically
 retrieve the OAuth2 token, or check the tests.
 
