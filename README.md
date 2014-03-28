@@ -48,14 +48,14 @@ Install dependencies:
 
 [Florian Traverse] (https://github.com/temsa/)
 
-[Supported by microapps](http://www.microapps.com/)
+Supported by [microapps](http://www.microapps.com/)
 
 
 ## License 
 
 (The MIT License)
 
-Copyright (c) 2012-2014 microapps &lt;hi@microapps.com&gt;
+Copyright (c) 2012-2014 [microapps](http://www.microapps.com/) &lt;hi@microapps.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
