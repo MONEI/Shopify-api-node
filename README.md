@@ -1,4 +1,4 @@
-# [Nodify-Shopify](http://search.npmjs.org/#/nodify-shopify)
+# [Nodify-Shopify](https://www.npmjs.org/package/nodify-shopify)
 
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
@@ -24,7 +24,7 @@ retrieve the OAuth2 token, or check the tests.
 
 ## Dependencies:
 
-[request] (http://search.npmjs.org/#/request)
+[request] (https://www.npmjs.org/package/request)
 
 Install dependencies:
 
