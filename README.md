@@ -32,10 +32,10 @@ Install dependencies:
 
 ## Become a master of the Shopify ecosystem by: 
 
-* [Becoming a Shopify App Developer] (https://app.shopify.com/services/partners/signup)
-* [Checking out the roots] (http://wiki.shopify.com/Shopify_App_Development) 
-* [Talking To Other Masters] (http://forums.shopify.com/categories/9) 
-* [Reading API Docs] (http://api.shopify.com) 
+* [Becoming a Shopify App Developer] (https://app.shopify.com/services/partners/signup?ref=microapps)
+* [Checking out the roots] (http://docs.shopify.com/api/the-basics/getting-started?ref=microapps) 
+* [Talking To Other Masters] (http://ecommerce.shopify.com/c/shopify-apps?ref=microapps) 
+* [Reading API Docs] (http://docs.shopify.com/api?ref=microapps) 
 * [Learning from others] (http://stackoverflow.com/questions/tagged/shopify) 
 
 
@@ -48,14 +48,14 @@ Install dependencies:
 
 [Florian Traverse] (https://github.com/temsa/)
 
-[Supported by Shopfrogs](http://www.shopfrogs.com/shopify/)
+[Supported by microapps](http://www.microapps.com/)
 
 
 ## License 
 
 (The MIT License)
 
-Copyright (c) 2012-2013 Shopfrogs &lt;info@shopfrogs.com&gt;
+Copyright (c) 2012-2014 microapps &lt;hi@microapps.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
