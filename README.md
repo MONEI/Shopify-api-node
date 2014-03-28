@@ -1,9 +1,9 @@
-# [Nodify-Shopify] (http://search.npmjs.org/#/nodify-shopify)  [![Build Status](https://secure.travis-ci.org/Shopfrogs/Nodify.png?branch=master)](http://travis-ci.org/Shopfrogs/Nodify)
+# [Nodify-Shopify]
 
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
 Use Nodify-Shopify to grab all Shopify API resources. 
-It also handles authentication (using [the new OAuth2 API](http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived)) and billing.	
+It also handles authentication (using [the new OAuth2 API](http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived?ref=microapps)) and billing.	
 
 ## Usage:
 
