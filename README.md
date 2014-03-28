@@ -1,4 +1,4 @@
-# [Nodify-Shopify]
+# [Nodify-Shopify](http://search.npmjs.org/#/nodify-shopify)
 
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
