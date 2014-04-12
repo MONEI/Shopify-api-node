@@ -1,11 +1,11 @@
 {
-  "author": "Shopfrogs <info@shopfrogs.com>",
+  "author": "alexandresaiz <hi@microapps.com>",
   "name": "nodify-shopify",
   "description": "Shopify API client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
-    "url": "git://github.com:Shopfrogs/Nodify.git"
+    "url": "git@github.com:microapps/Nodify.git"
   },
   "main": "./lib/main.js",
   "scripts": {
