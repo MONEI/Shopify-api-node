@@ -19,9 +19,9 @@ describe('SessionOAuth', function() {
       onAskToken: onToken
     });
 
-    function onToken (err, url) { 
+    function onToken (err, url) {
       should.not.exist(err);
-      url.should.be.a.string('scope=read_orders');
+      url.should.be.a.String('scope=read_orders');
 
       this.onRedirectUrl("/myredirect?code=" + config.code + "&store="+config.shop, function(store, token){
 
@@ -55,5 +55,5 @@ describe('SessionOAuth', function() {
   	session.protocol.should.equal("https");
   	done();
   });
- 
+
 });

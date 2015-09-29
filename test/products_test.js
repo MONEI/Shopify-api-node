@@ -1,5 +1,5 @@
 var assert = require('assert')
-  , should = require('chai').should()
+  , should = require('chai').should
   , nock   = require('nock')
   , Product = require('../lib/resources/product.js')
   , helper = require('./common');
@@ -37,35 +37,35 @@ var del = nock(helper.test_shop)
 });
 
 describe('Product', function() {
-  var site = helper.endpoint; 
+  var site = helper.endpoint;
   var product = new Product(site);
 
   it('should get all products', function(done) {
-   
+
     product.all(function(err, products){
       products.should.not.be.empty;
       products[0].should.have.property('id');
       done();
     });
-    
+
   });
 
 
   it('should get a product', function(done) {
     product.get("89931019", function(err, single_product){
-      single_product.should.be.a("object");
+      single_product.should.be.a.Object();
       done();
     });
-    
+
   });
 
 
   it('should count a product', function(done) {
     product.count(function(err, count){
-      count.should.be.a("number");
+      count.should.be.a.Number();
       done();
     });
-    
+
   });
 
 
@@ -91,7 +91,7 @@ describe('Product', function() {
       _product.should.have.property('id');
       done();
     });
-    
+
   });
 
 
@@ -105,7 +105,7 @@ describe('Product', function() {
       _product.body_html.should.equal("<strong>Updated</strong>");
       done();
     });
-    
+
   });
 
 
@@ -114,8 +114,8 @@ describe('Product', function() {
       _product.should.equal('90291357');
       done();
     });
-    
+
   });
 
- 
+
 });

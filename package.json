@@ -19,8 +19,8 @@
     ,"singleton":"*"
   },
   "devDependencies": {
-    "mocha": "0.12.x",
-    "should": "0.5.x",
+    "mocha": "2.3.x",
+    "should": "7.1.x",
     "chai": "*",
     "nock": "*",
     "docco": "0.3.x",

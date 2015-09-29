@@ -37,7 +37,7 @@ helper.nock(helper.test_shop)
 });
 
 describe('Blog', function() {
-	var site = helper.endpoint; 
+	var site = helper.endpoint;
 	var resource = new Resource(site);
 
 	it('should get all blogs', function(done) {
@@ -52,7 +52,7 @@ describe('Blog', function() {
 
 	it('should get blog', function(done) {
 	    resource.get("450789469", function(err, res){
-	      res.should.be.a("object");
+	      res.should.be.a.Object();
 	      done();
 	    });
  	});
@@ -67,7 +67,7 @@ describe('Blog', function() {
 	      _resource.should.have.property('id');
 	      done();
 	    });
-    
+
  	 });
 
 
@@ -80,7 +80,7 @@ describe('Blog', function() {
 	      _resource.should.have.property('id');
 	      done();
 	    });
-    
+
  	 });
 
  	it('should delete a blog', function(done) {
@@ -89,7 +89,7 @@ describe('Blog', function() {
 	      _resource.should.be.equal("450789469");
 	      done();
 	    });
-    
+
  	 });
 
 });
