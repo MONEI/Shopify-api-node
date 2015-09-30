@@ -10,4 +10,4 @@ class OrderRisk extends BaseChild
 		super(site)
 
 
-module.exports = Risk
+module.exports = OrderRisk
