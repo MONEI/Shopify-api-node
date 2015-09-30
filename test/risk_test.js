@@ -20,7 +20,6 @@ helper.nock(helper.test_shop)
 helper.nock(helper.test_shop)
   .post('/admin/orders/450789469/risks.json',{
       "risk": {
-        "title": "Suspicious order",
         "message": "This order came from an anonymous proxy",
         "recommendation": "cancel",
         "score": 1.0,
@@ -84,7 +83,6 @@ describe('Order Risk', function() {
 
  	it('should create a new order risk', function(done) {
 	    var _new = {
-          "title": "Suspicious order",
           "message": "This order came from an anonymous proxy",
           "recommendation": "cancel",
           "score": 1.0,
