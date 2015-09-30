@@ -8,21 +8,21 @@ trim = (string) ->
 
 empty = (string)->
   string = trim(string)
-  string.length is 0 
+  string.length is 0
 
 sortObj = (o) ->
   sorted = {}
   a = []
 
-  for key of o 
+  for key of o
     if o.hasOwnProperty key
       a.push key
 
   a.sort()
 
-  for key in [0..a.length] 
+  for key in [0..a.length]
     sorted[a[key]] = o[a[key]]
-  
+
   return sorted
 
 isNumeric = (n) ->
@@ -40,7 +40,7 @@ class Session
       expireTime = (new Date).getTime() - (24 * 84600)
       if not @validateSignature(@params) and expireTime > timestamp
         throw new Error 'Invalid signature: Possible malicious login.'
-      
+
     @url = @prepareUrl(@url)
 
     if @valid
@@ -51,8 +51,8 @@ class Session
   createPermissionUrl: ->
     "http://#{@url}/admin/api/auth?api_key=#{@apiKey}" if not empty(@url) and not empty(@apiKey)
 
-  site: -> 
-    "#{@protocol}://#{@apiKey}:#{@computedPassword()}@#{@url}/admin"
+  site: ->
+    "#{@protocol}://#{@apiKey}:#{@signature}@#{@url}/admin"
 
   valid: ->
     not empty(@url)
@@ -72,8 +72,8 @@ class Session
         generatedSignature += "#{k}=#{v}"
 
     generatedSignature = generatedSignature.replace(new RegExp("undefined=undefined"), '')
-    generatedSignature = crypto.createHash('md5').update("#{generatedSignature}").digest("hex")    
-    generatedSignature is @signature   
+    generatedSignature = crypto.createHash('md5').update("#{generatedSignature}").digest("hex")
+    generatedSignature is @signature
 
 
 

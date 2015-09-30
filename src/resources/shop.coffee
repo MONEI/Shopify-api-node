@@ -8,7 +8,7 @@ class Shop extends Base
 		super(site)
 
 	get: (callback) ->
-		url = @resource.queryString "#{@prefix}", params
+		url = @resource.queryString "#{@prefix}"
 		@resource.get url, @slug, callback
 
 

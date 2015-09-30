@@ -37,7 +37,7 @@ helper.nock(helper.test_shop)
 });
 
 describe('Article', function() {
-	var site = helper.endpoint; 
+	var site = helper.endpoint;
 	var resource = new Resource(site);
 
 	it('should get all articles', function(done) {
@@ -54,7 +54,7 @@ describe('Article', function() {
 
 	it('should get an article', function(done) {
 	    resource.get("241253187", "134645308", function(err, res){
-	      res.should.be.a("object");
+	      res.should.be.a.Object();
 	      res.blog_id.should.equal(241253187);
 	      done();
 	    });
@@ -70,7 +70,7 @@ describe('Article', function() {
 	      _resource.should.have.property('id');
 	      done();
 	    });
-    
+
  	 });
 
 

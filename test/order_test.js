@@ -25,7 +25,7 @@ helper.nock(helper.test_shop)
 
 
 describe('Order', function() {
-	var site = helper.endpoint; 
+	var site = helper.endpoint;
 	var resource = new Resource(site);
 
 	it('should get all orders', function(done) {
@@ -40,7 +40,7 @@ describe('Order', function() {
 
 	it('should get an order', function(done) {
 	    resource.get("450789469", function(err, res){
-	      res.should.be.a("object");
+	      res.should.be.a.Object();
 	      done();
 	    });
  	});
@@ -48,7 +48,7 @@ describe('Order', function() {
 
  	it('should get close an order', function(done) {
 	    resource.close("450789469", function(err, res){
-	      res.should.be.a("object");
+	      res.should.be.a.Object();
 	      res.should.have.property('id');
 	      done();
 	    });
