@@ -92,7 +92,6 @@ describe('Order Risk', function() {
       };
 
 	    resource.create("450789469", _new, function(err, _resource){
-        console.log(err);
 	      _resource.should.have.property('id');
 	      done();
 	    });
