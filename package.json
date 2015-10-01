@@ -12,7 +12,7 @@
     "test": "cake test"
   },
   "engines": {
-    "node" : "0.12.x" 
+    "node" : "0.12.x"
   },
   "dependencies": {
     "request": "2.9.x"
@@ -24,7 +24,7 @@
     "chai": "*",
     "nock": "*",
     "docco": "0.3.x",
-    "coffee-script": "1.2.x",
+    "coffee-script": "1.10.x",
     "paige": "0.1.x"
   }
 }
