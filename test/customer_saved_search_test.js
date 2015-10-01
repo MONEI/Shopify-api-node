@@ -72,7 +72,7 @@ describe('Customer Saved Search', function() {
 
   it('should get customer saved searches', function(done) {
 		resource.all(function(err, res){
-		  res.should.not.be.empty;
+      res.should.not.be.empty;
 		  res[0].should.have.property('id');
 		  done();
 		});

@@ -15,7 +15,7 @@ class CustomerSavedSearch extends Base
 	getCustomersForId: (id, callback) ->
 		callback new Error 'missing id' unless id?
 		url = @resource.queryString "#{@prefix}/#{id}/customers"
-		@resource.post url, @slug, callback
+		@resource.get url, "customers", callback
 
 
 module.exports = CustomerSavedSearch
