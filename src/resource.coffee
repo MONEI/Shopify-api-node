@@ -4,7 +4,7 @@ singleton = require 'singleton'
 
 class Resource extends singleton
 
-  constructor: (@oauth = no) ->  
+  constructor: (@oauth = no) ->
 
   __request__: (url, slug, method, fields, callback) ->
     [fields, callback] = [callback, fields] if typeof fields is 'function'
@@ -15,12 +15,12 @@ class Resource extends singleton
       json: slug isnt 'oauth'
       headers:if @oauth is yes and @oauth_token? then {'X-Shopify-Access-Token':@oauth_token} else {}
 
-    options.headers['Content-Type'] = 'application/x-www-form-urlencoded' if method is "POST"
+    options.headers['content-type'] = 'application/x-www-form-urlencoded' if method is "POST"
 
     if fields?
       params = {}
-      if slug isnt 'oauth' 
-        params[slug] = fields 
+      if slug isnt 'oauth'
+        params[slug] = fields
         options.body = JSON.stringify(params)
       else
         options.body = fields
@@ -66,6 +66,3 @@ class Resource extends singleton
 
 
 module.exports = Resource.get()
-
-
-
