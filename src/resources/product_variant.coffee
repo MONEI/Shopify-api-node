@@ -9,7 +9,16 @@ class ProductVariant extends BaseChild
 	constructor: (site) ->
 		super(site)
 
+	get: (id, params, callback) ->
+		[params, callback] = [callback, params] if typeof params is 'function'
+		callback new Error 'missing id' unless id?
+		url = @resource.queryString "#{@site}#{@child}/#{id}", params
+		@resource.get url, @slug, callback
 
-module.exports = ProductVariant
 
+	update: (id, fields, callback) ->
+		callback new Error 'missing id' unless id?
+		url = @resource.queryString "#{@site}#{@child}/#{id}"
+		@resource.put url, @slug, fields, callback
 
+	module.exports = ProductVariant

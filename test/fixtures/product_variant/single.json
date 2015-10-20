@@ -1,0 +1,28 @@
+{
+  "variant": {
+    "id": 808950810,
+    "product_id": 632910392,
+    "title": "Pink",
+    "sku": "IPOD2008PINK",
+    "position": 1,
+    "grams": 200,
+    "inventory_policy": "continue",
+    "fulfillment_service": "manual",
+    "inventory_management": "shopify",
+    "price": "199.00",
+    "compare_at_price": null,
+    "option1": "Pink",
+    "option2": null,
+    "option3": null,
+    "created_at": "2015-09-02T14:47:49-04:00",
+    "updated_at": "2015-09-02T14:47:49-04:00",
+    "taxable": true,
+    "requires_shipping": true,
+    "barcode": "1234_pink",
+    "inventory_quantity": 10,
+    "old_inventory_quantity": 10,
+    "image_id": 562641783,
+    "weight": 0.2,
+    "weight_unit": "kg"
+  }
+}

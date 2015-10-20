@@ -5,9 +5,10 @@ class BaseChild
 	resource: require '../resource'
 
 	constructor: (site) ->
+		@site = site
 		@prefix = "#{site}#{@parent}"
 
-	all: (parentId, params, callback) ->  
+	all: (parentId, params, callback) ->
 		[params, callback] = [callback, params] if typeof params is 'function'
 		url = @resource.queryString "#{@prefix}/#{parentId}#{@child}", params
 		@resource.get url, "#{@slug}s", callback
