@@ -1,0 +1,22 @@
+{
+  "transaction": {
+    "id": 1068278473,
+    "order_id": 450789469,
+    "kind": "capture",
+    "gateway": "bogus",
+    "message": "Bogus Gateway: Forced success",
+    "created_at": "2015-09-02T14:50:50-04:00",
+    "test": true,
+    "authorization": null,
+    "status": "success",
+    "amount": "409.94",
+    "currency": "USD",
+    "location_id": null,
+    "user_id": null,
+    "parent_id": 389404469,
+    "device_id": null,
+    "receipt": {},
+    "error_code": null,
+    "source_name": "755357713"
+  }
+}
