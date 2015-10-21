@@ -17,6 +17,7 @@ var single = nock(helper.test_shop)
 var count = nock(helper.test_shop)
   .get('/admin/products/count.json')
   .reply(200, "{\"count\":1}", { server: 'nginx',
+    status: '200 OK'
 });
 
 

@@ -45,7 +45,7 @@ helper.nock(helper.test_shop)
 helper.nock(helper.test_shop)
   .delete('/admin/themes/752253240.json')
   .reply(200, {}, { server: 'nginx',
-  	 status: '200 OK',
+  	 status: '200 OK'
 });
 
 describe('Theme', function() {

@@ -53,6 +53,7 @@ helper.nock(helper.test_shop)
 helper.nock(helper.test_shop)
 .get('/admin/comments/count.json')
 .reply(200, "{\"count\":2}", { server: 'nginx',
+status: '200 OK'
 });
 
 helper.nock(helper.test_shop)

@@ -12,6 +12,7 @@ helper.nock(helper.test_shop)
 helper.nock(helper.test_shop)
 .get('/admin/redirects/count.json')
 .reply(200, "{\"count\":3}", { server: 'nginx',
+  status: '200 OK'
 });
 
 helper.nock(helper.test_shop)

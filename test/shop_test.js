@@ -6,7 +6,7 @@ var Resource = helper.resource();
 helper.nock(helper.test_shop)
   .get('/admin/shop.json')
   .reply(200, helper.load("single"), { server: 'nginx',
-  	 status: '200 OK',
+  	 status: '200 OK'
 });
 
 describe('Shop', function() {

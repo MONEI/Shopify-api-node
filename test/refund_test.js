@@ -6,7 +6,7 @@ var Resource = helper.resource();
 helper.nock(helper.test_shop)
   .get('/admin/orders/450789469/refunds/509562969.json')
   .reply(200, helper.load("refund"), { server: 'nginx',
-  status: '200 OK',
+  status: '200 OK'
 });
 
 describe('Refund', function() {

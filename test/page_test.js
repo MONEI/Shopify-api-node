@@ -13,6 +13,7 @@ helper.nock(helper.test_shop)
 helper.nock(helper.test_shop)
 .get('/admin/pages/count.json')
 .reply(200, "{\"count\":4}", { server: 'nginx',
+  status: '200 OK'
 });
 
 helper.nock(helper.test_shop)
