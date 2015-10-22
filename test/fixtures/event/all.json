@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "id": 677313116,
+      "subject_id": 921728736,
+      "created_at": "2007-12-31T19:00:00-05:00",
+      "subject_type": "Product",
+      "verb": "create",
+      "arguments": [
+        "IPod Touch 8GB"
+      ],
+      "body": null,
+      "message": "created a new product: <a href=\"\/admin\/products\/921728736\">IPod Touch 8GB<\/a>.",
+      "author": "Shopify",
+      "description": null,
+      "path": "\/admin\/products\/921728736"
+    }
+  ]
+}
