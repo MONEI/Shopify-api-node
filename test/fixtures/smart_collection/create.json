@@ -1,0 +1,21 @@
+{
+  "smart_collection": {
+    "id": 1063001311,
+    "handle": "ipods-1",
+    "title": "IPods",
+    "updated_at": "2015-09-02T14:49:50-04:00",
+    "body_html": null,
+    "published_at": "2015-09-02T14:49:50-04:00",
+    "sort_order": "alpha-asc",
+    "template_suffix": null,
+    "published_scope": "global",
+    "disjunctive": false,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "starts_with",
+        "condition": "iPod"
+      }
+    ]
+  }
+}
