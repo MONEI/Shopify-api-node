@@ -33,11 +33,13 @@ Install dependencies:
 ## Become a master of the Shopify ecosystem by: 
 
 * [Becoming a Shopify App Developer] (https://app.shopify.com/services/partners/signup?ref=microapps)
-* [Checking out the roots] (http://docs.shopify.com/api/the-basics/getting-started?ref=microapps) 
-* [Talking To Other Masters] (http://ecommerce.shopify.com/c/shopify-apps?ref=microapps) 
-* [Reading API Docs] (http://docs.shopify.com/api?ref=microapps) 
+* [Checking out the roots] (https://docs.shopify.com/api/introduction/getting-started?ref=microapps) 
+* [Talking To Other Masters] (https://ecommerce.shopify.com/c/shopify-apps?ref=microapps) 
+* [Reading API Docs] (https://docs.shopify.com/api?ref=microapps) 
 * [Learning from others] (http://stackoverflow.com/questions/tagged/shopify) 
 
+## Use a frontend framework which mimmics the Shopify merchant admin: 
+[Shopify Embedded App Frontent Framework] (http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## Contributors:
 [Carlos Villuendas] (https://github.com/carlosvillu/)
@@ -48,14 +50,16 @@ Install dependencies:
 
 [Florian Traverse] (https://github.com/temsa/)
 
-Supported by [microapps](http://www.microapps.com/)
+[Alua Kinzhebayeva] (https://github.com/Alua-Kinzhebayeva)
+
+Supported by [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 
 ## License 
 
 (The MIT License)
 
-Copyright (c) 2012-2014 [microapps](http://www.microapps.com/) &lt;hi@microapps.com&gt;
+Copyright (c) 2012-2016 [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
