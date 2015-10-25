@@ -38,7 +38,7 @@ Install dependencies:
 * [Reading API Docs] (https://docs.shopify.com/api?ref=microapps) 
 * [Learning from others] (http://stackoverflow.com/questions/tagged/shopify) 
 
-## Use a frontend framework which mimmics the Shopify merchant admin: 
+## Use a frontend framework which mimics the Shopify merchant admin: 
 [Shopify Embedded App Frontent Framework] (http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## Contributors:
