@@ -25,7 +25,6 @@ class BaseChild
 		@resource.get url, @slug, callback
 
 	create: (parentId, fields, callback) ->
-		callback new Error 'Title is required' unless fields.title?
 		url = @resource.queryString "#{@prefix}/#{parentId}#{@child}"
 		@resource.post url, @slug, fields, callback
 
