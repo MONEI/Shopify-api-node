@@ -2,7 +2,7 @@
   "author": "alexandre saiz <hi@microapps.com>",
   "name": "nodify-shopify",
   "description": "Shopify API client",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:microapps/Nodify.git"

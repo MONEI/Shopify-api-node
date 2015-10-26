@@ -1,6 +1,6 @@
 Base = require './base'
 
-class ScriptTags extends Base
+class ScriptTag extends Base
 	slug: "script_tag"
 	prefix: "/script_tags"
 
@@ -9,4 +9,4 @@ class ScriptTags extends Base
 
 
 
-module.exports = ScriptTags
+module.exports = ScriptTag

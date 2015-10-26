@@ -31,12 +31,11 @@ class Resource extends singleton
       if status >= 300 then err = new Error "Status code #{status}" else err = null
       unless err?
         process.nextTick ->
-          body = body[slug] if slug isnt 'oauth'
+          body = body[slug] if slug isnt 'oauth' and slug isnt '' and typeof slug isnt 'undefined' 
           body = slug if method is "DELETE"
           callback err, body
       else
         process.nextTick ->
-          console.log body
           callback err
 
   get: (url, slug, callback) ->
