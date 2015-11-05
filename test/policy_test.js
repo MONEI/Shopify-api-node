@@ -17,6 +17,7 @@ describe('Policy', function() {
   it('should get all policies', function(done) {
     resource.all(function(err, res){
       res.should.not.be.empty;
+      res.should.be.an.Array();
       res[0].should.have.property('title');
       res[0].title.should.equal('Refund Policy');
       done();
