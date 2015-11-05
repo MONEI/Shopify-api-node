@@ -39,15 +39,44 @@ helper.nock(helper.test_shop)
 });
 
 helper.nock(helper.test_shop)
-.post('/admin/gift_cards.json')
+.post('/admin/gift_cards.json', {
+  gift_card: {
+    "note": "This is a note",
+    "initial_value": 100.0,
+    "code": "ABCD EFGH IJKL MNOP",
+    "template_suffix": "gift_cards.birthday.liquid"
+  }
+})
 .reply(200, helper.load("createGiftCard"), {
   server: 'nginx',
   status: '200 OK'
 });
 
 helper.nock(helper.test_shop)
-.put('/admin/gift_cards/1063936316.json')
+.put('/admin/gift_cards/1063936316.json', {
+  gift_card: {
+    "note": "Updating with a new note"
+  }
+})
 .reply(200, helper.load("updateGiftCard"), {
+  server: 'nginx',
+  status: '200 OK'
+});
+
+helper.nock(helper.test_shop)
+.post('/admin/gift_cards/1063936316/disable.json', {
+  'gift_card': {
+    'id': '1063936316'
+  }
+})
+.reply(200, helper.load("disableGiftCard"), {
+  server: 'nginx',
+  status: '200 OK'
+});
+
+helper.nock(helper.test_shop)
+.get('/admin/gift_cards/search.json?query=Bob')
+.reply(200, helper.load("search"), {
   server: 'nginx',
   status: '200 OK'
 });
@@ -125,6 +154,22 @@ describe('Gift card', function() {
 
     resource.update('1063936316', giftCard, function(err, res){
       res.note.should.equal(giftCard.note);
+      done();
+    });
+  });
+
+  it('should disable gift card', function(done) {
+    resource.disable('1063936316', function(err, res){
+      res.disabled_at.should.not.be.null();
+      done();
+    });
+  });
+
+  it('should search gift card', function(done) {
+    resource.search('Bob', function(err, res){
+      res.should.not.be.empty;
+      res[0].should.have.property('id');
+      res[0].id.should.equal(1063936317);
       done();
     });
   });
