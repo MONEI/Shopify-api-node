@@ -1,3 +1,5 @@
+pluralize = require 'pluralize'
+
 class Base
 	slug: "base"
 	prefix: "/base"
@@ -6,10 +8,11 @@ class Base
 	constructor: (site) ->
 		@prefix = "#{site}#{@prefix}"
 
-	all: (params, callback) ->  
+	all: (params, callback) ->
 		[params, callback] = [callback, params] if typeof params is 'function'
 		url = @resource.queryString @prefix, params
-		@resource.get url, "#{@slug}s", callback
+		pluralizedSlug = pluralize(@slug)
+		@resource.get url, "#{pluralizedSlug}", callback
 
 	count: (params, callback) ->
 		[params, callback] = [callback, params] if typeof params is 'function'

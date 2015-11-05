@@ -12,11 +12,12 @@
     "test": "cake test"
   },
   "engines": {
-    "node" : "0.12.x"
+    "node": "0.12.x"
   },
   "dependencies": {
-    "request": "2.9.x"
-    ,"singleton":"*"
+    "pluralize": "^1.2.1",
+    "request": "2.9.x",
+    "singleton": "*"
   },
   "devDependencies": {
     "mocha": "2.3.x",
