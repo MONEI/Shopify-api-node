@@ -1,3 +1,5 @@
+pluralize = require 'pluralize'
+
 class BaseChild
 	parent: "/parent"
 	slug: "base"
@@ -11,7 +13,8 @@ class BaseChild
 	all: (parentId, params, callback) ->
 		[params, callback] = [callback, params] if typeof params is 'function'
 		url = @resource.queryString "#{@prefix}/#{parentId}#{@child}", params
-		@resource.get url, "#{@slug}s", callback
+		pluralizedSlug = pluralize(@slug)
+		@resource.get url, pluralizedSlug, callback
 
 	count: (parentId, params, callback) ->
 		[params, callback] = [callback, params] if typeof params is 'function'

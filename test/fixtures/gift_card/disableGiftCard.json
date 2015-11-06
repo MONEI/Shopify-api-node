@@ -1,0 +1,21 @@
+{
+  "gift_card": {
+    "id": 1063936316,
+    "balance": "100.00",
+    "created_at": "2015-09-02T14:53:54-04:00",
+    "updated_at": "2015-09-02T14:53:54-04:00",
+    "disabled_at": "2015-09-02T14:53:56-04:00",
+    "currency": "USD",
+    "initial_value": "100.00",
+    "line_item_id": null,
+    "api_client_id": 755357713,
+    "user_id": 0,
+    "customer_id": null,
+    "note": "This is a note",
+    "expires_on": null,
+    "template_suffix": "gift_cards.birthday.liquid",
+    "last_characters": "mnop",
+    "order_id": null,
+    "code": "abcdefghijklmnop"
+  }
+}
