@@ -1,0 +1,9 @@
+{
+  "carrier_service": {
+    "id": 962683574,
+    "name": "Shipping Rate Provider",
+    "active": true,
+    "service_discovery": true,
+    "carrier_service_type": "api"
+  }
+}
