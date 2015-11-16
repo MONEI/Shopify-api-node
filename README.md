@@ -6,7 +6,14 @@ Use Nodify-Shopify to grab all Shopify API resources.
 It also handles authentication (using [the new OAuth2 API](http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived?ref=microapps)) and billing.	
 
 ## Usage:
-
+#### Private app
+	var nodify = require('nodify-shopify');
+	session = nodify.createPrivateAppSession("your-shop-name", "your-api-key", "your-password");
+	session.orders.all({limit: 5}, function(err, orders){
+    		if(err) { console.log(orders); throw err;}
+    		console.log(orders);
+	}); 
+#### Public app
 	var nodify = require('nodify-shopify');
 	session = nodify.createSession(shopName, apiKey, secret, persistentOauth2Token);
 	session.order.all({limit: 5}, function(err, orders){
