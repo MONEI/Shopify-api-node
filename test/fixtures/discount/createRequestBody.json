@@ -1,0 +1,9 @@
+{
+  "discount": {
+    "discount_type": "shipping",
+    "code": "quidagis?",
+    "starts_at": "2015-08-23T00:00:00-04:00",
+    "ends_at": "2015-08-27T23:59:59-04:00",
+    "usage_limit": 20
+  }
+}
