@@ -104,7 +104,7 @@ class Session
     "http://#{@url}/admin/api/auth?api_key=#{@apiKey}" if not empty(@url) and not empty(@apiKey)
 
   site: ->
-    "#{@protocol}://#{@apiKey}:#{@signature}@#{@url}/admin"
+    "#{@protocol}://#{@apiKey}:#{@secret}@#{@url}/admin"
 
   valid: ->
     not empty(@url)
