@@ -1,31 +1,44 @@
 {
-  "author": "alexandre saiz <hi@microapps.com>",
   "name": "nodify-shopify",
-  "description": "Shopify API client",
   "version": "0.2.1",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:microapps/Nodify.git"
+  "description": "Shopify API client",
+  "main": "lib/main.js",
+  "directories": {
+    "test": "test"
   },
-  "main": "./lib/main.js",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "dependencies": {
+    "pluralize": "1.2.x",
+    "request": "2.9.x",
+    "singleton": "1.0.x"
+  },
+  "devDependencies": {
+    "chai": "3.4.x",
+    "coffee-script": "1.10.x",
+    "docco": "0.7.x",
+    "mocha": "2.3.x",
+    "nock": "3.0.x",
+    "paige": "0.1.x",
+    "should": "7.1.x"
+  },
   "scripts": {
     "test": "cake test"
   },
-  "engines": {
-    "node": "0.12.x"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microapps/Nodify.git"
   },
-  "dependencies": {
-    "pluralize": "^1.2.1",
-    "request": "2.9.x",
-    "singleton": "*"
+  "keywords": [
+    "Shopify",
+    "API",
+    "Client"
+  ],
+  "author": "alexandre saiz <hi@microapps.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microapps/Nodify/issues"
   },
-  "devDependencies": {
-    "mocha": "2.3.x",
-    "should": "7.1.x",
-    "chai": "*",
-    "nock": "*",
-    "docco": "0.3.x",
-    "coffee-script": "1.10.x",
-    "paige": "0.1.x"
-  }
+  "homepage": "https://github.com/microapps/Nodify#readme"
 }
