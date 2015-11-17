@@ -15,7 +15,6 @@
     "singleton": "1.0.x"
   },
   "devDependencies": {
-    "chai": "3.4.x",
     "coffee-script": "1.10.x",
     "docco": "0.7.x",
     "mocha": "2.3.x",
@@ -28,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microapps/Nodify.git"
+    "url": "git+https://github.com/microapps/Nodify-Shopify.git"
   },
   "keywords": [
     "Shopify",
@@ -38,7 +37,7 @@
   "author": "alexandre saiz <a@alexandresaiz.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/microapps/Nodify/issues"
+    "url": "https://github.com/microapps/Nodify-Shopify/issues"
   },
-  "homepage": "https://github.com/microapps/Nodify#readme"
+  "homepage": "https://github.com/microapps/Nodify-Shopify"
 }
