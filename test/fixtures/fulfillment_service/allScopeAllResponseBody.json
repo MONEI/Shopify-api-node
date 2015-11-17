@@ -1,0 +1,27 @@
+{
+  "fulfillment_services": [
+    {
+      "id": 61629186,
+      "name": "shipwire",
+      "handle": "shipwire",
+      "email": null,
+      "include_pending_stock": false,
+      "service_name": "Shipwire",
+      "inventory_management": true,
+      "tracking_support": true,
+      "provider_id": 1
+    },
+    {
+      "id": 755357713,
+      "name": "Shipwire App",
+      "handle": "shipwire-app",
+      "email": null,
+      "include_pending_stock": false,
+      "requires_shipping_method": false,
+      "service_name": "Shipwire App",
+      "inventory_management": true,
+      "tracking_support": true,
+      "provider_id": null
+    }
+  ]
+}

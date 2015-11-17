@@ -1,0 +1,14 @@
+{
+  "fulfillment_service": {
+    "id": 1061774487,
+    "name": "MarsFulfillment",
+    "handle": "marsfulfillment",
+    "email": null,
+    "include_pending_stock": false,
+    "requires_shipping_method": true,
+    "service_name": "Mars Fulfillment",
+    "inventory_management": true,
+    "tracking_support": true,
+    "provider_id": null
+  }
+}
