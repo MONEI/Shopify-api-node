@@ -13,52 +13,52 @@ class Resource extends singleton
       uri: url
       method: method
       json: slug isnt 'oauth'
-      headers:if @oauth is yes and @oauth_token? then {'X-Shopify-Access-Token':@oauth_token} else {}
+      headers: if @oauth is yes and @oauth_token then {
+        'X-Shopify-Access-Token': @oauth_token
+      } else {}
 
-    options.headers['content-type'] = 'application/x-www-form-urlencoded' if method is "POST"
+    if method is 'POST'
+      options.headers['content-type'] = 'application/x-www-form-urlencoded'
 
-    if fields?
+    if fields
       params = {}
-      if slug isnt 'oauth'
-        params[slug] = fields
-        options.body = JSON.stringify(params)
+      if slug and slug isnt 'oauth'
+        params[if typeof slug is 'object' then slug.short else slug] = fields
+        options.body = JSON.stringify params
       else
         options.body = fields
 
-    request options, ( err, response, body) ->
-      status = parseInt response.statusCode
+    request options, (err, res, body) ->
+      if err or res.statusCode >= 300
+        return process.nextTick ->
+          callback err or new Error "Status code #{res.statusCode}";
 
-      if status >= 300 then err = new Error "Status code #{status}" else err = null
-      unless err?
-        process.nextTick ->
-          body = body[slug] if slug isnt 'oauth' and slug isnt '' and typeof slug isnt 'undefined' 
-          body = slug if method is "DELETE"
-          callback err, body
-      else
-        process.nextTick ->
-          callback err
+      if method is 'DELETE'
+        body = slug
+      else if slug and slug isnt 'oauth'
+        body = body[if typeof slug is 'object' then slug.long else slug]
+
+      process.nextTick -> callback err, body;
 
   get: (url, slug, callback) ->
-    @__request__(url, slug, 'GET', callback)
+    @__request__ url, slug, 'GET', callback
 
   post: (url, slug, fields, callback) ->
-    @__request__(url, slug, 'POST', fields, callback)
+    @__request__ url, slug, 'POST', fields, callback
 
   put: (url, slug, fields, callback) ->
-    @__request__(url, slug, 'PUT', fields, callback)
+    @__request__ url, slug, 'PUT', fields, callback
 
   delete: (url, slug, callback) ->
-    @__request__(url, slug, 'DELETE', callback)
+    @__request__ url, slug, 'DELETE', callback
 
   queryString: (url, params, format = "json") ->
     query = "#{url}.#{format}"
 
     if params
-      query += "?"
-      query += querystring.stringify params
+      query += "?" + querystring.stringify params
 
     return query
-
 
   setOAuthToken:(@oauth_token)->
     @oauth = @oauth_token?
