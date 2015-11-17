@@ -23,7 +23,10 @@
     "should": "7.1.x"
   },
   "scripts": {
-    "test": "cake test"
+    "compile": "coffee -o lib -c src",
+    "watch": "coffee -o lib -cw src",
+    "docs": "paige paige.config",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
