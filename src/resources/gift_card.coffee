@@ -10,22 +10,22 @@ class GiftCard extends Base
   getAll: (callback) ->
     @all(callback)
 
-  checkValidStatus: (status, callback) ->
-    callback new Error 'status is not valid' unless !!~["disabled", "enabled"].indexOf(status)
+  _isStatusValid: (status) ->
+    return if ~["disabled", "enabled"].indexOf(status) then yes else no
 
   getByStatus: (status, callback) ->
-    @checkValidStatus(status, callback)
-    @all({status:status}, callback)
+    return callback new Error 'status is not valid' if !@_isStatusValid status
+    @all({ status: status }, callback)
 
   getCount: (callback) ->
     @count(undefined, callback)
 
   getCountByStatus: (status, callback) ->
-    @checkValidStatus(status, callback)
-    @count({status: status}, callback)
+    return callback new Error 'status is not valid' if !@_isStatusValid status
+    @count({ status: status }, callback)
 
   search: (queryStr, callback) ->
-    query = {query: queryStr}
+    query = { query: queryStr }
     url = @resource.queryString "#{@prefix}/search", query
     @resource.get(url, pluralize(@slug), callback)
 
@@ -33,9 +33,7 @@ class GiftCard extends Base
     callback new Error 'missing id' unless id?
     url = @resource.queryString "#{@prefix}/#{id}/disable"
 
-    params = {
-      id: id
-    }
+    params = { id: id }
 
     @resource.post url, @slug, params, callback
 
