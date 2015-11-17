@@ -4,3 +4,7 @@ node_js:
 notifications:
   email:
     - a@alexandresaiz.com
+deploy:
+ api_key:
+ email: a@alexandresaiz.com
+ provider: npm
