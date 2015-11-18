@@ -6,9 +6,4 @@ node_js:
   - "iojs"
   - "0.12"
 notifications:
-  email:
-    - a@alexandresaiz.com
-deploy:
-  api_key:
   email: a@alexandresaiz.com
-  provider: npm
