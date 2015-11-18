@@ -9,12 +9,10 @@ class Fulfillment extends BaseChild
 		super(site)
 
 	complete: (orderId, id, callback) ->
-		callback new Error 'missing id' unless id?
 		url = @resource.queryString "#{@prefix}/#{orderId}#{@child}/#{id}/complete"
 		@resource.post url, @slug, callback
 
 	cancel: (orderId, id, callback) ->
-		callback new Error 'missing id' unless id?
 		url = @resource.queryString "#{@prefix}/#{orderId}#{@child}/#{id}/cancel"
 		@resource.post url, @slug, callback
 
