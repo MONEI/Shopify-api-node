@@ -6,5 +6,4 @@ node_js:
   - "iojs"
   - "0.12"
 notifications:
-  email:
-    - alua.kinzhebayeva@gmail.com
+  email: a@alexandresaiz.com
