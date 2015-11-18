@@ -7,8 +7,4 @@ node_js:
   - "0.12"
 notifications:
   email:
-    - a@alexandresaiz.com
-deploy:
-  api_key:
-  email: a@alexandresaiz.com
-  provider: npm
+    - alua.kinzhebayeva@gmail.com
