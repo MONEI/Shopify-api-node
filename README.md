@@ -1,7 +1,7 @@
 # Nodify-Shopify
 
-[![Version npm](https://img.shields.io/npm/v/nodify-shopify.svg)][https://www.npmjs.com/package/nodify-shopify]
-[![Build](https://travis-ci.org/microapps/Nodify-Shopify.svg?branch=master)][https://travis-ci.org/microapps/Nodify-Shopify]
+[![Version npm](https://img.shields.io/npm/v/nodify-shopify.svg)](https://www.npmjs.com/package/nodify-shopify)
+[![Build](https://travis-ci.org/microapps/Nodify-Shopify.svg?branch=master)](https://travis-ci.org/microapps/Nodify-Shopify)
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
 Use Nodify-Shopify to grab all Shopify API resources.
