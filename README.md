@@ -70,15 +70,15 @@ $ npm install -d
 
 ## Contributors:
 
-[Aakash Goel](Aakash Goel)
-[Alexandre Saiz Verdaguer](https://github.com/alexandresaiz/)
-[Alua Kinzhebayeva](https://github.com/Alua-Kinzhebayeva)
-[Carlos Villuendas Zambrana](https://github.com/carlosvillu/)
-[Florian Traverse](https://github.com/temsa/)
-[Kenrick Beckett](https://github.com/kenrick/)
-[Khang Hoang Trieu](https://github.com/khanghoang)
-[Luigi Pinca](https://github.com/lpinca)
-[Will Laurance](https://github.com/wlaurance)
+* [Aakash Goel](Aakash Goel)
+* [Alexandre Saiz Verdaguer](https://github.com/alexandresaiz/)
+* [Alua Kinzhebayeva](https://github.com/Alua-Kinzhebayeva)
+* [Carlos Villuendas Zambrana](https://github.com/carlosvillu/)
+* [Florian Traverse](https://github.com/temsa/)
+* [Kenrick Beckett](https://github.com/kenrick/)
+* [Khang Hoang Trieu](https://github.com/khanghoang)
+* [Luigi Pinca](https://github.com/lpinca)
+* [Will Laurance](https://github.com/wlaurance)
 
 Supported by [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
