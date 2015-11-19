@@ -51,38 +51,28 @@ describe('Discount', function () {
   it('should disable a discount', function (next) {
     var resBody = fixtures.disableResponseBody;
 
-    resource.disable('', function (err) {
-      err.should.be.an.Error();
-      err.message.should.be.exactly('invalid or missing id');
+    scope.post('/admin/discounts/680866/disable.json')
+      .reply(201, resBody);
 
-      scope.post('/admin/discounts/680866/disable.json')
-        .reply(201, resBody);
+    resource.disable(680866, function (err, res) {
+      if (err) return next(err);
 
-      resource.disable(680866, function (err, res) {
-        if (err) return next(err);
-
-        res.should.be.eql(resBody.discount);
-        next();
-      });
+      res.should.be.eql(resBody.discount);
+      next();
     });
   });
 
   it('should enable a discount', function (next) {
     var resBody = fixtures.enableResponseBody;
 
-    resource.enable(null, function (err) {
-      err.should.be.an.Error();
-      err.message.should.be.exactly('invalid or missing id');
+    scope.post('/admin/discounts/949676421/enable.json')
+      .reply(201, resBody);
 
-      scope.post('/admin/discounts/949676421/enable.json')
-        .reply(201, resBody);
+    resource.enable(949676421, function (err, res) {
+      if (err) return next(err);
 
-      resource.enable(949676421, function (err, res) {
-        if (err) return next(err);
-
-        res.should.be.eql(resBody.discount);
-        next();
-      });
+      res.should.be.eql(resBody.discount);
+      next();
     });
   });
 
