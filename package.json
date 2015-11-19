@@ -20,6 +20,7 @@
     "mocha": "2.3.x",
     "nock": "3.0.x",
     "paige": "0.1.x",
+    "pre-commit": "1.1.x",
     "should": "7.1.x"
   },
   "scripts": {
