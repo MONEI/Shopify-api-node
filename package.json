@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "pluralize": "1.2.x",
-    "qs": "6.0.x",
+    "qs": "5.2.x",
     "request": "2.9.x",
     "singleton": "1.0.x"
   },
