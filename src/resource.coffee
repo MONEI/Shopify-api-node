@@ -1,6 +1,6 @@
-request = require 'request'
-querystring = require 'querystring'
 singleton = require 'singleton'
+request = require 'request'
+qs = require 'qs'
 
 class Resource extends singleton
 
@@ -38,7 +38,7 @@ class Resource extends singleton
       else if slug and slug isnt 'oauth'
         body = body[if typeof slug is 'object' then slug.long else slug]
 
-      process.nextTick -> callback err, body;
+      process.nextTick -> callback err, body
 
   get: (url, slug, callback) ->
     @__request__ url, slug, 'GET', callback
@@ -56,7 +56,7 @@ class Resource extends singleton
     query = "#{url}.#{format}"
 
     if params
-      query += "?" + querystring.stringify params
+      query += "?" + qs.stringify params, { arrayFormat: 'brackets' }
 
     return query
 
