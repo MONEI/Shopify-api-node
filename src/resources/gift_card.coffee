@@ -8,28 +8,13 @@ class GiftCard extends Base
   constructor: (site) ->
     super(site)
 
-  getAll: (callback) ->
-    @all(callback)
-
-  getByStatus: (status, callback) ->
-    @all({ status: status }, callback)
-
-  getCount: (callback) ->
-    @count(undefined, callback)
-
-  getCountByStatus: (status, callback) ->
-    @count({ status: status }, callback)
-
-  search: (queryStr, callback) ->
-    query = { query: queryStr }
-    url = @resource.queryString "#{@prefix}/search", query
-    @resource.get(url, pluralize(@slug), callback)
-
   disable: (id, callback) ->
     url = @resource.queryString "#{@prefix}/#{id}/disable"
+    @resource.post url, @slug, { id: id }, callback
 
-    params = { id: id }
-
-    @resource.post url, @slug, params, callback
+  search: (params, callback) ->
+    [params, callback] = [callback, params] if typeof params is 'function'
+    url = @resource.queryString "#{@prefix}/search", params
+    @resource.get url, pluralize(@slug), callback
 
 module.exports = GiftCard
