@@ -10,10 +10,10 @@
         "IPod Touch 8GB"
       ],
       "body": null,
-      "message": "created a new product: <a href=\"\/admin\/products\/921728736\">IPod Touch 8GB<\/a>.",
+      "message": "created a new product: <a href=\"/admin/products/921728736\">IPod Touch 8GB</a>.",
       "author": "Shopify",
       "description": null,
-      "path": "\/admin\/products\/921728736"
+      "path": "/admin/products/921728736"
     }
   ]
 }
