@@ -1,0 +1,16 @@
+{
+  "metafields": [
+    {
+      "id": 845366454,
+      "namespace": "translations",
+      "key": "title_fr",
+      "value": "produit",
+      "value_type": "string",
+      "description": "French product title",
+      "owner_id": 632910392,
+      "created_at": "2015-09-02T14:52:56-04:00",
+      "updated_at": "2015-09-02T14:52:56-04:00",
+      "owner_resource": "product"
+    }
+  ]
+}
