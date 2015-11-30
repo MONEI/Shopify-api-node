@@ -1,54 +1,139 @@
-var helper = require("./common.js");
-helper.setObject("event");
+var common = require('./common.js')
+  , scope = common.nock(common.test_shop)
+  , fixtures = {}
+  , resource;
 
-var Resource = helper.resource();
+common.setObject('event');
 
-helper.nock(helper.test_shop)
-  .get('/admin/events.json?filter=Product&verb=create')
-  .reply(200, helper.load("all"), { server: 'nginx',
-  	 status: '200 OK',
+[
+  'allStoreResponseBody',
+  'allStoreQueryResponseBody',
+  'allResourceResponseBody',
+  'allResourceQueryResponseBody',
+  'singleResponseBody'
+].forEach(function (fixture) {
+  fixtures[fixture] = common.load(fixture);
 });
 
-helper.nock(helper.test_shop)
-.get('/admin/events/count.json')
-.reply(200, "{\"count\":3}", { server: 'nginx',
-  status: '200 OK'
-});
+resource = new (common.resource())(common.endpoint);
 
-helper.nock(helper.test_shop)
-  .get('/admin/events/677313116.json')
-  .reply(200, helper.load("single"), { server: 'nginx',
-  	 status: '200 OK',
-});
+describe('Event', function () {
+  it('should get all events that belong to a store (1/2)', function (next) {
+    var resBody = fixtures.allStoreResponseBody;
 
+    scope.get('/admin/events.json')
+      .reply(200, resBody);
 
-describe('Event', function() {
-	var site = helper.endpoint;
-	var resource = new Resource(site);
+    resource.all(function (err, res) {
+      if (err) return next(err);
 
-	it('should get a list of all events related to Products that were created', function(done) {
-		resource.all({filter:"Product", verb:"create"}, function(err, res){
-		  res.should.not.be.empty;
-		  res[0].should.have.property('id');
-      res[0].id.should.equal(677313116);
-		  done();
-		});
-	});
+      res.should.be.eql(resBody.events);
+      next();
+    });
+  });
 
-	it('should get a single event', function(done) {
-	    resource.get(677313116, function(err, res){
-	      res.should.be.a.Object();
-        res.id.should.equal(677313116);
-	      done();
-	    });
- 	});
+  it('should get all events that belong to a store (2/2)', function (next) {
+    var resBody = fixtures.allStoreQueryResponseBody;
 
-   it('should count events', function(done) {
-     resource.count(function(err, count){
-       count.should.be.a.Number();
-       count.should.be.equal(3);
-       done();
-     });
-   });
+    scope.get('/admin/events.json?since_id=164748010')
+      .reply(200, resBody);
 
+    resource.all({ since_id: 164748010 }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.events);
+      next();
+    });
+  });
+
+  it('should get all events that belong to a resource (1/2)', function (next) {
+    var resBody = fixtures.allResourceResponseBody;
+
+    scope.get('/admin/products/921728736/events.json')
+      .reply(200, resBody);
+
+    resource.all({
+      resource: 'product',
+      id: 921728736
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.events);
+      next();
+    });
+  });
+
+  it('should get all events that belong to a resource (2/2)', function (next) {
+    var resBody = fixtures.allResourceQueryResponseBody;
+
+    scope.get('/admin/orders/450789469/events.json?limit=1&page=2')
+      .reply(200, resBody);
+
+    resource.all({
+      resource: 'order',
+      id: 450789469
+    }, {
+      limit: 1,
+      page: 2
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.events);
+      next();
+    });
+  });
+
+  it('should get an event by its ID (1/2)', function (next) {
+    var resBody = fixtures.singleResponseBody;
+
+    scope.get('/admin/events/677313116.json')
+      .reply(200, resBody);
+
+    resource.get(677313116, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.event);
+      next();
+    });
+  });
+
+  it('should get an event by its ID (2/2)', function (next) {
+    var resBody = fixtures.singleResponseBody;
+
+    scope.get('/admin/events/677313116.json?foo=bar')
+      .reply(200, resBody);
+
+    resource.get(677313116, { foo: 'bar' }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.event);
+      next();
+    });
+  });
+
+  it('should count all the events (1/2)', function (next) {
+    scope.get('/admin/events/count.json')
+      .reply(200, { count: 3 });
+
+    resource.count(function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.exactly(3);
+      next();
+    });
+  });
+
+  it('should count all the events (2/2)', function (next) {
+    scope.get('/admin/events/count.json?created_at_min=2007-12-31%2021%3A00%3A00')
+      .reply(200, { count: 1 });
+
+    resource.count({
+      created_at_min: '2007-12-31 21:00:00'
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.exactly(1);
+      next();
+    });
+  });
 });
