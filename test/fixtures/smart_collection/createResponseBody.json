@@ -1,11 +1,11 @@
 {
   "smart_collection": {
-    "id": 1063001311,
+    "id": 1063001446,
     "handle": "ipods-1",
     "title": "IPods",
-    "updated_at": "2015-09-02T14:49:50-04:00",
+    "updated_at": "2015-10-27T15:26:47-04:00",
     "body_html": null,
-    "published_at": "2015-09-02T14:49:50-04:00",
+    "published_at": "2015-10-27T15:26:46-04:00",
     "sort_order": "alpha-asc",
     "template_suffix": null,
     "published_scope": "global",

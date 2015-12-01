@@ -1,124 +1,135 @@
-var helper = require("./common.js");
-helper.setObject("smart_collection");
+var common = require('./common.js')
+  , scope = common.nock(common.test_shop)
+  , fixtures = {}
+  , resource;
 
-var Resource = helper.resource();
+common.setObject('smart_collection');
 
-helper.nock(helper.test_shop)
-.get('/admin/smart_collections.json')
-.reply(200, helper.load("all"), { server: 'nginx',
-status: '200 OK',
+[
+  'allResponseBody',
+  'singleResponseBody',
+  'createRequestBody',
+  'createResponseBody',
+  'updateRequestBody',
+  'updateResponseBody'
+].forEach(function (fixture) {
+  fixtures[fixture] = common.load(fixture);
 });
 
-helper.nock(helper.test_shop)
-.get('/admin/smart_collections/count.json')
-.reply(200, "{\"count\":1}", { server: 'nginx',
-status: '200 OK'
-});
+resource = new (common.resource())(common.endpoint);
 
-helper.nock(helper.test_shop)
-.get('/admin/smart_collections/482865238.json')
-.reply(200, helper.load("single"), { server: 'nginx',
-status: '200 OK',
-});
+describe('Smart Collection', function () {
+  it('should list all smart collections', function (next) {
+    var resBody = fixtures.allResponseBody;
 
-helper.nock(helper.test_shop)
-.post('/admin/smart_collections.json', {
-  "smart_collection": {
-    "title": "IPods",
-    "rules": [
-      {
-        "column": "title",
-        "relation": "starts_with",
-        "condition": "iPod"
-      }
-    ]
-  }
-})
-.reply(201, helper.load("create"), { server: 'nginx',
-status: '201 OK',
-});
+    scope.get('/admin/smart_collections.json')
+      .reply(200, resBody);
 
-helper.nock(helper.test_shop)
-.put('/admin/smart_collections/482865238.json', {
-  "smart_collection": {
-    "id": 482865238,
-    "published": true
-  }
-})
-.reply(201, helper.load("update"), { server: 'nginx',
-status: '200 OK',
-});
+    resource.all(function (err, res) {
+      if (err) return next(err);
 
-
-helper.nock(helper.test_shop)
-.delete('/admin/smart_collections/482865238.json')
-.reply(200, {}, { server: 'nginx',
-status: '200 OK',
-});
-
-describe('Smart Collection', function() {
-  var site = helper.endpoint;
-  var resource = new Resource(site);
-
-  it('should get a list of all collections', function(done) {
-    resource.all(function(err, res){
-      res.should.not.be.empty;
-      res[0].should.have.property('id');
-      res[0].id.should.equal(482865238);
-      done();
+      res.should.be.eql(resBody.smart_collections);
+      next();
     });
   });
 
-  it('should get a single smart collection', function(done) {
-    resource.get(482865238, function(err, res){
-      res.should.be.a.Object();
-      res.id.should.equal(482865238);
-      done();
+  it('should get a count of all smart collections', function (next) {
+    scope.get('/admin/smart_collections/count.json')
+      .reply(200, { count: 1 });
+
+    resource.count(function (err, res) {
+      res.should.be.exactly(1);
+      next();
     });
   });
 
-  it('should create a smart collection', function(done) {
-    var _new = {
-      "title": "IPods",
-      "rules": [
-        {
-          "column": "title",
-          "relation": "starts_with",
-          "condition": "iPod"
-        }
-      ]
-    };
-    resource.create(_new, function(err, _resource){
-      _resource.should.have.property('id');
-      done();
+  it('should get a single smart collection by its ID', function (next) {
+    var resBody = fixtures.singleResponseBody;
+
+    scope.get('/admin/smart_collections/482865238.json')
+      .reply(200, resBody);
+
+    resource.get(482865238, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.smart_collection);
+      next();
     });
   });
 
+  it('should create a smart collection', function (next) {
+    var resBody = fixtures.createResponseBody
+      , reqBody = fixtures.createRequestBody;
 
-  it('should update a smart collection', function(done) {
-    var _mod = {
-      "id": 482865238,
-      "published": true
-    };
-    resource.update(482865238, _mod, function(err, _resource){
-      _resource.should.have.property('id');
-      done();
+    scope.post('/admin/smart_collections.json', reqBody)
+      .reply(201, resBody);
+
+    resource.create(reqBody.smart_collection, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.smart_collection);
+      next();
     });
   });
 
-  it('should count smart collections', function(done) {
-    resource.count(function(err, count){
-      count.should.be.a.Number();
-      count.should.be.equal(1);
-      done();
+  it('should update a smart collection', function (next) {
+    var resBody = fixtures.updateResponseBody
+      , reqBody = fixtures.updateRequestBody;
+
+    scope.put('/admin/smart_collections/482865238.json', reqBody)
+      .reply(200, resBody);
+
+    resource.update(482865238, reqBody.smart_collection, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.smart_collection);
+      next();
     });
   });
 
-  it('should delete a smart collection', function(done) {
-    resource.delete(482865238, function(err, _resource){
-      _resource.should.be.equal(482865238);
-      done();
+  it('should set the ordering type in a smart collection', function (next) {
+    var path = '/admin/smart_collections/482865238/order.json' +
+      '?sort_order=alpha-desc';
+
+    scope.put(path).reply(200, {});
+
+    resource.order(482865238, {
+      sort_order: 'alpha-desc'
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.an.Object();
+      res.should.be.empty();
+      next();
     });
   });
 
+  it('should set the manual order of products in a smart collection', function (next) {
+    var path = '/admin/smart_collections/482865238/order.json' +
+      '?products%5B%5D=921728736&products%5B%5D=632910392';
+
+    scope.put(path).reply(200, {});
+
+    resource.order(482865238, {
+      products: [921728736, 632910392]
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.an.Object();
+      res.should.be.empty();
+      next();
+    });
+  });
+
+  it('should remove a smart collection', function (next) {
+    scope.delete('/admin/smart_collections/482865238.json')
+      .reply(200, {});
+
+    resource.delete(482865238, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.exactly(482865238);
+      next();
+    });
+  });
 });
