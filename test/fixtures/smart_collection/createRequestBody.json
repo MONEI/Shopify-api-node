@@ -1,0 +1,12 @@
+{
+  "smart_collection": {
+    "title": "IPods",
+    "rules": [
+      {
+        "column": "title",
+        "relation": "starts_with",
+        "condition": "iPod"
+      }
+    ]
+  }
+}
