@@ -1,10 +1,10 @@
 {
   "customer": {
-    "id": 1018520255,
+    "id": 1073339463,
     "email": "steve.lastnameson@example.com",
     "accepts_marketing": false,
-    "created_at": "2015-09-02T14:52:08-04:00",
-    "updated_at": "2015-09-02T14:52:08-04:00",
+    "created_at": "2015-11-26T15:00:03-05:00",
+    "updated_at": "2015-11-26T15:00:03-05:00",
     "first_name": "Steve",
     "last_name": "Lastnameson",
     "orders_count": 0,
@@ -18,7 +18,7 @@
     "tags": "",
     "last_order_name": null,
     "default_address": {
-      "id": 1053317302,
+      "id": 1053317293,
       "first_name": "Mother",
       "last_name": "Lastnameson",
       "company": null,
@@ -37,7 +37,7 @@
     },
     "addresses": [
       {
-        "id": 1053317302,
+        "id": 1053317293,
         "first_name": "Mother",
         "last_name": "Lastnameson",
         "company": null,
