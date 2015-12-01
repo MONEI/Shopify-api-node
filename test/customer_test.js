@@ -1,154 +1,134 @@
-var helper = require("./common.js");
-helper.setObject("customer");
+var common = require('./common.js')
+  , scope = common.nock(common.test_shop)
+  , fixtures = {}
+  , resource;
 
-var Resource = helper.resource();
+common.setObject('customer');
 
-helper.nock(helper.test_shop)
-.get('/admin/customers.json')
-.reply(200, helper.load("all"), { server: 'nginx',
-status: '200 OK',
+[
+  'allResponseBody',
+  'searchResponseBody',
+  'singleResponseBody',
+  'createRequestBody',
+  'createResponseBody',
+  'updateRequestBody',
+  'updateResponseBody'
+].forEach(function (fixture) {
+  fixtures[fixture] = common.load(fixture);
 });
 
-helper.nock(helper.test_shop)
-.get('/admin/customers/count.json')
-.reply(200, "{\"count\":1}", { server: 'nginx',
-status: '200 OK'
-});
+resource = new (common.resource())(common.endpoint);
 
-helper.nock(helper.test_shop)
-.get('/admin/customers/207119551.json')
-.reply(200, helper.load("single"), { server: 'nginx',
-status: '200 OK',
-});
+describe('Customer', function () {
+  it('should get a list of all customers', function (next) {
+    var resBody = fixtures.allResponseBody;
 
-helper.nock(helper.test_shop)
-.post('/admin/customers.json', {
-  "customer": {
-    "first_name": "Steve",
-    "last_name": "Lastnameson",
-    "email": "steve.lastnameson@example.com",
-    "verified_email": true,
-    "addresses": [
-      {
-        "address1": "123 Oak St",
-        "city": "Ottawa",
-        "province": "ON",
-        "phone": "555-1212",
-        "zip": "123 ABC",
-        "last_name": "Lastnameson",
-        "first_name": "Mother",
-        "country": "CA"
-      }
-    ]
-  }
-})
-.reply(201, helper.load("create"), { server: 'nginx',
-status: '201 OK',
-});
+    scope.get('/admin/customers.json')
+      .reply(200, resBody);
 
-helper.nock(helper.test_shop)
-.put('/admin/customers/207119551.json', {
-  "customer": {
-    "id": 207119551,
-    "metafields": [
-      {
-        "key": "new",
-        "value": "newvalue",
-        "value_type": "string",
-        "namespace": "global"
-      }
-    ]
-  }
-})
-.reply(201, helper.load("update"), { server: 'nginx',
-status: '200 OK',
-});
+    resource.all(function (err, res) {
+      if (err) return next(err);
 
-
-helper.nock(helper.test_shop)
-.delete('/admin/customers/207119551.json')
-.reply(200, {}, { server: 'nginx',
-status: '200 OK',
-});
-
-describe('Customer', function() {
-  var site = helper.endpoint;
-  var resource = new Resource(site);
-
-  it('should get all customers of a shop', function(done) {
-    resource.all(function(err, res){
-      res.should.not.be.empty;
-      res[0].should.have.property('id');
-      res[0].id.should.equal(207119551);
-      done();
+      res.should.be.eql(resBody.customers);
+      next();
     });
   });
 
-  it('should get a single customer', function(done) {
-    resource.get(207119551, function(err, res){
-      res.should.be.a.Object();
-      res.id.should.equal(207119551);
-      done();
+  it('should search customers', function (next) {
+    var resBody = fixtures.searchResponseBody;
+
+    scope.get('/admin/customers/search.json?query=Bob%20country%3AUnited%20States')
+      .reply(200, resBody);
+
+    resource.search({
+      query: 'Bob country:United States'
+    }, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.customers);
+      next();
     });
   });
 
-  it('should create a customer', function(done) {
-    var _new = {
-      "first_name": "Steve",
-      "last_name": "Lastnameson",
-      "email": "steve.lastnameson@example.com",
-      "verified_email": true,
-      "addresses": [
-        {
-          "address1": "123 Oak St",
-          "city": "Ottawa",
-          "province": "ON",
-          "phone": "555-1212",
-          "zip": "123 ABC",
-          "last_name": "Lastnameson",
-          "first_name": "Mother",
-          "country": "CA"
-        }
-      ]
-    };
-    resource.create(_new, function(err, _resource){
-      _resource.should.have.property('id');
-      done();
+  it('should get a single customer by its ID', function (next) {
+    var resBody = fixtures.singleResponseBody;
+
+    scope.get('/admin/customers/207119551.json')
+      .reply(200, resBody);
+
+    resource.get(207119551, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.customer);
+      next();
     });
   });
 
+  it('should create a customer', function (next) {
+    var resBody = fixtures.createResponseBody
+      , reqBody = fixtures.createRequestBody;
 
-  it('should update a customer', function(done) {
-    var _mod = {
-      "id": 207119551,
-      "metafields": [
-        {
-          "key": "new",
-          "value": "newvalue",
-          "value_type": "string",
-          "namespace": "global"
-        }
-      ]
-    };
-    resource.update(207119551, _mod, function(err, _resource){
-      _resource.should.have.property('id');
-      done();
+    scope.post('/admin/customers.json', reqBody)
+      .reply(201, resBody);
+
+    resource.create(reqBody.customer, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.customer);
+      next();
     });
   });
 
-  it('should count customers', function(done) {
-    resource.count(function(err, count){
-      count.should.be.a.Number();
-      count.should.be.equal(1);
-      done();
+  it('should update a customer', function (next) {
+    var resBody = fixtures.updateResponseBody
+      , reqBody = fixtures.updateRequestBody;
+
+    scope.put('/admin/customers/207119551.json', reqBody)
+      .reply(200, resBody);
+
+    resource.update(207119551, reqBody.customer, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.eql(resBody.customer);
+      next();
     });
   });
 
-  it('should delete a customer', function(done) {
-    resource.delete(207119551, function(err, _resource){
-      _resource.should.be.equal(207119551);
-      done();
+  it('should create an account activation URL', function (next) {
+    var url = 'http://apple.myshopify.com/account/activate/207119551/' +
+      '2b2856679c9b5dd03984eb4db626929a-1448568012';
+
+    scope.post('/admin/customers/207119551/account_activation_url.json', {
+      customer: { id: 207119551 }
+    }).reply(201, { account_activation_url: url });
+
+    resource.createActivationUrl(207119551, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.exactly(url);
+      next();
     });
   });
 
+  it('should remove a customer', function (next) {
+    scope.delete('/admin/customers/207119551.json')
+      .reply(200, {});
+
+    resource.delete(207119551, function (err, res) {
+      if (err) return next(err);
+
+      res.should.be.exactly(207119551);
+      next();
+    });
+  });
+
+  it('should get a count of all customers', function (next) {
+    scope.get('/admin/customers/count.json')
+      .reply(200, { count: 1 });
+
+    resource.count(function (err, res) {
+      res.should.be.exactly(1);
+      next();
+    });
+  });
 });
