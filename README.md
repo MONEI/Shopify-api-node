@@ -70,7 +70,7 @@ $ npm install -d
 
 ## Contributors:
 
-* [Aakash Goel](Aakash Goel)
+* [Aakash Goel](https://github.com/aakashlpin)
 * [Alexandre Saiz Verdaguer](https://github.com/alexandresaiz/)
 * [Alua Kinzhebayeva](https://github.com/Alua-Kinzhebayeva)
 * [Carlos Villuendas Zambrana](https://github.com/carlosvillu/)
@@ -81,7 +81,6 @@ $ npm install -d
 * [Will Laurance](https://github.com/wlaurance)
 
 Supported by [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
-
 
 ## License
 
