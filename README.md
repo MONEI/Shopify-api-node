@@ -66,7 +66,7 @@ $ npm install -d
 
 ## Use a frontend framework which mimics the Shopify merchant admin:
 
-[Shopify Embedded App Frontent Framework](http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
+[Shopify Embedded App Frontend Framework](http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## Contributors:
 
