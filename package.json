@@ -16,18 +16,21 @@
     "singleton": "1.0.x"
   },
   "devDependencies": {
-    "coffee-script": "1.10.x",
-    "docco": "0.7.x",
+    "coveralls": "^2.11.6",
+    "debug": "^2.2.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-eslint": "^17.3.1",
+    "grunt-force-task": "^1.0.0",
+    "grunt-mocha-test": "^0.12.7",
+    "istanbul": "^0.4.2",
     "mocha": "2.3.x",
     "nock": "3.0.x",
-    "paige": "0.1.x",
     "pre-commit": "1.1.x",
     "should": "7.1.x"
   },
   "scripts": {
-    "compile": "coffee -o lib -c src",
-    "watch": "coffee -o lib -cw src",
-    "docs": "paige paige.config",
     "test": "mocha"
   },
   "repository": {
