@@ -10,6 +10,7 @@
     "node": ">=0.12.0"
   },
   "dependencies": {
+    "bluebird": "^3.2.1",
     "pluralize": "1.2.x",
     "qs": "5.2.x",
     "request": "2.9.x",
@@ -31,8 +32,12 @@
     "should": "7.1.x"
   },
   "scripts": {
+    "build": "node_modules/grunt-cli/bin/grunt",
     "test": "mocha"
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/microapps/Nodify-Shopify.git"
