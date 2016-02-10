@@ -33,6 +33,8 @@
   },
   "scripts": {
     "build": "node_modules/grunt-cli/bin/grunt",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha ./test/",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test": "mocha"
   },
   "pre-commit": [

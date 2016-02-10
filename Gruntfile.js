@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       },
       nodeFiles: {
         files: {
-          src: ['lib/', 'test/']
+          src: ['lib/']
         }
       }
     },
