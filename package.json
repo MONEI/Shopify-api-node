@@ -17,18 +17,16 @@
     "singleton": "1.0.x"
   },
   "devDependencies": {
-    "coveralls": "^2.11.6",
-    "debug": "^2.2.0",
-    "eslint": "^1.10.3",
-    "istanbul": "^0.4.2",
+    "eslint": "1.10.x",
+    "istanbul": "0.4.x",
     "mocha": "2.3.x",
     "nock": "3.0.x",
     "pre-commit": "1.1.x",
     "should": "7.1.x"
   },
   "scripts": {
+    "test-travis": "istanbul cover _mocha --report lcovonly",
     "coverage": "istanbul cover _mocha",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "lint": "eslint lib",
     "test": "mocha"
   },
