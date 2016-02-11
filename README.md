@@ -74,6 +74,7 @@ $ npm install -d
 * [Alua Kinzhebayeva](https://github.com/Alua-Kinzhebayeva)
 * [Carlos Villuendas Zambrana](https://github.com/carlosvillu/)
 * [Florian Traverse](https://github.com/temsa/)
+* [Ivaylo Ivanov](https://github.com/ivaylopivanov)
 * [Kenrick Beckett](https://github.com/kenrick/)
 * [Khang Hoang Trieu](https://github.com/khanghoang)
 * [Luigi Pinca](https://github.com/lpinca)
