@@ -10,7 +10,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "bluebird": "^3.2.1",
+    "bluebird": "3.2.x",
     "pluralize": "1.2.x",
     "qs": "5.2.x",
     "request": "2.9.x",
@@ -19,12 +19,7 @@
   "devDependencies": {
     "coveralls": "^2.11.6",
     "debug": "^2.2.0",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-eslint": "^17.3.1",
-    "grunt-force-task": "^1.0.0",
-    "grunt-mocha-test": "^0.12.7",
+    "eslint": "^1.10.3",
     "istanbul": "^0.4.2",
     "mocha": "2.3.x",
     "nock": "3.0.x",
@@ -32,12 +27,13 @@
     "should": "7.1.x"
   },
   "scripts": {
-    "build": "node_modules/grunt-cli/bin/grunt",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha ./test/",
+    "coverage": "istanbul cover _mocha",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "lint": "eslint lib",
     "test": "mocha"
   },
   "pre-commit": [
+    "lint",
     "test"
   ],
   "repository": {
