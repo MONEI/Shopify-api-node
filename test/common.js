@@ -1,19 +1,20 @@
-var assert = require('assert')
-  , should = require('should')
-  , nock   = require('nock')
-  , object;
-  
-var config = require('../config.js');
-
-var loadFixture = function(name) {
-	return require("./fixtures/"+ object +"/"+ name +".json");
-}
-
+'use strict';
+let object;
+let assert = require('assert');
+let should = require('should');
+let nock = require('nock');
+let config = require('../config.js');
+let loadFixture = function(name) {
+	return require('./fixtures/' +  object + '/' + name + '.json');
+};
+let shop = exports.test_shop = config.test_shop;
 exports.load = loadFixture;
-var shop = exports.test_shop = config.test_shop; 
 exports.nock = nock;
 exports.should = should;
-exports.endpoint = shop + '/admin'
-
-exports.setObject = function(name){  object = name; }
-exports.resource = function(){ return require('../lib/resources/'+ object +'.js')}
+exports.endpoint = shop + '/admin';
+exports.setObject = function(name) {
+  object = name;
+};
+exports.resource = function() {
+  return require('../lib/resources/' + object + '.js')
+};

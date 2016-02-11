@@ -1,7 +1,8 @@
-var common = require('./common.js')
-  , scope = common.nock(common.test_shop)
-  , fixtures = {}
-  , resource;
+'use strict';
+let common = require('./common.js');
+let scope = common.nock(common.test_shop);
+let fixtures = {};
+let resource;
 
 common.setObject('carrier_service');
 
@@ -18,75 +19,57 @@ common.setObject('carrier_service');
 
 resource = new (common.resource())(common.endpoint);
 
-describe('Carrier Service', function () {
-  it('should create a carrier service', function (next) {
-    var resBody = fixtures.createResponseBody
-      , reqBody = fixtures.createRequestBody;
-
-    scope.post('/admin/carrier_services.json', reqBody)
-      .reply(201, resBody);
-
-    resource.create(reqBody.carrier_service, function (err, res) {
-      if (err) return next(err);
-
-      res.should.be.eql(resBody.carrier_service);
-      next();
+describe('Carrier Service', () => {
+  it('should create a carrier service', done => {
+    let resBody = fixtures.createResponseBody;
+    let reqBody = fixtures.createRequestBody;
+    scope.post('/admin/carrier_services.json', reqBody).reply(201, resBody);
+    resource.create(reqBody.carrier_service)
+    .then(res => {
+      res.body.carrier_service.should.be.eql(resBody.carrier_service);
+      done();
     });
   });
 
-  it('should update a carrier service', function (next) {
-    var resBody = fixtures.updateResponseBody
-      , reqBody = fixtures.updateRequestBody;
-
-
+  it('should update a carrier service', done => {
+    let resBody = fixtures.updateResponseBody;
+    let reqBody = fixtures.updateRequestBody;
     scope.put('/admin/carrier_services/962683579.json', reqBody)
-      .reply(200, resBody);
-
-    resource.update(962683579, reqBody.carrier_service, function (err, res) {
-      if (err) return next(err);
-
-      res.should.be.eql(resBody.carrier_service);
-      next();
+    .reply(200, resBody);
+    resource.update(962683579, reqBody.carrier_service)
+    .then(res => {
+      res.body.carrier_service.should.be.eql(resBody.carrier_service);
+      done();
     });
   });
 
-  it('should list carrier services', function (next) {
-    var resBody = fixtures.allResponseBody;
-
-    scope.get('/admin/carrier_services.json')
-      .reply(200, resBody);
-
-    resource.all(function (err, res) {
-      if (err) return next(err);
-
-      res.should.be.eql(resBody.carrier_services);
-      next();
+  it('should list carrier services', done => {
+    let resBody = fixtures.allResponseBody;
+    scope.get('/admin/carrier_services.json').reply(200, resBody);
+    resource.all()
+    .then(res => {
+      res.body.carrier_services.should.be.eql(resBody.carrier_services);
+      done();
     });
   });
 
-  it('should get a single carrier service by its ID', function (next) {
-    var resBody = fixtures.singleResponseBody;
-
-    scope.get('/admin/carrier_services/962683576.json')
-      .reply(200, resBody);
-
-    resource.get(962683576, function (err, res) {
-      if (err) return next(err);
-
-      res.should.be.eql(resBody.carrier_service);
-      next();
+  it('should get a single carrier service by its ID', done => {
+    let resBody = fixtures.singleResponseBody;
+    scope.get('/admin/carrier_services/962683576.json').reply(200, resBody);
+    resource.get(962683576)
+    .then(res => {
+      res.body.carrier_service.should.be.eql(resBody.carrier_service);
+      done();
     });
   });
 
-  it('should destroy a carrier service', function (next) {
-    scope.delete('/admin/carrier_services/962683575.json')
-      .reply(200, {});
-
-    resource.delete(962683575, function (err, res) {
-      if (err) return next(err);
-
-      res.should.be.exactly(962683575);
-      next();
+  it('should destroy a carrier service', done => {
+    scope.delete('/admin/carrier_services/962683575.json').reply(200, {});
+    resource.delete(962683575)
+    .then(res => {
+      res.statusCode.should.eql(200);
+      done();
     });
   });
+
 });
