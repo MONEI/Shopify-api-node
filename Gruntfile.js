@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
       grunt: {
-        files: ['lib/*', 'test/*'],
+        files: ['lib/**/**', 'test/*'],
         tasks: 'default'
       }
     },

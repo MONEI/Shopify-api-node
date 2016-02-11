@@ -16,10 +16,9 @@ It also handles authentication (using [the new OAuth2 API](http://www.shopify.co
 var nodify = require('nodify-shopify');
 var session = nodify.createPrivateAppSession('your-shop-name', 'your-api-key', 'your-password');
 
-session.orders.all({ limit: 5 }, function (err, orders) {
-  if (err) throw err;
-
-  console.log(orders);
+session.orders.all({ limit: 5 })
+.then(res => {
+  console.log(res.body);
 });
 ```
 
@@ -29,10 +28,9 @@ session.orders.all({ limit: 5 }, function (err, orders) {
 var nodify = require('nodify-shopify');
 var session = nodify.createSession(shopName, apiKey, secret, persistentOauth2Token);
 
-session.order.all({ limit: 5 }, function (err, orders) {
-  if (err) throw err;
-
-  console.log(orders);
+session.order.all({ limit: 5 })
+.then(res => {
+  console.log(res.body);
 });
 ```
 
