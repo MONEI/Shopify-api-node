@@ -2,6 +2,7 @@
 
 [![Version npm](https://img.shields.io/npm/v/nodify-shopify.svg)](https://www.npmjs.com/package/nodify-shopify)
 [![Build Status](https://img.shields.io/travis/microapps/Nodify-Shopify/master.svg)](https://travis-ci.org/microapps/Nodify-Shopify)
+[![Coverage Status](https://img.shields.io/coveralls/microapps/Nodify-Shopify/master.svg)](https://coveralls.io/github/microapps/Nodify-Shopify)
 
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
