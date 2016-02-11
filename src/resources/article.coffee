@@ -9,8 +9,7 @@ class Article extends BaseChild
   constructor: (site) ->
     super(site)
 
-  authors: (params, callback) ->
-    [params, callback] = [callback, params] if typeof params is 'function'
+  authors: (callback) ->
     url = @resource.queryString "/articles/authors"
     @resource.get url, @slug, callback
 
