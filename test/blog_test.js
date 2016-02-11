@@ -1,95 +1,100 @@
-var helper = require("./common.js");
-helper.setObject("blog");
+var common = require('./common.js'),
+  scope = common.nock(common.test_shop),
+  fixtures = {},
+  resource;
 
-var Resource = helper.resource();
+common.setObject('blog');
 
-
-helper.nock(helper.test_shop)
-  .get('/admin/blogs.json')
-  .reply(200, helper.load("blogs"), { server: 'nginx',
-  	 status: '200 OK',
+[
+  'allResponseBody',
+  'singleResponseBody',
+  'createRequestBody',
+  'createResponseBody',
+  'updateRequestBody',
+  'updateResponseBody'
+].forEach(function(fixture) {
+  fixtures[fixture] = common.load(fixture);
 });
 
+resource = new(common.resource())(common.endpoint);
 
-helper.nock(helper.test_shop)
-  .get('/admin/blogs/450789469.json')
-  .reply(200, helper.load("blog"), { server: 'nginx',
-  	 status: '200 OK',
-});
+describe('blog', function() {
 
-helper.nock(helper.test_shop)
-  .post('/admin/blogs.json', {"blog":{"title":"New Blog"}})
-  .reply(201, helper.load("create"), { server: 'nginx',
-  	 status: '200 OK',
-});
+  it('should get all blogs', function(done) {
+    var resBody = fixtures.allResponseBody;
 
-helper.nock(helper.test_shop)
-  .put('/admin/blogs/450789469.json', {"blog":{"title":"New Blog Modded"}})
-  .reply(201, helper.load("update"), { server: 'nginx',
-  	 status: '200 OK',
-});
+    scope.get('/admin/blogs.json')
+      .reply(200, resBody);
 
+    resource.all(function(err, res) {
+      if (err) return done(err);
 
-helper.nock(helper.test_shop)
-  .delete('/admin/blogs/450789469.json')
-  .reply(201, {}, { server: 'nginx',
-  	 status: '200 OK',
-});
-
-describe('Blog', function() {
-	var site = helper.endpoint;
-	var resource = new Resource(site);
-
-	it('should get all blogs', function(done) {
-		resource.all(function(err, res){
-		  res.should.not.be.empty;
-		  res[0].should.have.property('id');
-		  done();
-		});
-
-	});
+      res.should.be.eql(resBody.blogs);
+      done();
+    });
+  });
 
 
-	it('should get blog', function(done) {
-	    resource.get("450789469", function(err, res){
-	      res.should.be.a.Object();
-	      done();
-	    });
- 	});
+  it('should get a blog', function(done) {
+    var resBody = fixtures.singleResponseBody;
+
+    scope.get('/admin/blogs/450789469.json')
+      .reply(200, resBody);
+
+    resource.get(450789469, function(err, res) {
+      if (err) return done(err);
+
+      res.should.be.eql(resBody.blog);
+      done();
+    });
+
+  });
 
 
- 	it('should create a new blog', function(done) {
-	    var _new = {
-	      "title": "New Blog"
-	  	};
+  it('should create a new blog', function(done) {
 
-	    resource.create(_new, function(err, _resource){
-	      _resource.should.have.property('id');
-	      done();
-	    });
+    var resBody = fixtures.createResponseBody,
+      reqBody = fixtures.createRequestBody;
 
- 	 });
+    scope.post('/admin/blogs.json', reqBody)
+      .reply(201, resBody);
 
+    resource.create(reqBody.blog, function(err, res) {
+      if (err) return done(err);
 
- 	it('should update a blog', function(done) {
-	    var _mod = {
-	      "title": "New Blog Modded"
-	  	};
+      res.should.be.eql(resBody.blog);
+      done();
+    });
 
-	    resource.update("450789469" , _mod, function(err, _resource){
-	      _resource.should.have.property('id');
-	      done();
-	    });
+  });
 
- 	 });
+  it('should update a blog', function(done) {
 
- 	it('should delete a blog', function(done) {
+    var resBody = fixtures.updateResponseBody,
+      reqBody = fixtures.updateRequestBody;
 
-	    resource.delete("450789469" , function(err, _resource){
-	      _resource.should.be.equal("450789469");
-	      done();
-	    });
+    scope.put('/admin/blogs/450789469.json', reqBody)
+      .reply(200, resBody);
 
- 	 });
+    resource.update(450789469, reqBody.blog, function(err, res) {
+      if (err) return done(err);
+
+      res.should.be.eql(resBody.blog);
+      done();
+    });
+  });
+
+  it('should delete a blog', function(done) {
+    scope.delete('/admin/blogs/450789469.json')
+      .reply(200, {});
+
+    resource.delete(450789469, function(err, res) {
+      if (err) return done(err);
+
+      res.should.be.exactly(450789469);
+      done();
+    });
+
+  });
 
 });
