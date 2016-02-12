@@ -35,7 +35,7 @@ class Resource extends singleton
 
       if method is 'DELETE'
         body = slug
-      else if slug and slug isnt 'oauth'
+      else if slug and slug isnt 'oauth' and typeof body is 'object'
         body = body[if typeof slug is 'object' then slug.long else slug]
 
       process.nextTick -> callback err, body
