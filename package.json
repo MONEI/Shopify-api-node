@@ -13,8 +13,7 @@
     "bluebird": "3.2.x",
     "pluralize": "1.2.x",
     "qs": "5.2.x",
-    "request": "2.9.x",
-    "singleton": "1.0.x"
+    "request": "2.9.x"
   },
   "devDependencies": {
     "eslint": "1.10.x",
