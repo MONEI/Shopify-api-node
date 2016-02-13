@@ -16,7 +16,7 @@
     "request": "2.9.x"
   },
   "devDependencies": {
-    "eslint": "1.10.x",
+    "eslint": "2.0.x",
     "istanbul": "0.4.x",
     "mocha": "2.3.x",
     "nock": "3.0.x",
