@@ -78,6 +78,8 @@ $ npm install -d
 * [Kenrick Beckett](https://github.com/kenrick/)
 * [Khang Hoang Trieu](https://github.com/khanghoang)
 * [Luigi Pinca](https://github.com/lpinca)
+* [Mark Peterson](https://github.com/markpete)
+* [Paulo Luan](https://github.com/PauloLuan)
 * [Will Laurance](https://github.com/wlaurance)
 
 Supported by [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
