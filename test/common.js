@@ -1,20 +1,24 @@
 'use strict';
-let object;
-let assert = require('assert');
-let should = require('should');
-let nock = require('nock');
-let config = require('../config.js');
-let loadFixture = function(name) {
-	return require('./fixtures/' +  object + '/' + name + '.json');
-};
-let shop = exports.test_shop = config.test_shop;
-exports.load = loadFixture;
-exports.nock = nock;
-exports.should = should;
-exports.endpoint = shop + '/admin';
-exports.setObject = function(name) {
-  object = name;
-};
-exports.resource = function() {
-  return require('../lib/resources/' + object + '.js')
+
+const nock = require('nock');
+
+const accessToken = 'f85632530bf277ec9ac6f649fc327f17';
+const password = '72297d971271bc62ca899bba7432acb1';
+const apiKey = 'bc731e500840231da5b43bb3f388d2f0';
+const shopName ='johns-apparel';
+
+const scope = nock(`https://${shopName}.myshopify.com`, {
+  reqheaders: {
+    'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+    'X-Shopify-Access-Token': accessToken,
+    'Accept': 'application/json'
+  }
+});
+
+module.exports = {
+  accessToken,
+  password,
+  shopName,
+  apiKey,
+  scope
 };

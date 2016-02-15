@@ -1,9 +1,0 @@
-{
-  "carrier_service": {
-    "id": 962683579,
-    "name": "Some new name",
-    "active": false,
-    "service_discovery": true,
-    "carrier_service_type": "api"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "carrier_service": {
-    "name": "Shipping Rate Provider",
-    "callback_url": "http://shippingrateprovider.com",
-    "format": "json",
-    "service_discovery": true
-  }
-}

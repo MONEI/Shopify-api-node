@@ -2,7 +2,7 @@
   "name": "nodify-shopify",
   "version": "0.2.1",
   "description": "Shopify API client",
-  "main": "lib/main.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
@@ -10,24 +10,23 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "bluebird": "3.2.x",
+    "got": "6.1.x",
     "pluralize": "1.2.x",
-    "qs": "5.2.x",
-    "request": "2.9.x"
+    "qs": "6.1.x"
   },
   "devDependencies": {
+    "chai": "3.5.x",
     "eslint": "2.0.x",
     "istanbul": "0.4.x",
-    "mocha": "2.3.x",
-    "nock": "3.0.x",
-    "pre-commit": "1.1.x",
-    "should": "7.1.x"
+    "mocha": "2.4.x",
+    "nock": "7.0.x",
+    "pre-commit": "1.1.x"
   },
   "scripts": {
     "test-travis": "istanbul cover _mocha --report lcovonly",
     "coverage": "istanbul cover _mocha",
     "lint": "eslint lib",
-    "test": "mocha"
+    "test": "mocha -b"
   },
   "pre-commit": [
     "lint",

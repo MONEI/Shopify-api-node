@@ -1,8 +1,0 @@
-{
-  "gift_card": {
-    "note": "This is a note",
-    "initial_value": 100.0,
-    "code": "ABCD EFGH IJKL MNOP",
-    "template_suffix": "gift_cards.birthday.liquid"
-  }
-}
