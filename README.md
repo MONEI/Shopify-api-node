@@ -2,6 +2,8 @@
 
 [![Version npm](https://img.shields.io/npm/v/nodify-shopify.svg)](https://www.npmjs.com/package/nodify-shopify)
 [![Build Status](https://img.shields.io/travis/microapps/Nodify-Shopify/master.svg)](https://travis-ci.org/microapps/Nodify-Shopify)
+[![bitHound Score](https://www.bithound.io/github/microapps/Nodify-Shopify/badges/score.svg)](https://www.bithound.io/github/microapps/Nodify-Shopify/)
+[![Dependency Status](https://david-dm.org/microapps/Nodify-Shopify.svg "Dependencies Checked & Updated Regularly (Security is Important!)")](https://david-dm.org/microapps/Nodify-Shopify)
 
 Node connector for the Shopify API. Talk to Shopify API speaking node!
 
