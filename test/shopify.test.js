@@ -146,7 +146,7 @@ describe('Shopify', () => {
       return shopify.request(url, 'GET');
     });
 
-    it('allows to specify the request body', () => {
+    it('builds the request body as intended (1/2)', () => {
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
           'User-Agent': `Node.js/${process.version.replace('v', '')}`,
@@ -162,6 +162,22 @@ describe('Shopify', () => {
       .reply(201, {});
 
       return shopify.request(url, 'POST', 'foo', { bar: 'baz' });
+    });
+
+    it('builds the request body as intended (2/2)', () => {
+      nock(`https://${shopName}.myshopify.com`, {
+        reqheaders: {
+          'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+          'X-Shopify-Access-Token': accessToken,
+          'Accept': 'application/json',
+          'Content-Length': (val) => val > 0,
+          'Content-Type': 'application/json'
+        }
+      })
+      .post('/test', { bar: 'baz' })
+      .reply(201, {});
+
+      return shopify.request(url, 'POST', undefined, { bar: 'baz' });
     });
 
     it('returns the subtree with root node at key', () => {

@@ -56,14 +56,16 @@ Shopify.prototype.request = function request(url, method, key, params) {
   if (this.token) options.headers['X-Shopify-Access-Token'] = this.token;
 
   if (params) {
+    const body = key ? { [key]: params } : params;
+
     options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify({ [key]: params });
+    options.body = JSON.stringify(body);
   }
 
   return got(options).then(res => {
     const body = res.body;
 
-    if (key && typeof body === 'object') return body[key];
+    if (key) return body[key];
     return body;
   });
 };
