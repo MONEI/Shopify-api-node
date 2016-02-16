@@ -5,9 +5,8 @@ describe('Shopify#blog', () => {
 
   const fixtures = require('./fixtures/blog');
   const common = require('./common');
-  const Shopify = require('..');
 
-  const shopify = new Shopify(common.shopName, common.accessToken);
+  const shopify = common.shopify;
   const scope = common.scope;
 
   it('gets a list of all blogs (1/2)', () => {

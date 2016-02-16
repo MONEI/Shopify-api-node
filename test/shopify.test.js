@@ -12,6 +12,7 @@ describe('Shopify', () => {
   const accessToken = common.accessToken;
   const shopName = common.shopName;
   const password = common.password;
+  const shopify = common.shopify;
   const apiKey = common.apiKey;
   const scope = common.scope;
 
@@ -60,7 +61,7 @@ describe('Shopify', () => {
   });
 
   it('instantiates the resources lazily', () => {
-    const shopify = Shopify(shopName, accessToken);
+    const shopify = new Shopify(shopName, accessToken);
 
     expect(shopify.hasOwnProperty('blog')).to.be.false;
 
@@ -72,7 +73,7 @@ describe('Shopify', () => {
   });
 
   it('allows to manually instantiate a resource', () => {
-    const shopify = Shopify(shopName, accessToken);
+    const shopify = new Shopify(shopName, accessToken);
     const blog = new Blog(shopify);
 
     expect(shopify.hasOwnProperty('blog')).to.be.false;
@@ -84,7 +85,6 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#request', () => {
-    const shopify = Shopify(shopName, accessToken);
     const url = Object.assign({ path: '/test' }, shopify.baseUrl);
 
     it('returns a RequestError when the request fails', () => {
@@ -129,7 +129,7 @@ describe('Shopify', () => {
     });
 
     it('uses basic auth as intended', () => {
-      const shopify = Shopify(shopName, apiKey, password);
+      const shopify = new Shopify(shopName, apiKey, password);
       const url = Object.assign({ path: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
