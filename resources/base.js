@@ -33,12 +33,13 @@ class Base {
   /**
    * Counts the number of records.
    *
+   * @param {Object} [params] Query parameters
    * @return {Promise} Promise that resolves with the result
    * @public
    */
-  count() {
+  count(params) {
     const key = 'count';
-    return this.shopify.request(this.buildUrl(key), 'GET', key);
+    return this.shopify.request(this.buildUrl(key, params), 'GET', key);
   }
 
   /**
