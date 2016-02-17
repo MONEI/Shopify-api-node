@@ -3,6 +3,7 @@
 const got = require('got');
 
 const resources = require('./resources');
+const pkg = require('./package');
 
 /**
  * Creates a Shopify instance.
@@ -47,7 +48,7 @@ function Shopify(shop, key, password) {
  */
 Shopify.prototype.request = function request(url, method, key, params) {
   const options = Object.assign({
-    headers: { 'User-Agent': `Node.js/${process.version.replace('v', '')}` },
+    headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
     json: true,
     retries: 0,
     method

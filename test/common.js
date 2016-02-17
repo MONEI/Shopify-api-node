@@ -2,6 +2,7 @@
 
 const nock = require('nock');
 
+const pkg = require('../package');
 const Shopify = require('..');
 
 const accessToken = 'f85632530bf277ec9ac6f649fc327f17';
@@ -13,7 +14,7 @@ const shopify = new Shopify(shopName, accessToken);
 
 const scope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {
-    'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+    'User-Agent': `${pkg.name}/${pkg.version}`,
     'X-Shopify-Access-Token': accessToken,
     'Accept': 'application/json'
   }

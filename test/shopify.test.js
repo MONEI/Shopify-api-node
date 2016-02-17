@@ -7,6 +7,7 @@ describe('Shopify', () => {
 
   const Blog = require('../resources').Blog;
   const common = require('./common');
+  const pkg = require('../package');
   const Shopify = require('..');
 
   const accessToken = common.accessToken;
@@ -134,7 +135,7 @@ describe('Shopify', () => {
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
-          'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+          'User-Agent': `${pkg.name}/${pkg.version}`,
           'Accept': 'application/json'
         },
         badheaders: ['X-Shopify-Access-Token']
@@ -149,7 +150,7 @@ describe('Shopify', () => {
     it('builds the request body as intended (1/2)', () => {
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
-          'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+          'User-Agent': `${pkg.name}/${pkg.version}`,
           'X-Shopify-Access-Token': accessToken,
           'Accept': 'application/json',
           'Content-Length': (val) => val > 0,
@@ -167,7 +168,7 @@ describe('Shopify', () => {
     it('builds the request body as intended (2/2)', () => {
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
-          'User-Agent': `Node.js/${process.version.replace('v', '')}`,
+          'User-Agent': `${pkg.name}/${pkg.version}`,
           'X-Shopify-Access-Token': accessToken,
           'Accept': 'application/json',
           'Content-Length': (val) => val > 0,
