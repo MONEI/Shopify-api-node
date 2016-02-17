@@ -26,7 +26,7 @@ class Base {
    * @public
    */
   all(params) {
-    const url = this.buildURL(undefined, params);
+    const url = this.buildUrl(undefined, params);
     return this.shopify.request(url, 'GET', pluralize(this.key));
   }
 
@@ -38,7 +38,7 @@ class Base {
    */
   count() {
     const key = 'count';
-    return this.shopify.request(this.buildURL(key), 'GET', key);
+    return this.shopify.request(this.buildUrl(key), 'GET', key);
   }
 
   /**
@@ -50,7 +50,7 @@ class Base {
    * @public
    */
   get(id, params) {
-    return this.shopify.request(this.buildURL(id, params), 'GET', this.key);
+    return this.shopify.request(this.buildUrl(id, params), 'GET', this.key);
   }
 
   /**
@@ -61,7 +61,7 @@ class Base {
    * @public
    */
   create(params) {
-    return this.shopify.request(this.buildURL(), 'POST', this.key, params);
+    return this.shopify.request(this.buildUrl(), 'POST', this.key, params);
   }
 
   /**
@@ -73,7 +73,7 @@ class Base {
    * @public
    */
   update(id, params) {
-    return this.shopify.request(this.buildURL(id), 'PUT', this.key, params);
+    return this.shopify.request(this.buildUrl(id), 'PUT', this.key, params);
   }
 
   /**
@@ -84,7 +84,7 @@ class Base {
    * @public
    */
   delete(id) {
-    return this.shopify.request(this.buildURL(id), 'DELETE');
+    return this.shopify.request(this.buildUrl(id), 'DELETE');
   }
 
   /**
@@ -92,10 +92,10 @@ class Base {
    *
    * @param {Number|String} [id] Record ID
    * @param {Object} [query] Query parameters
-   * @returns {Object} URL object
+   * @return {Object} URL object
    * @private
    */
-  buildURL(id, query) {
+  buildUrl(id, query) {
     id || id === 0 || (id = '');
 
     let path = `/admin/${this.name}/${id}`

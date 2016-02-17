@@ -31,7 +31,7 @@ class ApplicationCharge extends Base {
    * @public
    */
   activate(id, params) {
-    const url = this.buildURL(`${id}/activate`);
+    const url = this.buildUrl(`${id}/activate`);
     return this.shopify.request(url, 'POST', undefined, {
       [this.key]: params
     });
