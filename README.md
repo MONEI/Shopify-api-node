@@ -4,40 +4,7 @@
 [![Build Status](https://img.shields.io/travis/microapps/Nodify-Shopify/master.svg)](https://travis-ci.org/microapps/Nodify-Shopify)
 [![Coverage Status](https://img.shields.io/coveralls/microapps/Nodify-Shopify/master.svg)](https://coveralls.io/github/microapps/Nodify-Shopify)
 
-Node connector for the Shopify API. Talk to Shopify API speaking node!
-
-Use Nodify-Shopify to grab all Shopify API resources.
-It also handles authentication (using [the new OAuth2 API](http://www.shopify.com/technology/5922341-sound-the-trumpets-oauth2-has-arrived?ref=microapps)) and billing.
-
-## Usage:
-
-#### Private app
-
-```js
-var nodify = require('nodify-shopify');
-var session = nodify.createPrivateAppSession('your-shop-name', 'your-api-key', 'your-password');
-
-session.orders.all({ limit: 5 })
-.then(res => {
-  console.log(res.body);
-});
-```
-
-#### Public app
-
-```js
-var nodify = require('nodify-shopify');
-var session = nodify.createSession(shopName, apiKey, secret, persistentOauth2Token);
-
-session.order.all({ limit: 5 })
-.then(res => {
-  console.log(res.body);
-});
-```
-
-You also have a Demo app to get the ball rolling, called [Nodify-App](https://github.com/microapps/Nodify-App).
-Check that out to get a better understanding of how this module works, notably in case you want to dynamically
-retrieve the OAuth2 token, or check the tests.
+Shopify API bindings for Node.js.
 
 ## Installation:
 
@@ -45,15 +12,70 @@ retrieve the OAuth2 token, or check the tests.
 $ npm install nodify-shopify
 ```
 
-## Dependencies:
+## Usage:
 
-[request](https://www.npmjs.org/package/request)
+This module exports a constructor function which takes three or two arguments
+depending if you want to use it for private or public apps.
 
-Install dependencies:
+### Private apps
 
-```shell
-$ npm install -d
+For [private](https://docs.shopify.com/api/authentication/creating-a-private-app)
+apps use three arguments:
+
+```js
+const Shopify = require('nodify-shopify');
+
+const shopify = new Shopify(shopName, apiKey, password);
 ```
+
+### Public apps
+
+For public apps use two arguments:
+
+```js
+const Shopify = require('nodify-shopify');
+
+const shopify = new Shopify(shopName, token);
+```
+
+where `token` is a persistent [OAuth 2.0](https://docs.shopify.com/api/authentication/oauth)
+token.
+
+### Resources
+
+Every resource is accessed via your `shopify` instance:
+
+```js
+const shopify = new Shopify(shopName, token);
+
+// shopify.<resouce_name>.<method_name>
+```
+
+Each method returns a `Promise` that resolves with the result:
+
+```js
+shopify.order.all({ limit: 5 })
+  .then(orders => console.log(orders))
+  .catch(err => console.error(err));
+```
+
+### Available resources and methods
+
+- applicationCharge
+  - `activate(id, params)`
+  - `all([params])`
+  - `create(params)`
+  - `get(id, [params])`
+- blog
+  - `all([params])`
+  - `count()`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id, [params])`
+  - `update(id, params)`
+
+where `params` is a plain JavaScript object. See https://docs.shopify.com/api
+for parameters details.
 
 ## Become a master of the Shopify ecosystem by:
 
