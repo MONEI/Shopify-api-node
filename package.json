@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "chai": "3.5.x",
-    "eslint": "2.0.x",
+    "eslint": "2.1.x",
     "istanbul": "0.4.x",
     "mocha": "2.4.x",
-    "nock": "7.0.x",
+    "nock": "7.2.x",
     "pre-commit": "1.1.x"
   },
   "scripts": {
