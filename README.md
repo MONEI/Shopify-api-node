@@ -66,6 +66,14 @@ shopify.order.all({ limit: 5 })
   - `all([params])`
   - `create(params)`
   - `get(id, [params])`
+- article
+  - `all(blogId, [params])`
+  - `authors()`
+  - `count(blogId, [params])`
+  - `create(blogId, params)`
+  - `get(blogId, id, [params])`
+  - `tags([blogId][, params])`
+  - `update(blogId, id, params)`
 - blog
   - `all([params])`
   - `count()`

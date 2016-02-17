@@ -1,0 +1,12 @@
+{
+  "article": {
+    "title": "My new Article title",
+    "author": "John Smith",
+    "tags": "This Post, Has Been Tagged",
+    "body_html": "<h1>I like articles</h1>\n<p><strong>Yea</strong>, I like posting them through <span class=\"caps\">REST</span>.</p>",
+    "published_at": "Thu Mar 24 15:45:47 UTC 2011",
+    "image": {
+      "src": "http://example.com/rails_logo.gif"
+    }
+  }
+}
