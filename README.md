@@ -96,6 +96,12 @@ shopify.order.all({ limit: 5 })
 - checkout
   - `all([params])`
   - `count([params])`
+- collect
+  - `all([params])`
+  - `count([params])`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
