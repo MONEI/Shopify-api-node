@@ -23,9 +23,9 @@
     "pre-commit": "1.1.x"
   },
   "scripts": {
-    "test-travis": "istanbul cover _mocha --report lcovonly",
+    "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
     "coverage": "istanbul cover _mocha",
-    "lint": "eslint lib",
+    "lint": "eslint resources test",
     "test": "mocha -b"
   },
   "pre-commit": [
