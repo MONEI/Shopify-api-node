@@ -54,7 +54,7 @@ const shopify = new Shopify(shopName, token);
 Each method returns a `Promise` that resolves with the result:
 
 ```js
-shopify.order.all({ limit: 5 })
+shopify.order.list({ limit: 5 })
   .then(orders => console.log(orders))
   .catch(err => console.error(err));
 ```
@@ -63,51 +63,51 @@ shopify.order.all({ limit: 5 })
 
 - applicationCharge
   - `activate(id, params)`
-  - `all([params])`
   - `create(params)`
   - `get(id[, params])`
+  - `list([params])`
 - article
-  - `all(blogId[, params])`
   - `authors()`
   - `count(blogId[, params])`
   - `create(blogId, params)`
   - `get(blogId, id[, params])`
+  - `list(blogId[, params])`
   - `tags([blogId][, params])`
   - `update(blogId, id, params)`
 - asset
-  - `all(themeId[, params])`
   - `create(themeId, params)`
   - `delete(themeId, params)`
   - `get(themeId, params)`
+  - `list(themeId[, params])`
   - `update(themeId, params)`
 - blog
-  - `all([params])`
   - `count()`
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`
+  - `list([params])`
   - `update(id, params)`
 - carrierService
-  - `all()`
   - `create(params)`
   - `delete(id)`
   - `get(id)`
+  - `list()`
   - `update(id, params)`
 - checkout
-  - `all([params])`
   - `count([params])`
+  - `list([params])`
 - collect
-  - `all([params])`
   - `count([params])`
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`
+  - `list([params])`
 - comment
-  - `all([params])`
   - `approve(id)`
   - `count([params])`
   - `create(params)`
   - `get(id[, params])`
+  - `list([params])`
   - `notSpam(id)`
   - `remove(id)`
   - `restore(id)`

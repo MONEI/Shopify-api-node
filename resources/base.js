@@ -19,13 +19,13 @@ class Base {
   }
 
   /**
-   * Gets all records.
+   * Gets a list of records.
    *
    * @param {Object} params Query parameters
    * @return {Promise} Promise that resolves with the result
    * @public
    */
-  all(params) {
+  list(params) {
     const url = this.buildUrl(undefined, params);
     return this.shopify.request(url, 'GET', pluralize(this.key));
   }

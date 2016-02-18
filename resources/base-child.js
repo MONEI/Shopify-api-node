@@ -19,14 +19,14 @@ class BaseChild {
   }
 
   /**
-   * Get all records.
+   * Get a list of records.
    *
    * @param {Number} parentId Parent record ID
    * @param {Object} [params] Query parameters
    * @return {Promise} Promise that resolves with the result
    * @public
    */
-  all(parentId, params) {
+  list(parentId, params) {
     const url = this.buildUrl(parentId, undefined, params);
     return this.shopify.request(url, 'GET', pluralize(this.key));
   }

@@ -10,24 +10,24 @@ describe('Shopify#comment', () => {
   const scope = common.scope;
 
   it('gets a list of all comments (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/comments.json')
       .reply(200, output);
 
-    return shopify.comment.all()
+    return shopify.comment.list()
       .then(data => expect(data).to.deep.equal(output.comments));
   });
 
   it('gets a list of all comments (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/comments.json?blog_id=241253187')
       .reply(200, output);
 
-    return shopify.comment.all({ blog_id: 241253187 })
+    return shopify.comment.list({ blog_id: 241253187 })
       .then(data => expect(data).to.deep.equal(output.comments));
   });
 
@@ -50,7 +50,7 @@ describe('Shopify#comment', () => {
   });
 
   it('gets a single comment by its ID (1/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/comments/118373535.json')
@@ -61,7 +61,7 @@ describe('Shopify#comment', () => {
   });
 
   it('gets a single comment by its ID (2/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/comments/118373535.json?foo=bar')

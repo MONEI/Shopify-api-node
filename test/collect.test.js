@@ -31,24 +31,24 @@ describe('Shopify#collect', () => {
   });
 
   it('gets a list of all collects (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/collects.json')
       .reply(200, output);
 
-    return shopify.collect.all()
+    return shopify.collect.list()
       .then(data => expect(data).to.deep.equal(output.collects));
   });
 
   it('gets a list of all collects (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/collects.json?page=1')
       .reply(200, output);
 
-    return shopify.collect.all({ page: 1 })
+    return shopify.collect.list({ page: 1 })
       .then(data => expect(data).to.deep.equal(output.collects));
   });
 
@@ -71,7 +71,7 @@ describe('Shopify#collect', () => {
   });
 
   it('gets a single collect by its ID (1/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/collects/841564295.json')
@@ -82,7 +82,7 @@ describe('Shopify#collect', () => {
   });
 
   it('gets a single collect by its ID (2/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/collects/841564295.json?foo=bar')

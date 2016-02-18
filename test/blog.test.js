@@ -10,24 +10,24 @@ describe('Shopify#blog', () => {
   const scope = common.scope;
 
   it('gets a list of all blogs (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/blogs.json')
       .reply(200, output);
 
-    return shopify.blog.all()
+    return shopify.blog.list()
       .then(data => expect(data).to.deep.equal(output.blogs));
   });
 
   it('gets a list of all blogs (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/blogs.json?since_id=241253186')
       .reply(200, output);
 
-    return shopify.blog.all({ since_id: 241253186 })
+    return shopify.blog.list({ since_id: 241253186 })
       .then(data => expect(data).to.deep.equal(output.blogs));
   });
 
@@ -43,7 +43,7 @@ describe('Shopify#blog', () => {
   });
 
   it('gets a single blog by its ID (1/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/blogs/241253187.json')
@@ -54,7 +54,7 @@ describe('Shopify#blog', () => {
   });
 
   it('gets a single blog by its ID (2/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/blogs/241253187.json?foo=bar')

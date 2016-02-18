@@ -34,18 +34,18 @@ describe('Shopify#carrierService', () => {
   });
 
   it('gets a list of all carrier services', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/carrier_services.json')
       .reply(200, output);
 
-    return shopify.carrierService.all()
+    return shopify.carrierService.list()
       .then(data => expect(data).to.deep.equal(output.carrier_services));
   });
 
   it('gets a single carrier service by its ID', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/carrier_services/962683576.json')

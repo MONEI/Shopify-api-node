@@ -11,29 +11,29 @@ describe('Shopify#asset', () => {
   const scope = common.scope;
 
   it('gets a list of all theme assets (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/themes/828155753/assets.json')
       .reply(200, output);
 
-    return shopify.asset.all(828155753)
+    return shopify.asset.list(828155753)
       .then(data => expect(data).to.deep.equal(output.assets));
   });
 
   it('gets a list of all theme assets (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/themes/828155753/assets.json?foo=bar')
       .reply(200, output);
 
-    return shopify.asset.all(828155753, { foo: 'bar' })
+    return shopify.asset.list(828155753, { foo: 'bar' })
       .then(data => expect(data).to.deep.equal(output.assets));
   });
 
   it('gets a single asset', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
     const query = {
       asset: { key: 'templates/index.liquid' },
       theme_id: 828155753

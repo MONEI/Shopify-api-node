@@ -1,3 +1,3 @@
 'use strict';
 
-exports.all = require('./all');
+exports.list = require('./list');

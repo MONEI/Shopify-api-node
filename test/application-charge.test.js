@@ -22,7 +22,7 @@ describe('Shopify#applicationCharge', () => {
   });
 
   it('retrieves a single one-time application charge by its ID (1/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/application_charges/675931192.json')
@@ -33,7 +33,7 @@ describe('Shopify#applicationCharge', () => {
   });
 
   it('retrieves a single one-time application charge by its ID (2/2)', () => {
-    const output = fixtures.res.single;
+    const output = fixtures.res.get;
 
     scope
       .get('/admin/application_charges/675931192.json?foo=bar')
@@ -44,24 +44,24 @@ describe('Shopify#applicationCharge', () => {
   });
 
   it('retrieves all one-time application charges (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/application_charges.json')
       .reply(200, output);
 
-    return shopify.applicationCharge.all()
+    return shopify.applicationCharge.list()
       .then(data => expect(data).to.deep.equal(output.application_charges));
   });
 
   it('retrieves all one-time application charges (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/application_charges.json?since_id=556467233')
       .reply(200, output);
 
-    return shopify.applicationCharge.all({ since_id: 556467233 })
+    return shopify.applicationCharge.list({ since_id: 556467233 })
       .then(data => expect(data).to.deep.equal(output.application_charges));
   });
 

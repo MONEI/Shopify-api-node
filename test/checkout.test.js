@@ -28,24 +28,24 @@ describe('Shopify#checkout', () => {
   });
 
   it('gets a list of all checkout (1/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/checkouts.json')
       .reply(200, output);
 
-    return shopify.checkout.all()
+    return shopify.checkout.list()
       .then(data => expect(data).to.deep.equal(output.checkouts));
   });
 
   it('gets a list of all checkout (2/2)', () => {
-    const output = fixtures.res.all;
+    const output = fixtures.res.list;
 
     scope
       .get('/admin/checkouts.json?foo=bar')
       .reply(200, output);
 
-    return shopify.checkout.all({ foo: 'bar' })
+    return shopify.checkout.list({ foo: 'bar' })
       .then(data => expect(data).to.deep.equal(output.checkouts));
   });
 });
