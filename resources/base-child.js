@@ -91,11 +91,12 @@ class BaseChild {
    *
    * @param {Number} parentId Parent record ID
    * @param {Number} id Record ID
+   * @param {Object} [params] Query parameters
    * @return {Promise} Promise that resolves with the result
    * @public
    */
-  delete(parentId, id) {
-    return this.shopify.request(this.buildUrl(parentId, id), 'DELETE');
+  delete(parentId, id, params) {
+    return this.shopify.request(this.buildUrl(parentId, id, params), 'DELETE');
   }
 
   /**
