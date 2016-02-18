@@ -19,7 +19,7 @@ depending if you want to use it for private or public apps.
 
 ### Private apps
 
-For [private](https://docs.shopify.com/api/authentication/creating-a-private-app)
+For [private](https://docs.shopify.com/api/guides/introduction/creating-a-private-app)
 apps use three arguments:
 
 ```js
@@ -38,7 +38,7 @@ const Shopify = require('nodify-shopify');
 const shopify = new Shopify(shopName, token);
 ```
 
-where `token` is a persistent [OAuth 2.0](https://docs.shopify.com/api/authentication/oauth)
+where `token` is a persistent [OAuth 2.0](https://docs.shopify.com/api/guides/authentication/oauth)
 token.
 
 ### Resources
@@ -82,13 +82,13 @@ shopify.order.all({ limit: 5 })
   - `get(id, [params])`
   - `update(id, params)`
 
-where `params` is a plain JavaScript object. See https://docs.shopify.com/api
+where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
 
 ## Become a master of the Shopify ecosystem by:
 
 * [Becoming a Shopify App Developer](https://app.shopify.com/services/partners/signup?ref=microapps)
-* [Checking out the roots](https://docs.shopify.com/api/introduction/getting-started?ref=microapps)
+* [Checking out the roots](https://docs.shopify.com/api/guides/introduction/getting-started?ref=microapps)
 * [Talking To Other Masters](https://ecommerce.shopify.com/c/shopify-apps?ref=microapps)
 * [Reading API Docs](https://docs.shopify.com/api?ref=microapps)
 * [Learning from others](http://stackoverflow.com/questions/tagged/shopify)
