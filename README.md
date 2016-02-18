@@ -87,6 +87,12 @@ shopify.order.all({ limit: 5 })
   - `delete(id)`
   - `get(id[, params])`
   - `update(id, params)`
+- carrierService
+  - `all()`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
