@@ -65,21 +65,27 @@ shopify.order.all({ limit: 5 })
   - `activate(id, params)`
   - `all([params])`
   - `create(params)`
-  - `get(id, [params])`
+  - `get(id[, params])`
 - article
-  - `all(blogId, [params])`
+  - `all(blogId[, params])`
   - `authors()`
-  - `count(blogId, [params])`
+  - `count(blogId[, params])`
   - `create(blogId, params)`
-  - `get(blogId, id, [params])`
+  - `get(blogId, id[, params])`
   - `tags([blogId][, params])`
   - `update(blogId, id, params)`
+- asset
+  - `all(themeId[, params])`
+  - `create(themeId, params)`
+  - `delete(themeId, params)`
+  - `get(themeId, params)`
+  - `update(themeId, params)`
 - blog
   - `all([params])`
   - `count()`
   - `create(params)`
   - `delete(id)`
-  - `get(id, [params])`
+  - `get(id[, params])`
   - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
