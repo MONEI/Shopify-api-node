@@ -102,6 +102,17 @@ shopify.order.all({ limit: 5 })
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`
+- comment
+  - `all([params])`
+  - `approve(id)`
+  - `count([params])`
+  - `create(params)`
+  - `get(id[, params])`
+  - `notSpam(id)`
+  - `remove(id)`
+  - `restore(id)`
+  - `spam(id)`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
