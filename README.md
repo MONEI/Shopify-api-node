@@ -153,6 +153,13 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- discount
+  - `create(params)`
+  - `delete(id)`
+  - `disable(id)`
+  - `enable(id)`
+  - `get(id)`
+  - `list([params])`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.

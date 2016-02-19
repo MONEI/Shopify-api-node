@@ -7,6 +7,7 @@ exports.CustomerAddress = require('./customer-address');
 exports.CarrierService = require('./carrier-service');
 exports.Checkout = require('./checkout');
 exports.Customer = require('./customer');
+exports.Discount = require('./discount');
 exports.Collect = require('./collect');
 exports.Comment = require('./comment');
 exports.Country = require('./country');
