@@ -4,6 +4,7 @@ exports.ApplicationCharge = require('./application-charge');
 exports.CustomCollection = require('./custom-collection');
 exports.CarrierService = require('./carrier-service');
 exports.Checkout = require('./checkout');
+exports.Customer = require('./customer');
 exports.Collect = require('./collect');
 exports.Comment = require('./comment');
 exports.Country = require('./country');
