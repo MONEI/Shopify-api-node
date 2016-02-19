@@ -70,6 +70,7 @@ shopify.order.list({ limit: 5 })
   - `authors()`
   - `count(blogId[, params])`
   - `create(blogId, params)`
+  - `delete(blogId, id)`
   - `get(blogId, id[, params])`
   - `list(blogId[, params])`
   - `tags([blogId][, params])`
@@ -136,6 +137,14 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `search(params)`
   - `update(id, params)`
+- customerAddress
+  - `create(customerId, params)`
+  - `default(customerId, id)`
+  - `delete(customerId, id)`
+  - `get(customerId, id)`
+  - `list(customerId[, params])`
+  - `set(customerId, params)`
+  - `update(customerId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
