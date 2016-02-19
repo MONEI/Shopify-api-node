@@ -1,8 +1,9 @@
 'use strict';
 
+const path = require('path');
 const got = require('got');
+const fs = require('fs');
 
-const resources = require('./resources');
 const pkg = require('./package');
 
 /**
@@ -72,19 +73,23 @@ Shopify.prototype.request = function request(url, method, key, params) {
 };
 
 //
-// Instantiate the resources lazily.
+// Require and instantiate the resources lazily.
 //
-Object.keys(resources).forEach(resource => {
-  const name = resource.replace(/^[A-Z]/, char => char.toLowerCase());
+fs.readdirSync(path.join(__dirname, 'resources')).forEach(name => {
+  if (/^base/.test(name)) return;
 
-  Object.defineProperty(Shopify.prototype, name, {
+  const prop = name.slice(0, -3).replace(/-./g, match => match[1].toUpperCase());
+
+  Object.defineProperty(Shopify.prototype, prop, {
     get: function get() {
-      return Object.defineProperty(this, name, {
-        value: new resources[resource](this)
-      })[name];
+      const resource = require(`./resources/${name}`);
+
+      return Object.defineProperty(this, prop, {
+        value: new resource(this)
+      })[prop];
     },
     set: function set(value) {
-      return Object.defineProperty(this, name, { value })[name];
+      return Object.defineProperty(this, prop, { value })[prop];
     }
   });
 });

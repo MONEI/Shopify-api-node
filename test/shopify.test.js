@@ -5,7 +5,7 @@ describe('Shopify', () => {
   const nock = require('nock');
   const got = require('got');
 
-  const Blog = require('../resources').Blog;
+  const Blog = require('../resources/blog');
   const common = require('./common');
   const pkg = require('../package');
   const Shopify = require('..');
