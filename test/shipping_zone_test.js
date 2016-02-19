@@ -17,7 +17,7 @@ describe('Shipping zone', function() {
 
   it('should get all shipping zones', function(done) {
     resource.all(function(err, res){
-      res.should.not.be.empty;
+      if (err) return done(err);
       res.should.deepEqual(fixture.all.shipping_zones);
       done();
     });
