@@ -1,8 +1,8 @@
-var helper = require("./common.js");
-helper.setObject("shipping_zone");
+var helper = require('./common.js');
+helper.setObject('shipping_zone');
 
 var fixture = {
-  all: helper.load("all")
+  all: helper.load('all')
 };
 
 var Resource = helper.resource();
