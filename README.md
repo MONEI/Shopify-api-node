@@ -145,6 +145,14 @@ shopify.order.list({ limit: 5 })
   - `list(customerId[, params])`
   - `set(customerId, params)`
   - `update(customerId, id, params)`
+- customerSavedSearch
+  - `count([params])`
+  - `create(params)`
+  - `customers(id[, params])`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.

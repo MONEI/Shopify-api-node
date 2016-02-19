@@ -1,0 +1,9 @@
+{
+  "customer_saved_search": {
+    "id": 1068136102,
+    "name": "Spent more than $50",
+    "created_at": "2015-09-02T14:51:38-04:00",
+    "updated_at": "2015-09-02T14:51:38-04:00",
+    "query": "total_spent:>50"
+  }
+}

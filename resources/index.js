@@ -1,5 +1,6 @@
 'use strict';
 
+exports.CustomerSavedSearch = require('./customer-saved-search');
 exports.ApplicationCharge = require('./application-charge');
 exports.CustomCollection = require('./custom-collection');
 exports.CustomerAddress = require('./customer-address');
