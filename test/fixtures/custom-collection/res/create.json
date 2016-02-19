@@ -1,0 +1,13 @@
+{
+  "custom_collection": {
+    "id": 1063001313,
+    "handle": "macbooks",
+    "title": "Macbooks",
+    "updated_at": "2015-11-16T14:56:55-05:00",
+    "body_html": null,
+    "published_at": null,
+    "sort_order": "alpha-asc",
+    "template_suffix": null,
+    "published_scope": "global"
+  }
+}

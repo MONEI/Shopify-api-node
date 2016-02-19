@@ -1,6 +1,7 @@
 'use strict';
 
 exports.ApplicationCharge = require('./application-charge');
+exports.CustomCollection = require('./custom-collection');
 exports.CarrierService = require('./carrier-service');
 exports.Checkout = require('./checkout');
 exports.Collect = require('./collect');
