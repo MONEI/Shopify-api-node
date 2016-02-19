@@ -168,6 +168,12 @@ shopify.order.list({ limit: 5 })
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
   - `update(orderId, id, params)`
+- fullfillmentEvent
+  - `create(orderId, fulfillmentId, params)`
+  - `delete(orderId, fulfillmentId, id)`
+  - `get(orderId, fulfillmentId, id)`
+  - `list(orderId, fulfillmentId[, params])`
+  - `update(orderId, fulfillmentId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.

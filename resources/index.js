@@ -3,6 +3,7 @@
 exports.CustomerSavedSearch = require('./customer-saved-search');
 exports.ApplicationCharge = require('./application-charge');
 exports.CustomCollection = require('./custom-collection');
+exports.FulfillmentEvent = require('./fulfillment-event');
 exports.CustomerAddress = require('./customer-address');
 exports.CarrierService = require('./carrier-service');
 exports.Fulfillment = require('./fulfillment');
