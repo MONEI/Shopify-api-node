@@ -160,6 +160,14 @@ shopify.order.list({ limit: 5 })
   - `enable(id)`
   - `get(id)`
   - `list([params])`
+- fulfillment
+  - `cancel(orderId, id)`
+  - `complete(orderId, id)`
+  - `count(orderId[, params)`
+  - `create(orderId, params)`
+  - `get(orderId, id[, params])`
+  - `list(orderId[, params])`
+  - `update(orderId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
