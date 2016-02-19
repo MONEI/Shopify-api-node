@@ -1,14 +1,15 @@
 var helper = require("./common.js");
 helper.setObject("shipping_zone");
 
+var fixture = {
+  all: helper.load("all")
+};
+
 var Resource = helper.resource();
 
 helper.nock(helper.test_shop)
   .get('/admin/shipping_zones.json')
-  .reply(200, helper.load("all"), {
-    server: 'nginx',
-    status: '200 OK'
-  });
+  .reply(200, fixture.all);
 
 describe('Shipping zone', function() {
   var site = helper.endpoint;
@@ -17,11 +18,7 @@ describe('Shipping zone', function() {
   it('should get all shipping zones', function(done) {
     resource.all(function(err, res){
       res.should.not.be.empty;
-      res.should.be.an.Array();
-      res[0].should.have.property('name');
-      res[0].name.should.equal('Some zone');
-      res[0].countries.should.be.an.Array();
-      res[0].countries[0].name.should.equal('United States');
+      res.should.deepEqual(fixture.all.shipping_zones);
       done();
     });
   });
