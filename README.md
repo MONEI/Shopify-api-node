@@ -188,6 +188,9 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `search(params)`
   - `update(id, params)`
+- location
+  - `get(id)`
+  - `list()`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
