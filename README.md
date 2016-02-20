@@ -237,6 +237,11 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list(productId[, params])`
   - `update(id, params)`
+- province
+  - `count(countryId[, params])`
+  - `get(countryId, id[, params])`
+  - `list(countryId[, params])`
+  - `update(countryId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
