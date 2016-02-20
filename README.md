@@ -223,6 +223,13 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- productImage
+  - `count(productId[, params])`
+  - `create(productId, params)`
+  - `delete(productId, id)`
+  - `get(productId, id[, params])`
+  - `list(productId[, params])`
+  - `update(productId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
