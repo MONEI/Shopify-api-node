@@ -230,6 +230,13 @@ shopify.order.list({ limit: 5 })
   - `get(productId, id[, params])`
   - `list(productId[, params])`
   - `update(productId, id, params)`
+- productVariant
+  - `count(productId)`
+  - `create(productId, params)`
+  - `delete(productId, id)`
+  - `get(id[, params])`
+  - `list(productId[, params])`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
