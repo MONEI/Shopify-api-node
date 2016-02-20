@@ -1,0 +1,18 @@
+{
+  "script_tags": [
+    {
+      "id": 421379493,
+      "src": "http://js-aplenty.com/bar.js",
+      "event": "onload",
+      "created_at": "2015-09-02T14:48:56-04:00",
+      "updated_at": "2015-09-02T14:48:56-04:00"
+    },
+    {
+      "id": 596726825,
+      "src": "http://js-aplenty.com/foo.js",
+      "event": "onload",
+      "created_at": "2015-09-02T14:48:56-04:00",
+      "updated_at": "2015-09-02T14:48:56-04:00"
+    }
+  ]
+}
