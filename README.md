@@ -180,6 +180,14 @@ shopify.order.list({ limit: 5 })
   - `get(id)`
   - `list([params])`
   - `update(id, params)`
+- giftCard
+  - `count([params])`
+  - `create(params)`
+  - `disable(id)`
+  - `get(id)`
+  - `list([params])`
+  - `search(params)`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
