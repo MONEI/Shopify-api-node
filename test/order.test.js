@@ -105,13 +105,14 @@ describe('Shopify#order', () => {
   });
 
   it('cancels an order (2/2)', () => {
+    const input = { reason: 'fraud' };
     const output = fixtures.res.cancel;
 
     scope
-      .post('/admin/orders/450789469/cancel.json?reason=other')
+      .post('/admin/orders/450789469/cancel.json', input)
       .reply(200, output);
 
-    return shopify.order.cancel(450789469, { reason: 'other' })
+    return shopify.order.cancel(450789469, input)
       .then(data => expect(data).to.deep.equal(output.order));
   });
 

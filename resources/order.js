@@ -50,13 +50,13 @@ class Order extends Base {
    * Cancels an order.
    *
    * @param {Number} id Order ID
-   * @params {Object} [params] Query parameters
+   * @params {Object} [params] Cancel options
    * @return {Promise} Promise that resolves with the result
    * @public
    */
   cancel(id, params) {
-    const url = this.buildUrl(`${id}/cancel`, params);
-    return this.shopify.request(url, 'POST', undefined, {})
+    const url = this.buildUrl(`${id}/cancel`);
+    return this.shopify.request(url, 'POST', undefined, params)
       .then(body => body[this.key]);
   }
 }
