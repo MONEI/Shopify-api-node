@@ -201,6 +201,12 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `open(id)`
   - `update(id, params)`
+- orderRisk
+  - `create(orderId, params)`
+  - `delete(orderId, id)`
+  - `get(orderId, id)`
+  - `list(orderId)`
+  - `update(orderId, id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
