@@ -242,6 +242,12 @@ shopify.order.list({ limit: 5 })
   - `get(countryId, id[, params])`
   - `list(countryId[, params])`
   - `update(countryId, id, params)`
+- recurringApplicationCharge
+  - `create(params)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `activate(id, params)`
+  - `delete(id)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
