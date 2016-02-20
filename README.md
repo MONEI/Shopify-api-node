@@ -191,6 +191,16 @@ shopify.order.list({ limit: 5 })
 - location
   - `get(id)`
   - `list()`
+- order
+  - `cancel(id[, params])`
+  - `close(id)`
+  - `count([params])`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `open(id)`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.

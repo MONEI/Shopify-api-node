@@ -1,0 +1,13 @@
+{
+  "order": {
+    "id": 450789469,
+    "metafields": [
+      {
+        "key": "new",
+        "value": "newvalue",
+        "value_type": "string",
+        "namespace": "global"
+      }
+    ]
+  }
+}
