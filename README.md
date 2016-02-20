@@ -255,6 +255,8 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- refund
+  - `get(orderId, id[, params])`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
