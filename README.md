@@ -248,6 +248,13 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `activate(id, params)`
   - `delete(id)`
+- redirect
+  - `count([params])`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
