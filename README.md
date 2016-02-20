@@ -216,6 +216,13 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - policy
   - `list([params])`
+- product
+  - `count([params])`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
