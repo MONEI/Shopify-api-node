@@ -1,0 +1,6 @@
+{
+  "transaction": {
+    "kind": "refund",
+    "amount": "5.00"
+  }
+}

@@ -282,6 +282,11 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- transaction
+  - `count(orderId)`
+  - `create(orderId[, params])`
+  - `get(orderId, id[, params])`
+  - `list(orderId[, params])`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
