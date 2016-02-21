@@ -160,6 +160,10 @@ shopify.order.list({ limit: 5 })
   - `enable(id)`
   - `get(id)`
   - `list([params])`
+- event
+  - `list([params])`
+  - `count([params])`
+  - `get(id[, params])`
 - fulfillment
   - `cancel(orderId, id)`
   - `complete(orderId, id)`
