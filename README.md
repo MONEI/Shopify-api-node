@@ -268,6 +268,14 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
 - shop
   - `get([params])`
+- smartCollection
+  - `count([params])`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `order(id, params)`
+  - `update(id, params)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
