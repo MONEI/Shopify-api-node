@@ -266,6 +266,8 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - shippingZone
   - `list([params])`
+- shop
+  - `get([params])`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
