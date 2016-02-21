@@ -1,0 +1,8 @@
+{
+  "metafield": {
+    "namespace": "inventory",
+    "key": "warehouse",
+    "value": 25,
+    "value_type": "integer"
+  }
+}

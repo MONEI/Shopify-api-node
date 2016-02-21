@@ -195,6 +195,13 @@ shopify.order.list({ limit: 5 })
 - location
   - `get(id)`
   - `list()`
+- metafield
+  - `list([params])`
+  - `count([params])`
+  - `get(id[, params])`
+  - `create(params)`
+  - `update(id, params)`
+  - `delete(id)`
 - order
   - `cancel(id[, params])`
   - `close(id)`
