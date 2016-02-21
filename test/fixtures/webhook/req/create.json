@@ -1,0 +1,7 @@
+{
+  "webhook": {
+    "topic": "orders/create",
+    "address": "http://whatever.hostname.com/",
+    "format": "json"
+  }
+}
