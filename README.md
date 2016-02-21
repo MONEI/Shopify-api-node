@@ -287,6 +287,9 @@ shopify.order.list({ limit: 5 })
   - `create(orderId[, params])`
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
+- user
+  - `list()`
+  - `get(id)`
 
 where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
 for parameters details.
