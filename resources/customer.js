@@ -9,7 +9,7 @@ const Base = require('./base');
  */
 class Customer extends Base {
   /**
-   * Creates Customer instance.
+   * Creates a Customer instance.
    *
    * @param {Shopify} shopify Reference to the Shopify instance
    */

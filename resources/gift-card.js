@@ -9,7 +9,7 @@ const Base = require('./base');
  */
 class GiftCard extends Base {
   /**
-   * Creates GiftCard instance.
+   * Creates a GiftCard instance.
    *
    * @param {Shopify} shopify Reference to the Shopify instance
    */

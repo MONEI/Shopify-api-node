@@ -4,7 +4,7 @@ const pluralize = require('pluralize');
 const qs = require('qs');
 
 /**
- * Base class for resources that have a single parent.
+ * Base class for resources that have only one kind of parent.
  *
  * @private
  */
@@ -102,7 +102,7 @@ class BaseChild {
   /**
    * Builds the request URL.
    *
-   * @param {Number|String} parentId Parent record ID
+   * @param {Number} parentId Parent record ID
    * @param {Number|String} [id] Record ID
    * @param {Object} [query] Query parameters
    * @return {Object} URL object

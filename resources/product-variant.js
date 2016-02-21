@@ -11,7 +11,7 @@ const BaseChild = require('./base-child');
  */
 class ProductVariant extends BaseChild {
   /**
-   * Creates an ProductVariant instance.
+   * Creates a ProductVariant instance.
    *
    * @param {Shopify} shopify Reference to the Shopify instance
    */

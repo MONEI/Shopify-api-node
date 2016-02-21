@@ -23,7 +23,7 @@ class ApplicationCharge extends Base {
   /**
    * Activates a previously accepted one-time application charge.
    *
-   * @param {Number|String} id Application charge ID
+   * @param {Number} id Application charge ID
    * @param {Object} params Application change properties
    * @return {Promise} Promise that resolves with the result
    * @public
