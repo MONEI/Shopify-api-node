@@ -15,6 +15,9 @@ class Refund {
    */
   constructor(shopify) {
     this.shopify = shopify;
+    this.parentName = 'orders';
+    this.name = 'refunds';
+    this.key = 'refund';
   }
 
   /**
@@ -27,12 +30,12 @@ class Refund {
    * @public
    */
   get(orderId, id, params) {
-    let path = `/admin/orders/${orderId}/refunds/${id}.json`;
+    let path = `/admin/${this.parentName}/${orderId}/${this.name}/${id}.json`;
 
     if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
 
     const url = Object.assign({ path }, this.shopify.baseUrl);
-    return this.shopify.request(url, 'GET', 'refund');
+    return this.shopify.request(url, 'GET', this.key);
   }
 }
 

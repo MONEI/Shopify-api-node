@@ -14,6 +14,7 @@ class ShippingZone {
    * @param {Shopify} shopify Reference to the Shopify instance
    */
   constructor(shopify) {
+    this.name = this.key = 'shipping_zones';
     this.shopify = shopify;
   }
 
@@ -25,12 +26,12 @@ class ShippingZone {
    * @public
    */
   list(params) {
-    let path = '/admin/shipping_zones.json';
+    let path = `/admin/${this.name}.json`;
 
     if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
 
     const url = Object.assign({ path }, this.shopify.baseUrl);
-    return this.shopify.request(url, 'GET', 'shipping_zones');
+    return this.shopify.request(url, 'GET', this.key);
   }
 }
 

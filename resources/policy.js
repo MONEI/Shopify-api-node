@@ -14,6 +14,7 @@ class Policy {
    * @param {Shopify} shopify Reference to the Shopify instance
    */
   constructor(shopify) {
+    this.name = this.key = 'policies';
     this.shopify = shopify;
   }
 
@@ -25,12 +26,12 @@ class Policy {
    * @public
    */
   list(params) {
-    let path = '/admin/policies.json';
+    let path = `/admin/${this.name}.json`;
 
     if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
 
     const url = Object.assign({ path }, this.shopify.baseUrl);
-    return this.shopify.request(url, 'GET', 'policies');
+    return this.shopify.request(url, 'GET', this.key);
   }
 }
 

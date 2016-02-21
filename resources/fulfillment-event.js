@@ -14,8 +14,10 @@ class FulfillmentEvent {
    * @param {Shopify} shopify Reference to the Shopify instance
    */
   constructor(shopify) {
-    this.key = 'fulfillment_event';
     this.shopify = shopify;
+    this.parentName = 'fulfillments';
+    this.key = 'fulfillment_event';
+    this.name = 'events';
   }
 
   /**
@@ -104,11 +106,16 @@ class FulfillmentEvent {
   buildUrl(orderId, fulfillmentId, id, query) {
     id || id === 0 || (id = '');
 
-    let path = `/admin/orders/${orderId}/fulfillments/${fulfillmentId}/events/${id}`
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '');
+    let path = [
+      '/admin/orders',
+      orderId,
+      this.parentName,
+      fulfillmentId,
+      this.name,
+      id
+    ].join('/');
 
-    path += '.json';
+    path = path.replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
 
     if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
 
