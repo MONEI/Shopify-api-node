@@ -1,6 +1,5 @@
 'use strict';
 
-const pluralize = require('pluralize');
 const qs = require('qs');
 
 /**
@@ -28,7 +27,7 @@ class BaseChild {
    */
   list(parentId, params) {
     const url = this.buildUrl(parentId, undefined, params);
-    return this.shopify.request(url, 'GET', pluralize(this.key));
+    return this.shopify.request(url, 'GET', this.name);
   }
 
   /**

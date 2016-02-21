@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "got": "6.1.x",
-    "pluralize": "1.2.x",
     "qs": "6.1.x"
   },
   "devDependencies": {
