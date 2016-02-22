@@ -9,6 +9,11 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "files": [
+    "resources",
+    "mixins",
+    "index.js"
+  ],
   "dependencies": {
     "got": "6.1.x",
     "lodash": "4.5.x",
