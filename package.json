@@ -15,17 +15,17 @@
     "qs": "6.1.x"
   },
   "devDependencies": {
-    "chai": "3.5.x",
-    "eslint": "2.1.x",
-    "istanbul": "0.4.x",
-    "mocha": "2.4.x",
-    "nock": "7.2.x",
-    "pre-commit": "1.1.x"
+    "chai": "^3.5.0",
+    "eslint": "^2.2.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "nock": "^7.2.2",
+    "pre-commit": "^1.1.2"
   },
   "scripts": {
     "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
     "coverage": "istanbul cover _mocha",
-    "lint": "eslint resources test",
+    "lint": "eslint .",
     "test": "mocha -b"
   },
   "pre-commit": [
