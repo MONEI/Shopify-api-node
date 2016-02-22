@@ -1,0 +1,8 @@
+{
+  "recurring_application_charge": {
+    "name": "Super Duper Plan",
+    "price": 10.0,
+    "return_url": "http://super-duper.shopifyapps.com",
+    "test": true
+  }
+}

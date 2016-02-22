@@ -1,0 +1,10 @@
+{
+  "risk": {
+    "id": 284138680,
+    "message": "After further review, this is a legitimate order",
+    "recommendation": "accept",
+    "source": "External",
+    "cause_cancel": false,
+    "score": 0.0
+  }
+}

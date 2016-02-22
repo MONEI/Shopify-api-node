@@ -1,0 +1,14 @@
+{
+  "order": {
+    "email": "foo@example.com",
+    "fulfillment_status": "fulfilled",
+    "send_receipt": true,
+    "send_fulfillment_receipt": true,
+    "line_items": [
+      {
+        "variant_id": 447654529,
+        "quantity": 1
+      }
+    ]
+  }
+}

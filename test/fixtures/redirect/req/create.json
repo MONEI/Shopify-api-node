@@ -1,0 +1,6 @@
+{
+  "redirect": {
+    "path": "/ipod",
+    "target": "/pages/itunes"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "image": {
+    "id": 850703190,
+    "position": 2,
+    "metafields": [
+      {
+        "key": "alt",
+        "value": "new alt tag content",
+        "value_type": "string",
+        "namespace": "tags"
+      }
+    ]
+  }
+}

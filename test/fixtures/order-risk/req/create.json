@@ -1,0 +1,10 @@
+{
+  "risk": {
+    "message": "This order came from an anonymous proxy",
+    "recommendation": "cancel",
+    "score": 1.0,
+    "source": "External",
+    "cause_cancel": true,
+    "display": true
+  }
+}

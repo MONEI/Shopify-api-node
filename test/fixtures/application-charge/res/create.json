@@ -1,0 +1,16 @@
+{
+  "application_charge": {
+    "id": 1012637321,
+    "name": "Super Duper Expensive action",
+    "api_client_id": 755357713,
+    "price": "100.00",
+    "status": "pending",
+    "return_url": "http://super-duper.shopifyapps.com/",
+    "created_at": "2016-01-20T13:11:06-05:00",
+    "updated_at": "2016-01-20T13:11:06-05:00",
+    "test": true,
+    "charge_type": null,
+    "decorated_return_url": "http://super-duper.shopifyapps.com/?charge_id=1012637321",
+    "confirmation_url": "https://apple.myshopify.com/admin/charges/1012637321/confirm_application_charge?signature=BAhpBImeWzw%3D--a964b202510a4054661a172bca29aafcaf96de2f"
+  }
+}
