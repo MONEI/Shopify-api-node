@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Checkout resource.
+ * Creates a Checkout instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Checkout extends Base {
-  /**
-   * Creates a Checkout instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Checkout(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'checkouts';
-    this.key = 'checkout';
-  }
+  this.name = 'checkouts';
+  this.key = 'checkout';
 }
+
+_.assign(Checkout.prototype, _.pick(base, ['count', 'list', 'buildUrl']));
 
 module.exports = Checkout;

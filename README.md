@@ -161,9 +161,9 @@ shopify.order.list({ limit: 5 })
   - `get(id)`
   - `list([params])`
 - event
-  - `list([params])`
   - `count([params])`
   - `get(id[, params])`
+  - `list([params])`
 - fulfillment
   - `cancel(orderId, id)`
   - `complete(orderId, id)`
@@ -196,12 +196,12 @@ shopify.order.list({ limit: 5 })
   - `get(id)`
   - `list()`
 - metafield
-  - `list([params])`
   - `count([params])`
-  - `get(id[, params])`
   - `create(params)`
-  - `update(id, params)`
   - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
 - order
   - `cancel(id[, params])`
   - `close(id)`
@@ -254,11 +254,11 @@ shopify.order.list({ limit: 5 })
   - `list(countryId[, params])`
   - `update(countryId, id, params)`
 - recurringApplicationCharge
+  - `activate(id, params)`
   - `create(params)`
+  - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
-  - `activate(id, params)`
-  - `delete(id)`
 - redirect
   - `count([params])`
   - `create(params)`
@@ -299,8 +299,8 @@ shopify.order.list({ limit: 5 })
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
 - user
-  - `list()`
   - `get(id)`
+  - `list()`
 - webhook
   - `count([params])`
   - `create(params)`

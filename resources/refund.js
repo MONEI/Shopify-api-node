@@ -1,42 +1,24 @@
 'use strict';
 
-const qs = require('qs');
+const _ = require('lodash');
+
+const baseChild = require('../mixins/base-child');
 
 /**
- * Refund resource.
+ * Creates a Refund instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Refund {
-  /**
-   * Creates a Refund instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    this.shopify = shopify;
-    this.parentName = 'orders';
-    this.name = 'refunds';
-    this.key = 'refund';
-  }
+function Refund(shopify) {
+  this.shopify = shopify;
 
-  /**
-   * Retrieves a specific refund.
-   *
-   * @param {Number} orderId Order ID
-   * @param {Number} id Refund ID
-   * @param {Object} [params] Query parameters
-   * @return {Promise} Promise that resolves with the result
-   * @public
-   */
-  get(orderId, id, params) {
-    let path = `/admin/${this.parentName}/${orderId}/${this.name}/${id}.json`;
-
-    if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
-
-    const url = Object.assign({ path }, this.shopify.baseUrl);
-    return this.shopify.request(url, 'GET', this.key);
-  }
+  this.parentName = 'orders';
+  this.name = 'refunds';
+  this.key = 'refund';
 }
+
+_.assign(Refund.prototype, _.pick(baseChild, ['get', 'buildUrl']));
 
 module.exports = Refund;

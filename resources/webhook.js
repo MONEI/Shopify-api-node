@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Webhook resource.
+ * Creates a Webhook instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Webhook extends Base {
-  /**
-   * Creates a Webhook instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Webhook(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'webhooks';
-    this.key = 'webhook';
-  }
+  this.name = 'webhooks';
+  this.key = 'webhook';
 }
+
+_.assign(Webhook.prototype, base);
 
 module.exports = Webhook;

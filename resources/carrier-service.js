@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * CarrierService resource.
+ * Creates a CarrierService instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class CarrierService extends Base {
-  /**
-   * Creates a CarrierService instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function CarrierService(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'carrier_services';
-    this.key = 'carrier_service';
-  }
+  this.name = 'carrier_services';
+  this.key = 'carrier_service';
 }
+
+_.assign(CarrierService.prototype, _.omit(base, ['count']));
 
 module.exports = CarrierService;

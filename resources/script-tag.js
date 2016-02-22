@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * ScriptTag resource.
+ * Creates a ScriptTag instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class ScriptTag extends Base {
-  /**
-   * Creates a ScriptTag instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function ScriptTag(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'script_tags';
-    this.key = 'script_tag';
-  }
+  this.name = 'script_tags';
+  this.key = 'script_tag';
 }
+
+_.assign(ScriptTag.prototype, base);
 
 module.exports = ScriptTag;

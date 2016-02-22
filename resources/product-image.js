@@ -1,25 +1,24 @@
 'use strict';
 
-const BaseChild = require('./base-child');
+const _ = require('lodash');
+
+const baseChild = require('../mixins/base-child');
 
 /**
- * ProductImage resource.
+ * Creates a ProductImage instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class ProductImage extends BaseChild {
-  /**
-   * Creates an ProductImage instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function ProductImage(shopify) {
+  this.shopify = shopify;
 
-    this.parentName = 'products';
-    this.name = 'images';
-    this.key = 'image';
-  }
+  this.parentName = 'products';
+  this.name = 'images';
+  this.key = 'image';
 }
+
+_.assign(ProductImage.prototype, baseChild);
 
 module.exports = ProductImage;

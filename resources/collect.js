@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Collect resource.
+ * Creates a Collect instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Collect extends Base {
-  /**
-   * Creates a Collect instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Collect(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'collects';
-    this.key = 'collect';
-  }
+  this.name = 'collects';
+  this.key = 'collect';
 }
+
+_.assign(Collect.prototype, _.omit(base, ['update']));
 
 module.exports = Collect;

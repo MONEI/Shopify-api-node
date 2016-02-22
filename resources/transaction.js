@@ -1,25 +1,24 @@
 'use strict';
 
-const BaseChild = require('./base-child');
+const _ = require('lodash');
+
+const baseChild = require('../mixins/base-child');
 
 /**
- * Transaction resource.
+ * Creates a Transaction instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Transaction extends BaseChild {
-  /**
-   * Creates a Transaction instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Transaction(shopify) {
+  this.shopify = shopify;
 
-    this.parentName = 'orders';
-    this.name = 'transactions';
-    this.key = 'transaction';
-  }
+  this.parentName = 'orders';
+  this.name = 'transactions';
+  this.key = 'transaction';
 }
+
+_.assign(Transaction.prototype, _.omit(baseChild, ['delete', 'update']));
 
 module.exports = Transaction;

@@ -1,25 +1,24 @@
 'use strict';
 
-const BaseChild = require('./base-child');
+const _ = require('lodash');
+
+const baseChild = require('../mixins/base-child');
 
 /**
- * Province resource.
+ * Creates a Province instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Province extends BaseChild {
-  /**
-   * Creates a Province instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Province(shopify) {
+  this.shopify = shopify;
 
-    this.parentName = 'countries';
-    this.name = 'provinces';
-    this.key = 'province';
-  }
+  this.parentName = 'countries';
+  this.name = 'provinces';
+  this.key = 'province';
 }
+
+_.assign(Province.prototype, _.omit(baseChild, ['create', 'delete']));
 
 module.exports = Province;

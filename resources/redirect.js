@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Redirect resource.
+ * Creates a Redirect instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Redirect extends Base {
-  /**
-   * Creates a Redirect instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Redirect(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'redirects';
-    this.key = 'redirect';
-  }
+  this.name = 'redirects';
+  this.key = 'redirect';
 }
+
+_.assign(Redirect.prototype, base);
 
 module.exports = Redirect;

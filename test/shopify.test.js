@@ -3,6 +3,7 @@ describe('Shopify', () => {
 
   const expect = require('chai').expect;
   const nock = require('nock');
+  const _ = require('lodash');
   const got = require('got');
 
   const Blog = require('../resources/blog');
@@ -86,7 +87,7 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#request', () => {
-    const url = Object.assign({ path: '/test' }, shopify.baseUrl);
+    const url = _.assign({ path: '/test' }, shopify.baseUrl);
 
     it('returns a RequestError when the request fails', () => {
       const message = 'Something wrong happened';
@@ -131,7 +132,7 @@ describe('Shopify', () => {
 
     it('uses basic auth as intended', () => {
       const shopify = new Shopify(shopName, apiKey, password);
-      const url = Object.assign({ path: '/test' }, shopify.baseUrl);
+      const url = _.assign({ path: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {

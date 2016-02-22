@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Theme resource.
+ * Creates a Theme instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Theme extends Base {
-  /**
-   * Creates a Theme instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Theme(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'themes';
-    this.key = 'theme';
-  }
+  this.name = 'themes';
+  this.key = 'theme';
 }
+
+_.assign(Theme.prototype, _.omit(base, ['count']));
 
 module.exports = Theme;

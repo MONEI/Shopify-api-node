@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * FulfillmentService resource.
+ * Creates a FulfillmentService instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class FulfillmentService extends Base {
-  /**
-   * Creates a FulfillmentService instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function FulfillmentService(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'fulfillment_services';
-    this.key = 'fulfillment_service';
-  }
+  this.name = 'fulfillment_services';
+  this.key = 'fulfillment_service';
 }
+
+_.assign(FulfillmentService.prototype, _.omit(base, ['count']));
 
 module.exports = FulfillmentService;

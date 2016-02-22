@@ -1,39 +1,41 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * RecurringApplicationCharge resource.
+ * Creates a RecurringApplicationCharge instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class RecurringApplicationCharge extends Base {
-  /**
-   * Creates a RecurringApplicationCharge instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function RecurringApplicationCharge(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'recurring_application_charges';
-    this.key = 'recurring_application_charge';
-  }
-
-  /**
-   * Activates a recurring application charge.
-   *
-   * @param {Number} id Recurring application charge ID
-   * @param {Object} params Recurring application charge properties
-   * @return {Promise} Promise that resolves with the result
-   * @public
-   */
-  activate(id, params) {
-    const url = this.buildUrl(`${id}/activate`);
-    return this.shopify.request(url, 'POST', undefined, {
-      [this.key]: params
-    });
-  }
+  this.name = 'recurring_application_charges';
+  this.key = 'recurring_application_charge';
 }
+
+_.assign(RecurringApplicationCharge.prototype, _.omit(base, [
+  'count',
+  'update'
+]));
+
+/**
+ * Activates a recurring application charge.
+ *
+ * @param {Number} id Recurring application charge ID
+ * @param {Object} params Recurring application charge properties
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+RecurringApplicationCharge.prototype.activate = function activate(id, params) {
+  const url = this.buildUrl(`${id}/activate`);
+  return this.shopify.request(url, 'POST', undefined, {
+    [this.key]: params
+  });
+};
 
 module.exports = RecurringApplicationCharge;

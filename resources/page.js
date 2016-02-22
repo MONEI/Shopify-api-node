@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Page resource.
+ * Creates a Page instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Page extends Base {
-  /**
-   * Creates a Page instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Page(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'pages';
-    this.key = 'page';
-  }
+  this.name = 'pages';
+  this.key = 'page';
 }
+
+_.assign(Page.prototype, base);
 
 module.exports = Page;

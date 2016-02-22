@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Metafield resource.
+ * Creates a Metafield instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Metafield extends Base {
-  /**
-   * Creates a Metafield instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Metafield(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'metafields';
-    this.key = 'metafield';
-  }
+  this.name = 'metafields';
+  this.key = 'metafield';
 }
+
+_.assign(Metafield.prototype, base);
 
 module.exports = Metafield;

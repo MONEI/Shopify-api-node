@@ -1,24 +1,23 @@
 'use strict';
 
-const Base = require('./base');
+const _ = require('lodash');
+
+const base = require('../mixins/base');
 
 /**
- * Event resource.
+ * Creates an Event instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class Event extends Base {
-  /**
-   * Creates an Event instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function Event(shopify) {
+  this.shopify = shopify;
 
-    this.name = 'events';
-    this.key = 'event';
-  }
+  this.name = 'events';
+  this.key = 'event';
 }
+
+_.assign(Event.prototype, _.omit(base, ['create', 'delete', 'update']));
 
 module.exports = Event;

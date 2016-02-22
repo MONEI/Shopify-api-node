@@ -1,25 +1,24 @@
 'use strict';
 
-const BaseChild = require('./base-child');
+const _ = require('lodash');
+
+const baseChild = require('../mixins/base-child');
 
 /**
- * OrderRisk resource.
+ * Creates an OrderRisk instance.
  *
+ * @param {Shopify} shopify Reference to the Shopify instance
+ * @constructor
  * @public
  */
-class OrderRisk extends BaseChild {
-  /**
-   * Creates an OrderRisk instance.
-   *
-   * @param {Shopify} shopify Reference to the Shopify instance
-   */
-  constructor(shopify) {
-    super(shopify);
+function OrderRisk(shopify) {
+  this.shopify = shopify;
 
-    this.parentName = 'orders';
-    this.name = 'risks';
-    this.key = 'risk';
-  }
+  this.parentName = 'orders';
+  this.name = 'risks';
+  this.key = 'risk';
 }
+
+_.assign(OrderRisk.prototype, _.omit(baseChild, ['count']));
 
 module.exports = OrderRisk;
