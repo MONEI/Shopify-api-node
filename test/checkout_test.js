@@ -1,7 +1,7 @@
-var common = require('./common.js'),
-  scope = common.nock(common.test_shop),
-  fixtures = {},
-  resource;
+var common = require('./common.js')
+  , scope = common.nock(common.test_shop)
+  , fixtures = {}
+  , resource;
 
 common.setObject('checkout');
 
@@ -15,7 +15,6 @@ common.setObject('checkout');
 resource = new(common.resource())(common.endpoint);
 
 describe('Checkout', function () {
-
   it('should count all checkouts', function (done) {
     var resBody = fixtures.countResponseBody;
 
@@ -25,12 +24,9 @@ describe('Checkout', function () {
     resource.count(function (err, count) {
       if (err) return done(err);
 
-      count.should.be.a.Number();
-      count.should.equal(resBody.count);
-
+      count.should.be.exactly(resBody.count);
       done();
     });
-
   });
 
   it('should get all checkouts', function (done) {
@@ -42,12 +38,8 @@ describe('Checkout', function () {
     resource.all(function (err, res) {
       if (err) return done(err);
 
-      res.should.not.be.empty;
-      res[0].should.have.property('id');
-
+      res.should.be.eql(resBody.checkouts);
       done();
     });
   });
-
-
 });
