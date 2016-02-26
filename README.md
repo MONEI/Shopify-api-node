@@ -325,20 +325,9 @@ for parameters details.
 
 [Shopify Embedded App Frontend Framework](http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
-## Contributors:
+## Supported by:
 
-* [Aakash Goel](https://github.com/aakashlpin)
-* [Alexandre Saiz Verdaguer](https://github.com/alexandresaiz/)
-* [Alua Kinzhebayeva](https://github.com/Alua-Kinzhebayeva)
-* [Carlos Villuendas Zambrana](https://github.com/carlosvillu/)
-* [Florian Traverse](https://github.com/temsa/)
-* [Ivaylo Ivanov](https://github.com/ivaylopivanov)
-* [Kenrick Beckett](https://github.com/kenrick/)
-* [Khang Hoang Trieu](https://github.com/khanghoang)
-* [Luigi Pinca](https://github.com/lpinca)
-* [Will Laurance](https://github.com/wlaurance)
-
-Supported by [microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
+[microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## License
 
