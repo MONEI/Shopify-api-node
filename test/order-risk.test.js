@@ -9,6 +9,8 @@ describe('Shopify#orderRisk', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('create a new order risk for an order', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;

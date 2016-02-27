@@ -9,6 +9,8 @@ describe('Shopify#fulfillment', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all fulfillments for an order (1/2)', () => {
     const output = fixtures.res.list;
 

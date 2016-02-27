@@ -9,6 +9,8 @@ describe('Shopify#applicationCharge', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('create a new one-time application charge', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;

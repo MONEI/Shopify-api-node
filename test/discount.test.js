@@ -9,6 +9,8 @@ describe('Shopify#discount', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('creates a new discount', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;

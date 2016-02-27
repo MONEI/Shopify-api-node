@@ -10,6 +10,8 @@ describe('Shopify#customerAddress', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all addresses from a customer (1/2)', () => {
     const output = fixtures.res.list;
 

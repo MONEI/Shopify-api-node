@@ -16,7 +16,6 @@ describe('Shopify', () => {
   const password = common.password;
   const shopify = common.shopify;
   const apiKey = common.apiKey;
-  const scope = common.scope;
 
   it('exports the constructor', () => {
     expect(Shopify).to.be.a('function');
@@ -88,6 +87,9 @@ describe('Shopify', () => {
 
   describe('Shopify#request', () => {
     const url = _.assign({ path: '/test' }, shopify.baseUrl);
+    const scope = common.scope;
+
+    afterEach(() => expect(nock.isDone()).to.be.true);
 
     it('returns a RequestError when the request fails', () => {
       const message = 'Something wrong happened';
@@ -153,9 +155,9 @@ describe('Shopify', () => {
         reqheaders: {
           'User-Agent': `${pkg.name}/${pkg.version}`,
           'X-Shopify-Access-Token': accessToken,
-          'Accept': 'application/json',
-          'Content-Length': (val) => val > 0,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Content-Length': val => val > 0,
+          'Accept': 'application/json'
         }
       })
       .post('/test', {
@@ -171,9 +173,9 @@ describe('Shopify', () => {
         reqheaders: {
           'User-Agent': `${pkg.name}/${pkg.version}`,
           'X-Shopify-Access-Token': accessToken,
-          'Accept': 'application/json',
-          'Content-Length': (val) => val > 0,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Content-Length': val => val > 0,
+          'Accept': 'application/json'
         }
       })
       .post('/test', { bar: 'baz' })
@@ -189,8 +191,7 @@ describe('Shopify', () => {
         .get('/test')
         .reply(200, data);
 
-      return shopify
-        .request(url, 'GET', 'foo')
+      return shopify.request(url, 'GET', 'foo')
         .then(res => expect(res).to.equal(data.foo));
     });
 
@@ -201,8 +202,7 @@ describe('Shopify', () => {
         .get('/test')
         .reply(200, data);
 
-      return shopify
-        .request(url, 'GET')
+      return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal(data));
     });
   });

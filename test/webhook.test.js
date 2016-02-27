@@ -10,6 +10,8 @@ describe('Shopify#webhook', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all webhooks (1/2)', () => {
     const output = fixtures.res.list;
 

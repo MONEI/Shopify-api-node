@@ -9,6 +9,8 @@ describe('Shopify#refund', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a single refund by its ID (1/2)', () => {
     const output = fixtures.res.get;
 

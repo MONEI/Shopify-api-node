@@ -9,6 +9,8 @@ describe('Shopify#checkout', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a count of all checkout (1/2)', () => {
     scope
       .get('/admin/checkouts/count.json')

@@ -9,6 +9,8 @@ describe('Shopify#blog', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all blogs (1/2)', () => {
     const output = fixtures.res.list;
 

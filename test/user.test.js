@@ -9,6 +9,8 @@ describe('Shopify#user', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all users', () => {
     const output = fixtures.res.list;
 

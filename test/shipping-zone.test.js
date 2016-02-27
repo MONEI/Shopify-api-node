@@ -9,6 +9,8 @@ describe('Shopify#shippingZone', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('gets a list of all shipping zones (1/2)', () => {
     const output = fixtures.res.list;
 

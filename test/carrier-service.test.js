@@ -9,6 +9,8 @@ describe('Shopify#carrierService', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('creates a carrier service', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;

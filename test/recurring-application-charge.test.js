@@ -9,6 +9,8 @@ describe('Shopify#recurringApplicationCharge', () => {
   const resource = common.shopify.recurringApplicationCharge;
   const scope = common.scope;
 
+  afterEach(() => expect(scope.isDone()).to.be.true);
+
   it('creates a recurring application charge', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
