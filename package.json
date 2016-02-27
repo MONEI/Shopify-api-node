@@ -30,8 +30,9 @@
   "scripts": {
     "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
     "coverage": "istanbul cover _mocha",
+    "watch": "mocha -w",
     "lint": "eslint .",
-    "test": "mocha -b"
+    "test": "mocha"
   },
   "pre-commit": [
     "lint",
