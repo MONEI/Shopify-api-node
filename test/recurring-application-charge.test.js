@@ -81,24 +81,18 @@ describe('Shopify#recurringApplicationCharge', () => {
     const input = fixtures.req.activate;
     const id = 455696195;
 
-    /**
-     * @todo Fix response body.
-     */
     scope
       .post(`/admin/recurring_application_charges/${id}/activate.json`, input)
-      .reply(200, {});
+      .reply(200);
 
     return resource.activate(id, input.recurring_application_charge)
       .then(data => expect(data).to.deep.equal({}));
   });
 
   it('deletes a recurring application charge', () => {
-    /**
-     * @todo Fix response body.
-     */
     scope
       .delete('/admin/recurring_application_charges/455696195.json')
-      .reply(200, {});
+      .reply(200);
 
     return resource.delete(455696195)
       .then(data => expect(data).to.deep.equal({}));

@@ -71,12 +71,9 @@ describe('Shopify#applicationCharge', () => {
     const input =  fixtures.req.activate;
     const id = 675931192;
 
-    /**
-     * @todo Fix response body.
-     */
     scope
       .post(`/admin/application_charges/${id}/activate.json`, input)
-      .reply(200, {});
+      .reply(200);
 
     return shopify.applicationCharge.activate(id, input.application_charge)
       .then(data => expect(data).to.deep.equal({}));

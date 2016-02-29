@@ -69,7 +69,7 @@ Shopify.prototype.request = function request(url, method, key, params) {
     const body = res.body;
 
     if (key) return body[key];
-    return body;
+    return body || {};
   });
 };
 

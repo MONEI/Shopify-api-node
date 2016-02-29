@@ -205,5 +205,14 @@ describe('Shopify', () => {
       return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal(data));
     });
+
+    it('returns an empty object when response body is empty', () => {
+      scope
+        .get('/test')
+        .reply(200);
+
+      return shopify.request(url, 'GET')
+        .then(res => expect(res).to.deep.equal({}));
+    });
   });
 });
