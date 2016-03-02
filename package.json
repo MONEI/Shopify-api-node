@@ -15,9 +15,9 @@
     "index.js"
   ],
   "dependencies": {
-    "got": "6.1.x",
-    "lodash": "4.5.x",
-    "qs": "6.1.x"
+    "got": "^6.1.2",
+    "lodash": "^4.6.0",
+    "qs": "^6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
