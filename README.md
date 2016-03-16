@@ -9,8 +9,13 @@ Shopify API bindings for Node.js.
 
 ## Installation:
 
+The master branch is not published on npm, as the naming for the npm module is
+still being finalised, see [#84](https://github.com/microapps/Nodify-Shopify/issues/84).
+In the mean time please reference `microapps/nodify-shopify` instead of
+`nodify-shopify`:
+
 ```shell
-$ npm install nodify-shopify
+$ npm install microapps/nodify-shopify
 ```
 
 ## Usage:
