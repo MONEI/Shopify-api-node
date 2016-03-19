@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const pick = require('lodash/pick');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,6 +20,6 @@ function Refund(shopify) {
   this.key = 'refund';
 }
 
-_.assign(Refund.prototype, _.pick(baseChild, ['get', 'buildUrl']));
+assign(Refund.prototype, pick(baseChild, ['get', 'buildUrl']));
 
 module.exports = Refund;

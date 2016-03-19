@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const pick = require('lodash/pick');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,7 +20,7 @@ function CustomerAddress(shopify) {
   this.key = 'customer_address';
 }
 
-_.assign(CustomerAddress.prototype, _.pick(baseChild, [
+assign(CustomerAddress.prototype, pick(baseChild, [
   'buildUrl',
   'delete',
   'get'

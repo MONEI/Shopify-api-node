@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,6 +20,6 @@ function Province(shopify) {
   this.key = 'province';
 }
 
-_.assign(Province.prototype, _.omit(baseChild, ['create', 'delete']));
+assign(Province.prototype, omit(baseChild, ['create', 'delete']));
 
 module.exports = Province;

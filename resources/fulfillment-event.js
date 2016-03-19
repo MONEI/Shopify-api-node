@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 const qs = require('qs');
 
 /**
@@ -117,7 +117,7 @@ FulfillmentEvent.prototype.buildUrl = function buildUrl(orderId, fulfillmentId, 
 
   if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
 
-  return _.assign({ path }, this.shopify.baseUrl);
+  return assign({ path }, this.shopify.baseUrl);
 };
 
 module.exports = FulfillmentEvent;

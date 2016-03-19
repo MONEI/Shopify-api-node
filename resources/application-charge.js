@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,7 +19,7 @@ function ApplicationCharge(shopify) {
   this.key = 'application_charge';
 }
 
-_.assign(ApplicationCharge.prototype, _.omit(base, [
+assign(ApplicationCharge.prototype, omit(base, [
   'count',
   'delete',
   'update'

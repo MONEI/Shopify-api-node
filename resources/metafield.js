@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
@@ -18,6 +18,6 @@ function Metafield(shopify) {
   this.key = 'metafield';
 }
 
-_.assign(Metafield.prototype, base);
+assign(Metafield.prototype, base);
 
 module.exports = Metafield;

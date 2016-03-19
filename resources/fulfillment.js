@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,7 +20,7 @@ function Fulfillment(shopify) {
   this.key = 'fulfillment';
 }
 
-_.assign(Fulfillment.prototype, _.omit(baseChild, ['delete']));
+assign(Fulfillment.prototype, omit(baseChild, ['delete']));
 
 /**
  * Completes a pending fulfillment.

@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,7 +19,7 @@ function Discount(shopify) {
   this.key = 'discount';
 }
 
-_.assign(Discount.prototype, _.omit(base, ['count', 'update']));
+assign(Discount.prototype, omit(base, ['count', 'update']));
 
 /**
  * Enables a discount.

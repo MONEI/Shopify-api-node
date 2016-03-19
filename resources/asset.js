@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const pick = require('lodash/pick');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,7 +20,7 @@ function Asset(shopify) {
   this.key = 'asset';
 }
 
-_.assign(Asset.prototype, _.pick(baseChild, ['list', 'buildUrl']));
+assign(Asset.prototype, pick(baseChild, ['list', 'buildUrl']));
 
 /**
  * Get a single asset by its ID.

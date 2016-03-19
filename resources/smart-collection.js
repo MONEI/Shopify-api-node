@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
@@ -18,7 +18,7 @@ function SmartCollection(shopify) {
   this.key = 'smart_collection';
 }
 
-_.assign(SmartCollection.prototype, base);
+assign(SmartCollection.prototype, base);
 
 /**
  * Sets the ordering tpy and/or the manual order of products in a smart

@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,6 +19,6 @@ function CarrierService(shopify) {
   this.key = 'carrier_service';
 }
 
-_.assign(CarrierService.prototype, _.omit(base, ['count']));
+assign(CarrierService.prototype, omit(base, ['count']));
 
 module.exports = CarrierService;

@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
@@ -18,6 +18,6 @@ function Product(shopify) {
   this.key = 'product';
 }
 
-_.assign(Product.prototype, base);
+assign(Product.prototype, base);
 
 module.exports = Product;

@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,6 +20,6 @@ function Transaction(shopify) {
   this.key = 'transaction';
 }
 
-_.assign(Transaction.prototype, _.omit(baseChild, ['delete', 'update']));
+assign(Transaction.prototype, omit(baseChild, ['delete', 'update']));
 
 module.exports = Transaction;

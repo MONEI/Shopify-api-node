@@ -2,8 +2,8 @@ describe('Shopify', () => {
   'use strict';
 
   const expect = require('chai').expect;
+  const assign = require('lodash/assign');
   const nock = require('nock');
-  const _ = require('lodash');
   const got = require('got');
 
   const Blog = require('../resources/blog');
@@ -86,7 +86,7 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#request', () => {
-    const url = _.assign({ path: '/test' }, shopify.baseUrl);
+    const url = assign({ path: '/test' }, shopify.baseUrl);
     const scope = common.scope;
 
     afterEach(() => expect(nock.isDone()).to.be.true);
@@ -134,7 +134,7 @@ describe('Shopify', () => {
 
     it('uses basic auth as intended', () => {
       const shopify = new Shopify(shopName, apiKey, password);
-      const url = _.assign({ path: '/test' }, shopify.baseUrl);
+      const url = assign({ path: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {

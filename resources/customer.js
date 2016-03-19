@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
@@ -18,7 +18,7 @@ function Customer(shopify) {
   this.key = 'customer';
 }
 
-_.assign(Customer.prototype, base);
+assign(Customer.prototype, base);
 
 /**
  * Returns a list of customers matching the given search parameters.

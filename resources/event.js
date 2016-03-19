@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,6 +19,6 @@ function Event(shopify) {
   this.key = 'event';
 }
 
-_.assign(Event.prototype, _.omit(base, ['create', 'delete', 'update']));
+assign(Event.prototype, omit(base, ['create', 'delete', 'update']));
 
 module.exports = Event;

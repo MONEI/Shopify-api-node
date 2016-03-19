@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,6 +19,6 @@ function Theme(shopify) {
   this.key = 'theme';
 }
 
-_.assign(Theme.prototype, _.omit(base, ['count']));
+assign(Theme.prototype, omit(base, ['count']));
 
 module.exports = Theme;

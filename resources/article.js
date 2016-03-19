@@ -1,6 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
 const qs = require('qs');
 
 const baseChild = require('../mixins/base-child');
@@ -21,7 +21,7 @@ function Article(shopify) {
   this.key = 'article';
 }
 
-_.assign(Article.prototype, baseChild);
+assign(Article.prototype, baseChild);
 
 /**
  * Gets a list of all the authors of articles.
@@ -57,7 +57,7 @@ Article.prototype.tags = function tags(blogId, params) {
 
   if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
 
-  const url = _.assign({ path }, this.shopify.baseUrl);
+  const url = assign({ path }, this.shopify.baseUrl);
   return this.shopify.request(url, 'GET', 'tags');
 };
 

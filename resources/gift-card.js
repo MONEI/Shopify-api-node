@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,7 +19,7 @@ function GiftCard(shopify) {
   this.key = 'gift_card';
 }
 
-_.assign(GiftCard.prototype, _.omit(base, ['delete']));
+assign(GiftCard.prototype, omit(base, ['delete']));
 
 /**
  * Disables a gift card.

@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const baseChild = require('../mixins/base-child');
 
@@ -19,6 +20,6 @@ function OrderRisk(shopify) {
   this.key = 'risk';
 }
 
-_.assign(OrderRisk.prototype, _.omit(baseChild, ['count']));
+assign(OrderRisk.prototype, omit(baseChild, ['count']));
 
 module.exports = OrderRisk;

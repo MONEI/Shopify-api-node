@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -18,7 +19,7 @@ function Comment(shopify) {
   this.key = 'comment';
 }
 
-_.assign(Comment.prototype, _.omit(base, ['delete']));
+assign(Comment.prototype, omit(base, ['delete']));
 
 /**
  * Marks a comment as spam.

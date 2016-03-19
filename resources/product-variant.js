@@ -1,6 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
+const assign = require('lodash/assign');
+const omit = require('lodash/omit');
 
 const baseChild = require('../mixins/base-child');
 const base = require('../mixins/base');
@@ -20,7 +21,7 @@ function ProductVariant(shopify) {
   this.key = 'variant';
 }
 
-_.assign(ProductVariant.prototype, _.omit(baseChild, ['get', 'update']));
+assign(ProductVariant.prototype, omit(baseChild, ['get', 'update']));
 
 /**
  * Gets a single product variant by its ID.

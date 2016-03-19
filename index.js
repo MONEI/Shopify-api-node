@@ -1,7 +1,8 @@
 'use strict';
 
+const camelCase = require('lodash/camelCase');
+const assign = require('lodash/assign');
 const path = require('path');
-const _ = require('lodash');
 const got = require('got');
 const fs = require('fs');
 
@@ -49,7 +50,7 @@ function Shopify(shop, key, password) {
  * @private
  */
 Shopify.prototype.request = function request(url, method, key, params) {
-  const options = _.assign({
+  const options = assign({
     headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
     json: true,
     retries: 0,
@@ -77,7 +78,7 @@ Shopify.prototype.request = function request(url, method, key, params) {
 // Require and instantiate the resources lazily.
 //
 fs.readdirSync(path.join(__dirname, 'resources')).forEach(name => {
-  const prop = _.camelCase(name.slice(0, -3));
+  const prop = camelCase(name.slice(0, -3));
 
   Object.defineProperty(Shopify.prototype, prop, {
     get: function get() {
