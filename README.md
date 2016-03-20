@@ -1,21 +1,16 @@
-# Nodify-Shopify
+# shopify-api-node
 
-[![Version npm](https://img.shields.io/npm/v/nodify-shopify.svg)](https://www.npmjs.com/package/nodify-shopify)
-[![Build Status](https://img.shields.io/travis/microapps/Nodify-Shopify/master.svg)](https://travis-ci.org/microapps/Nodify-Shopify)
-[![Dependencies](https://img.shields.io/david/microapps/Nodify-Shopify.svg)](https://david-dm.org/microapps/Nodify-Shopify)
-[![Coverage Status](https://img.shields.io/coveralls/microapps/Nodify-Shopify/master.svg)](https://coveralls.io/github/microapps/Nodify-Shopify)
+[![Version npm](https://img.shields.io/npm/v/shopify-api-node.svg)](https://www.npmjs.com/package/shopify-api-node)
+[![Build Status](https://img.shields.io/travis/microapps/shopify-api-node/master.svg)](https://travis-ci.org/microapps/shopify-api-node)
+[![Dependencies](https://img.shields.io/david/microapps/shopify-api-node.svg)](https://david-dm.org/microapps/shopify-api-node)
+[![Coverage Status](https://img.shields.io/coveralls/microapps/shopify-api-node/master.svg)](https://coveralls.io/github/microapps/shopify-api-node)
 
 Shopify API bindings for Node.js.
 
 ## Installation:
 
-The master branch is not published on npm, as the naming for the npm module is
-still being finalised, see [#84](https://github.com/microapps/Nodify-Shopify/issues/84).
-In the mean time please reference `microapps/nodify-shopify` instead of
-`nodify-shopify`:
-
 ```shell
-$ npm install microapps/nodify-shopify
+$ npm install --save shopify-api-node
 ```
 
 ## Usage:
@@ -29,7 +24,7 @@ For [private](https://docs.shopify.com/api/guides/introduction/creating-a-privat
 apps use three arguments:
 
 ```js
-const Shopify = require('nodify-shopify');
+const Shopify = require('shopify-api-node');
 
 const shopify = new Shopify(shopName, apiKey, password);
 ```
@@ -39,7 +34,7 @@ const shopify = new Shopify(shopName, apiKey, password);
 For public apps use two arguments:
 
 ```js
-const Shopify = require('nodify-shopify');
+const Shopify = require('shopify-api-node');
 
 const shopify = new Shopify(shopName, token);
 ```
