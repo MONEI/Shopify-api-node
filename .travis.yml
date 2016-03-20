@@ -9,8 +9,3 @@ after_script:
   - "npm install coveralls@2 && cat coverage/lcov.info | coveralls"
 notifications:
   email: a@alexandresaiz.com
-# deploy:
-#   api_key:
-#     secure: "Tu6kQZjib2l1JVvMUufsq1GfNEc1I5AvFyLtY0kHQnoIgHoFag+237O9oJ2SwZEljbeYXY1Vb5l89C+2PJNmTDvufxe1dZs3Xoz2LV8r2skMlmib41lzbMeaSL66VT7J3XG9Go2JpEUUL4TjVMXokL7ruJwJrdA5kNGv5Vpis94="
-#   email: a@alexandresaiz.com
-#   provider: npm
