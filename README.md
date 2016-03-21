@@ -323,11 +323,11 @@ for parameters details.
 
 ## Use a frontend framework which mimics the Shopify merchant admin:
 
-[Shopify Embedded App Frontend Framework](http://seaff.microapps.com?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
+[Shopify Embedded App Frontend Framework](http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## Supported by:
 
-[microapps](http://www.microapps.com/?utm_source=nodify-module-repo-readme&utm_medium=click&utm_campaign=github)
+[microapps](http://www.microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
 
 ## License
 
