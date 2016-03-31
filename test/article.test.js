@@ -112,17 +112,6 @@ describe('Shopify#article', () => {
       .then(data => expect(data).to.deep.equal(output.authors));
   });
 
-  it('gets a list of all the tags of articles (1/x)', () => {
-    const output = fixtures.res.tags;
-
-    scope
-      .get('/admin/articles/tags.json')
-      .reply(200, output);
-
-    return shopify.article.tags()
-      .then(data => expect(data).to.deep.equal(output.tags));
-  });
-
   it('gets a list of all tags of articles (1/3)', () => {
     const output = fixtures.res.tags;
 
