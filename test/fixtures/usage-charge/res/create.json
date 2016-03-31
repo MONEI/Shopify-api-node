@@ -1,0 +1,11 @@
+{
+  "usage_charge": {
+    "id": 1034618209,
+    "description": "Super Mega Plan Extensions",
+    "price": "5.00",
+    "billing_on": "2016-03-21",
+    "balance_used": 15.0,
+    "balance_remaining": 85.0,
+    "risk_level": 0.0
+  }
+}

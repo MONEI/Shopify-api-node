@@ -302,9 +302,13 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - transaction
   - `count(orderId)`
-  - `create(orderId[, params])`
+  - `create(orderId, params)`
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
+- usageCharge
+  - `create(recurringApplicationChargeId, params)`
+  - `get(recurringApplicationChargeId, id[, params])`
+  - `list(recurringApplicationChargeId[, params])`
 - user
   - `get(id)`
   - `list()`

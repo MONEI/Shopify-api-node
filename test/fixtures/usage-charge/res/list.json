@@ -1,0 +1,13 @@
+{
+  "usage_charges": [
+    {
+      "id": 329049015,
+      "description": "Super Mega Plan Add-ons",
+      "price": "10.00",
+      "billing_on": "2016-03-21",
+      "balance_used": 10.0,
+      "balance_remaining": 90.0,
+      "risk_level": 0.0
+    }
+  ]
+}
