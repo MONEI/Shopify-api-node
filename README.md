@@ -288,6 +288,12 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `order(id, params)`
   - `update(id, params)`
+- taxService
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list()`
+  - `update(id, params)`
 - theme
   - `create(params)`
   - `delete(id)`
