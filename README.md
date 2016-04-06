@@ -1,9 +1,9 @@
 # shopify-api-node
 
 [![Version npm](https://img.shields.io/npm/v/shopify-api-node.svg)](https://www.npmjs.com/package/shopify-api-node)
-[![Build Status](https://img.shields.io/travis/microapps/shopify-api-node/master.svg)](https://travis-ci.org/microapps/shopify-api-node)
-[![Dependencies](https://img.shields.io/david/microapps/shopify-api-node.svg)](https://david-dm.org/microapps/shopify-api-node)
-[![Coverage Status](https://img.shields.io/coveralls/microapps/shopify-api-node/master.svg)](https://coveralls.io/github/microapps/shopify-api-node)
+[![Build Status](https://img.shields.io/travis/microapps/Shopify-api-node/master.svg)](https://travis-ci.org/microapps/Shopify-api-node)
+[![Dependencies](https://img.shields.io/david/microapps/Shopify-api-node.svg)](https://david-dm.org/microapps/Shopify-api-node)
+[![Coverage Status](https://img.shields.io/coveralls/microapps/Shopify-api-node/master.svg)](https://coveralls.io/github/microapps/Shopify-api-node)
 
 Shopify API bindings for Node.js.
 
