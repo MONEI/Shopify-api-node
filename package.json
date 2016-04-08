@@ -24,7 +24,7 @@
     "eslint": "^2.2.0",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
-    "nock": "^7.2.2",
+    "nock": "^8.0.0",
     "pre-commit": "^1.1.2"
   },
   "scripts": {
