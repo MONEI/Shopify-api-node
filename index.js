@@ -32,6 +32,15 @@ function Shopify(shop, key, password) {
     this.token = key;
   }
 
+  //
+  // API call limits, updated with each request.
+  //
+  this.callLimits = {
+    max: undefined,
+    current: undefined,
+    remaining: undefined
+  };
+
   this.baseUrl = {
     hostname: `${shop}.myshopify.com`,
     protocol: 'https:',
@@ -68,6 +77,16 @@ Shopify.prototype.request = function request(url, method, key, params) {
 
   return got(options).then(res => {
     const body = res.body;
+
+    const callLimitHeader = res.headers['x-shopify-shop-api-call-limit'];
+
+    if (callLimitHeader) {
+      const callLimits = this.callLimits;
+      const splitLimit = callLimitHeader.split('/');
+      callLimits.max = +splitLimit[1];
+      callLimits.current = +splitLimit[0];
+      callLimits.remaining = callLimits.max - callLimits.current;
+    }
 
     if (key) return body[key];
     return body || {};

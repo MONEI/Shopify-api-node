@@ -60,6 +60,20 @@ shopify.order.list({ limit: 5 })
   .catch(err => console.error(err));
 ```
 
+You can access your current call limits with `shopify.callLimits`.
+This is updated with each request to Shopify's API. Values start at undefined.
+
+```js
+console.log(shopify.callLimits)
+/*
+{
+  max: 40,
+  current: 10,
+  remaining: 30
+}
+*/
+```
+
 ### Available resources and methods
 
 - applicationCharge
