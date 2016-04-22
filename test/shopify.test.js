@@ -91,6 +91,12 @@ describe('Shopify', () => {
 
     afterEach(() => expect(nock.isDone()).to.be.true);
 
+    it('has undefined callLimit values for the initial instance', () => {
+      expect(shopify.callLimits.max).to.be.undefined;
+      expect(shopify.callLimits.current).to.be.undefined;
+      expect(shopify.callLimits.remaining).to.be.undefined;
+    });
+
     it('returns a RequestError when the request fails', () => {
       const message = 'Something wrong happened';
 
@@ -213,6 +219,34 @@ describe('Shopify', () => {
 
       return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal({}));
+    });
+
+    it('updates callLimits if the relevant response header exists', () => {
+      scope
+        .get('/test')
+        .reply(200, '', {
+          'X-Shopify-Shop-Api-Call-Limit': '4/40'
+        });
+
+      return shopify.request(url, 'GET')
+        .then(() => {
+          expect(shopify.callLimits.max).to.equal(40);
+          expect(shopify.callLimits.current).to.equal(4);
+          expect(shopify.callLimits.remaining).to.equal(36);
+        });
+    });
+
+    it('does not update callLimits if the relevant response header does not exist', () => {
+      scope
+        .get('/test')
+        .reply(200);
+
+      return shopify.request(url, 'GET')
+        .then(() => {
+          expect(shopify.callLimits.max).to.equal(40);
+          expect(shopify.callLimits.current).to.equal(4);
+          expect(shopify.callLimits.remaining).to.equal(36);
+        });
     });
   });
 });
