@@ -36,9 +36,9 @@ function Shopify(shop, key, password) {
   // API call limits, updated with each request.
   //
   this.callLimits = {
-    max: undefined,
+    remaining: undefined,
     current: undefined,
-    remaining: undefined
+    max: undefined
   };
 
   this.baseUrl = {
@@ -47,6 +47,23 @@ function Shopify(shop, key, password) {
     auth
   };
 }
+
+/**
+ * Updates API call limits.
+ *
+ * @param {String} header X-Shopify-Shop-Api-Call-Limit header
+ * @private
+ */
+Shopify.prototype.updateLimits = function updateLimits(header) {
+  if (!header) return;
+
+  const limits = header.split('/').map(Number);
+  const callLimits = this.callLimits;
+
+  callLimits.remaining = limits[1] - limits[0];
+  callLimits.current = limits[0];
+  callLimits.max = limits[1];
+};
 
 /**
  * Sends a request to a Shopify API endpoint.
@@ -78,18 +95,16 @@ Shopify.prototype.request = function request(url, method, key, params) {
   return got(options).then(res => {
     const body = res.body;
 
-    const callLimitHeader = res.headers['x-shopify-shop-api-call-limit'];
-
-    if (callLimitHeader) {
-      const callLimits = this.callLimits;
-      const splitLimit = callLimitHeader.split('/');
-      callLimits.max = +splitLimit[1];
-      callLimits.current = +splitLimit[0];
-      callLimits.remaining = callLimits.max - callLimits.current;
-    }
+    this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
     if (key) return body[key];
     return body || {};
+  }, err => {
+    this.updateLimits(
+      err.response && err.response.headers['x-shopify-shop-api-call-limit']
+    );
+
+    return Promise.reject(err);
   });
 };
 
