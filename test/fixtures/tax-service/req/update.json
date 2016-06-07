@@ -1,8 +1,0 @@
-{
-  "tax_service": {
-    "id": 760126902,
-    "name": "Some new name",
-    "url": "https://tax-api.avalara.com",
-    "active": true
-  }
-}
