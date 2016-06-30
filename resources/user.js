@@ -21,4 +21,14 @@ function User(shopify) {
 
 assign(User.prototype, pick(base, ['get', 'list', 'buildUrl']));
 
+/**
+ * Gets the current logged-in user.
+ *
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+User.prototype.current = function() {
+  return this.get('current');
+};
+
 module.exports = User;

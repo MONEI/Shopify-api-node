@@ -32,4 +32,15 @@ describe('Shopify#user', () => {
     return shopify.user.get(799407056)
       .then(data => expect(data).to.deep.equal(output.user));
   });
+
+  it('gets the current logged-in user', () => {
+    const output = fixtures.res.current;
+
+    scope
+      .get('/admin/users/current.json')
+      .reply(200, output);
+
+    return shopify.user.current()
+      .then(data => expect(data).to.deep.equal(output.user));
+  });
 });

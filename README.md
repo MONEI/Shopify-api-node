@@ -318,6 +318,7 @@ console.log(shopify.callLimits)
   - `get(recurringApplicationChargeId, id[, params])`
   - `list(recurringApplicationChargeId[, params])`
 - user
+  - `current()`
   - `get(id)`
   - `list()`
 - webhook
