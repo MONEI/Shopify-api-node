@@ -348,6 +348,8 @@ for parameters details.
 
 [microapps](http://www.microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
 
+Used in our live products: [MoonMail] (https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github) & [MONEI] (http://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
+
 ## License
 
 [MIT](LICENSE)
