@@ -1,9 +1,9 @@
 # shopify-api-node
 
-[![Version npm](https://img.shields.io/npm/v/shopify-api-node.svg)](https://www.npmjs.com/package/shopify-api-node)
-[![Build Status](https://img.shields.io/travis/microapps/Shopify-api-node/master.svg)](https://travis-ci.org/microapps/Shopify-api-node)
-[![Dependencies](https://img.shields.io/david/microapps/Shopify-api-node.svg)](https://david-dm.org/microapps/Shopify-api-node)
-[![Coverage Status](https://img.shields.io/coveralls/microapps/Shopify-api-node/master.svg)](https://coveralls.io/github/microapps/Shopify-api-node)
+[![Version npm][npm-shopify-api-node-badge]][npm-shopify-api-node]
+[![Build Status][travis-shopify-api-node-badge]][travis-shopify-api-node]
+[![Dependencies][david-shopify-api-node-badge]][david-shopify-api-node]
+[![Coverage Status][coverage-shopify-api-node-badge]][coverage-shopify-api-node]
 
 Shopify API bindings for Node.js.
 
@@ -20,8 +20,7 @@ depending if you want to use it for private or public apps.
 
 ### Private apps
 
-For [private](https://docs.shopify.com/api/guides/introduction/creating-a-private-app)
-apps use three arguments:
+For [private][generate-private-app-credentials] apps use three arguments:
 
 ```js
 const Shopify = require('shopify-api-node');
@@ -39,8 +38,7 @@ const Shopify = require('shopify-api-node');
 const shopify = new Shopify(shopName, token);
 ```
 
-where `token` is a persistent [OAuth 2.0](https://docs.shopify.com/api/guides/authentication/oauth)
-token.
+where `token` is a persistent [OAuth 2.0][oauth] token.
 
 ### Resources
 
@@ -329,27 +327,47 @@ console.log(shopify.callLimits)
   - `list([params])`
   - `update(id, params)`
 
-where `params` is a plain JavaScript object. See https://docs.shopify.com/api/reference
+where `params` is a plain JavaScript object. See https://help.shopify.com/api/reference
 for parameters details.
 
 ## Become a master of the Shopify ecosystem by:
 
-* [Becoming a Shopify App Developer](https://app.shopify.com/services/partners/signup?ref=microapps)
-* [Checking out the roots](https://docs.shopify.com/api/guides/introduction/getting-started?ref=microapps)
-* [Talking To Other Masters](https://ecommerce.shopify.com/c/shopify-apps?ref=microapps)
-* [Reading API Docs](https://docs.shopify.com/api?ref=microapps)
-* [Learning from others](http://stackoverflow.com/questions/tagged/shopify)
+* [Becoming a Shopify App Developer][becoming-a-shopify-app-developer]
+* [Checking out the roots][checking-out-the-roots]
+* [Talking To Other Masters][talking-to-other-masters]
+* [Reading API Docs][reading-api-docs]
+* [Learning from others][learning-from-others]
 
 ## Use a frontend framework which mimics the Shopify merchant admin:
 
-[Shopify Embedded App Frontend Framework](http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
+[Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
 
 ## Supported by:
 
-[microapps](http://www.microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
+[microapps][microapps]
 
-Used in our live products: [MoonMail] (https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github) & [MONEI] (http://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github)
+Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 
 ## License
 
 [MIT](LICENSE)
+
+[npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
+[npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
+[travis-shopify-api-node-badge]: https://img.shields.io/travis/microapps/Shopify-api-node/master.svg
+[travis-shopify-api-node]: https://travis-ci.org/microapps/Shopify-api-node
+[david-shopify-api-node-badge]: https://img.shields.io/david/microapps/Shopify-api-node.svg
+[david-shopify-api-node]: https://david-dm.org/microapps/Shopify-api-node
+[coverage-shopify-api-node-badge]: https://img.shields.io/coveralls/microapps/Shopify-api-node/master.svg
+[coverage-shopify-api-node]: https://coveralls.io/github/microapps/Shopify-api-node
+[generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials
+[oauth]: https://help.shopify.com/api/guides/authentication/oauth
+[becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
+[checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
+[talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
+[reading-api-docs]: https://help.shopify.com/api/reference?ref=microapps
+[learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
+[shopify-embedded-app-frontend-framework]: http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[microapps]: http://www.microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[monei]: https://monei.net/en/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
