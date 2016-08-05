@@ -48,6 +48,10 @@ const shopify = new Shopify({
 
 where `accessToken` is a persistent [OAuth 2.0][oauth] token.
 
+There is an additional property you can set with the options object, `timeout`,
+which dictates in milliseconds how long to wait for response
+before "timing out" a request. The default is `60000`, or 1 minute.
+
 ### Resources
 
 Every resource is accessed via your `shopify` instance:
