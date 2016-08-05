@@ -2,6 +2,7 @@
 
 const camelCase = require('lodash/camelCase');
 const assign = require('lodash/assign');
+const defaults = require('lodash/defaults');
 const path = require('path');
 const got = require('got');
 const fs = require('fs');
@@ -16,12 +17,19 @@ const pkg = require('./package');
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
+ * @param {Number} options.timeout=60000 How long to wait in milliseconds
+ *                                       before timing out a request
  * @constructor
  * @public
  */
 function Shopify(options) {
   if (!(this instanceof Shopify)) return new Shopify(options);
-  if (!options || !options.shopName) {
+
+  options = this.options = defaults(options, {
+    timeout: 60000
+  });
+
+  if (!options.shopName) {
     throw new Error('Missing required shopName option');
   }
 
@@ -33,9 +41,7 @@ function Shopify(options) {
   //
   if (options.apiKey && options.password) {
     auth = `${options.apiKey}:${options.password}`;
-  } else if (options.accessToken) {
-    this.token = options.accessToken;
-  } else {
+  } else if (!options.accessToken) {
     throw new Error('Missing required options');
   }
 
@@ -87,10 +93,13 @@ Shopify.prototype.request = function request(url, method, key, params) {
     headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
     json: true,
     retries: 0,
+    timeout: this.options.timeout,
     method
   }, url);
 
-  if (this.token) options.headers['X-Shopify-Access-Token'] = this.token;
+  if (this.options.accessToken) {
+    options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
+  }
 
   if (params) {
     const body = key ? { [key]: params } : params;

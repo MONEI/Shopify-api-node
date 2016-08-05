@@ -276,5 +276,53 @@ describe('Shopify', () => {
       return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal({}));
     });
+
+    it('times out requests (socket open)', () => {
+      const shopify = new Shopify({
+        shopName,
+        apiKey,
+        password,
+        timeout: 500
+      });
+
+      nock(`https://${shopName}.myshopify.com`)
+        .get('/test')
+        .socketDelay(1000)
+        .reply(200, {});
+
+      return shopify.request(url, 'GET')
+        .then(() => {
+          throw new Error('Request did not fail');
+        })
+        .catch((err) => {
+          expect(err.message).to.equal(
+            'Socket timed out on request to undefined'
+          );
+        });
+    });
+
+    it('times out requests (first byte)', () => {
+      const shopify = new Shopify({
+        shopName,
+        apiKey,
+        password,
+        timeout: 500
+      });
+
+      nock(`https://${shopName}.myshopify.com`)
+        .get('/test')
+        .delay(1000)
+        .reply(200, {});
+
+      return shopify.request(url, 'GET')
+        .then(() => {
+          throw new Error('Request did not fail');
+        })
+        .catch((err) => {
+          expect(err.message).to.equal(
+            'Connection timed out on request to undefined'
+          );
+        });
+    });
   });
 });
