@@ -24,25 +24,27 @@ describe('Shopify', () => {
   it('throws an error when required constructor arguments are missing', () => {
     expect(() => {
       new Shopify();
-    }).to.throw(/Missing required arguments/);
+    }).to.throw(/Missing required shopName option/);
 
     expect(() => {
-      new Shopify(shopName);
-    }).to.throw(/Missing required arguments/);
+      new Shopify({ shopName });
+    }).to.throw(
+      /Missing required options/
+    );
 
     expect(() => {
-      new Shopify('', apiKey);
-    }).to.throw(/Missing required arguments/);
+      new Shopify({ apiKey });
+    }).to.throw(/Missing required shopName option/);
   });
 
   it('makes the new operator optional', () => {
-    const shopify = Shopify(shopName, accessToken);
+    const shopify = Shopify({ shopName, accessToken });
 
     expect(shopify).to.be.an.instanceof(Shopify);
   });
 
   it('adds basic auth to the URL when using apiKey and password', () => {
-    const shopify = new Shopify(shopName, apiKey, password);
+    const shopify = new Shopify({ shopName, apiKey, password });
 
     expect(shopify.baseUrl).to.deep.equal({
       hostname: `${shopName}.myshopify.com`,
@@ -52,7 +54,7 @@ describe('Shopify', () => {
   });
 
   it('does not add basic auth to the URL when using an access token', () => {
-    const shopify = new Shopify(shopName, accessToken);
+    const shopify = new Shopify({ shopName, accessToken });
 
     expect(shopify.baseUrl).to.deep.equal({
       hostname: `${shopName}.myshopify.com`,
@@ -62,7 +64,7 @@ describe('Shopify', () => {
   });
 
   it('instantiates the resources lazily', () => {
-    const shopify = new Shopify(shopName, accessToken);
+    const shopify = new Shopify({ shopName, accessToken });
 
     expect(shopify.hasOwnProperty('blog')).to.be.false;
 
@@ -74,7 +76,7 @@ describe('Shopify', () => {
   });
 
   it('allows to manually instantiate a resource', () => {
-    const shopify = new Shopify(shopName, accessToken);
+    const shopify = new Shopify({ shopName, accessToken });
     const blog = new Blog(shopify);
 
     expect(shopify.hasOwnProperty('blog')).to.be.false;
@@ -86,7 +88,7 @@ describe('Shopify', () => {
   });
 
   it('has undefined callLimit values for the initial instance', () => {
-    const shopify = new Shopify(shopName, accessToken);
+    const shopify = new Shopify({ shopName, accessToken });
 
     expect(shopify.callLimits).to.deep.equal({
       remaining: undefined,
@@ -143,7 +145,7 @@ describe('Shopify', () => {
     });
 
     it('uses basic auth as intended', () => {
-      const shopify = new Shopify(shopName, apiKey, password);
+      const shopify = new Shopify({ shopName, apiKey, password });
       const url = assign({ path: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
