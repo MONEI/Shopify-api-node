@@ -15,37 +15,48 @@ $ npm install --save shopify-api-node
 
 ## Usage:
 
-This module exports a constructor function which takes three or two arguments
-depending if you want to use it for private or public apps.
+This module exports a constructor function which takes an options object,
+requirements depending if you want to use it for private or public apps.
 
 ### Private apps
 
-For [private][generate-private-app-credentials] apps use three arguments:
+For [private][generate-private-app-credentials] apps use
+the `shopName`, `apiKey`, and `password` options:
 
 ```js
 const Shopify = require('shopify-api-node');
 
-const shopify = new Shopify(shopName, apiKey, password);
+const shopify = new Shopify({
+  shopName: 'your-shop-name',
+  apiKey: 'your-api-key',
+  password: 'your-app-password'
+});
 ```
 
 ### Public apps
 
-For public apps use two arguments:
+For public apps use the `shopName` and `accessToken` options:
 
 ```js
 const Shopify = require('shopify-api-node');
 
-const shopify = new Shopify(shopName, token);
+const shopify = new Shopify({
+  shopName: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+});
 ```
 
-where `token` is a persistent [OAuth 2.0][oauth] token.
+where `accessToken` is a persistent [OAuth 2.0][oauth] token.
 
 ### Resources
 
 Every resource is accessed via your `shopify` instance:
 
 ```js
-const shopify = new Shopify(shopName, token);
+const shopify = new Shopify({
+  shopName: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+});
 
 // shopify.<resouce_name>.<method_name>
 ```

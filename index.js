@@ -11,25 +11,32 @@ const pkg = require('./package');
 /**
  * Creates a Shopify instance.
  *
- * @param {String} shop The name of the shop
- * @param {String} key The API Key
- * @param {String} password The password
+ * @param {Object} options Options object.
+ * @param {String} options.shopName The name of the shop
+ * @param {String} options.apiKey The API Key
+ * @param {String} options.password The private app password
+ * @param {String} options.accessToken The persistent OAuth public app token
  * @constructor
  * @public
  */
-function Shopify(shop, key, password) {
-  if (!(this instanceof Shopify)) return new Shopify(shop, key, password);
-  if (!shop || !key) throw new Error('Missing required arguments');
+function Shopify(options) {
+  if (!(this instanceof Shopify)) return new Shopify(options);
+  if (!options || !options.shopName) {
+    throw new Error('Missing required shopName option');
+  }
 
   let auth;
 
   //
-  // If we have only 2 arguments, `key` is a persistent OAuth2 token.
+  // If we have apiKey, we also need password
+  // otherwise, we just need token
   //
-  if (password) {
-    auth = `${key}:${password}`;
+  if (options.apiKey && options.password) {
+    auth = `${options.apiKey}:${options.password}`;
+  } else if (options.accessToken) {
+    this.token = options.accessToken;
   } else {
-    this.token = key;
+    throw new Error('Missing required options');
   }
 
   //
@@ -42,7 +49,7 @@ function Shopify(shop, key, password) {
   };
 
   this.baseUrl = {
-    hostname: `${shop}.myshopify.com`,
+    hostname: `${options.shopName}.myshopify.com`,
     protocol: 'https:',
     auth
   };
