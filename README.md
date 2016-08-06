@@ -34,9 +34,10 @@ configuration options.
   string that specifies the API key of the app. This option must be used in
   conjunction with the `password` option and is mutually exclusive with the
   `accessToken` option.
-- `password` - Required for private apps - A string that specifies the private
-  app password. This option must be used in conjunction with the `apiKey`
-  option and is mutually exclusive with the `accessToken` option.
+- `password` - Required for [private][generate-private-app-credentials] apps -
+  A string that specifies the private app password. This option must be used in
+  conjunction with the `apiKey` option and is mutually exclusive with the
+  `accessToken` option.
 - `accessToken` - Required for public apps - A string representing the
   permanent [OAuth 2.0][oauth] access token. This option is mutually exclusive
   with the `apiKey` and `password` options.
