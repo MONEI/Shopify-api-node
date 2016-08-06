@@ -13,15 +13,38 @@ Shopify API bindings for Node.js.
 $ npm install --save shopify-api-node
 ```
 
-## Usage:
+## API
 
-This module exports a constructor function which takes an options object,
-requirements depending if you want to use it for private or public apps.
+This module exports a constructor function which takes an options object.
 
-### Private apps
+### `Shopify(options)`
 
-For [private][generate-private-app-credentials] apps use
-the `shopName`, `apiKey`, and `password` options:
+Returns a new Shopify instance. Throws an error when required options are
+missing.
+
+**Arguments**
+
+`options` - Required - A plain JavaScript object that contains the
+configuration options.
+
+**Options**
+
+- `shopName` - Required - A string that specifies the shop name.
+- `apiKey` - Required for [private][generate-private-app-credentials] apps - A
+  string that specifies the API key of the app. This option must be used in
+  conjunction with the `password` option and is mutually exclusive with the
+  `accessToken` option.
+- `password` - Required for private apps - A string that specifies the private
+  app password. This option must be used in conjunction with the `apiKey`
+  option and is mutually exclusive with the `accessToken` option.
+- `accessToken` - Required for public apps - A string representing the
+  permanent [OAuth 2.0][oauth] access token. This option is mutually exclusive
+  with the `apiKey` and `password` options.
+- `timeout` - Optional - A number that specifies the milliseconds to wait for
+  the server to send response headers before aborting the request. Defaults to
+  `60000`, or 1 minute.
+
+**Example**
 
 ```js
 const Shopify = require('shopify-api-node');
@@ -33,24 +56,20 @@ const shopify = new Shopify({
 });
 ```
 
-### Public apps
+### `shopify.callLimits`
 
-For public apps use the `shopName` and `accessToken` options:
+The `callLimits` property allows you to monitor the API call limit. The value
+is an object like this:
 
 ```js
-const Shopify = require('shopify-api-node');
-
-const shopify = new Shopify({
-  shopName: 'your-shop-name',
-  accessToken: 'your-oauth-token'
-});
+{
+  remaining: 30,
+  current: 10,
+  max: 40
+}
 ```
 
-where `accessToken` is a persistent [OAuth 2.0][oauth] token.
-
-There is an additional property you can set with the options object, `timeout`,
-which dictates in milliseconds how long to wait for response
-before "timing out" a request. The default is `60000`, or 1 minute.
+Values start at `undefined` and are updated every time a request is made.
 
 ### Resources
 
@@ -71,20 +90,6 @@ Each method returns a `Promise` that resolves with the result:
 shopify.order.list({ limit: 5 })
   .then(orders => console.log(orders))
   .catch(err => console.error(err));
-```
-
-You can access your current call limits with `shopify.callLimits`.
-This is updated with each request to Shopify's API. Values start at undefined.
-
-```js
-console.log(shopify.callLimits)
-/*
-{
-  max: 40,
-  current: 10,
-  remaining: 30
-}
-*/
 ```
 
 ### Available resources and methods
