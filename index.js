@@ -1,8 +1,8 @@
 'use strict';
 
 const camelCase = require('lodash/camelCase');
-const assign = require('lodash/assign');
 const defaults = require('lodash/defaults');
+const assign = require('lodash/assign');
 const path = require('path');
 const got = require('got');
 const fs = require('fs');
@@ -12,38 +12,27 @@ const pkg = require('./package');
 /**
  * Creates a Shopify instance.
  *
- * @param {Object} options Options object.
+ * @param {Object} options Configuration options
  * @param {String} options.shopName The name of the shop
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
- * @param {Number} options.timeout=60000 How long to wait in milliseconds
- *                                       before timing out a request
+ * @param {Number} [options.timeout] The request timeout
  * @constructor
  * @public
  */
 function Shopify(options) {
   if (!(this instanceof Shopify)) return new Shopify(options);
-
-  options = this.options = defaults(options, {
-    timeout: 60000
-  });
-
-  if (!options.shopName) {
-    throw new Error('Missing required shopName option');
+  if (
+      !options
+    || !options.shopName
+    || !options.accessToken && (!options.apiKey || !options.password)
+    || options.accessToken && (options.apiKey || options.password)
+  ) {
+    throw new Error('Missing or invalid options');
   }
 
-  let auth;
-
-  //
-  // If we have apiKey, we also need password
-  // otherwise, we just need token
-  //
-  if (options.apiKey && options.password) {
-    auth = `${options.apiKey}:${options.password}`;
-  } else if (!options.accessToken) {
-    throw new Error('Missing required options');
-  }
+  this.options = defaults(options, { timeout: 60000 });
 
   //
   // API call limits, updated with each request.
@@ -55,9 +44,9 @@ function Shopify(options) {
   };
 
   this.baseUrl = {
+    auth: !options.accessToken && `${options.apiKey}:${options.password}`,
     hostname: `${options.shopName}.myshopify.com`,
-    protocol: 'https:',
-    auth
+    protocol: 'https:'
   };
 }
 
@@ -91,9 +80,9 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
 Shopify.prototype.request = function request(url, method, key, params) {
   const options = assign({
     headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
+    timeout: this.options.timeout,
     json: true,
     retries: 0,
-    timeout: this.options.timeout,
     method
   }, url);
 

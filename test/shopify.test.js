@@ -21,20 +21,16 @@ describe('Shopify', () => {
     expect(Shopify).to.be.a('function');
   });
 
-  it('throws an error when required constructor arguments are missing', () => {
-    expect(() => {
-      new Shopify();
-    }).to.throw(/Missing required shopName option/);
+  it('throws an error when required options missing or invalid', () => {
+    const msg = 'Missing or invalid options';
 
-    expect(() => {
-      new Shopify({ shopName });
-    }).to.throw(
-      /Missing required options/
-    );
-
-    expect(() => {
-      new Shopify({ apiKey });
-    }).to.throw(/Missing required shopName option/);
+    expect(() => new Shopify()).to.throw(Error, msg);
+    expect(() => new Shopify({})).to.throw(Error, msg);
+    expect(() => new Shopify({ shopName })).to.throw(Error, msg);
+    expect(() => new Shopify({ apiKey })).to.throw(Error, msg);
+    expect(() => new Shopify({ password })).to.throw(Error, msg);
+    expect(() => new Shopify({ accessToken, apiKey })).to.throw(Error, msg);
+    expect(() => new Shopify({ accessToken, password })).to.throw(Error, msg);
   });
 
   it('makes the new operator optional', () => {
@@ -59,7 +55,7 @@ describe('Shopify', () => {
     expect(shopify.baseUrl).to.deep.equal({
       hostname: `${shopName}.myshopify.com`,
       protocol: 'https:',
-      auth: undefined
+      auth: false
     });
   });
 
@@ -115,6 +111,38 @@ describe('Shopify', () => {
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
         expect(err.message).to.equal(message);
+      });
+    });
+
+    it('returns a RequestError when timeout expires (1/2)', () => {
+      const shopify = new Shopify({ shopName, accessToken, timeout: 500 });
+
+      scope
+        .get('/test')
+        .delay(1000)
+        .reply(200, {});
+
+      return shopify.request(url, 'GET').then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.RequestError);
+        expect(err.message).to.include('Connection timed out on request');
+      });
+    });
+
+    it('returns a RequestError when timeout expires (2/2)', () => {
+      const shopify = new Shopify({ shopName, accessToken, timeout: 500 });
+
+      scope
+        .get('/test')
+        .socketDelay(1000)
+        .reply(200, {});
+
+      return shopify.request(url, 'GET').then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.RequestError);
+        expect(err.message).to.include('Socket timed out on request');
       });
     });
 
@@ -275,54 +303,6 @@ describe('Shopify', () => {
 
       return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal({}));
-    });
-
-    it('times out requests (socket open)', () => {
-      const shopify = new Shopify({
-        shopName,
-        apiKey,
-        password,
-        timeout: 500
-      });
-
-      nock(`https://${shopName}.myshopify.com`)
-        .get('/test')
-        .socketDelay(1000)
-        .reply(200, {});
-
-      return shopify.request(url, 'GET')
-        .then(() => {
-          throw new Error('Request did not fail');
-        })
-        .catch((err) => {
-          expect(err.message).to.equal(
-            'Socket timed out on request to undefined'
-          );
-        });
-    });
-
-    it('times out requests (first byte)', () => {
-      const shopify = new Shopify({
-        shopName,
-        apiKey,
-        password,
-        timeout: 500
-      });
-
-      nock(`https://${shopName}.myshopify.com`)
-        .get('/test')
-        .delay(1000)
-        .reply(200, {});
-
-      return shopify.request(url, 'GET')
-        .then(() => {
-          throw new Error('Request did not fail');
-        })
-        .catch((err) => {
-          expect(err.message).to.equal(
-            'Connection timed out on request to undefined'
-          );
-        });
     });
   });
 });
