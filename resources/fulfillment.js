@@ -47,7 +47,7 @@ Fulfillment.prototype.complete = function complete(orderId, id) {
 Fulfillment.prototype.open = function open(orderId, id) {
   const url = this.buildUrl(orderId, `${id}/open`);
   return this.shopify.request(url, 'POST', undefined, {})
-      .then(body => body[this.key]);
+    .then(body => body[this.key]);
 };
 
 /**
