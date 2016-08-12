@@ -108,6 +108,17 @@ describe('Shopify#fulfillment', () => {
       .then(data => expect(data).to.deep.equal(output.fulfillment));
   });
 
+  it('opens a pending fulfillment', () => {
+    const output = fixtures.res.open;
+
+    scope
+      .post('/admin/orders/450789469/fulfillments/255858046/open.json', {})
+      .reply(201, output);
+
+    return shopify.fulfillment.open(450789469, 255858046)
+      .then(data => expect(data).to.deep.equal(output.fulfillment));
+  });
+
   it('cancels a pending fulfillment', () => {
     const output = fixtures.res.cancel;
 

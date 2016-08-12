@@ -205,6 +205,7 @@ shopify.order.list({ limit: 5 })
   - `create(orderId, params)`
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
+  - `open(orderId, id)`
   - `update(orderId, id, params)`
 - fulfillmentEvent
   - `create(orderId, fulfillmentId, params)`

@@ -37,6 +37,20 @@ Fulfillment.prototype.complete = function complete(orderId, id) {
 };
 
 /**
+ * Opens a pending fulfillment.
+ *
+ * @param {Number} orderId Order ID
+ * @param {Number} id Fulfillment id
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Fulfillment.prototype.open = function open(orderId, id) {
+  const url = this.buildUrl(orderId, `${id}/open`);
+  return this.shopify.request(url, 'POST', undefined, {})
+    .then(body => body[this.key]);
+};
+
+/**
  * Cancels a pending fulfillment.
  *
  * @param {Number} orderId Order ID
