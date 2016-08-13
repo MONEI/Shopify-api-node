@@ -115,11 +115,11 @@ describe('Shopify', () => {
     });
 
     it('returns a RequestError when timeout expires (1/2)', () => {
-      const shopify = new Shopify({ shopName, accessToken, timeout: 500 });
+      const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       scope
         .get('/test')
-        .delay(1000)
+        .delay(200)
         .reply(200, {});
 
       return shopify.request(url, 'GET').then(() => {
@@ -131,11 +131,11 @@ describe('Shopify', () => {
     });
 
     it('returns a RequestError when timeout expires (2/2)', () => {
-      const shopify = new Shopify({ shopName, accessToken, timeout: 500 });
+      const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       scope
         .get('/test')
-        .socketDelay(1000)
+        .socketDelay(200)
         .reply(200, {});
 
       return shopify.request(url, 'GET').then(() => {
