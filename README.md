@@ -95,6 +95,8 @@ shopify.order.list({ limit: 5 })
 
 ### Available resources and methods
 
+- apiPermission
+  - `delete()`
 - applicationCharge
   - `activate(id, params)`
   - `create(params)`
