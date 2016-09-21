@@ -40,7 +40,9 @@ configuration options.
   `accessToken` option.
 - `accessToken` - Required for public apps - A string representing the
   permanent [OAuth 2.0][oauth] access token. This option is mutually exclusive
-  with the `apiKey` and `password` options.
+  with the `apiKey` and `password` options. If you are looking for a premade
+  solution to obtain an access token, take a look at the [shopify-token][]
+  module.
 - `timeout` - Optional - A number that specifies the milliseconds to wait for
   the server to send response headers before aborting the request. Defaults to
   `60000`, or 1 minute.
@@ -386,6 +388,7 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [coverage-shopify-api-node]: https://coveralls.io/github/microapps/Shopify-api-node
 [generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth
+[shopify-token]: https://github.com/lpinca/shopify-token
 [becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
 [talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
