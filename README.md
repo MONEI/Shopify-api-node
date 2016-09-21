@@ -19,15 +19,14 @@ This module exports a constructor function which takes an options object.
 
 ### `Shopify(options)`
 
-Returns a new Shopify instance. Throws an error when required options are
-missing.
+Creates a new `Shopify` instance.
 
-**Arguments**
+#### Arguments
 
-`options` - Required - A plain JavaScript object that contains the
+- `options` - Required - A plain JavaScript object that contains the
 configuration options.
 
-**Options**
+#### Options
 
 - `shopName` - Required - A string that specifies the shop name.
 - `apiKey` - Required for [private][generate-private-app-credentials] apps - A
@@ -47,7 +46,15 @@ configuration options.
   the server to send response headers before aborting the request. Defaults to
   `60000`, or 1 minute.
 
-**Example**
+#### Return value
+
+A `Shopify` instance.
+
+#### Exceptions
+
+Throws an `Error` exception if the required options are missing.
+
+#### Example
 
 ```js
 const Shopify = require('shopify-api-node');
