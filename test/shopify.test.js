@@ -117,12 +117,15 @@ describe('Shopify', () => {
     it('returns a RequestError when timeout expires (1/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
-      scope
-        .get('/test')
-        .delay(200)
-        .reply(200, {});
+      //
+      // `scope.delay()` can only delay the `response` event. The connection is
+      // still established so it is useless for this test. To work around this
+      // issue a non-routable IP address is used here instead of `nock`. See
+      // https://tools.ietf.org/html/rfc5737#section-3
+      //
+      shopify.baseUrl.hostname = '192.0.2.1';
 
-      return shopify.request(url, 'GET').then(() => {
+      return shopify.request(shopify.baseUrl, 'GET').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
