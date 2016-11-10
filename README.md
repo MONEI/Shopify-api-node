@@ -360,7 +360,7 @@ shopify.order.list({ limit: 5 })
   - `list([params])`
   - `update(id, params)`
 
-where `params` is a plain JavaScript object. See https://help.shopify.com/api/reference
+where `params` is a plain JavaScript object. See https://help.shopify.com/api/reference?ref=microapps
 for parameters details.
 
 ## Become a master of the Shopify ecosystem by:
@@ -393,8 +393,8 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [david-shopify-api-node]: https://david-dm.org/microapps/Shopify-api-node
 [coverage-shopify-api-node-badge]: https://img.shields.io/coveralls/microapps/Shopify-api-node/master.svg
 [coverage-shopify-api-node]: https://coveralls.io/github/microapps/Shopify-api-node
-[generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials
-[oauth]: https://help.shopify.com/api/guides/authentication/oauth
+[generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
+[oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
 [becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
