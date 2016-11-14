@@ -38,7 +38,7 @@
     "lint",
     "test"
   ],
-  "repository": "microapps/Shopify-api-node",
+  "repository": "MONEI/Shopify-api-node",
   "keywords": [
     "Shopify",
     "API",
@@ -47,7 +47,7 @@
   "author": "alexandre saiz <a@alexandresaiz.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/microapps/Shopify-api-node/issues"
+    "url": "https://github.com/MONEI/Shopify-api-node/issues"
   },
-  "homepage": "https://github.com/microapps/Shopify-api-node"
+  "homepage": "https://github.com/MONEI/Shopify-api-node"
 }
