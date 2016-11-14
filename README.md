@@ -387,12 +387,12 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 
 [npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
 [npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
-[travis-shopify-api-node-badge]: https://img.shields.io/travis/microapps/Shopify-api-node/master.svg
-[travis-shopify-api-node]: https://travis-ci.org/microapps/Shopify-api-node
-[david-shopify-api-node-badge]: https://img.shields.io/david/microapps/Shopify-api-node.svg
-[david-shopify-api-node]: https://david-dm.org/microapps/Shopify-api-node
-[coverage-shopify-api-node-badge]: https://img.shields.io/coveralls/microapps/Shopify-api-node/master.svg
-[coverage-shopify-api-node]: https://coveralls.io/github/microapps/Shopify-api-node
+[travis-shopify-api-node-badge]: https://img.shields.io/travis/MONEI/Shopify-api-node/master.svg
+[travis-shopify-api-node]: https://travis-ci.org/MONEI/Shopify-api-node
+[david-shopify-api-node-badge]: https://img.shields.io/david/MONEI/Shopify-api-node.svg
+[david-shopify-api-node]: https://david-dm.org/MONEI/Shopify-api-node
+[coverage-shopify-api-node-badge]: https://img.shields.io/coveralls/MONEI/Shopify-api-node/master.svg
+[coverage-shopify-api-node]: https://coveralls.io/github/MONEI/Shopify-api-node
 [generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
