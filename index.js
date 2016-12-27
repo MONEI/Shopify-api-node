@@ -3,6 +3,7 @@
 const camelCase = require('lodash/camelCase');
 const defaults = require('lodash/defaults');
 const assign = require('lodash/assign');
+const valvelet = require('valvelet');
 const path = require('path');
 const got = require('got');
 const fs = require('fs');
@@ -17,6 +18,7 @@ const pkg = require('./package');
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
+ * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
  * @constructor
  * @public
@@ -48,6 +50,11 @@ function Shopify(options) {
     hostname: `${options.shopName}.myshopify.com`,
     protocol: 'https:'
   };
+
+  if (options.autoLimit) {
+    const conf = assign({ calls: 2, interval: 1000 }, options.autoLimit);
+    this.request = valvelet(this.request, conf.calls, conf.interval);
+  }
 }
 
 /**

@@ -42,6 +42,14 @@ configuration options.
   with the `apiKey` and `password` options. If you are looking for a premade
   solution to obtain an access token, take a look at the [shopify-token][]
   module.
+- `autoLimit` - Optional - This option allows you to regulate the request rate
+  in order to avoid hitting the [rate limit][api-call-limit]. It can be a
+  boolean or a plain JavaScript object. When set to `true` requests are limited
+  to 2 per second. When using an object, the `calls` property specifies the
+  maximum number of allowed requests and the `interval` property the timespan
+  in milliseconds where the limit is calculated. For example
+  `{ calls: 4, interval: 1000 }` specifies a maximum of 4 requests per second.
+  Defaults to `false`.
 - `timeout` - Optional - A number that specifies the milliseconds to wait for
   the server to send response headers before aborting the request. Defaults to
   `60000`, or 1 minute.
@@ -396,6 +404,7 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
+[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit
 [becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
 [talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
