@@ -318,7 +318,7 @@ describe('Shopify', () => {
       };
 
       const shopify = new Shopify({
-        autoLimit: { calls: 1, interval: 50 },
+        autoLimit: { calls: 1, interval: 100 },
         accessToken,
         shopName
       });
@@ -336,8 +336,8 @@ describe('Shopify', () => {
         shopify.request(url, 'GET')
       ]).then(() => {
         expect(timestamps.length).to.equal(3);
-        expect(timestamps[2] - timestamps[1]).to.be.within(50, 70);
-        expect(timestamps[1] - timestamps[0]).to.be.within(50, 70);
+        expect(timestamps[2] - timestamps[1]).to.be.within(100, 150);
+        expect(timestamps[1] - timestamps[0]).to.be.within(100, 150);
       });
     });
   });
