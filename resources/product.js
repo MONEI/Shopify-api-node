@@ -20,4 +20,16 @@ function Product(shopify) {
 
 assign(Product.prototype, base);
 
+/**
+ * Get all metafields that belong to a product
+ *
+ * @param {Number} product Product ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Product.prototype.metafields = function(id) {
+  const url = this.buildUrl(`${id}/metafields`);
+  return this.shopify.request(url);
+};
+
 module.exports = Product;
