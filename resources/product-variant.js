@@ -49,16 +49,4 @@ ProductVariant.prototype.update = function update(id, params) {
   return this.shopify.request(url, 'PUT', this.key, params);
 };
 
-/**
- * Get all metafields that belong to a product variant
- *
- * @param {Number} variant Variant ID
- * @return {Promise} Promise that resolves with the result
- * @public
- */
-ProductVariant.prototype.metafields = function(id) {
-  const url = this.buildUrl(`${id}/metafields`);
-  return this.shopify.request(url);
-};
-
 module.exports = ProductVariant;
