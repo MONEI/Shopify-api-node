@@ -413,4 +413,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [shopify-embedded-app-frontend-framework]: http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
-[monei]: https://monei.net/en/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
