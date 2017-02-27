@@ -36,13 +36,22 @@ const baseChild = {
     const url = this.buildUrl(parentId);
     return this.shopify.request(url, 'POST', this.key, params);
   },
+
+  /**
+   * Creates a new metafield on a record.
+   *
+   * @param {Number} parentId Parent record ID
+   * @param {Object} params Record properties
+   * @return {Promise} Promise that resolves with the result
+   * @public
+   */
   createMetafield(parentId, params) {
-    // rearrange arguments
+    // rearrange and override arguments
     this.parentName = this.name;
-    this.name = '';
+    this.name = 'metafield';
     this.key = 'metafield';
 
-    const url = this.buildUrl(parentId, 'metafield');
+    const url = this.buildUrl(parentId);
     return this.shopify.request(url, 'POST', this.key, params);
   },
 

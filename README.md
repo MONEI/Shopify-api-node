@@ -284,6 +284,7 @@ shopify.order.list({ limit: 5 })
 - product
   - `count([params])`
   - `create(params)`
+  - `createMetafield(id, params)`
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
@@ -298,6 +299,7 @@ shopify.order.list({ limit: 5 })
 - productVariant
   - `count(productId)`
   - `create(productId, params)`
+  - `createMetafield(productVariantId, params)`
   - `delete(productId, id)`
   - `get(id[, params])`
   - `list(productId[, params])`
