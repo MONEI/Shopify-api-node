@@ -39,6 +39,7 @@ const baseChild = {
 
   /**
    * Creates a new metafield on a record.
+   * This also works to update the existing metafield
    *
    * @param {Number} parentId Parent record ID
    * @param {Object} params Record properties
