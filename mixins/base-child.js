@@ -36,6 +36,15 @@ const baseChild = {
     const url = this.buildUrl(parentId);
     return this.shopify.request(url, 'POST', this.key, params);
   },
+  createMetafield(parentId, params) {
+    // rearrange arguments
+    this.parentName = this.name;
+    this.name = '';
+    this.key = 'metafield';
+
+    const url = this.buildUrl(parentId, 'metafield');
+    return this.shopify.request(url, 'POST', this.key, params);
+  },
 
   /**
    * Deletes a record.
