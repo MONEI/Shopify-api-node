@@ -1,0 +1,72 @@
+{
+  "draft_order": {
+    "id": 59743814,
+    "note": null,
+    "email": null,
+    "taxes_included": false,
+    "currency": "CAD",
+    "subtotal_price": "40.00",
+    "total_tax": "5.99",
+    "total_price": "45.99",
+    "invoice_sent_at": null,
+    "created_at": "2016-12-07T13:04:30-05:00",
+    "updated_at": "2016-12-07T13:04:30-05:00",
+    "tax_exempt": false,
+    "completed_at": null,
+    "name": "#D11",
+    "status": "open",
+    "line_items": [
+      {
+        "variant_id": null,
+        "product_id": null,
+        "title": "Custom Tee",
+        "variant_title": null,
+        "sku": null,
+        "vendor": null,
+        "price": "20.00",
+        "grams": 0,
+        "quantity": 2,
+        "requires_shipping": false,
+        "taxable": true,
+        "gift_card": false,
+        "fulfillment_service": "manual",
+        "tax_lines": [
+          {
+            "price": "2.00",
+            "rate": 0.05,
+            "title": "GST"
+          },
+          {
+            "price": "3.99",
+            "rate": 0.09975,
+            "title": "QST"
+          }
+        ],
+        "applied_discount": null,
+        "name": "Custom Tee",
+        "properties": null,
+        "custom": true
+      }
+    ],
+    "shipping_address": null,
+    "billing_address": null,
+    "invoice_url": "https://checkout.shopify.com/14376108/invoices/dc1f1d079d4615d2be342a36364862f0",
+    "applied_discount": null,
+    "order_id": null,
+    "shipping_line": null,
+    "tax_lines": [
+      {
+        "price": "2.00",
+        "rate": 0.05,
+        "title": "GST"
+      },
+      {
+        "price": "3.99",
+        "rate": 0.09975,
+        "title": "QST"
+      }
+    ],
+    "tags": "",
+    "customer": null
+  }
+}

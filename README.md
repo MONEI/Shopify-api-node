@@ -213,6 +213,15 @@ shopify.order.list({ limit: 5 })
   - `enable(id)`
   - `get(id)`
   - `list([params])`
+- draftOrder
+  - `complete(id[, params])`
+  - `count()`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `sendInvoice(id[, params])`
+  - `update(id, params)`
 - event
   - `count([params])`
   - `get(id[, params])`
