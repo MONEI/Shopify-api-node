@@ -42,14 +42,9 @@ configuration options.
   with the `apiKey` and `password` options. If you are looking for a premade
   solution to obtain an access token, take a look at the [shopify-token][]
   module.
-- `autoLimit` - Optional - This option allows you to regulate the request rate
-  in order to avoid hitting the [rate limit][api-call-limit]. It can be a
-  boolean or a plain JavaScript object. When set to `true` requests are limited
-  to 2 per second. When using an object, the `calls` property specifies the
-  maximum number of allowed requests and the `interval` property the timespan
-  in milliseconds where the limit is calculated. For example
-  `{ calls: 4, interval: 1000 }` specifies a maximum of 4 requests per second.
-  Defaults to `false`.
+- `apiCallLimit` - Optional - Default: 38, 2 less than Shopify Max. to account for some timing irregularites
+- `apiRefresh` - Optional - Defaut: 2
+- `apiRefreshTime` - Optional - Default: 1000
 - `timeout` - Optional - A number that specifies the milliseconds to wait for
   the server to send response headers before aborting the request. Defaults to
   `60000`, or 1 minute.
@@ -74,6 +69,12 @@ const shopify = new Shopify({
 });
 ```
 
+#### Shopify API Limits
+
+Shopify employs a Leaky Bucket alogrithm to [rate limit][api-call-limit] it's API. This stands at a Max call limit of 40 API requests, replenishing at two API requests a second. This means you can peak load at 40 API requests and then back off running two API requests a second thereafter as rate limit becomes available.
+
+The three values (which are passed to [tokenbucket][tokenbucket]) that control this can be indepedantly set in the options as needed. In testing, setting the call limit to 40 would occasionally trip the rate limiter, so 38 is set as the default to give a little head room.
+
 ### `shopify.callLimits`
 
 The `callLimits` property allows you to monitor the API call limit. The value
@@ -83,7 +84,8 @@ is an object like this:
 {
   remaining: 30,
   current: 10,
-  max: 40
+  max: 40,
+  remainingTokens: 38
 }
 ```
 
@@ -423,3 +425,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[tokenbucket]: https://github.com/jesucarr/tokenbucket
