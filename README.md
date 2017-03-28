@@ -87,7 +87,13 @@ is an object like this:
 }
 ```
 
-Values start at `undefined` and are updated every time a request is made.
+Values start at `undefined` and are updated every time a request is made. After
+every update the `callLimits` event is emitted with the updated limits as
+argument.
+
+```js
+shopify.on('callLimits', limits => console.log(limits));
+```
 
 ### Resources
 

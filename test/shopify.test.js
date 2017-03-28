@@ -262,6 +262,25 @@ describe('Shopify', () => {
       });
     });
 
+    it('emits the `callLimits` event', (done) => {
+      scope
+        .get('/test')
+        .reply(200, {}, {
+          'X-Shopify-Shop-Api-Call-Limit': '6/40'
+        });
+
+      shopify.on('callLimits', limits => {
+        expect(limits).to.deep.equal({
+          remaining: 34,
+          current: 6,
+          max: 40
+        });
+        done();
+      });
+
+      shopify.request(url, 'GET');
+    });
+
     it('does not update callLimits if the relevant header is missing', () => {
       scope
         .get('/test')
@@ -270,8 +289,8 @@ describe('Shopify', () => {
       return shopify.request(url, 'GET')
         .then(() => {
           expect(shopify.callLimits).to.deep.equal({
-            remaining: 35,
-            current: 5,
+            remaining: 34,
+            current: 6,
             max: 40
           });
         });
