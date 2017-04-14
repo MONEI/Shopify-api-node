@@ -392,6 +392,17 @@ for parameters details.
 
 [Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
 
+## Shopify Apps already using Shopify API node: 
+
+(add yours!)
+
+[Wholesaler][wholesaler]
+
+[Wholesaler & Customer Pricing][wholesaler-customer-pricing]
+
+[Pricing Rules by MONEI][pricing-rules-by-monei]
+
+
 ## Supported by:
 
 [microapps][microapps]
@@ -423,3 +434,6 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[wholesaler]: https://apps.shopify.com/wholesaler?ref=microapps
+[wholesaler-customer-pricing]: https://apps.shopify.com/wholesaler-pro-1?ref=microapps
+[pricing-rules-by-monei]: https://apps.shopify.com/pricing-rules-by-monei?ref=microapps
