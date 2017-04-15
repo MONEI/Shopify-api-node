@@ -323,6 +323,12 @@ shopify.order.list({ limit: 5 })
   - `list(checkoutToken)`
 - policy
   - `list([params])`
+- priceRule
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list([params])`
+  - `update(id, params)`
 - product
   - `count([params])`
   - `create(params)`

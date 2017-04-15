@@ -1,0 +1,17 @@
+{
+  "price_rule": {
+    "title": "2017 Summer Sale",
+    "target_type": "line_item",
+    "target_selection": "all",
+    "allocation_method": "across",
+    "value_type": "fixed_amount",
+    "value": -15,
+    "once_per_customer": true,
+    "usage_limit": null,
+    "customer_selection": "all",
+    "prerequisite_subtotal_range": null,
+    "prerequisite_shipping_price_range": null,
+    "starts_at": "2017-06-22T00:00:00Z",
+    "ends_at": null
+  }
+}

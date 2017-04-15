@@ -1,0 +1,25 @@
+{
+  "price_rule": {
+    "id": 2762402181,
+    "value_type": "fixed_amount",
+    "value": "-10.0",
+    "customer_selection": "all",
+    "target_type": "line_item",
+    "target_selection": "all",
+    "allocation_method": "across",
+    "once_per_customer": true,
+    "usage_limit": null,
+    "starts_at": "2017-06-21T20:00:00-04:00",
+    "ends_at": null,
+    "created_at": "2017-06-01T09:54:38-04:00",
+    "updated_at": "2017-06-01T09:54:38-04:00",
+    "entitled_product_ids": [],
+    "entitled_variant_ids": [],
+    "entitled_collection_ids": [],
+    "entitled_country_ids": [],
+    "prerequisite_saved_search_ids": [],
+    "prerequisite_subtotal_range": null,
+    "prerequisite_shipping_price_range": null,
+    "title": "2017 Summer Sale"
+  }
+}
