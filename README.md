@@ -392,16 +392,13 @@ for parameters details.
 
 [Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
 
-## Shopify Apps already using Shopify API node: 
+## Shopify Apps already using Shopify API node:
 
 (add yours!)
 
-[Wholesaler][wholesaler]
-
-[Wholesaler & Customer Pricing][wholesaler-customer-pricing]
-
-[Pricing Rules by MONEI][pricing-rules-by-monei]
-
+* [Wholesaler][wholesaler]
+* [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
+* [Pricing Rules by MONEI][pricing-rules-by-monei]
 
 ## Supported by:
 
