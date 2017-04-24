@@ -390,7 +390,7 @@ for parameters details.
 
 ## Use Polaris, a React powered Frontend Framework which mimics the Shopify merchant admin:
 
-[Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
+[Polaris][polaris]
 
 ## Shopify Apps already using Shopify API node:
 
