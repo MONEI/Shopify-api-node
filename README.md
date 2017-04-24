@@ -388,7 +388,7 @@ for parameters details.
 * [Reading API Docs][reading-api-docs]
 * [Learning from others][learning-from-others]
 
-## Use a frontend framework which mimics the Shopify merchant admin:
+## Use Polaris, a React powered Frontend Framework which mimics the Shopify merchant admin:
 
 [Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
 
@@ -421,13 +421,13 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
-[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit
+[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
 [becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
 [talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
-[reading-api-docs]: https://help.shopify.com/api/reference?ref=microapps
+[reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
-[shopify-embedded-app-frontend-framework]: http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
