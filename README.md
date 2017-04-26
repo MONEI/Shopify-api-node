@@ -331,6 +331,9 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - refund
   - `get(orderId, id[, params])`
+- resourceFeedback
+  - `create(params)`
+  - `list()`
 - scriptTag
   - `count([params])`
   - `create(params)`
