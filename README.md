@@ -119,6 +119,10 @@ shopify.order.list({ limit: 5 })
   - `create(params)`
   - `get(id[, params])`
   - `list([params])`
+- applicationCredit
+  - `create(params)`
+  - `get(id[, params])`
+  - `list([params])`
 - article
   - `authors()`
   - `count(blogId[, params])`
