@@ -331,6 +331,12 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - refund
   - `get(orderId, id[, params])`
+- report
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
 - resourceFeedback
   - `create(params)`
   - `list()`

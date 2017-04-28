@@ -1,0 +1,18 @@
+{
+  "reports": [
+    {
+      "id": 752357116,
+      "name": "Custom App Report 2",
+      "shopify_ql": "SHOW total_sales BY country FROM orders ORDER BY total_sales",
+      "updated_at": "2017-04-18T22:01:08-04:00",
+      "category": "custom_app_reports"
+    },
+    {
+      "id": 517154478,
+      "name": "Wholesale Sales Report",
+      "shopify_ql": "SHOW sales BY country FROM order WHERE channel.api_client_id = 123 SINCE -1m UNTIL today",
+      "updated_at": "2017-04-10T16:33:22-04:00",
+      "category": "custom_app_reports"
+    }
+  ]
+}
