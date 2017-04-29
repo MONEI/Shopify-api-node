@@ -305,6 +305,11 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- payment
+  - `count(checkoutToken)`
+  - `create(checkoutToken, params)`
+  - `get(checkoutToken, id)`
+  - `list(checkoutToken)`
 - policy
   - `list([params])`
 - product
