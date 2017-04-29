@@ -152,8 +152,13 @@ shopify.order.list({ limit: 5 })
   - `list()`
   - `update(id, params)`
 - checkout
+  - `complete(token)`
   - `count([params])`
+  - `create(params)`
+  - `get(token)`
   - `list([params])`
+  - `shippingRates(token)`
+  - `update(token, params)`
 - collect
   - `count([params])`
   - `create(params)`

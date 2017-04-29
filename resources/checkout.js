@@ -1,7 +1,7 @@
 'use strict';
 
 const assign = require('lodash/assign');
-const pick = require('lodash/pick');
+const omit = require('lodash/omit');
 
 const base = require('../mixins/base');
 
@@ -19,6 +19,31 @@ function Checkout(shopify) {
   this.key = 'checkout';
 }
 
-assign(Checkout.prototype, pick(base, ['count', 'list', 'buildUrl']));
+assign(Checkout.prototype, omit(base, 'delete'));
+
+/**
+ * Completes a free checkout.
+ *
+ * @param {String} token Checkout token
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Checkout.prototype.complete = function complete(token) {
+  const url = this.buildUrl(`${token}/complete`);
+  return this.shopify.request(url, 'POST', undefined, {})
+    .then(body => body[this.key]);
+};
+
+/**
+ * Gets a list of available shipping rates for the specified checkout.
+ *
+ * @param {String} token Checkout token
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Checkout.prototype.shippingRates = function shippingRates(token) {
+  const url = this.buildUrl(`${token}/shipping_rates`);
+  return this.shopify.request(url, 'GET', 'shipping_rates');
+};
 
 module.exports = Checkout;
