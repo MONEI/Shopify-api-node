@@ -1,0 +1,17 @@
+{
+  "marketing_event": {
+    "id": 998730532,
+    "remote_id": "1000:2000",
+    "started_at": "2017-02-02T00:00 +00:00",
+    "ended_at": "2017-02-03T00:00 +00:00",
+    "scheduled_to_end_at": "2017-02-04T00:00 +00:00",
+    "budget": "11.1",
+    "budget_type": "daily",
+    "currency": "CAD",
+    "utm_campaign": "other",
+    "utm_source": "other",
+    "utm_medium": "other",
+    "event_type": "ad",
+    "referring_domain": "instagram.com"
+  }
+}

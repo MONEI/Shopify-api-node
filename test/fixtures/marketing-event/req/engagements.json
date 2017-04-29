@@ -1,0 +1,24 @@
+{
+  "engagements": [
+    {
+      "occurred_on": "2017-01-15",
+      "views_count": 0,
+      "clicks_count": 0,
+      "favorites_count": 0,
+      "ad_spend": 10.0,
+      "is_cumulative": true
+    },
+    {
+      "occurred_on": "2017-01-16",
+      "views_count": 100,
+      "clicks_count": 50,
+      "is_cumulative": true
+    },
+    {
+      "occurred_on": "2017-01-17",
+      "views_count": 200,
+      "clicks_count": 100,
+      "is_cumulative": true
+    }
+  ]
+}

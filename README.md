@@ -262,6 +262,14 @@ shopify.order.list({ limit: 5 })
 - location
   - `get(id)`
   - `list()`
+- marketingEvent
+  - `count()`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list([params])`
+  - `update(id, params)`
+  - `engagements(id, params)`
 - metafield
   - `count([params])`
   - `create(params)`
