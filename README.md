@@ -165,6 +165,10 @@ shopify.order.list({ limit: 5 })
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+- collectionListing
+  - `get(applicationId, id)`
+  - `list(applicationId[, params])`
+  - `productIds(applicationId, id)`
 - comment
   - `approve(id)`
   - `count([params])`
