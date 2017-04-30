@@ -1,7 +1,6 @@
 'use strict';
 
-exports.shippingRates = require('./shipping-rates');
-exports.complete = require('./complete');
+exports.engagements = require('./engagements');
 exports.create = require('./create');
 exports.update = require('./update');
 exports.list = require('./list');

@@ -1,0 +1,12 @@
+{
+  "marketing_event": {
+    "started_at": "2017-12-15",
+    "utm_campaign": "Christmas2017",
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+    "event_type": "ad",
+    "referring_domain": "facebook.com",
+    "marketing_channel": "social",
+    "paid": true
+  }
+}

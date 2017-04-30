@@ -35,9 +35,7 @@ assign(ApplicationCharge.prototype, omit(base, [
  */
 ApplicationCharge.prototype.activate = function activate(id, params) {
   const url = this.buildUrl(`${id}/activate`);
-  return this.shopify.request(url, 'POST', undefined, {
-    [this.key]: params
-  });
+  return this.shopify.request(url, 'POST', this.key, params);
 };
 
 module.exports = ApplicationCharge;

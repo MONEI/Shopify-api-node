@@ -1,0 +1,6 @@
+{
+  "report": {
+    "name": "A new app report",
+    "shopify_ql": "SHOW total_sales BY country FROM order ORDER BY total_sales SINCE -1m UNTIL today"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "report": {
+    "id": 517154478,
+    "name": "Changed Report Name",
+    "shopify_ql": "SHOW total_sales BY country FROM order ORDER BY total_sales SINCE -12m UNTIL today"
+  }
+}

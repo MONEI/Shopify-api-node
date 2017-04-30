@@ -1,0 +1,30 @@
+{
+  "shipping_rates": [
+    {
+      "id": "shopify-Standard%20Shipping-10.99",
+      "price": "10.99",
+      "title": "Standard Shipping",
+      "checkout": {
+        "total_tax": "0.00",
+        "total_price": "408.99",
+        "subtotal_price": "398.00"
+      },
+      "phone_required": false,
+      "delivery_range": null,
+      "handle": "shopify-Standard%20Shipping-10.99"
+    },
+    {
+      "id": "shopify-Expensive%20Shipping-99.99",
+      "price": "99.99",
+      "title": "Expensive Shipping",
+      "checkout": {
+        "total_tax": "0.00",
+        "total_price": "497.99",
+        "subtotal_price": "398.00"
+      },
+      "phone_required": false,
+      "delivery_range": null,
+      "handle": "shopify-Expensive%20Shipping-99.99"
+    }
+  ]
+}

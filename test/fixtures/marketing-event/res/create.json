@@ -1,0 +1,26 @@
+{
+  "marketing_event": {
+    "id": 998730549,
+    "event_target": "",
+    "event_type": "ad",
+    "started_at": "2017-12-14T19:00:00-05:00",
+    "ended_at": null,
+    "scheduled_to_end_at": null,
+    "budget": null,
+    "currency": null,
+    "manage_url": null,
+    "preview_url": null,
+    "utm_campaign": "Christmas2017",
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+    "utm_content": null,
+    "utm_term": null,
+    "budget_type": null,
+    "description": null,
+    "marketing_channel": "social",
+    "paid": true,
+    "referring_domain": "facebook.com",
+    "breadcrumb_id": null,
+    "marketed_resources": []
+  }
+}

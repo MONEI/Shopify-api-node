@@ -1,11 +1,11 @@
-# shopify-api-node
+# Shopify API Node.js (Official module)
 
 [![Version npm][npm-shopify-api-node-badge]][npm-shopify-api-node]
 [![Build Status][travis-shopify-api-node-badge]][travis-shopify-api-node]
 [![Dependencies][david-shopify-api-node-badge]][david-shopify-api-node]
 [![Coverage Status][coverage-shopify-api-node-badge]][coverage-shopify-api-node]
 
-Shopify API bindings for Node.js.
+Official Shopify API bindings for Node.js.
 
 ## Installation:
 
@@ -88,7 +88,13 @@ is an object like this:
 }
 ```
 
-Values start at `undefined` and are updated every time a request is made.
+Values start at `undefined` and are updated every time a request is made. After
+every update the `callLimits` event is emitted with the updated limits as
+argument.
+
+```js
+shopify.on('callLimits', limits => console.log(limits));
+```
 
 ### Resources
 
@@ -117,6 +123,10 @@ shopify.order.list({ limit: 5 })
   - `delete()`
 - applicationCharge
   - `activate(id, params)`
+  - `create(params)`
+  - `get(id[, params])`
+  - `list([params])`
+- applicationCredit
   - `create(params)`
   - `get(id[, params])`
   - `list([params])`
@@ -149,14 +159,23 @@ shopify.order.list({ limit: 5 })
   - `list()`
   - `update(id, params)`
 - checkout
+  - `complete(token)`
   - `count([params])`
+  - `create(params)`
+  - `get(token)`
   - `list([params])`
+  - `shippingRates(token)`
+  - `update(token, params)`
 - collect
   - `count([params])`
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+- collectionListing
+  - `get(applicationId, id)`
+  - `list(applicationId[, params])`
+  - `productIds(applicationId, id)`
 - comment
   - `approve(id)`
   - `count([params])`
@@ -259,6 +278,14 @@ shopify.order.list({ limit: 5 })
 - location
   - `get(id)`
   - `list()`
+- marketingEvent
+  - `count()`
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list([params])`
+  - `update(id, params)`
+  - `engagements(id, params)`
 - metafield
   - `count([params])`
   - `create(params)`
@@ -289,6 +316,11 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- payment
+  - `count(checkoutToken)`
+  - `create(checkoutToken, params)`
+  - `get(checkoutToken, id)`
+  - `list(checkoutToken)`
 - policy
   - `list([params])`
 - product
@@ -305,6 +337,11 @@ shopify.order.list({ limit: 5 })
   - `get(productId, id[, params])`
   - `list(productId[, params])`
   - `update(productId, id, params)`
+- productListing
+  - `count(applicationId)`
+  - `get(applicationId, id)`
+  - `list(applicationId[, params])`
+  - `productIds(applicationId[, params])`
 - productVariant
   - `count(productId)`
   - `create(productId, params)`
@@ -332,6 +369,15 @@ shopify.order.list({ limit: 5 })
   - `update(id, params)`
 - refund
   - `get(orderId, id[, params])`
+- report
+  - `create(params)`
+  - `delete(id)`
+  - `get(id[, params])`
+  - `list([params])`
+  - `update(id, params)`
+- resourceFeedback
+  - `create(params)`
+  - `list()`
 - scriptTag
   - `count([params])`
   - `create(params)`
@@ -389,9 +435,17 @@ for parameters details.
 * [Reading API Docs][reading-api-docs]
 * [Learning from others][learning-from-others]
 
-## Use a frontend framework which mimics the Shopify merchant admin:
+## Use Polaris, a React powered Frontend Framework which mimics the Shopify merchant admin:
 
-[Shopify Embedded App Frontend Framework][shopify-embedded-app-frontend-framework]
+[Polaris][polaris]
+
+## Shopify Apps already using Shopify API node:
+
+(add yours!)
+
+* [Wholesaler][wholesaler]
+* [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
+* [Pricing Rules by MONEI][pricing-rules-by-monei]
 
 ## Supported by:
 
@@ -414,13 +468,16 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
-[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit
+[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
 [becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
 [talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
-[reading-api-docs]: https://help.shopify.com/api/reference?ref=microapps
+[reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
-[shopify-embedded-app-frontend-framework]: http://seaff.microapps.com?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[wholesaler]: https://apps.shopify.com/wholesaler?ref=microapps
+[wholesaler-customer-pricing]: https://apps.shopify.com/wholesaler-pro-1?ref=microapps
+[pricing-rules-by-monei]: https://apps.shopify.com/pricing-rules-by-monei?ref=microapps

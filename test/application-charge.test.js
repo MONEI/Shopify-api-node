@@ -69,13 +69,14 @@ describe('Shopify#applicationCharge', () => {
 
   it('activates a one-time application charge', () => {
     const input =  fixtures.req.activate;
+    const output = fixtures.res.activate;
     const id = 675931192;
 
     scope
       .post(`/admin/application_charges/${id}/activate.json`, input)
-      .reply(200);
+      .reply(200, output);
 
     return shopify.applicationCharge.activate(id, input.application_charge)
-      .then(data => expect(data).to.deep.equal({}));
+      .then(data => expect(data).to.deep.equal(output.application_charge));
   });
 });
