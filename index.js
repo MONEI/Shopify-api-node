@@ -1,9 +1,10 @@
 'use strict';
 
 const camelCase = require('lodash/camelCase');
+const transform = require('lodash/transform');
 const defaults = require('lodash/defaults');
 const assign = require('lodash/assign');
-const TokenBucket = require('tokenbucket');
+const stopcock = require('stopcock');
 const path = require('path');
 const got = require('got');
 const fs = require('fs');
@@ -34,7 +35,7 @@ function Shopify(options) {
     throw new Error('Missing or invalid options');
   }
 
-  this.options = defaults(options, { timeout: 60000, apiCallLimit: 38, apiRefresh: 2, apiRefreshTime: 1000 });
+  this.options = defaults(options, { timeout: 60000 });
 
   //
   // API call limits, updated with each request.
@@ -51,12 +52,14 @@ function Shopify(options) {
     protocol: 'https:'
   };
 
-  this.bucket = new TokenBucket({
-    size: this.options.apiCallLimit,
-    tokensToAddPerInterval: this.options.apiRefresh,
-    interval: this.options.apiRefreshTime,
-    spread: false
-  });
+  if (options.autoLimit) {
+    const conf = transform(options.autoLimit, (result, value, key) => {
+      if (key === 'calls') key = 'limit';
+      result[key] = value;
+    }, {});
+
+    this.request = stopcock(this.request, conf);
+  }
 }
 
 /**
@@ -65,7 +68,7 @@ function Shopify(options) {
  * @param {String} header X-Shopify-Shop-Api-Call-Limit header
  * @private
  */
-Shopify.prototype.updateLimits = function updateLimits(header, remainingTokens) {
+Shopify.prototype.updateLimits = function updateLimits(header) {
   if (!header) return;
 
   const limits = header.split('/').map(Number);
@@ -74,10 +77,6 @@ Shopify.prototype.updateLimits = function updateLimits(header, remainingTokens) 
   callLimits.remaining = limits[1] - limits[0];
   callLimits.current = limits[0];
   callLimits.max = limits[1];
-
-  if (remainingTokens) {
-    callLimits.internal = remainingTokens;
-  }
 };
 
 /**
@@ -110,22 +109,18 @@ Shopify.prototype.request = function request(url, method, key, params) {
     options.body = JSON.stringify(body);
   }
 
-  return this.bucket.removeTokens(1).then(remainingTokens => {
-    return got(options).then(res => {
-      const body = res.body;
+  return got(options).then(res => {
+    const body = res.body;
 
-      this.updateLimits(res.headers['x-shopify-shop-api-call-limit'], remainingTokens);
+    this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
-      if (key) return body[key];
-      return body || {};
-    }, err => {
-      this.updateLimits(
-        err.response && err.response.headers['x-shopify-shop-api-call-limit']
-      );
+    if (key) return body[key];
+    return body || {};
+  }, err => {
+    this.updateLimits(
+      err.response && err.response.headers['x-shopify-shop-api-call-limit']
+    );
 
-      return Promise.reject(err);
-    });
-  }).catch(function (err) {
     return Promise.reject(err);
   });
 };
