@@ -3,6 +3,7 @@
 const camelCase = require('lodash/camelCase');
 const defaults = require('lodash/defaults');
 const assign = require('lodash/assign');
+const EventEmitter = require('events');
 const valvelet = require('valvelet');
 const path = require('path');
 const got = require('got');
@@ -34,6 +35,7 @@ function Shopify(options) {
     throw new Error('Missing or invalid options');
   }
 
+  EventEmitter.call(this);
   this.options = defaults(options, { timeout: 60000 });
 
   //
@@ -57,6 +59,8 @@ function Shopify(options) {
   }
 }
 
+Object.setPrototypeOf(Shopify.prototype, EventEmitter.prototype);
+
 /**
  * Updates API call limits.
  *
@@ -72,6 +76,8 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
   callLimits.remaining = limits[1] - limits[0];
   callLimits.current = limits[0];
   callLimits.max = limits[1];
+
+  this.emit('callLimits', callLimits);
 };
 
 /**
