@@ -47,8 +47,8 @@ configuration options.
   limited using the token bucket algorithm. Accepted values are a boolean or a
   plain JavaScript object. When using an object, the `calls` property and the
   `interval` property specify the refill rate and the `bucketSize` property
-  the bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 40 }`
-  specifies a limit of 2 requests per second with a burst of 40 requests. When
+  the bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 35 }`
+  specifies a limit of 2 requests per second with a burst of 35 requests. When
   set to `true` requests are limited as specified in the above example.
   Defaults to `false`.
 - `timeout` - Optional - A number that specifies the milliseconds to wait for

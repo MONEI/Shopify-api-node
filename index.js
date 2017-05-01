@@ -58,7 +58,7 @@ function Shopify(options) {
     const conf = transform(options.autoLimit, (result, value, key) => {
       if (key === 'calls') key = 'limit';
       result[key] = value;
-    }, {});
+    }, { bucketSize: 35 });
 
     this.request = stopcock(this.request, conf);
   }
