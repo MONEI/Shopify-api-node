@@ -43,12 +43,13 @@ configuration options.
   solution to obtain an access token, take a look at the [shopify-token][]
   module.
 - `autoLimit` - Optional - This option allows you to regulate the request rate
-  in order to avoid hitting the [rate limit][api-call-limit]. It can be a
-  boolean or a plain JavaScript object. When set to `true` requests are limited
-  to 2 per second. When using an object, the `calls` property specifies the
-  maximum number of allowed requests and the `interval` property the timespan
-  in milliseconds where the limit is calculated. For example
-  `{ calls: 4, interval: 1000 }` specifies a maximum of 4 requests per second.
+  in order to avoid hitting the [rate limit][api-call-limit]. Requests are
+  limited using the token bucket algorithm. Accepted values are a boolean or a
+  plain JavaScript object. When using an object, the `calls` property and the
+  `interval` property specify the refill rate and the `bucketSize` property
+  the bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 35 }`
+  specifies a limit of 2 requests per second with a burst of 35 requests. When
+  set to `true` requests are limited as specified in the above example.
   Defaults to `false`.
 - `timeout` - Optional - A number that specifies the milliseconds to wait for
   the server to send response headers before aborting the request. Defaults to

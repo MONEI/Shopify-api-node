@@ -1,10 +1,11 @@
 'use strict';
 
 const camelCase = require('lodash/camelCase');
+const transform = require('lodash/transform');
 const defaults = require('lodash/defaults');
 const assign = require('lodash/assign');
 const EventEmitter = require('events');
-const valvelet = require('valvelet');
+const stopcock = require('stopcock');
 const path = require('path');
 const got = require('got');
 const fs = require('fs');
@@ -54,8 +55,12 @@ function Shopify(options) {
   };
 
   if (options.autoLimit) {
-    const conf = assign({ calls: 2, interval: 1000 }, options.autoLimit);
-    this.request = valvelet(this.request, conf.calls, conf.interval);
+    const conf = transform(options.autoLimit, (result, value, key) => {
+      if (key === 'calls') key = 'limit';
+      result[key] = value;
+    }, { bucketSize: 35 });
+
+    this.request = stopcock(this.request, conf);
   }
 }
 
