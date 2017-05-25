@@ -15,10 +15,10 @@ describe('Shopify#productListing', () => {
     const output = fixtures.res.list;
 
     scope
-      .get('/admin/applications/1337/product_listings.json')
+      .get('/admin/product_listings.json')
       .reply(200, output);
 
-    return shopify.productListing.list(1337)
+    return shopify.productListing.list()
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
@@ -26,10 +26,10 @@ describe('Shopify#productListing', () => {
     const output = fixtures.res.list;
 
     scope
-      .get('/admin/applications/1337/product_listings.json?page=1')
+      .get('/admin/product_listings.json?page=1')
       .reply(200, output);
 
-    return shopify.productListing.list(1337, { page: 1 })
+    return shopify.productListing.list({ page: 1 })
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
@@ -37,10 +37,10 @@ describe('Shopify#productListing', () => {
     const output = fixtures.res.productIds;
 
     scope
-      .get('/admin/applications/1337/product_listings/product_ids.json')
+      .get('/admin/product_listings/product_ids.json')
       .reply(200, output);
 
-    return shopify.productListing.productIds(1337)
+    return shopify.productListing.productIds()
       .then(data => expect(data).to.deep.equal(output.product_ids));
   });
 
@@ -48,19 +48,19 @@ describe('Shopify#productListing', () => {
     const output = fixtures.res.productIds;
 
     scope
-      .get('/admin/applications/1337/product_listings/product_ids.json?page=1')
+      .get('/admin/product_listings/product_ids.json?page=1')
       .reply(200, output);
 
-    return shopify.productListing.productIds(1337, { page: 1 })
+    return shopify.productListing.productIds({ page: 1 })
       .then(data => expect(data).to.deep.equal(output.product_ids));
   });
 
   it('gets a count of products published to an application', () => {
     scope
-      .get('/admin/applications/1337/product_listings/count.json')
+      .get('/admin/product_listings/count.json')
       .reply(200, { count: 2 });
 
-    return shopify.productListing.count(1337)
+    return shopify.productListing.count()
       .then(data => expect(data).to.equal(2));
   });
 
@@ -68,10 +68,10 @@ describe('Shopify#productListing', () => {
     const output = fixtures.res.get;
 
     scope
-      .get('/admin/applications/1337/product_listings/921728736.json')
+      .get('/admin/product_listings/921728736.json')
       .reply(200, output);
 
-    return shopify.productListing.get(1337, 921728736)
+    return shopify.productListing.get(921728736)
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 });

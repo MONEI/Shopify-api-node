@@ -338,10 +338,10 @@ shopify.order.list({ limit: 5 })
   - `list(productId[, params])`
   - `update(productId, id, params)`
 - productListing
-  - `count(applicationId)`
-  - `get(applicationId, id)`
-  - `list(applicationId[, params])`
-  - `productIds(applicationId[, params])`
+  - `count()`
+  - `get(id)`
+  - `list([params])`
+  - `productIds([params])`
 - productVariant
   - `count(productId)`
   - `create(productId, params)`

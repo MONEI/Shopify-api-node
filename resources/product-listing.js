@@ -3,7 +3,7 @@
 const assign = require('lodash/assign');
 const omit = require('lodash/omit');
 
-const baseChild = require('../mixins/base-child');
+const base = require('../mixins/base');
 
 /**
  * Creates a ProductListing instance.
@@ -15,12 +15,11 @@ const baseChild = require('../mixins/base-child');
 function ProductListing(shopify) {
   this.shopify = shopify;
 
-  this.parentName = 'applications';
   this.name = 'product_listings';
   this.key = 'product_listing';
 }
 
-assign(ProductListing.prototype, omit(baseChild, [
+assign(ProductListing.prototype, omit(base, [
   'create',
   'delete',
   'update'
@@ -29,13 +28,13 @@ assign(ProductListing.prototype, omit(baseChild, [
 /**
  * Retrieves product IDs that are published to a particular application.
  *
- * @param {Number} parentId Application ID
+ * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductListing.prototype.productIds = function productIds(parentId, params) {
+ProductListing.prototype.productIds = function productIds(params) {
   const key = 'product_ids';
-  const url = this.buildUrl(parentId, key, params);
+  const url = this.buildUrl(key, params);
   return this.shopify.request(url, 'GET', key);
 };
 
