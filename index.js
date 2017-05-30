@@ -112,7 +112,7 @@ Shopify.prototype.request = function request(url, method, key, params) {
     const body = key ? { [key]: params } : params;
 
     options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(body);
+    options.body = body;
   }
 
   return got(options).then(res => {

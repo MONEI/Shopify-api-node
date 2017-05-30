@@ -129,7 +129,7 @@ describe('Shopify', () => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.include('Connection timed out on request');
+        expect(err.message).to.equal('Request timed out');
       });
     });
 
@@ -138,14 +138,14 @@ describe('Shopify', () => {
 
       scope
         .get('/test')
-        .socketDelay(200)
+        .delayBody(200)
         .reply(200, {});
 
       return shopify.request(url, 'GET').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.include('Socket timed out on request');
+        expect(err.message).to.include('Request timed out');
       });
     });
 
@@ -333,7 +333,7 @@ describe('Shopify', () => {
 
       Shopify.prototype.request = function () {
         timestamps.push(Date.now());
-        original.apply(this, arguments);
+        return original.apply(this, arguments);
       };
 
       const shopify = new Shopify({
