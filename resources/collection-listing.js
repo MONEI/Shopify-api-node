@@ -3,7 +3,7 @@
 const assign = require('lodash/assign');
 const pick = require('lodash/pick');
 
-const baseChild = require('../mixins/base-child');
+const base = require('../mixins/base');
 
 /**
  * Creates a CollectionListing instance.
@@ -15,12 +15,11 @@ const baseChild = require('../mixins/base-child');
 function CollectionListing(shopify) {
   this.shopify = shopify;
 
-  this.parentName = 'applications';
   this.name = 'collection_listings';
   this.key = 'collection_listing';
 }
 
-assign(CollectionListing.prototype, pick(baseChild, [
+assign(CollectionListing.prototype, pick(base, [
   'get',
   'list',
   'buildUrl'
@@ -29,13 +28,12 @@ assign(CollectionListing.prototype, pick(baseChild, [
 /**
  * Retrieves product IDs that are published to a particular collection.
  *
- * @param {Number} parentId Application ID
  * @param {Number} id Collection ID
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-CollectionListing.prototype.productIds = function productIds(parentId, id) {
-  const url = this.buildUrl(parentId, `${id}/product_ids`);
+CollectionListing.prototype.productIds = function productIds(id) {
+  const url = this.buildUrl(`${id}/product_ids`);
   return this.shopify.request(url, 'GET', 'product_ids');
 };
 

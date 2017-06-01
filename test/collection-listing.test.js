@@ -15,10 +15,10 @@ describe('Shopify#collectionListing', () => {
     const output = fixtures.res.list;
 
     scope
-      .get('/admin/applications/1337/collection_listings.json')
+      .get('/admin/collection_listings.json')
       .reply(200, output);
 
-    return shopify.collectionListing.list(1337)
+    return shopify.collectionListing.list()
       .then(data => expect(data).to.deep.equal(output.collection_listings));
   });
 
@@ -26,10 +26,10 @@ describe('Shopify#collectionListing', () => {
     const output = fixtures.res.list;
 
     scope
-      .get('/admin/applications/1337/collection_listings.json?page=1')
+      .get('/admin/collection_listings.json?page=1')
       .reply(200, output);
 
-    return shopify.collectionListing.list(1337, { page: 1 })
+    return shopify.collectionListing.list({ page: 1 })
       .then(data => expect(data).to.deep.equal(output.collection_listings));
   });
 
@@ -37,10 +37,10 @@ describe('Shopify#collectionListing', () => {
     const output = fixtures.res.productIds;
 
     scope
-      .get('/admin/applications/1337/collection_listings/841564295/product_ids.json')
+      .get('/admin/collection_listings/841564295/product_ids.json')
       .reply(200, output);
 
-    return shopify.collectionListing.productIds(1337, 841564295)
+    return shopify.collectionListing.productIds(841564295)
       .then(data => expect(data).to.deep.equal(output.product_ids));
   });
 
@@ -48,10 +48,10 @@ describe('Shopify#collectionListing', () => {
     const output = fixtures.res.get;
 
     scope
-      .get('/admin/applications/1337/collection_listings/482865238.json')
+      .get('/admin/collection_listings/482865238.json')
       .reply(200, output);
 
-    return shopify.collectionListing.get(1337, 482865238)
+    return shopify.collectionListing.get(482865238)
       .then(data => expect(data).to.deep.equal(output.collection_listing));
   });
 });

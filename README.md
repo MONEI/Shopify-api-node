@@ -173,9 +173,9 @@ shopify.order.list({ limit: 5 })
   - `get(id[, params])`
   - `list([params])`
 - collectionListing
-  - `get(applicationId, id)`
-  - `list(applicationId[, params])`
-  - `productIds(applicationId, id)`
+  - `get(id)`
+  - `list([params])`
+  - `productIds(id)`
 - comment
   - `approve(id)`
   - `count([params])`
