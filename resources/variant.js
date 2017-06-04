@@ -1,35 +1,36 @@
 'use strict';
 
 const assign = require('lodash/assign');
+const pick = require('lodash/pick');
 
 const base = require('../mixins/base');
 
 /**
- * Creates a Product instance.
+ * Creates a variant instance.
  *
  * @param {Shopify} shopify Reference to the Shopify instance
  * @constructor
  * @public
  */
-function Product(shopify) {
+function Variant(shopify) {
   this.shopify = shopify;
 
-  this.name = 'products';
-  this.key = 'product';
+  this.name = 'variants';
+  this.key = 'variants';
 }
 
-assign(Product.prototype, base);
+assign(Variant.prototype, pick(base, ['buildUrl']));
 
 /**
  * Get all metafields that belong to a product
  *
- * @param {Number} product Product ID
+ * @param {Number} variant Variant ID
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.metafields = function(id) {
+Variant.prototype.metafields = function(id) {
   const url = this.buildUrl(`${id}/metafields`);
   return this.shopify.request(url);
 };
 
-module.exports = Product;
+module.exports = Variant;
