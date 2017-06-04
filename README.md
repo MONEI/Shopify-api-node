@@ -10,7 +10,7 @@ Official Shopify API bindings for Node.js.
 ## Installation:
 
 ```shell
-$ npm install --save shopify-api-node
+$ npm install shopify-api-node --save
 ```
 
 ## API
