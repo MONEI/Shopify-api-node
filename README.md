@@ -233,6 +233,13 @@ shopify.order.list({ limit: 5 })
   - `enable(id)`
   - `get(id)`
   - `list([params])`
+- discountCode
+  - `create(priceRuleId, params)`
+  - `delete(priceRuleId, id)`
+  - `get(priceRuleId, id)`
+  - `list(priceRuleId)`
+  - `lookup(params)`
+  - `update(priceRuleId, id, params)`
 - draftOrder
   - `complete(id[, params])`
   - `count()`
