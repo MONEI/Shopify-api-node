@@ -117,6 +117,39 @@ shopify.order.list({ limit: 5 })
   .catch(err => console.error(err));
 ```
 
+#### Metafields
+
+Shopify allows for adding metafields to various resources. You can use the
+`owner_resource` and `owner_id` properties to work with metafields that belong
+to a particular resource as shown in the examples below.
+
+Get metafields that belong to a product:
+
+```js
+shopify.metafield.list({
+  metafield: { owner_resource: 'product', owner_id: 632910392 }
+}).then(
+  metafields => console.log(metafields),
+  err => console.error(err)
+);
+```
+
+Create a new metafield for a product:
+
+```js
+shopify.metafield.create({
+  key: 'warehouse',
+  value: 25,
+  value_type: 'integer',
+  namespace: 'inventory',
+  owner_resource: 'product',
+  owner_id: 632910392
+}).then(
+  metafield => console.log(metafield),
+  err => console.error(err)
+);
+```
+
 ### Available resources and methods
 
 - apiPermission
