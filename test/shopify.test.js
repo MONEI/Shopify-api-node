@@ -39,26 +39,6 @@ describe('Shopify', () => {
     expect(shopify).to.be.an.instanceof(Shopify);
   });
 
-  it('adds basic auth to the URL when using apiKey and password', () => {
-    const shopify = new Shopify({ shopName, apiKey, password });
-
-    expect(shopify.baseUrl).to.deep.equal({
-      hostname: `${shopName}.myshopify.com`,
-      auth: `${apiKey}:${password}`,
-      protocol: 'https:'
-    });
-  });
-
-  it('does not add basic auth to the URL when using an access token', () => {
-    const shopify = new Shopify({ shopName, accessToken });
-
-    expect(shopify.baseUrl).to.deep.equal({
-      hostname: `${shopName}.myshopify.com`,
-      protocol: 'https:',
-      auth: false
-    });
-  });
-
   it('instantiates the resources lazily', () => {
     const shopify = new Shopify({ shopName, accessToken });
 
@@ -176,18 +156,19 @@ describe('Shopify', () => {
     });
 
     it('uses basic auth as intended', () => {
+      const auth = Buffer.from(`${apiKey}:${password}`).toString('base64');
       const shopify = new Shopify({ shopName, apiKey, password });
       const url = assign({ path: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
           'User-Agent': `${pkg.name}/${pkg.version}`,
-          'Accept': 'application/json'
+          Authorization: `Basic ${auth}`,
+          Accept: 'application/json'
         },
         badheaders: ['X-Shopify-Access-Token']
       })
       .get('/test')
-      .basicAuth({ user: apiKey, pass: password })
       .reply(200, {});
 
       return shopify.request(url, 'GET');
@@ -200,7 +181,7 @@ describe('Shopify', () => {
           'X-Shopify-Access-Token': accessToken,
           'Content-Type': 'application/json',
           'Content-Length': val => val > 0,
-          'Accept': 'application/json'
+          Accept: 'application/json'
         }
       })
       .post('/test', {
@@ -218,7 +199,7 @@ describe('Shopify', () => {
           'X-Shopify-Access-Token': accessToken,
           'Content-Type': 'application/json',
           'Content-Length': val => val > 0,
-          'Accept': 'application/json'
+          Accept: 'application/json'
         }
       })
       .post('/test', { bar: 'baz' })

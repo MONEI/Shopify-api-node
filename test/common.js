@@ -16,7 +16,7 @@ const scope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {
     'User-Agent': `${pkg.name}/${pkg.version}`,
     'X-Shopify-Access-Token': accessToken,
-    'Accept': 'application/json'
+    Accept: 'application/json'
   }
 });
 
