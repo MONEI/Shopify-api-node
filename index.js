@@ -28,10 +28,10 @@ const pkg = require('./package');
 function Shopify(options) {
   if (!(this instanceof Shopify)) return new Shopify(options);
   if (
-      !options
-    || !options.shopName
-    || !options.accessToken && (!options.apiKey || !options.password)
-    || options.accessToken && (options.apiKey || options.password)
+    !options ||
+    !options.shopName ||
+    !options.accessToken && (!options.apiKey || !options.password) ||
+    options.accessToken && (options.apiKey || options.password)
   ) {
     throw new Error('Missing or invalid options');
   }

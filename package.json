@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "chai": "^4.0.0",
-    "eslint": "^3.0.1",
+    "eslint": "^4.0.0",
     "istanbul": "^0.4.2",
     "mocha": "^3.0.1",
     "nock": "^9.0.0",

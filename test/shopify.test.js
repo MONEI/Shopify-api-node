@@ -167,9 +167,8 @@ describe('Shopify', () => {
           Accept: 'application/json'
         },
         badheaders: ['X-Shopify-Access-Token']
-      })
-      .get('/test')
-      .reply(200, {});
+      }).get('/test')
+        .reply(200, {});
 
       return shopify.request(url, 'GET');
     });
@@ -183,11 +182,9 @@ describe('Shopify', () => {
           'Content-Length': val => val > 0,
           Accept: 'application/json'
         }
-      })
-      .post('/test', {
+      }).post('/test', {
         foo: { bar: 'baz' }
-      })
-      .reply(201, {});
+      }).reply(201, {});
 
       return shopify.request(url, 'POST', 'foo', { bar: 'baz' });
     });
@@ -201,9 +198,8 @@ describe('Shopify', () => {
           'Content-Length': val => val > 0,
           Accept: 'application/json'
         }
-      })
-      .post('/test', { bar: 'baz' })
-      .reply(201, {});
+      }).post('/test', { bar: 'baz' })
+        .reply(201, {});
 
       return shopify.request(url, 'POST', undefined, { bar: 'baz' });
     });
