@@ -47,7 +47,7 @@ Customer.prototype.accountActivationUrl = function accountActivationUrl(id) {
 };
 
 /**
- * Generates a invite email for a customer.
+ * Sends an account invite for the customer.
  *
  * @param {Number} id Customer ID
  * @param {Object} params Optional params for adjusting the sent email
@@ -56,7 +56,7 @@ Customer.prototype.accountActivationUrl = function accountActivationUrl(id) {
  */
 Customer.prototype.sendInvite = function sendInvite(id, params) {
   const url = this.buildUrl(`${id}/send_invite`);
-  return this.shopify.request(url, 'POST', 'customer_invite', params).then(body => body.customer_invite);
+  return this.shopify.request(url, 'POST', 'customer_invite', params || {});
 };
 
 module.exports = Customer;

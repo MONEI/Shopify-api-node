@@ -104,6 +104,30 @@ describe('Shopify#customer', () => {
       .then(data => expect(data).to.equal(output.account_activation_url));
   });
 
+  it('sends an account invite for the customer (1/2)', () => {
+    const input = fixtures.req.customizedInvite;
+    const output = fixtures.res.customizedInvite;
+
+    scope
+      .post('/admin/customers/207119551/send_invite.json', input)
+      .reply(201, output);
+
+    return shopify.customer.sendInvite(207119551, input.customer_invite)
+      .then(data => expect(data).to.deep.equal(output.customer_invite));
+  });
+
+  it('sends an account invite for the customer (2/2)', () => {
+    const input = fixtures.req.defaultInvite;
+    const output = fixtures.res.defaultInvite;
+
+    scope
+      .post('/admin/customers/207119551/send_invite.json', input)
+      .reply(201, output);
+
+    return shopify.customer.sendInvite(207119551)
+      .then(data => expect(data).to.deep.equal(output.customer_invite));
+  });
+
   it('deletes a customer', () => {
     scope
       .delete('/admin/customers/207119551.json')

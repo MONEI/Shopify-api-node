@@ -236,13 +236,13 @@ shopify.metafield.create({
   - `update(id, params)`
 - customer
   - `accountActivationUrl(id)`
-  - `sendInvite(id[, params])`
   - `count()`
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
   - `search(params)`
+  - `sendInvite(id[, params])`
   - `update(id, params)`
 - customerAddress
   - `create(customerId, params)`
