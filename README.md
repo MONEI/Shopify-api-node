@@ -242,6 +242,7 @@ shopify.metafield.create({
   - `get(id[, params])`
   - `list([params])`
   - `search(params)`
+  - `sendInvite(id[, params])`
   - `update(id, params)`
 - customerAddress
   - `create(customerId, params)`

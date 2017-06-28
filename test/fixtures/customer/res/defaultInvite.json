@@ -1,0 +1,9 @@
+{
+  "customer_invite": {
+    "to": "bob.norman@hostmail.com",
+    "from": "steve@apple.com",
+    "subject": "Customer account activation",
+    "custom_message": "",
+    "bcc": []
+  }
+}
