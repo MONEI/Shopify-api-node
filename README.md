@@ -492,7 +492,7 @@ for parameters details.
 
 * [Wholesaler][wholesaler]
 * [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
-* [Pricing Rules by MONEI][pricing-rules-by-monei]
+* [Wholesaler PRO][wholesaler-pro]
 * [Youtube Traffic][youtube-traffic]
 
 ## Supported by:
@@ -528,5 +528,5 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [wholesaler]: https://apps.shopify.com/wholesaler?ref=microapps
 [wholesaler-customer-pricing]: https://apps.shopify.com/wholesaler-pro-1?ref=microapps
-[pricing-rules-by-monei]: https://apps.shopify.com/pricing-rules-by-monei?ref=microapps
+[wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
