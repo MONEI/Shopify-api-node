@@ -32,4 +32,16 @@ describe('Shopify#refund', () => {
     return shopify.refund.get(450789469, 509562969, { foo: 'bar' })
       .then(data => expect(data).to.deep.equal(output.refund));
   });
+
+  it('calculates a refund', () => {
+    const input = fixtures.req.calculate;
+    const output = fixtures.res.calculate;
+
+    scope
+      .post('/admin/orders/450789469/refunds/calculate.json', input)
+      .reply(200, output);
+
+    return shopify.refund.calculate(450789469, input.refund)
+      .then(data => expect(data).to.deep.equal(output.refund));
+  });
 });

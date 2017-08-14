@@ -415,6 +415,7 @@ shopify.metafield.create({
   - `list([params])`
   - `update(id, params)`
 - refund
+  - `calculate(orderId, params)`
   - `get(orderId, id[, params])`
 - report
   - `create(params)`
