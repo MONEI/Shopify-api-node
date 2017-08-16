@@ -1,0 +1,73 @@
+{
+  "refund": {
+    "id": 929361464,
+    "order_id": 450789469,
+    "created_at": "2017-01-05T15:40:24-05:00",
+    "note": "wrong size",
+    "restock": true,
+    "user_id": 0,
+    "processed_at": "2017-01-05T15:40:24-05:00",
+    "refund_line_items": [
+      {
+        "id": 1058498311,
+        "quantity": 1,
+        "line_item_id": 518995019,
+        "subtotal": 195.67,
+        "total_tax": 3.98,
+        "line_item": {
+          "id": 518995019,
+          "variant_id": 49148385,
+          "title": "IPod Nano - 8gb",
+          "quantity": 1,
+          "price": "199.00",
+          "grams": 200,
+          "sku": "IPOD2008RED",
+          "variant_title": "red",
+          "vendor": null,
+          "fulfillment_service": "manual",
+          "product_id": 632910392,
+          "requires_shipping": true,
+          "taxable": true,
+          "gift_card": false,
+          "name": "IPod Nano - 8gb - red",
+          "variant_inventory_management": "shopify",
+          "properties": [],
+          "product_exists": true,
+          "fulfillable_quantity": 0,
+          "total_discount": "0.00",
+          "fulfillment_status": null,
+          "tax_lines": [
+            {
+              "title": "State Tax",
+              "price": "3.98",
+              "rate": 0.06
+            }
+          ]
+        }
+      }
+    ],
+    "transactions": [
+      {
+        "id": 1068278486,
+        "order_id": 450789469,
+        "amount": "199.65",
+        "kind": "refund",
+        "gateway": "bogus",
+        "status": "success",
+        "message": "Bogus Gateway: Forced success",
+        "created_at": "2017-01-05T15:40:24-05:00",
+        "test": true,
+        "authorization": null,
+        "currency": "USD",
+        "location_id": null,
+        "user_id": null,
+        "parent_id": 801038806,
+        "device_id": null,
+        "receipt": {},
+        "error_code": null,
+        "source_name": "755357713"
+      }
+    ],
+    "order_adjustments": []
+  }
+}

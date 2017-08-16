@@ -1,0 +1,24 @@
+{
+  "refund": {
+    "restock": true,
+    "notify": true,
+    "note": "wrong size",
+    "shipping": {
+      "full_refund": true
+    },
+    "refund_line_items": [
+      {
+        "line_item_id": 518995019,
+        "quantity": 1
+      }
+    ],
+    "transactions": [
+      {
+        "parent_id": 801038806,
+        "amount": 199.65,
+        "kind": "refund",
+        "gateway": "bogus"
+      }
+    ]
+  }
+}
