@@ -1,0 +1,11 @@
+{
+  "storefront_access_tokens": [
+    {
+      "access_token": "378d95641257a4ab3feff967ee234f4d",
+      "access_scope": "unauthenticated_read_product_listings",
+      "created_at": "2017-07-17T18:13:42-04:00",
+      "id": 755357713,
+      "title": "API Client Extension"
+    }
+  ]
+}

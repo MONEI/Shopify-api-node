@@ -447,6 +447,10 @@ shopify.metafield.create({
   - `list([params])`
   - `order(id, params)`
   - `update(id, params)`
+- storefrontAccessToken
+  - `create(params)`
+  - `delete(id)`
+  - `list()`
 - theme
   - `create(params)`
   - `delete(id)`
