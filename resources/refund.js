@@ -35,4 +35,17 @@ Refund.prototype.calculate = function calculate(orderId, params) {
   return this.shopify.request(url, 'POST', this.key, params);
 };
 
+/**
+ * Creates a refund.
+ *
+ * @param {Number} orderId order ID
+ * @param {Object} params How much shipping and line items to refund
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Refund.prototype.update = function update(orderId, params) {
+  const url = this.buildUrl(orderId);
+  return this.shopify.request(url, 'POST', this.key, params);
+};
+
 module.exports = Refund;
