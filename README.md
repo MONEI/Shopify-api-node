@@ -241,6 +241,7 @@ shopify.metafield.create({
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `orders(id)`
   - `search(params)`
   - `sendInvite(id[, params])`
   - `update(id, params)`
