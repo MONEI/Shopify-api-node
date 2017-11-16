@@ -20,10 +20,34 @@ function ProductListing(shopify) {
 }
 
 assign(ProductListing.prototype, omit(base, [
-  'create',
-  'delete',
   'update'
 ]));
+
+/**
+ * Adds the productId to a sales channel
+ *
+ * @param {Number} productId ProductID to add to the sales channel
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductListing.prototype.create = function addProductId(productId) {
+  const url = this.buildUrl(`${productId}`);
+  return this.shopify.request(url, 'PUT', undefined, {})
+    .then(body => body[this.key]);
+};
+
+/**
+ * Deletes the productId to a sales channel
+ *
+ * @param {Number} productId ProductID to delete from the sales channel
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductListing.prototype.delete = function deleteProductId(productId) {
+  const url = this.buildUrl(`${productId}`);
+  return this.shopify.request(url, 'DELETE', undefined, {})
+    .then(body => body[this.key]);
+};
 
 /**
  * Retrieves product IDs that are published to a particular application.
