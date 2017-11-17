@@ -49,6 +49,7 @@ function Shopify(options) {
   };
 
   this.baseUrl = {
+    auth: !options.accessToken && `${options.apiKey}:${options.password}`,
     hostname: `${options.shopName}.myshopify.com`,
     protocol: 'https:'
   };
@@ -105,11 +106,6 @@ Shopify.prototype.request = function request(url, method, key, params) {
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
-  } else {
-    const auth = Buffer.from(`${this.options.apiKey}:${this.options.password}`)
-      .toString('base64');
-
-    options.headers.Authorization = `Basic ${auth}`;
   }
 
   if (params) {
