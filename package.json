@@ -15,7 +15,7 @@
     "index.js"
   ],
   "dependencies": {
-    "got": "^7.0.0",
+    "got": "^8.0.0",
     "lodash": "^4.6.0",
     "qs": "^6.1.0",
     "stopcock": "^1.0.0"
