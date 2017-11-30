@@ -19,11 +19,21 @@ function ProductListing(shopify) {
   this.key = 'product_listing';
 }
 
-assign(ProductListing.prototype, omit(base, [
-  'create',
-  'delete',
-  'update'
-]));
+assign(ProductListing.prototype, omit(base, ['create', 'update']));
+
+/**
+ * Creates a product listing.
+ *
+ * @param {Number} productId The ID of the product to publish
+ * @param {Object} [params] Body parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductListing.prototype.create = function create(productId, params) {
+  params || (params = { product_id: productId });
+  const url = this.buildUrl(productId);
+  return this.shopify.request(url, 'PUT', this.key, params);
+};
 
 /**
  * Retrieves product IDs that are published to a particular application.
