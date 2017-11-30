@@ -1,0 +1,59 @@
+{
+  "product_listing": {
+    "id": 2616506,
+    "shop_id": 690933842,
+    "product_id": 921728736,
+    "channel_id": 1003355581,
+    "created_at": "2017-10-03T16:36:00-04:00",
+    "updated_at": "2017-10-03T16:36:00-04:00",
+    "body_html": "<p>The iPod Touch has the iPhone's multi-touch interface, with a physical home button off the touch screen. The home screen has a list of buttons for the available applications.</p>",
+    "handle": "ipod-touch",
+    "product_type": "Cult Products",
+    "published": true,
+    "published_at": "2017-08-31T20:00:00-04:00",
+    "tags": "",
+    "title": "IPod Touch 8GB",
+    "vendor": "Apple",
+    "public_url": "http://apple.myshopify.com/products/ipod-touch",
+    "variants": [
+      {
+        "id": 447654529,
+        "product_id": 921728736,
+        "title": "Black",
+        "price": "199.00",
+        "sku": "IPOD2009BLACK",
+        "position": 1,
+        "grams": 567,
+        "inventory_policy": "continue",
+        "compare_at_price": null,
+        "fulfillment_service": "manual",
+        "inventory_management": "shopify",
+        "option1": "Black",
+        "option2": null,
+        "option3": null,
+        "created_at": "2017-10-03T16:36:00-04:00",
+        "updated_at": "2017-10-03T16:36:00-04:00",
+        "taxable": true,
+        "barcode": "1234_black",
+        "image_id": null,
+        "inventory_quantity": 13,
+        "weight": 1.25,
+        "weight_unit": "lb",
+        "old_inventory_quantity": 13,
+        "requires_shipping": true
+      }
+    ],
+    "options": [
+      {
+        "id": 891236591,
+        "product_id": 921728736,
+        "name": "Title",
+        "position": 1,
+        "values": [
+          "Black"
+        ]
+      }
+    ],
+    "images": []
+  }
+}

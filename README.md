@@ -380,7 +380,9 @@ shopify.metafield.create({
   - `update(productId, id, params)`
 - productListing
   - `count()`
-  - `get(id)`
+  - `create(productId[, params])`
+  - `delete(productId)`
+  - `get(productId)`
   - `list([params])`
   - `productIds([params])`
 - productVariant

@@ -64,7 +64,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.equal(2));
   });
 
-  it('gets a product listing by its ID', () => {
+  it('gets a specific product listing', () => {
     const output = fixtures.res.get;
 
     scope
@@ -73,5 +73,38 @@ describe('Shopify#productListing', () => {
 
     return shopify.productListing.get(921728736)
       .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
+  it('creates a product listing (1/2)', () => {
+    const input = fixtures.req.create;
+    const output = fixtures.res.create;
+
+    scope
+      .put('/admin/product_listings/921728736.json', input)
+      .reply(200, output);
+
+    return shopify.productListing.create(921728736)
+      .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
+  it('creates a product listing (2/2)', () => {
+    const input = fixtures.req.create;
+    const output = fixtures.res.create;
+
+    scope
+      .put('/admin/product_listings/921728736.json', input)
+      .reply(200, output);
+
+    return shopify.productListing.create(921728736, input.product_listing)
+      .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
+  it('deletes a product listing', () => {
+    scope
+      .delete('/admin/product_listings/921728736.json')
+      .reply(200);
+
+    return shopify.productListing.delete(921728736)
+      .then(data => expect(data).to.deep.equal({}));
   });
 });

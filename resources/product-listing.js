@@ -19,34 +19,20 @@ function ProductListing(shopify) {
   this.key = 'product_listing';
 }
 
-assign(ProductListing.prototype, omit(base, [
-  'update'
-]));
+assign(ProductListing.prototype, omit(base, ['create', 'update']));
 
 /**
- * Adds the productId to a sales channel
+ * Creates a product listing.
  *
- * @param {Number} productId ProductID to add to the sales channel
+ * @param {Number} productId The ID of the product to publish
+ * @param {Object} [params] Body parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductListing.prototype.create = function addProductId(productId) {
-  const url = this.buildUrl(`${productId}`);
-  return this.shopify.request(url, 'PUT', undefined, {})
-    .then(body => body[this.key]);
-};
-
-/**
- * Deletes the productId to a sales channel
- *
- * @param {Number} productId ProductID to delete from the sales channel
- * @return {Promise} Promise that resolves with the result
- * @public
- */
-ProductListing.prototype.delete = function deleteProductId(productId) {
-  const url = this.buildUrl(`${productId}`);
-  return this.shopify.request(url, 'DELETE', undefined, {})
-    .then(body => body[this.key]);
+ProductListing.prototype.create = function create(productId, params) {
+  params || (params = { product_id: productId });
+  const url = this.buildUrl(productId);
+  return this.shopify.request(url, 'PUT', this.key, params);
 };
 
 /**
