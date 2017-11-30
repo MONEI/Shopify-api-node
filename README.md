@@ -51,9 +51,9 @@ configuration options.
   specifies a limit of 2 requests per second with a burst of 35 requests. When
   set to `true` requests are limited as specified in the above example.
   Defaults to `false`.
-- `timeout` - Optional - A number that specifies the milliseconds to wait for
-  the server to send response headers before aborting the request. Defaults to
-  `60000`, or 1 minute.
+- `timeout` - Optional - The number of milliseconds before the request times
+  out. If the request takes longer than `timeout`, it will be aborted. Defaults
+  to `60000`, or 1 minute.
 
 #### Return value
 
