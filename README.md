@@ -447,6 +447,12 @@ shopify.metafield.create({
   - `create(params)`
   - `delete(id)`
   - `list()`
+- taxService
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list()`
+  - `update(id, params)`
 - theme
   - `create(params)`
   - `delete(id)`
