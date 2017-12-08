@@ -13,12 +13,19 @@ const fs = require('fs');
 const pkg = require('./package');
 
 /**
+ * @typedef {object} AutoLimitParams
+ * @property {number} [calls]
+ * @property {number} [interval]
+ * @property {number} [bucketSize]
+ */
+
+/**
  * @typedef {object} ConstructorOptionsAlways
  * @property {string} shopName
  * @property {string} [apiKey]
  * @property {string} [password]
  * @property {string} [accessToken]
- * @property {boolean | object} [autoLimit]
+ * @property {boolean | AutoLimitParams} [autoLimit]
  * @property {number} [timeout]
  */
 
