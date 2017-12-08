@@ -13,15 +13,30 @@ const fs = require('fs');
 const pkg = require('./package');
 
 /**
+ * @typedef {object} ConstructorOptionsAlways
+ * @property {string} shopName
+ * @property {string} [apiKey]
+ * @property {string} [password]
+ * @property {string} [accessToken]
+ * @property {boolean | object} [autoLimit]
+ * @property {number} [timeout]
+ */
+
+/**
+ * @typedef {object} ConstructorOptionsAccessToken
+ * @property {string} accessToken
+ */
+
+/**
+ * @typedef {object} ConstructorOptionsKeyPassword
+ * @property {string} apiKey
+ * @property {string} password
+ */
+
+/**
  * Creates a Shopify instance.
  *
- * @param {Object} options Configuration options
- * @param {String} options.shopName The name of the shop
- * @param {String} options.apiKey The API Key
- * @param {String} options.password The private app password
- * @param {String} options.accessToken The persistent OAuth public app token
- * @param {Boolean|Object} [options.autoLimit] Limits the request rate
- * @param {Number} [options.timeout] The request timeout
+ * @param {ConstructorOptionsAlways & (ConstructorOptionsKeyPassword | ConstructorOptionsAccessToken)} options Configuration options
  * @constructor
  * @public
  */
