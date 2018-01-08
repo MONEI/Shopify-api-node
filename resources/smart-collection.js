@@ -21,7 +21,7 @@ function SmartCollection(shopify) {
 assign(SmartCollection.prototype, base);
 
 /**
- * Sets the ordering tpy and/or the manual order of products in a smart
+ * Sets the ordering type and/or the manual order of products in a smart
  * collection.
  *
  * @param {Number} id Smart collection ID
