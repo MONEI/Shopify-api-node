@@ -106,7 +106,7 @@ const shopify = new Shopify({
   accessToken: 'your-oauth-token'
 });
 
-// shopify.<resouce_name>.<method_name>
+// shopify.<resource_name>.<method_name>
 ```
 
 Each method returns a `Promise` that resolves with the result:
