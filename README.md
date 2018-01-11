@@ -493,6 +493,7 @@ for parameters details.
 
 (add yours!)
 
+* [Sample node express app by Shopify][sample-node-express-app-by-shopify]
 * [Wholesaler][wholesaler]
 * [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
 * [Wholesaler PRO][wholesaler-pro]
@@ -508,6 +509,7 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 
 [MIT](LICENSE)
 
+[sample-node-express-app-by-shopify]: https://github.com/Shopify/shopify-node-app
 [npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
 [npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
 [travis-shopify-api-node-badge]: https://img.shields.io/travis/MONEI/Shopify-api-node/master.svg
