@@ -12,7 +12,8 @@
   "files": [
     "resources",
     "mixins",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "dependencies": {
     "got": "^8.0.0",

@@ -1,5 +1,5 @@
-// Type definitions for Shopify-api-node
-// Project: Shopify-api-node
+// Type definitions for shopify-api-node 2.10.0
+// Project: shopify-api-node
 // Definitions by: Rich Buggy <rich@buggy.id.au>
 
 /*~ This is the module template file for class modules.
@@ -261,7 +261,7 @@ declare class Shopify {
     policy: {
         list: (params?: any) => Promise<Shopify.IPolicy[]>;
     };
-    priceRules: {
+    priceRule: {
         create: (params: any) => Promise<Shopify.IPriceRule>;
         delete: (id: number) => Promise<void>;
         get: (id: number, params?: any) => Promise<Shopify.IPriceRule>;
@@ -625,7 +625,7 @@ declare namespace Shopify {
     }
 
     interface IBase64Image {
-        attrachment: string;
+        attachment: string;
     }
 
     interface IObjectMetafield {
