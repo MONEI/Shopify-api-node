@@ -493,7 +493,7 @@ for parameters details.
 
 (add yours!)
 
-* [Sample node express app by Shopify][sample-node-express-app-by-shopify]
+* [Sample Node Express app by Shopify][sample-node-express-app-by-shopify]
 * [Wholesaler][wholesaler]
 * [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
 * [Wholesaler PRO][wholesaler-pro]
