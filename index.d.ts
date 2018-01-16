@@ -30,7 +30,7 @@ declare class Shopify {
     };
     // abandonedCheckouts
     applicationCharge: {
-        activate: (id: number, params: any) => Promise<Shopify.IApplicationCharge>;
+        activate: (id: number, params?: any) => Promise<Shopify.IApplicationCharge>;
         create: (params: Shopify.ICreateApplicationCharge) => Promise<Shopify.IApplicationCharge>;
         get: (id: number, params?: any) => Promise<Shopify.IApplicationCharge>;
         list: (params?: any) => Promise<Shopify.IApplicationCharge[]>;
