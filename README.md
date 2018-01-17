@@ -155,7 +155,7 @@ shopify.metafield.create({
 - apiPermission
   - `delete()`
 - applicationCharge
-  - `activate(id, params)`
+  - `activate(id[, params])`
   - `create(params)`
   - `get(id[, params])`
   - `list([params])`
