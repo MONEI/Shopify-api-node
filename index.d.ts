@@ -1252,7 +1252,6 @@ declare namespace Shopify {
     type OrderFulfillmentStatus = "fulfilled" | "partial" | null;
     type OrderProcessingMethod = "checkout" | "direct" | "express" | "manual" | "offsite";
 
-
     interface IOrderDiscountCode {
         amount: number;
         code: string;
