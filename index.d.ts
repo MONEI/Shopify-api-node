@@ -411,7 +411,7 @@ declare namespace Shopify {
         accessToken: string;
         autoLimit?: boolean | IAutoLimit;
         shopName: string;
-        timeout: number;
+        timeout?: number;
     }
 
     export interface IPrivateShopifyConfig {
@@ -419,7 +419,7 @@ declare namespace Shopify {
         autoLimit?: boolean | IAutoLimit;
         password: string;
         shopName: string;
-        timeout: number;
+        timeout?: number;
     }
 
     export interface ICallLimits {
