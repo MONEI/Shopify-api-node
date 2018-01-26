@@ -22,6 +22,8 @@
 export = Shopify;
 
 /*~ Write your module's methods and properties in this class */
+type onCallLimitsFn = (limits: Shopify.ICallLimits) => void;
+
 declare class Shopify {
     constructor(config: Shopify.IPublicShopifyConfig | Shopify.IPrivateShopifyConfig);
     callLimits: Shopify.ICallLimits;
@@ -226,6 +228,7 @@ declare class Shopify {
         list: (params?: any) => Promise<Shopify.IMetafield[]>;
         update: (id: number, params: any) => Promise<Shopify.IMetafield>;
     };
+    on: (event: "callLimits", callback: onCallLimitsFn) => Shopify;
     order: {
         cancel: (id: number, params?: any) => Promise<Shopify.IOrder>;
         close: (id: number) => Promise<Shopify.IOrder>;
@@ -403,14 +406,14 @@ declare namespace Shopify {
         calls: number;
         interval: number;
     }
-    
+
     export interface IPublicShopifyConfig {
         accessToken: string;
         autoLimit?: boolean | IAutoLimit;
         shopName: string;
         timeout?: number;
     }
-    
+
     export interface IPrivateShopifyConfig {
         apiKey: string;
         autoLimit?: boolean | IAutoLimit;
@@ -418,7 +421,7 @@ declare namespace Shopify {
         shopName: string;
         timeout?: number;
     }
-    
+
     export interface ICallLimits {
         remaining: number;
         current: number;
@@ -1248,7 +1251,6 @@ declare namespace Shopify {
     type OrderFinancialStatus = "authorized" | "paid" | "partially_paid" | "partially_refunded" | "pending" | "voided";
     type OrderFulfillmentStatus = "fulfilled" | "partial" | null;
     type OrderProcessingMethod = "checkout" | "direct" | "express" | "manual" | "offsite";
-    
 
     interface IOrderDiscountCode {
         amount: number;
