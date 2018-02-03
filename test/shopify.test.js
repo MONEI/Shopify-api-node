@@ -39,6 +39,17 @@ describe('Shopify', () => {
     expect(shopify).to.be.an.instanceof(Shopify);
   });
 
+  it("allows the shop's 'myshopify.com' domain to be used as shopName", () => {
+    const shopName = 'johns-apparel.myshopify.com';
+    const shopify = new Shopify({ shopName, apiKey, password });
+
+    expect(shopify.baseUrl).to.deep.equal({
+      auth: `${apiKey}:${password}`,
+      hostname: shopName,
+      protocol: 'https:'
+    });
+  });
+
   it('adds basic auth to the URL when using apiKey and password', () => {
     const shopify = new Shopify({ shopName, apiKey, password });
 

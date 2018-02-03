@@ -50,7 +50,9 @@ function Shopify(options) {
 
   this.baseUrl = {
     auth: !options.accessToken && `${options.apiKey}:${options.password}`,
-    hostname: `${options.shopName}.myshopify.com`,
+    hostname: !options.shopName.endsWith('.myshopify.com')
+      ? `${options.shopName}.myshopify.com`
+      : options.shopName,
     protocol: 'https:'
   };
 
