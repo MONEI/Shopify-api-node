@@ -152,6 +152,8 @@ shopify.metafield.create({
 
 ### Available resources and methods
 
+- accessScope
+  - `list()`
 - apiPermission
   - `delete()`
 - applicationCharge

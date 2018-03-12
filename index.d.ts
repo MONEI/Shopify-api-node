@@ -27,8 +27,11 @@ type onCallLimitsFn = (limits: Shopify.ICallLimits) => void;
 declare class Shopify {
     constructor(config: Shopify.IPublicShopifyConfig | Shopify.IPrivateShopifyConfig);
     callLimits: Shopify.ICallLimits;
+    accessScope: {
+        list: () => Promise<Shopify.IAccessScope[]>;
+    };
     apiPermission: {
-        delete(): void;
+        delete: () => Promise<void>;
     };
     // abandonedCheckouts
     applicationCharge: {
@@ -426,6 +429,10 @@ declare namespace Shopify {
         remaining: number;
         current: number;
         max: number;
+    }
+
+    interface IAccessScope {
+        handle: string
     }
 
     interface ICheckout {
