@@ -1442,7 +1442,7 @@ declare namespace Shopify {
         ends_at: string;
     }
 
-    interface IProudctOptions {
+    interface IProductOptions {
         id: number;
         name: string;
         position: number;
@@ -1457,7 +1457,7 @@ declare namespace Shopify {
         id: number;
         image: any | null;
         images: IProductImage[];
-        options: IProudctOptions[];
+        options: IProductOptions[];
         product_type: string;
         published_at: string;
         published_scope: string;
