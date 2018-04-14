@@ -1446,7 +1446,7 @@ declare namespace Shopify {
         id: number;
         name: string;
         position: number;
-        production_id: number;
+        product_id: number;
         values: string[];
     }
 
