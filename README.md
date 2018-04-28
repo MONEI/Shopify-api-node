@@ -312,6 +312,10 @@ shopify.metafield.create({
   - `list([params])`
   - `search(params)`
   - `update(id, params)`
+- inventoryItem
+  - `get(id)`
+  - `list(params)`
+  - `update(id, params)`
 - inventoryLevel
   - `adjust(params)`
   - `connect(params)`
