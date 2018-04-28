@@ -29,7 +29,7 @@ describe('Shopify#inventoryLevel', () => {
     const output = fixtures.res.adjust;
 
     scope
-      .post('/admin/inventory_levels/adjust.json')
+      .post('/admin/inventory_levels/adjust.json', input)
       .reply(200, output);
 
     return shopify.inventoryLevel.adjust(input)
@@ -55,7 +55,7 @@ describe('Shopify#inventoryLevel', () => {
     const output = fixtures.res.connect;
 
     scope
-      .post('/admin/inventory_levels/connect.json')
+      .post('/admin/inventory_levels/connect.json', input)
       .reply(201, output);
 
     return shopify.inventoryLevel.connect(input)
@@ -67,7 +67,7 @@ describe('Shopify#inventoryLevel', () => {
     const output = fixtures.res.set;
 
     scope
-      .post('/admin/inventory_levels/set.json')
+      .post('/admin/inventory_levels/set.json', input)
       .reply(200, output);
 
     return shopify.inventoryLevel.set(input)
