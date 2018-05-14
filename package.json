@@ -16,18 +16,18 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "got": "^8.0.0",
-    "lodash": "^4.6.0",
-    "qs": "^6.1.0",
+    "got": "^8.3.1",
+    "lodash": "^4.17.10",
+    "qs": "^6.5.2",
     "stopcock": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "^4.0.0",
-    "eslint": "^4.0.0",
-    "istanbul": "^0.4.2",
-    "mocha": "^5.0.0",
-    "nock": "^9.0.0",
-    "pre-commit": "^1.1.2"
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.1",
+    "nock": "^9.2.5",
+    "pre-commit": "^1.2.2"
   },
   "scripts": {
     "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
