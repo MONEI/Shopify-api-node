@@ -264,7 +264,8 @@ shopify.metafield.create({
   - `list([params])`
   - `update(id, params)`
 - discountCode
-  - `create(priceRuleId, params)`
+  - `create(priceRuleId, params)` 
+    - example: `shopify.discountCode.create(292703567943, { "code": "10OFF-2018" })`
   - `delete(priceRuleId, id)`
   - `get(priceRuleId, id)`
   - `list(priceRuleId)`
