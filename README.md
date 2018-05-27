@@ -117,6 +117,60 @@ shopify.order.list({ limit: 5 })
   .catch(err => console.error(err));
 ```
 
+The Shopify API requires that you send a valid JSON string in the request body
+including the name of the resource. For example, the request body to create a
+country should be:
+
+```json
+{
+  "country": {
+    "code": "FR",
+    "tax": 0.25
+  }
+}
+```
+
+When using `shopify-api-node` you don't have to specify the full object but
+only the nested one as the module automatically wraps the provided data. Using
+the above example this translates to:
+
+```js
+shopify.country.create({ code: 'FR', tax: 0.25 })
+  .then(country => console.log(country))
+  .catch(err => console.error(err));
+```
+
+Similarly, the Shopify API includes the resource name in the JSON string that
+is returned in the response body:
+
+```json
+{
+  "country": {
+    "id": 1070231510,
+    "name": "France",
+    "tax": 0.2,
+    "code": "FR",
+    "tax_name": "TVA",
+    "provinces": []
+  }
+}
+```
+
+`shopify-api-node` automatically unwraps the parsed object and returns:
+
+```js
+{
+  id: 1070231510,
+  name: 'France',
+  tax: 0.2,
+  code: 'FR',
+  tax_name: 'TVA',
+  provinces: []
+}
+```
+
+This behavior is valid for all resources.
+
 #### Metafields
 
 Shopify allows for adding metafields to various resources. You can use the
@@ -264,7 +318,7 @@ shopify.metafield.create({
   - `list([params])`
   - `update(id, params)`
 - discountCode
-  - `create(priceRuleId, params)`
+  - `create(priceRuleId, params)` 
   - `delete(priceRuleId, id)`
   - `get(priceRuleId, id)`
   - `list(priceRuleId)`
