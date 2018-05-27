@@ -117,6 +117,60 @@ shopify.order.list({ limit: 5 })
   .catch(err => console.error(err));
 ```
 
+The Shopify API requires that you send a valid JSON string in the request body
+including the name of the resource. For example, the request body to create a
+country should be:
+
+```json
+{
+  "country": {
+    "code": "FR",
+    "tax": 0.25
+  }
+}
+```
+
+When using `shopify-api-node` you don't have to specify the full object but
+only the nested one as the module automatically wraps the provided data. Using
+the above example this translates to:
+
+```js
+shopify.country.create({ code: 'FR', tax: 0.25 })
+  .then(country => console.log(country))
+  .catch(err => console.error(err));
+```
+
+Similarly, the Shopify API includes the resource name in the JSON string that
+is returned in the response body:
+
+```json
+{
+  "country": {
+    "id": 1070231510,
+    "name": "France",
+    "tax": 0.2,
+    "code": "FR",
+    "tax_name": "TVA",
+    "provinces": []
+  }
+}
+```
+
+`shopify-api-node` automatically unwraps the parsed object and returns:
+
+```js
+{
+  id: 1070231510,
+  name: 'France',
+  tax: 0.2,
+  code: 'FR',
+  tax_name: 'TVA',
+  provinces: []
+}
+```
+
+This behavior is valid for all resources.
+
 #### Metafields
 
 Shopify allows for adding metafields to various resources. You can use the
@@ -149,69 +203,6 @@ shopify.metafield.create({
   err => console.error(err)
 );
 ```
-
-#### Request Params and Response objects:
-
-- Requests  
-The Shopify API requires that you send a complete json object in the request including the name of the resource
-```
-// the Shopify API expects this the object to specify a 'product' object
-{
-  "product": {
-    "title": "Burton Custom Freestyle 151",
-    "body_html": "<strong>Good snowboard!</strong>",
-    "vendor": "Burton",
-    "product_type": "Snowboard",
-    "tags": "Barnes & Noble, John's Fav, \"Big Air\""
-  }
-}
-```
-When using shopify-api-node this is no necessary as the resource has been abstracted in the method call
-```
-// if using shopify-api-node just provide the params
-
-shopify.product.create({
-  "title": "Burton Custom Freestyle 151",
-  "body_html": "<strong>Good snowboard!</strong>",
-  "vendor": "Burton",
-  "product_type": "Snowboard",
-  "tags": "Barnes & Noble, John's Fav, \"Big Air\""
-})
-```
-- Responses  
-This is also true for a response object
-```
-// when using Shopify API the product object will be returned within another object
-{
-  "product": {
-    "id": 1071559585,
-    "title": "Burton Custom Freestyle 151",
-    "body_html": "<strong>Good snowboard!</strong>",
-    "vendor": "Burton",
-    "product_type": "Snowboard",
-    "created_at": "2018-05-07T15:49:39-04:00",
-    ...
-    .....
-    .......
-  }
-}
-```
-When using shopify-api-node this once again abstracted and the clean object for specified resource is handed back for you to work with
-```
-// response if using shopify-api-node when promise resolves
-{
-  "id": 1071559585,
-  "title": "Burton Custom Freestyle 151",
-  "body_html": "<strong>Good snowboard!</strong>",
-  "vendor": "Burton",
-  "product_type": "Snowboard",
-  "created_at": "2018-05-07T15:49:39-04:00",
-  ...
-  .....
-  .......
-}
-```
-This is valid for all resources not only `Products`. 
 
 ### Available resources and methods
 
