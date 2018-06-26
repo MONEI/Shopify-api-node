@@ -108,7 +108,7 @@ const shopify = new Shopify({
 
 // shopify.<resource_name>.<method_name>
 ```
-
+`shopName` can be with or without `.myshopify.com`. eg `test-shopify.myshopify.com` or `test-shopify`
 Each method returns a `Promise` that resolves with the result:
 
 ```js
