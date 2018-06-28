@@ -217,7 +217,7 @@ declare class Shopify {
     };
     inventoryLevel: {
         adjust: (params: any) => Promise<Shopify.IInventoryLevel>;
-        connect: (parmas: any) => Promise<Shopify.IInventoryLevel>;
+        connect: (params: any) => Promise<Shopify.IInventoryLevel>;
         delete: (params: any) => Promise<void>;
         list: (params: any) => Promise<Shopify.IInventoryLevel[]>;
         set: (params: any) => Promise<Shopify.IInventoryLevel>;
