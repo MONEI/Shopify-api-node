@@ -1971,6 +1971,15 @@ declare namespace Shopify {
         "fulfillment_events/delete" |
         "fulfillments/create" |
         "fulfillments/update" |
+        "inventory_items/create" |
+        "inventory_items/update" |
+        "inventory_items/delete" |
+        "inventory_levels/connect" |
+        "inventory_levels/update" |
+        "inventory_levels/disconnect" |
+        "locations/create" |
+        "locations/update" |
+        "locations/delete" |
         "order_transactions/create" |
         "orders/cancelled" |
         "orders/create" |
