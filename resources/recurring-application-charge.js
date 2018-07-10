@@ -36,7 +36,7 @@ RecurringApplicationCharge.prototype.activate = function activate(id, params) {
   const url = this.buildUrl(`${id}/activate`);
   return this.shopify.request(url, 'POST', undefined, {
     [this.key]: params
-  });
+  }).then(result => result[this.key] || {});
 };
 
 module.exports = RecurringApplicationCharge;
