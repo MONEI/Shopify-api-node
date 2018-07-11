@@ -210,6 +210,18 @@ declare class Shopify {
         search: (params: any) => Promise<any>;
         update: (id: number, params: any) => Promise<Shopify.IGiftCard>;
     };
+    inventoryItem: {
+        get: (id: number) => Promise<Shopify.IInventoryItem>;
+        list: (params?: any) => Promise<Shopify.IInventoryItem[]>;
+        update: (id: number, params: any) => Promise<Shopify.IInventoryItem>;
+    };
+    inventoryLevel: {
+        adjust: (params: any) => Promise<Shopify.IInventoryLevel>;
+        connect: (params: any) => Promise<Shopify.IInventoryLevel>;
+        delete: (params: any) => Promise<void>;
+        list: (params: any) => Promise<Shopify.IInventoryLevel[]>;
+        set: (params: any) => Promise<Shopify.IInventoryLevel>;
+    };
     location: {
         get: (id: number) => Promise<Shopify.ILocation>;
         list: () => Promise<Shopify.ILocation[]>;
@@ -1158,6 +1170,21 @@ declare namespace Shopify {
         expires_on: string;
     }
 
+    interface IInventoryItem {
+      id: number;
+      sku: string;
+      tracked: boolean;
+      created_at: string;
+      updated_at: string;
+    }
+
+    interface IInventoryLevel {
+      inventory_item_id: number;
+      location_id: number;
+      available: number | null;
+      updated_at: string;
+    }
+
     interface ILocation {
         id: number;
         address1: string;
@@ -1944,6 +1971,15 @@ declare namespace Shopify {
         "fulfillment_events/delete" |
         "fulfillments/create" |
         "fulfillments/update" |
+        "inventory_items/create" |
+        "inventory_items/update" |
+        "inventory_items/delete" |
+        "inventory_levels/connect" |
+        "inventory_levels/update" |
+        "inventory_levels/disconnect" |
+        "locations/create" |
+        "locations/update" |
+        "locations/delete" |
         "order_transactions/create" |
         "orders/cancelled" |
         "orders/create" |
