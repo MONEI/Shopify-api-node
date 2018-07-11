@@ -78,24 +78,18 @@ describe('Shopify#recurringApplicationCharge', () => {
   });
 
   it('activates a recurring application charge', () => {
-    /**
-     * TODO: According to Shopify API the activation of a charge
-     * should return the updated charge object with the 'status'
-     * value set as 'active'. This test seems to be trying to
-     * activate an invalid charge ID, and might be the reason why
-     * it's returning an empty object. Must be fixed to retrieve
-     * a successful result from the API and create a fixture to
-     * test against.
-     */
     const input = fixtures.req.activate;
+    const output = fixtures.res.activate;
     const id = 455696195;
 
     scope
       .post(`/admin/recurring_application_charges/${id}/activate.json`, input)
-      .reply(200);
+      .reply(200, output);
 
     return resource.activate(id, input.recurring_application_charge)
-      .then(data => expect(data).to.deep.equal({}));
+      .then(data => {
+        expect(data).to.deep.equal(output.recurring_application_charge);
+      });
   });
 
   it('deletes a recurring application charge', () => {
