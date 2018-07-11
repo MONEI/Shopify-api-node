@@ -28,7 +28,8 @@ configuration options.
 
 #### Options
 
-- `shopName` - Required - A string that specifies the shop name.
+- `shopName` - Required - A string that specifies the shop name. The shop's
+  "myshopify.com" domain is also accepted.
 - `apiKey` - Required for [private][generate-private-app-credentials] apps - A
   string that specifies the API key of the app. This option must be used in
   conjunction with the `password` option and is mutually exclusive with the
@@ -108,7 +109,7 @@ const shopify = new Shopify({
 
 // shopify.<resource_name>.<method_name>
 ```
-`shopName` can be with or without `.myshopify.com`. eg `test-shopify.myshopify.com` or `test-shopify`
+
 Each method returns a `Promise` that resolves with the result:
 
 ```js
