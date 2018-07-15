@@ -161,6 +161,7 @@ declare class Shopify {
         enable: (id: number) => Promise<Shopify.IDiscountCode>;
         get: (id: number) => Promise<Shopify.IDiscountCode>;
         list: (params?: any) => Promise<Shopify.IDiscountCode[]>;
+        lookup: (params?: any) => Promise<Shopify.IDiscountLocation>;
     };
     draftOrder: {
         complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
@@ -971,6 +972,10 @@ declare namespace Shopify {
         usage_count: number;
     }
 
+    interface IDiscountLocation {
+        location: string;
+    }
+
     interface IDraftOrderNoteAttribute {
         name: string;
         value: string;
@@ -1398,6 +1403,13 @@ declare namespace Shopify {
         refunds: string;
         shipping_address: ICustomerAddress;
         shipping_lines: IOrderShippingLine[];
+        subtotal_price: string;
+        total_discounts: string;
+        total_line_items_price: string;
+        total_price: string;
+        total_tax: string;
+        total_tip_received: string;
+        total_weight: string;
     }
 
     type OrderRisksRecommendation = "accept" | "cancel" | "cancel";
