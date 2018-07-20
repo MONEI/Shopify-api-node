@@ -1509,10 +1509,17 @@ declare namespace Shopify {
         updated_at: string;
     }
 
+    interface IProductVariantOption {
+        option_id: number;
+        name: string;
+        value: string
+    }
+
     type ProductVariantInventoryPolicy = "deny" | "continue";
     type ProductVariantWeightUnit = "g" | "kg" | "oz" | "lb";
 
     interface IProductVariant {
+        available: boolean;
         barcode: string;
         compare_at_price: string;
         created_at: string;
@@ -1525,6 +1532,7 @@ declare namespace Shopify {
         inventory_policy: ProductVariantInventoryPolicy;
         inventory_quantity: number;
         old_inventory_quantity: number;
+        option_values: IProductVariantOption[]
         option1: string | null;
         option2: string | null;
         option3: string | null;
