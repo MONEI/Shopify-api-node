@@ -155,12 +155,12 @@ declare class Shopify {
         update: (id: number, params: any) => Promise<Shopify.ICustomerSavedSearch>;
     };
     discountCode: {
-        create: (params: any) => Promise<Shopify.IDiscountCode>;
-        delete: (id: number) => Promise<void>;
-        disable: (id: number) => Promise<Shopify.IDiscountCode>;
-        enable: (id: number) => Promise<Shopify.IDiscountCode>;
-        get: (id: number) => Promise<Shopify.IDiscountCode>;
-        list: (params?: any) => Promise<Shopify.IDiscountCode[]>;
+        create: (priceRuleId: number, params: any) => Promise<Shopify.IDiscountCode>;
+        delete: (priceRuleId: number, id: number) => Promise<void>;
+        disable: (priceRuleId: number, id: number) => Promise<Shopify.IDiscountCode>;
+        enable: (priceRuleId: number, id: number) => Promise<Shopify.IDiscountCode>;
+        get: (priceRuleId: number, id: number) => Promise<Shopify.IDiscountCode>;
+        list: (priceRuleId: number, params?: any) => Promise<Shopify.IDiscountCode[]>;
         lookup: (params: any) => Promise<Shopify.IDiscountCode>;
     };
     draftOrder: {
@@ -274,10 +274,10 @@ declare class Shopify {
         update: (id: number, params: any) => Promise<Shopify.IPage>;
     };
     payment: {
-        count: (checkoutToken: any) => Promise<number>;
-        create: (checkoutToken: any, params: any) => Promise<any>;
-        get: (checkoutToken: any, id: number) => Promise<any>;
-        list: (checkoutToken?: any) => Promise<any>;
+        count: (checkoutId:number, checkoutToken: any) => Promise<number>;
+        create: (checkoutId:number, checkoutToken: any, params: any) => Promise<any>;
+        get: (checkoutId:number, checkoutToken: any, id: number) => Promise<any>;
+        list: (checkoutId:number, checkoutToken?: any) => Promise<any>;
     };
     policy: {
         list: (params?: any) => Promise<Shopify.IPolicy[]>;
