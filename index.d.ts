@@ -226,6 +226,7 @@ declare class Shopify {
     location: {
         count: () => Promise<number>;
         get: (id: number) => Promise<Shopify.ILocation>;
+        inventoryLevels: (id: number) => Promise<Shopify.IInventoryLevel[]>;
         list: () => Promise<Shopify.ILocation[]>;
     };
     marketingEvent: {

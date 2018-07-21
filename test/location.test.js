@@ -43,4 +43,15 @@ describe('Shopify#location', () => {
     return shopify.location.count()
       .then(data => expect(data).to.equal(4));
   });
+
+  it('gets a list of inventory levels for a location', () => {
+    const output = fixtures.res.inventoryLevels;
+
+    scope
+      .get('/admin/locations/487838322/inventory_levels.json')
+      .reply(200, output);
+
+    return shopify.location.inventoryLevels(487838322)
+      .then(data => expect(data).to.deep.equal(output.inventory_levels));
+  });
 });
