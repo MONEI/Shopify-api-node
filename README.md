@@ -378,6 +378,7 @@ shopify.metafield.create({
   - `list(params)`
   - `set(params)`
 - location
+  - `count`
   - `get(id)`
   - `list()`
 - marketingEvent

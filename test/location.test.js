@@ -32,4 +32,15 @@ describe('Shopify#location', () => {
     return shopify.location.get(487838322)
       .then(data => expect(data).to.deep.equal(output.location));
   });
+
+  it('gets a count of locations', () => {
+    const output = { count: 4 };
+
+    scope
+      .get('/admin/locations/count.json')
+      .reply(200, output);
+
+    return shopify.location.count()
+      .then(data => expect(data).to.equal(4));
+  });
 });
