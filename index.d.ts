@@ -1509,17 +1509,10 @@ declare namespace Shopify {
         updated_at: string;
     }
 
-    interface IProductVariantOption {
-        option_id: number;
-        name: string;
-        value: string
-    }
-
     type ProductVariantInventoryPolicy = "deny" | "continue";
     type ProductVariantWeightUnit = "g" | "kg" | "oz" | "lb";
 
     interface IProductVariant {
-        available: boolean;
         barcode: string;
         compare_at_price: string;
         created_at: string;
@@ -1532,7 +1525,6 @@ declare namespace Shopify {
         inventory_policy: ProductVariantInventoryPolicy;
         inventory_quantity: number;
         old_inventory_quantity: number;
-        option_values: IProductVariantOption[]
         option1: string | null;
         option2: string | null;
         option3: string | null;
@@ -1548,6 +1540,17 @@ declare namespace Shopify {
         weight_unit: ProductVariantWeightUnit;
     }
 
+    interface IProductVariantOption {
+        option_id: number;
+        name: string;
+        value: string
+    }
+                              
+    interface IProductListingVariant extends IProductVariant {
+        available: boolean;
+        option_values: IProductVariantOption[];
+    }
+
     interface IProductListing {
         product_id: number;
         body_html: string;
@@ -1560,7 +1563,7 @@ declare namespace Shopify {
         tags: string;
         title: string;
         updated_at: string;
-        variants: IProductVariant[];
+        variants: IProductListingVariant[];
     }
 
     interface IProvince {
