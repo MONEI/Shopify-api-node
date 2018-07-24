@@ -273,10 +273,10 @@ declare class Shopify {
         update: (id: number, params: any) => Promise<Shopify.IPage>;
     };
     payment: {
-        count: (checkoutToken: any) => Promise<number>;
-        create: (checkoutToken: any, params: any) => Promise<any>;
-        get: (checkoutId:number, checkoutToken: any, id: number) => Promise<any>;
-        list: (checkoutToken?: any) => Promise<any>;
+        count: (checkoutToken: string) => Promise<number>;
+        create: (checkoutToken: string, params: any) => Promise<any>;
+        get: (checkoutToken: string, id: number) => Promise<any>;
+        list: (checkoutToken?: string) => Promise<any>;
     };
     policy: {
         list: (params?: any) => Promise<Shopify.IPolicy[]>;
