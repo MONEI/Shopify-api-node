@@ -1550,6 +1550,17 @@ declare namespace Shopify {
         weight_unit: ProductVariantWeightUnit;
     }
 
+    interface IProductVariantOption {
+        option_id: number;
+        name: string;
+        value: string
+    }
+                              
+    interface IProductListingVariant extends IProductVariant {
+        available: boolean;
+        option_values: IProductVariantOption[];
+    }
+
     interface IProductListing {
         product_id: number;
         body_html: string;
@@ -1562,7 +1573,7 @@ declare namespace Shopify {
         tags: string;
         title: string;
         updated_at: string;
-        variants: IProductVariant[];
+        variants: IProductListingVariant[];
     }
 
     interface IProvince {
