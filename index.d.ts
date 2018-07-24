@@ -155,13 +155,12 @@ declare class Shopify {
         update: (id: number, params: any) => Promise<Shopify.ICustomerSavedSearch>;
     };
     discountCode: {
-        create: (params: any) => Promise<Shopify.IDiscountCode>;
-        delete: (id: number) => Promise<void>;
-        disable: (id: number) => Promise<Shopify.IDiscountCode>;
-        enable: (id: number) => Promise<Shopify.IDiscountCode>;
-        get: (id: number) => Promise<Shopify.IDiscountCode>;
-        list: (params?: any) => Promise<Shopify.IDiscountCode[]>;
+        create: (priceRuleId: number, params: any) => Promise<Shopify.IDiscountCode>;
+        delete: (priceRuleId: number, id: number) => Promise<void>;
+        get: (priceRuleId: number, id: number) => Promise<Shopify.IDiscountCode>;
+        list: (priceRuleId: number, params?: any) => Promise<Shopify.IDiscountCode[]>;
         lookup: (params: any) => Promise<Shopify.IDiscountCode>;
+        update: (priceRuleId: number, id: number, params?: any) => Promise<Shopify.IDiscountCode>;
     };
     draftOrder: {
         complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
@@ -274,10 +273,10 @@ declare class Shopify {
         update: (id: number, params: any) => Promise<Shopify.IPage>;
     };
     payment: {
-        count: (checkoutToken: any) => Promise<number>;
-        create: (checkoutToken: any, params: any) => Promise<any>;
-        get: (checkoutToken: any, id: number) => Promise<any>;
-        list: (checkoutToken?: any) => Promise<any>;
+        count: (checkoutToken: string) => Promise<number>;
+        create: (checkoutToken: string, params: any) => Promise<any>;
+        get: (checkoutToken: string, id: number) => Promise<any>;
+        list: (checkoutToken?: string) => Promise<any>;
     };
     policy: {
         list: (params?: any) => Promise<Shopify.IPolicy[]>;
@@ -1555,7 +1554,7 @@ declare namespace Shopify {
         name: string;
         value: string;
     }
-                              
+
     interface IProductListingVariant extends IProductVariant {
         available: boolean;
         option_values: IProductVariantOption[];
