@@ -1553,7 +1553,7 @@ declare namespace Shopify {
     interface IProductVariantOption {
         option_id: number;
         name: string;
-        value: string
+        value: string;
     }
                               
     interface IProductListingVariant extends IProductVariant {
