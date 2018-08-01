@@ -1291,7 +1291,7 @@ declare namespace Shopify {
     interface IOrderDiscountCode {
         amount: number;
         code: string;
-        tyoe: OrderDiscountCodeType
+        type: OrderDiscountCodeType
     }
 
     interface IOrderFulfillment {
