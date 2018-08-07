@@ -4,6 +4,8 @@ const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
+const Metafield = require('./resource-metafield');
+
 /**
  * Creates a Blog instance.
  *
@@ -16,6 +18,8 @@ function Blog(shopify) {
 
   this.name = 'blogs';
   this.key = 'blog';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(Blog.prototype, base);

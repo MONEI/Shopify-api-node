@@ -3,6 +3,7 @@
 const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
+const baseChild = require('../mixins/base-child');
 
 /**
  * Creates a Metafield instance.

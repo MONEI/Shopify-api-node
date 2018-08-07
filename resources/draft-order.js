@@ -4,6 +4,8 @@ const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
+const Metafield = require('./resource-metafield');
+
 /**
  * Creates a DraftOrder instance.
  *
@@ -16,6 +18,8 @@ function DraftOrder(shopify) {
 
   this.name = 'draft_orders';
   this.key = 'draft_order';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(DraftOrder.prototype, base);
