@@ -60,7 +60,7 @@ declare class Shopify {
         delete: (themeId: number, params: any) => Promise<void>;
         get: (themeId: number, params?: any) => Promise<Shopify.IAsset>;
         list: (themeId: number, params?: any) => Promise<Shopify.IAsset[]>;
-        update: (themeId: number, params: Shopify.IUpdateArticle) => Promise<Shopify.IAsset>;
+        update: (themeId: number, params: Shopify.IUpdateAsset) => Promise<Shopify.IAsset>;
     };
     blog: {
         count: () => Promise<number>;
