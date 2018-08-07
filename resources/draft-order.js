@@ -4,6 +4,8 @@ const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
+const Metafield = require('./resource-metafield');
+
 /**
  * Creates a DraftOrder instance.
  *
