@@ -4,6 +4,8 @@ const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
 
+const Metafield = require('./resource-metafield');
+
 /**
  * Creates an Order instance.
  *
@@ -16,6 +18,8 @@ function Order(shopify) {
 
   this.name = 'orders';
   this.key = 'order';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(Order.prototype, base);

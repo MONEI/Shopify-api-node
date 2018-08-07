@@ -16,6 +16,8 @@ function Customer(shopify) {
 
   this.name = 'customers';
   this.key = 'customer';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(Customer.prototype, base);

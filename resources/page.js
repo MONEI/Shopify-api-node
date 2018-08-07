@@ -16,6 +16,8 @@ function Page(shopify) {
 
   this.name = 'pages';
   this.key = 'page';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(Page.prototype, base);

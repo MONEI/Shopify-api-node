@@ -16,6 +16,8 @@ function Product(shopify) {
 
   this.name = 'products';
   this.key = 'product';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(Product.prototype, base);

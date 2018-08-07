@@ -16,6 +16,8 @@ function DraftOrder(shopify) {
 
   this.name = 'draft_orders';
   this.key = 'draft_order';
+
+  this.metafield = new Metafield(shopify, this.name);
 }
 
 assign(DraftOrder.prototype, base);
