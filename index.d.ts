@@ -646,7 +646,7 @@ declare namespace Shopify {
         src: string;
         updated_at?: string;
         width: number;
-        alt?: string | null;
+        alt: string | null;
     }
 
     interface IBase64Image {
@@ -1517,7 +1517,7 @@ declare namespace Shopify {
         width: number;
         height: number;
         updated_at: string;
-        alt?: string | null;
+        alt: string | null;
     }
 
     type ProductVariantInventoryPolicy = "deny" | "continue";
