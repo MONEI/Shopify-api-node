@@ -646,6 +646,7 @@ declare namespace Shopify {
         src: string;
         updated_at?: string;
         width: number;
+        alt: string | null;
     }
 
     interface IBase64Image {
@@ -1429,10 +1430,10 @@ declare namespace Shopify {
         created_at: string;
         handle: string;
         id: number;
-        metafield: string;
+        metafield: IObjectMetafield[];
         published_at: string;
         shop_id: number;
-        template_suffic: string | null;
+        template_suffix: string | null;
         title: string;
         updated_at: string;
     }
@@ -1491,7 +1492,7 @@ declare namespace Shopify {
         created_at: string;
         handle: string;
         id: number;
-        image: any | null;
+        image: IProductImage;
         images: IProductImage[];
         options: IProductOption[];
         product_type: string;
@@ -1516,6 +1517,7 @@ declare namespace Shopify {
         width: number;
         height: number;
         updated_at: string;
+        alt: string | null;
     }
 
     type ProductVariantInventoryPolicy = "deny" | "continue";
