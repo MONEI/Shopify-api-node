@@ -1411,18 +1411,7 @@ declare namespace Shopify {
         user_id: number | null;
         updated_at: string;
         order_status_url: string;
-        refunds: {
-          id: number;
-          order_id: number;
-          created_at: string;
-          note: string | null;
-          user_id: number | null;
-          processed_at: string;
-          restock: boolean;
-          refund_line_items: [];
-          transactions: [];
-          order_adjustments: [];
-        }[];
+        refunds: IRefund[];
     }
 
     type OrderRisksRecommendation = "accept" | "cancel" | "cancel";
