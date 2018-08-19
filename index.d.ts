@@ -1398,7 +1398,6 @@ declare namespace Shopify {
         processed_at: string;
         processing_method: OrderProcessingMethod;
         referring_site: string;
-        refunds: string;
         shipping_address: ICustomerAddress;
         shipping_lines: IOrderShippingLine[];
         subtotal_price: string;
@@ -1408,6 +1407,22 @@ declare namespace Shopify {
         total_tax: string;
         total_tip_received: string;
         total_weight: number;
+        token: string;
+        user_id: number | null;
+        updated_at: string;
+        order_status_url: string;
+        refunds: {
+          id: number;
+          order_id: number;
+          created_at: string;
+          note: string | null;
+          user_id: number | null;
+          processed_at: string;
+          restock: boolean;
+          refund_line_items: [];
+          transactions: [];
+          order_adjustments: [];
+        }[];
     }
 
     type OrderRisksRecommendation = "accept" | "cancel" | "cancel";
