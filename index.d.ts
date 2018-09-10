@@ -1510,6 +1510,7 @@ declare namespace Shopify {
         metafields_global_description_tag?: string;
         updated_at: string;
         variants: IProductVariant[];
+        vendor: string;
     }
 
     interface IProductImage {
