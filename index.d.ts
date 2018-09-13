@@ -1412,7 +1412,6 @@ declare namespace Shopify {
         updated_at: string;
         order_status_url: string;
         refunds: IRefund[];
-        order_status_url: string;
     }
 
     type OrderRisksRecommendation = "accept" | "cancel" | "cancel";
