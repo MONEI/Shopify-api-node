@@ -63,11 +63,12 @@ Customer.prototype.sendInvite = function sendInvite(id, params) {
  * Get all orders belonging to a customer.
  *
  * @param {Number} id Customer ID
+ * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Customer.prototype.orders = function orders(id) {
-  const url = this.buildUrl(`${id}/orders`);
+Customer.prototype.orders = function orders(id, params) {
+  const url = this.buildUrl(`${id}/orders`, params);
   return this.shopify.request(url, 'GET', 'orders');
 };
 
