@@ -156,7 +156,7 @@ describe('Shopify#customer', () => {
     return shopify.customer.orders(207119551)
       .then(data => expect(data).to.deep.equal(output.orders));
   });
-  
+
   it('gets any orders belonging to a customer', () => {
     const output = fixtures.res.orders;
 
