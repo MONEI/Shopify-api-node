@@ -146,7 +146,7 @@ describe('Shopify#customer', () => {
       .then(data => expect(data).to.equal(1));
   });
 
-  it('gets all orders belonging to a customer', () => {
+  it('gets all open orders belonging to a customer', () => {
     const output = fixtures.res.orders;
 
     scope
@@ -154,6 +154,17 @@ describe('Shopify#customer', () => {
       .reply(200, output);
 
     return shopify.customer.orders(207119551)
+      .then(data => expect(data).to.deep.equal(output.orders));
+  });
+
+  it('gets any orders belonging to a customer', () => {
+    const output = fixtures.res.orders;
+
+    scope
+      .get('/admin/customers/207119551/orders.json?status=any')
+      .reply(200, output);
+
+    return shopify.customer.orders(207119551, { status: 'any' })
       .then(data => expect(data).to.deep.equal(output.orders));
   });
 });
