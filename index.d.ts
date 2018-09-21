@@ -1796,6 +1796,7 @@ declare namespace Shopify {
         phone: string | null;
         plan_display_name: string;
         plan_name: string;
+        pre_launch_enabled: boolean;
         primary_locale: string;
         primary_location_id: number;
         province: string;
