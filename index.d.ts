@@ -1372,6 +1372,7 @@ declare namespace Shopify {
         cart_token: string;
         client_details: IOrderClientDetails;
         closed_at: string | null;
+        confirmed: boolean;
         created_at: string;
         currency: string;
         customer: IOrderCustomer;
