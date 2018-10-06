@@ -1135,7 +1135,7 @@ declare namespace Shopify {
         latitude: string | null;
         longitude: string;
         message: string | null;
-        order_id: string;
+        order_id: number;
         province: string | null;
         shop_id: number;
         status: FulfillmentEventStatus;
