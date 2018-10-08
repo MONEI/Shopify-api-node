@@ -1188,6 +1188,50 @@ declare namespace Shopify {
       updated_at: string;
     }
 
+    type LineItemFulfillmentStatus = "fulfilled" | "partial" | null;
+
+    interface ILineItemProperty {
+        name: string;
+        value: string;
+    }
+
+    interface ILineItemDiscountAllocation {
+        amount: string;
+        discount_application_index: number;
+    }
+
+    interface ILineItemTaxLine {
+        title: string;
+        price: string;
+        rate: number;
+    }
+
+    interface ILineItem {
+        discount_allocations: ILineItemDiscountAllocation[];
+        fulfillable_quantity: number;
+        fulfillment_service: string;
+        fulfillment_status: LineItemFulfillmentStatus;
+        gift_card: boolean;
+        grams: number;
+        id: number;
+        name: string;
+        price: number;
+        product_id: number;
+        properties: ILineItemProperty[];
+        quantity: number;
+        require_shipping: boolean;
+        sku: string;
+        tax_lines: ILineItemTaxLine[];
+        taxable: boolean;
+        tip_payment_gateway: string;
+        tip_payment_method: string;
+        title: string;
+        total_discount: string;
+        variant_id: number;
+        variant_title: string;
+        vendor: string;
+    }
+
     interface ILocation {
         id: number;
         address1: string;
@@ -1652,9 +1696,9 @@ declare namespace Shopify {
 
     interface IRefundLineItem {
         id: number;
-        line_item: any;
+        line_item: ILineItem;
         lint_item_id: number;
-        quantity: 2;
+        quantity: number;
     }
 
     interface IRefund {
