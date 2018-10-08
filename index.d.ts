@@ -1708,7 +1708,7 @@ declare namespace Shopify {
         note: string;
         refund_line_items: IRefundLineItem[];
         restock: string;
-        transactions: string;
+        transactions: ITransaction[];
         user_id: string;
         order_id: number;
     }
