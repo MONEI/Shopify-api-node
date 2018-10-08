@@ -1710,6 +1710,7 @@ declare namespace Shopify {
         restock: string;
         transactions: string;
         user_id: string;
+        order_id: number;
     }
 
     interface IReport {
