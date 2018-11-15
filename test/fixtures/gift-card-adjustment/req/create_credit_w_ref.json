@@ -1,0 +1,7 @@
+{
+  "adjustment": {
+    "amount": 10.0,
+    "remote_transaction_ref": "gift_card_app_transaction_193402",
+    "remote_transaction_url": "http://example.com/my-gift-card-app/gift_card_adjustments/193402"
+  }
+}

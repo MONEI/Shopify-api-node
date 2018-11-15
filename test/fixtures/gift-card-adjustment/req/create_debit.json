@@ -1,0 +1,6 @@
+{
+  "adjustment": {
+    "amount": -20.0,
+    "note": "Customer spent $20 via external service"
+  }
+}
