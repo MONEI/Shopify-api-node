@@ -1937,7 +1937,7 @@ declare namespace Shopify {
         avs_result_code: string | null;
         credit_card_bin: string | null;
         credit_card_company: string;
-        create_card_number: string;
+        credit_card_number: string;
         cvv_result_code: string | null;
     }
 
