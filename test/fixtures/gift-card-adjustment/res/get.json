@@ -1,0 +1,17 @@
+{
+  "adjustment": {
+    "id": 2,
+    "gift_card_id": 48394658,
+    "api_client_id": 755357713,
+    "user_id": 0,
+    "order_transaction_id": null,
+    "number": 1,
+    "amount": "10.00",
+    "processed_at": "2018-07-05T13:01:26-04:00",
+    "created_at": "2018-07-05T13:01:26-04:00",
+    "updated_at": "2018-07-05T13:01:26-04:00",
+    "note": "Customer refilled gift card by $10",
+    "remote_transaction_ref": null,
+    "remote_transaction_url": null
+  }
+}

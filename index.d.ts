@@ -210,6 +210,11 @@ declare class Shopify {
         search: (params: any) => Promise<any>;
         update: (id: number, params: any) => Promise<Shopify.IGiftCard>;
     };
+    giftCardAdjustment: {
+        create: (giftCardId: number, params: any) => Promise<Shopify.IGiftCardAdjustment>;
+        get: (giftCardId: number, id: number) => Promise<Shopify.IGiftCardAdjustment>;
+        list: (giftCardId: number) => Promise<Shopify.IGiftCardAdjustment[]>;
+    };
     inventoryItem: {
         get: (id: number) => Promise<Shopify.IInventoryItem>;
         list: (params?: any) => Promise<Shopify.IInventoryItem[]>;
@@ -1171,6 +1176,20 @@ declare namespace Shopify {
         updated_at: string;
         disabled_at: string;
         expires_on: string;
+    }
+
+    interface IGiftCardAdjustment {
+        id: number;
+        number: number;
+        amount: number;
+        note: string;
+        remote_transaction_ref: string;
+        remote_transaction_url: string;
+        api_client_id: number;
+        user_id: number;
+        order_transaction_id: number;
+        created_at: string;
+        processed_at: string;
     }
 
     interface IInventoryItem {

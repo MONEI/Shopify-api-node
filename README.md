@@ -367,6 +367,10 @@ shopify.metafield.create({
   - `list([params])`
   - `search(params)`
   - `update(id, params)`
+- [giftCardAdjustment](https://help.shopify.com/en/api/reference/plus/gift_card_adjustment)
+  - `create(giftCardId, params)`
+  - `get(giftCardId, id)`
+  - `list(giftCardId)`
 - inventoryItem
   - `get(id)`
   - `list(params)`
