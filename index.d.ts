@@ -213,7 +213,7 @@ declare class Shopify {
     giftCardAdjustment: {
         create: (giftCardId: number, params: any) => Promise<Shopify.IGiftCardAdjustment>;
         get: (giftCardId: number, id: number) => Promise<Shopify.IGiftCardAdjustment>;
-        list: (giftCardId: number, params?: any) => Promise<Shopify.IGiftCardAdjustment[]>;
+        list: (giftCardId: number) => Promise<Shopify.IGiftCardAdjustment[]>;
     };
     inventoryItem: {
         get: (id: number) => Promise<Shopify.IInventoryItem>;

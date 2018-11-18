@@ -1,4 +1,4 @@
-describe('Shopify#giftCardAdjustmentAdjustment', () => {
+describe('Shopify#giftCardAdjustment', () => {
   'use strict';
 
   const expect = require('chai').expect;
@@ -33,9 +33,9 @@ describe('Shopify#giftCardAdjustmentAdjustment', () => {
       .then(data => expect(data).to.deep.equal(output.adjustment));
   });
 
-  it('creates a new gift card adjustment (1/4)', () => {
-    const input = fixtures.req.create_credit;
-    const output = fixtures.res.create_credit;
+  it('creates a new gift card adjustment', () => {
+    const input = fixtures.req.create;
+    const output = fixtures.res.create;
 
     scope
       .post('/admin/gift_cards/48394658/adjustments.json', input)
@@ -44,41 +44,4 @@ describe('Shopify#giftCardAdjustmentAdjustment', () => {
     return shopify.giftCardAdjustment.create(48394658, input.adjustment)
       .then(data => expect(data).to.deep.equal(output.adjustment));
   });
-
-  it('creates a new gift card adjustment (2/4)', () => {
-    const input = fixtures.req.create_debit;
-    const output = fixtures.res.create_debit;
-
-    scope
-      .post('/admin/gift_cards/48394658/adjustments.json', input)
-      .reply(201, output);
-
-    return shopify.giftCardAdjustment.create(48394658, input.adjustment)
-      .then(data => expect(data).to.deep.equal(output.adjustment));
-  });
-
-  it('creates a new gift card adjustment (3/4)', () => {
-    const input = fixtures.req.create_credit_past;
-    const output = fixtures.res.create_credit_past;
-
-    scope
-      .post('/admin/gift_cards/48394658/adjustments.json', input)
-      .reply(201, output);
-
-    return shopify.giftCardAdjustment.create(48394658, input.adjustment)
-      .then(data => expect(data).to.deep.equal(output.adjustment));
-  });
-
-  it('creates a new gift card adjustment (4/4)', () => {
-    const input = fixtures.req.create_credit_w_ref;
-    const output = fixtures.res.create_credit_w_ref;
-
-    scope
-      .post('/admin/gift_cards/48394658/adjustments.json', input)
-      .reply(201, output);
-
-    return shopify.giftCardAdjustment.create(48394658, input.adjustment)
-      .then(data => expect(data).to.deep.equal(output.adjustment));
-  });
-
 });
