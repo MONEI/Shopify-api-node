@@ -515,6 +515,7 @@ shopify.metafield.create({
   - `get(id[, params])`
   - `list([params])`
   - `order(id, params)`
+  - `products(id[, params])`
   - `update(id, params)`
 - storefrontAccessToken
   - `create(params)`

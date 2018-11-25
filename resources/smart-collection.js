@@ -34,4 +34,17 @@ SmartCollection.prototype.order = function order(id, params) {
   return this.shopify.request(url, 'PUT', undefined, {});
 };
 
+/**
+ * Retrieves a list of products in a smart collection.
+ *
+ * @param {Number} id Smart collection ID
+ * @param {Object} params Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+SmartCollection.prototype.products = function products(id, params) {
+  const url = this.buildUrl(`${id}/products`, params);
+  return this.shopify.request(url, 'GET', 'products');
+};
+
 module.exports = SmartCollection;

@@ -384,6 +384,7 @@ declare class Shopify {
         get: (id: number, params?: any) => Promise<Shopify.ISmartCollection>;
         list: (params?: any) => Promise<Shopify.ISmartCollection[]>;
         order: (id: number, params: any) => Promise<void>;
+        products: (id: number, params: any) => Promise<Shopify.IProduct>;
         update: (id: number, params: any) => Promise<Shopify.ISmartCollection>;
     };
     theme: {

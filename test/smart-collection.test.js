@@ -130,4 +130,26 @@ describe('Shopify#smartCollection', () => {
     return shopify.smartCollection.delete(482865238)
       .then(data => expect(data).to.deep.equal({}));
   });
+
+  it('retrieves a list of products in a smart collection (1/2)', () => {
+    const output = fixtures.res.products;
+
+    scope
+      .get('/admin/smart_collections/482865238/products.json')
+      .reply(200, output);
+
+    return shopify.smartCollection.products(482865238)
+      .then(data => expect(data).to.deep.equal(output.products));
+  });
+
+  it('retrieves a list of products in a smart collection (2/2)', () => {
+    const output = fixtures.res.products;
+
+    scope
+      .get('/admin/smart_collections/482865238/products.json?only_sorted=all')
+      .reply(200, output);
+
+    return shopify.smartCollection.products(482865238, { only_sorted: 'all' })
+      .then(data => expect(data).to.deep.equal(output.products));
+  });
 });
