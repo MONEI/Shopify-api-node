@@ -42,7 +42,7 @@ RecurringApplicationCharge.prototype.activate = function activate(id, params) {
  * Customize a recurring application charge (increase the capped amount)
  *
  * @param {Number} id Recurring application charge ID
- * @param {Object} params Recurring application charge properties
+ * @param {Number} cappedAmount The new capped amount to apply to the recurring application charge
  * @return {Promise} Promise that resolves with the result
  * @public
  */
