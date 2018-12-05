@@ -14,7 +14,7 @@
         "trial_ends_on": "2018-11-15",
         "cancelled_on": null,
         "trial_days": 0,
-        "capped_amount": "100.00",
+        "capped_amount": "200.00",
         "balance_used": 0.0,
         "balance_remaining": 100.0,
         "risk_level": 0.075,
