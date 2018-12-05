@@ -103,7 +103,7 @@ describe('Shopify#recurringApplicationCharge', () => {
 
   it('customizes a recurring application charge', () => {
     const input = fixtures.req.customize;
-    const output = fixtures.res.activate;
+    const output = fixtures.res.customize;
     const id = 455696195;
 
     scope
