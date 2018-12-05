@@ -39,17 +39,16 @@ RecurringApplicationCharge.prototype.activate = function activate(id, params) {
 };
 
 /**
- * Customize a recurring application charge (increase the capped amount)
+ * Customize a recurring application charge.
  *
  * @param {Number} id Recurring application charge ID
- * @param {Number} cappedAmount The new capped amount to apply to the recurring application charge
+ * @param {Object} params Customization parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-RecurringApplicationCharge.prototype.customize = function customize(id, cappedAmount) {
-  const url = this.buildUrl(`${id}/customize`, { 'recurring_application_charge[capped_amount]': cappedAmount });
-  return this.shopify.request(url, 'PUT')
-    .then(body => body[this.key]);
+RecurringApplicationCharge.prototype.customize = function customize(id, params) {
+  const url = base.buildUrl.call(this, `${id}/customize`, params);
+  return this.shopify.request(url, 'PUT', this.key);
 };
 
 module.exports = RecurringApplicationCharge;
