@@ -337,6 +337,7 @@ declare class Shopify {
         delete: (id: number) => Promise<void>;
         get: (id: number, params?: any) => Promise<Shopify.IRecurringApplicationCharge>;
         list: (params?: any) => Promise<Shopify.IRecurringApplicationCharge[]>;
+        customize: (id:number, params: any) => Promise<Shopify.IRecurringApplicationCharge>;
     };
     redirect: {
         count: (params?: any) => Promise<number>;

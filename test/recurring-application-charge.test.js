@@ -100,4 +100,21 @@ describe('Shopify#recurringApplicationCharge', () => {
     return resource.delete(455696195)
       .then(data => expect(data).to.deep.equal({}));
   });
+
+  it('customizes a recurring application charge', () => {
+    const output = fixtures.res.customize;
+    const id = 455696195;
+
+    scope
+      .put(`/admin/recurring_application_charges/${id}/customize.json`)
+      .query({
+        recurring_application_charge: { capped_amount: 200 }
+      })
+      .reply(200, output);
+
+    return resource.customize(id, { capped_amount: 200 })
+      .then(data => {
+        expect(data).to.deep.equal(output.recurring_application_charge);
+      });
+  });
 });
