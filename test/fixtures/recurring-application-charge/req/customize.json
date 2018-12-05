@@ -1,8 +1,0 @@
-{
-    "queryString": "recurring_application_charge%5Bcapped_amount%5D=200",
-    "fnParams": {
-        "recurring_application_charge": {
-            "capped_amount": 200
-        }
-    }
-}

@@ -476,7 +476,7 @@ shopify.metafield.create({
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
-  - `customize(id, cappedAmount)`
+  - `customize(id, params)`
 - redirect
   - `count([params])`
   - `create(params)`
