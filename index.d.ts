@@ -901,6 +901,14 @@ declare namespace Shopify {
         tax_name?: string
     }
 
+    interface ICurrencyExchangeAdjustment {
+        id: number;
+        adjustment: string;
+        original_amount: string;
+        final_amount: string;
+        currency: string;
+    }
+
     type CustomerCollectionSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
 
     interface ICustomCollection {
@@ -1984,6 +1992,9 @@ declare namespace Shopify {
         test: boolean;
         user_id: number;
         currency: string;
+        message: string;
+        parent_id: number;
+        currency_exchange_adjustment: ICurrencyExchangeAdjustment;
     }
 
     interface IUsageCharge {
