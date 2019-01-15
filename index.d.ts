@@ -1367,6 +1367,36 @@ declare namespace Shopify {
         code: string;
         type: OrderDiscountCodeType
     }
+    
+    interface IOrderFulfillmentLineItemTaxLine {
+        title: string;
+        price: string;
+        rate: number;
+    }
+    
+    interface IOrderFulfillmentLineItem {
+        id: number;
+        variant_id: number;
+        title: string;
+        quantity: number;
+        price: string;
+        grams: number;
+        sku: string;
+        variant_title: string;
+        vendor: string | null;
+        fulfillment_service: string;
+        product_id: number;
+        requires_shipping: boolean;
+        taxable: boolean;
+        gift_card: boolean;
+        name: string;
+        variant_inventory_management: string;
+        product_exists: boolean;
+        fulfillable_quantity: number;
+        total_discount: string;
+        fulfillment_status: null;
+        tax_lines: IOrderFulfillmentLineItemTaxLine[];
+    }
 
     interface IOrderFulfillment {
         created_at: string;
