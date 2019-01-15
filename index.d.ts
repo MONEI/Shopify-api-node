@@ -1415,7 +1415,7 @@ declare namespace Shopify {
         gift_card: boolean;
         properties: IOrderLineItemProperty[];
         taxable: boolean;
-        tax_lines: IOrderTaxLine;
+        tax_lines: IOrderTaxLine[];
         total_discount: string;
     }
 
@@ -1726,7 +1726,7 @@ declare namespace Shopify {
     interface IRefundLineItem {
         id: number;
         line_item: ILineItem;
-        lint_item_id: number;
+        line_item_id: number;
         quantity: number;
     }
 
