@@ -1728,6 +1728,7 @@ declare namespace Shopify {
         line_item: ILineItem;
         line_item_id: number;
         quantity: number;
+        restock_type: "no_restock" | "cancel" | "return" | "legacy_restock"
     }
 
     interface IRefund {
