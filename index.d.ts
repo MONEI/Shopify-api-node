@@ -1401,10 +1401,10 @@ declare namespace Shopify {
     interface IOrderFulfillment {
         created_at: string;
         id: number;
-        line_items: any;
+        line_items: IOrderFulfillmentLineItem[];
         order_id: number;
         receipt: string;
-        order_status: any;
+        shipment_status: "confirmed" | "in_transit" | "out_for_delivery" | "delivered" | "failure";
         tracking_company: string;
         tracking_number: string;
         updated_at: string;
