@@ -1367,14 +1367,50 @@ declare namespace Shopify {
         code: string;
         type: OrderDiscountCodeType
     }
+    
+    interface IOrderFulfillmentLineItemTaxLine {
+        title: string;
+        price: string;
+        rate: number;
+    }
+    
+    interface IOrderFulfillmentLineItemProperty {
+        name: string;
+        value: string;
+    }
+    
+    interface IOrderFulfillmentLineItem {
+        id: number;
+        variant_id: number;
+        title: string;
+        quantity: number;
+        price: string;
+        grams: number;
+        sku: string;
+        variant_title: string;
+        vendor: string | null;
+        fulfillment_service: string;
+        product_id: number;
+        requires_shipping: boolean;
+        taxable: boolean;
+        gift_card: boolean;
+        name: string;
+        variant_inventory_management: string;
+        product_exists: boolean;
+        fulfillable_quantity: number;
+        total_discount: string;
+        fulfillment_status: "fulfilled" | "partial" | null;
+        tax_lines: IOrderFulfillmentLineItemTaxLine[];
+        properties: IOrderFulfillmentLineItemProperty[]
+    }
 
     interface IOrderFulfillment {
         created_at: string;
         id: number;
-        line_items: any;
+        line_items: IOrderFulfillmentLineItem[];
         order_id: number;
         receipt: string;
-        order_status: any;
+        shipment_status: "confirmed" | "in_transit" | "out_for_delivery" | "delivered" | "failure";
         tracking_company: string;
         tracking_number: string;
         updated_at: string;
@@ -1415,7 +1451,7 @@ declare namespace Shopify {
         gift_card: boolean;
         properties: IOrderLineItemProperty[];
         taxable: boolean;
-        tax_lines: IOrderTaxLine;
+        tax_lines: IOrderTaxLine[];
         total_discount: string;
     }
 
@@ -1726,8 +1762,9 @@ declare namespace Shopify {
     interface IRefundLineItem {
         id: number;
         line_item: ILineItem;
-        lint_item_id: number;
+        line_item_id: number;
         quantity: number;
+        restock_type: "no_restock" | "cancel" | "return" | "legacy_restock"
     }
 
     interface IRefund {
