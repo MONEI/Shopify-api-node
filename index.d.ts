@@ -1374,6 +1374,11 @@ declare namespace Shopify {
         rate: number;
     }
     
+    interface IOrderFulfillmentLineItemProperty {
+        name: string;
+        value: string;
+    }
+    
     interface IOrderFulfillmentLineItem {
         id: number;
         variant_id: number;
@@ -1394,8 +1399,9 @@ declare namespace Shopify {
         product_exists: boolean;
         fulfillable_quantity: number;
         total_discount: string;
-        fulfillment_status: null;
+        fulfillment_status: "fulfilled" | "partial" | null;
         tax_lines: IOrderFulfillmentLineItemTaxLine[];
+        properties: IOrderFulfillmentLineItemProperty[]
     }
 
     interface IOrderFulfillment {
