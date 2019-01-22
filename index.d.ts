@@ -573,7 +573,7 @@ declare namespace Shopify {
         price: string;
         return_url: string;
         status: "accepted" | "declined" | "expired" | "pending";
-        test: true | null;
+        test: boolean | null;
         updated_at: string;
     }
 
@@ -589,7 +589,7 @@ declare namespace Shopify {
         description: string;
         id: number;
         amount: string;
-        test: true | null;
+        test: boolean | null;
     }
 
     interface ICreateApplicationCredit {
@@ -1726,7 +1726,7 @@ declare namespace Shopify {
         return_url: string;
         status: RecurringApplicationChargeStatus;
         terms: string;
-        test: true | null;
+        test: boolean | null;
         trial_days: number;
         trial_ends_on: string;
         updated_at: string;
@@ -1738,7 +1738,7 @@ declare namespace Shopify {
         price: number;
         return_url: string;
         terms?: string;
-        test?: true;
+        test?: boolean | null;
         trial_days?: number;
         trial_ends_on?: string;
     }
