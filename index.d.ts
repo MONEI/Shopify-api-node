@@ -1615,7 +1615,6 @@ declare namespace Shopify {
   interface IOrderFulfillmentLineItem {
     id: number;
     variant_id: number;
-    location_id: number | null;
     title: string;
     quantity: number;
     price: string;
@@ -1641,6 +1640,7 @@ declare namespace Shopify {
   interface IOrderFulfillment {
     created_at: string;
     id: number;
+    location_id: number | null;
     line_items: IFulfillmentLineItem[];
     notify_customer: string;
     order_id: number;
