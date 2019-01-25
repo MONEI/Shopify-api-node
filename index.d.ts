@@ -1271,7 +1271,7 @@ declare namespace Shopify {
     authorization: string;
   }
 
-  interface IFulfilmentLineItemProperty {
+  interface IFulfillmentLineItemProperty {
     name: string;
     value: string;
   }
@@ -1282,7 +1282,7 @@ declare namespace Shopify {
     rate: number;
   }
 
-  interface IFulfilmentLineItem {
+  interface IFulfillmentLineItem {
     id: number;
     variant_id: number;
     title: string;
@@ -1299,7 +1299,7 @@ declare namespace Shopify {
     gift_card: boolean;
     name: string;
     variant_inventory_management: string;
-    properties: IFulfilmentLineItemProperty[];
+    properties: IFulfillmentLineItemProperty[];
     product_exists: boolean;
     fulfillable_quantity: number;
     total_discount: string;
@@ -1310,7 +1310,7 @@ declare namespace Shopify {
   interface IFulfillment {
     created_at: string;
     id: number;
-    line_items: IFulfilmentLineItem[];
+    line_items: IFulfillmentLineItem[];
     notify_customer: string;
     order_id: number;
     receipt: IFulfillmentReceipt;
@@ -1640,18 +1640,20 @@ declare namespace Shopify {
   interface IOrderFulfillment {
     created_at: string;
     id: number;
-    line_items: IOrderFulfillmentLineItem[];
+    line_items: IFulfillmentLineItem[];
+    notify_customer: string;
     order_id: number;
-    receipt: string;
-    shipment_status:
-      | "confirmed"
-      | "in_transit"
-      | "out_for_delivery"
-      | "delivered"
-      | "failure";
+    receipt: IFulfillmentReceipt;
+    service: string;
+    shipment_status: FulfillmentEventStatus;
+    status: IFulfillmentStatus;
     tracking_company: string;
     tracking_number: string;
+    tracking_numbers: string[];
+    tracking_url: string;
+    tracking_urls: string[];
     updated_at: string;
+    variant_inventory_management: string;
   }
 
   interface IOrderLineItemProperty {
