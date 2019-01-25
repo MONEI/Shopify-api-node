@@ -1734,7 +1734,7 @@ declare namespace Shopify {
     confirmed: boolean;
     created_at: string;
     currency: string;
-    customer: IOrderCustomer;
+    customer?: IOrderCustomer;
     customer_locale: string;
     discount_codes: IOrderDiscountCode[];
     email: string;
