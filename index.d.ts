@@ -1702,6 +1702,7 @@ declare namespace Shopify {
   interface IOrderShippingLine {
     code: string;
     price: string;
+    discounted_price: string;
     source: string;
     title: string;
     tax_lines: IOrderShippingLineTaxLine[];
