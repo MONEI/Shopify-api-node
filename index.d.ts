@@ -1752,7 +1752,7 @@ declare namespace Shopify {
     note_attributes: IOrderLineItemNote[];
     number: number;
     order_number: number;
-    payment_details: IOrderPaymentDetails;
+    payment_details?: IOrderPaymentDetails;
     payment_gateway_names: string[];
     phone: string;
     processed_at: string;
