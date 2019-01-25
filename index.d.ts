@@ -1680,12 +1680,12 @@ declare namespace Shopify {
     grams: number;
     id: number;
     price: string;
-    product_id: number;
+    product_id: number | null;
     quantity: number;
     requires_shipping: boolean;
     sku: string;
     title: string;
-    variant_id: number;
+    variant_id: number | null;
     variant_title: string;
     vendor: string;
     name: string;
@@ -1711,6 +1711,14 @@ declare namespace Shopify {
     tax_lines: IOrderShippingLineTaxLine[];
     carrier_identifier: string | null;
     requested_fulfillment_service_id: string | null;
+  }
+
+  interface IOrderPaymentDetails {
+    avs_result_code: string | null;
+    credit_card_bin: string | null;
+    credit_card_company: string;
+    credit_card_number: string;
+    cvv_result_code: string | null;
   }
 
   interface IOrder {
@@ -1744,7 +1752,7 @@ declare namespace Shopify {
     note_attributes: IOrderLineItemNote[];
     number: number;
     order_number: number;
-    payment_details: any;
+    payment_details: IOrderPaymentDetails;
     payment_gateway_names: string[];
     phone: string;
     processed_at: string;
