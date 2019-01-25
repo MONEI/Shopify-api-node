@@ -1524,7 +1524,7 @@ declare namespace Shopify {
         refunds: IRefund[];
     }
 
-    type OrderRisksRecommendation = "accept" | "cancel" | "cancel";
+    type OrderRisksRecommendation = "accept" | "investigate" | "cancel";
 
     interface IOrderRisk {
         cause_cancel: boolean;
