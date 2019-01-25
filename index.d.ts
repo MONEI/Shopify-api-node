@@ -1748,6 +1748,7 @@ declare namespace Shopify {
     referring_site: string;
     shipping_address: ICustomerAddress;
     shipping_lines: IOrderShippingLine[];
+    source_name: "web" | "pos" | "shopify_draft_order" | "iphone" | "android";
     subtotal_price: string;
     total_discounts: string;
     total_line_items_price: string;
