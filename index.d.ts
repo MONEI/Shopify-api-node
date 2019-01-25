@@ -1615,6 +1615,7 @@ declare namespace Shopify {
   interface IOrderFulfillmentLineItem {
     id: number;
     variant_id: number;
+    location_id: number | null;
     title: string;
     quantity: number;
     price: string;
