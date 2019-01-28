@@ -1434,7 +1434,7 @@ declare namespace Shopify {
         created_at: string;
         id: number;
         location_id: number | null;
-        line_items: IFulfillmentLineItem[];
+        line_items: IOrderFulfillmentLineItem[];
         notify_customer: string;
         order_id: number;
         receipt: IFulfillmentReceipt;
