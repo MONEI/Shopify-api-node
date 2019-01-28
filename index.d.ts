@@ -1746,7 +1746,7 @@ declare namespace Shopify {
     id: number;
     landing_site: string;
     line_items: IOrderLineItem[];
-    location_id: number;
+    location_id: number | null;
     name: string;
     note: string | null;
     note_attributes: IOrderLineItemNote[];
