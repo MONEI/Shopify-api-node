@@ -337,7 +337,7 @@ declare class Shopify {
         delete: (id: number) => Promise<void>;
         get: (id: number, params?: any) => Promise<Shopify.IRecurringApplicationCharge>;
         list: (params?: any) => Promise<Shopify.IRecurringApplicationCharge[]>;
-        customize: (id:number, params: any) => Promise<Shopify.IRecurringApplicationCharge>;
+        customize: (id: number, params: any) => Promise<Shopify.IRecurringApplicationCharge>;
     };
     redirect: {
         count: (params?: any) => Promise<number>;
@@ -363,7 +363,7 @@ declare class Shopify {
     resourceFeedback: {
         create: (params: any) => Promise<Shopify.IResourceFeedback>;
         list: () => Promise<Shopify.IResourceFeedback[]>;
-    }
+    };
     scriptTag: {
         count: (params?: any) => Promise<number>;
         create: (params: Shopify.ICreateScriptTag) => Promise<Shopify.IScriptTag>;
@@ -453,7 +453,7 @@ declare namespace Shopify {
     }
 
     interface IAccessScope {
-        handle: string
+        handle: string;
     }
 
     interface ICheckout {
@@ -767,7 +767,6 @@ declare namespace Shopify {
         last_characters: string;
     }
 
-
     interface ICheckoutShippingRateCheckout {
         subtotal_price: string;
         total_price: string;
@@ -814,7 +813,15 @@ declare namespace Shopify {
         sort_value?: string;
     }
 
-    type CollectionListingSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
+    type CollectionListingSortOrder =
+        | "alpha-asc"
+        | "alpha-desc"
+        | "best-selling"
+        | "created"
+        | "created-desc"
+        | "manual"
+        | "price-asc"
+        | "price-desc";
 
     interface ICollectionListingImage extends IImage {
         position: number;
@@ -884,21 +891,21 @@ declare namespace Shopify {
         name: string;
         provinces: IProvince[];
         tax: number;
-        tax_name: string
+        tax_name: string;
     }
 
     interface ICreateCountry {
         code: string;
         name?: string;
         tax?: number;
-        tax_name?: string
+        tax_name?: string;
     }
 
     interface IUpdateCountry {
         code?: string;
         name?: string;
         tax?: number;
-        tax_name?: string
+        tax_name?: string;
     }
 
     interface ICurrencyExchangeAdjustment {
@@ -909,7 +916,15 @@ declare namespace Shopify {
         currency: string;
     }
 
-    type CustomerCollectionSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
+    type CustomerCollectionSortOrder =
+        | "alpha-asc"
+        | "alpha-desc"
+        | "best-selling"
+        | "created"
+        | "created-desc"
+        | "manual"
+        | "price-asc"
+        | "price-desc";
 
     interface ICustomCollection {
         body_html: string | null;
@@ -961,7 +976,7 @@ declare namespace Shopify {
         country_code: string;
         customer_id: number;
         first_name: string;
-        id: number
+        id: number;
         last_name: string;
         latitude: string;
         longitude: string;
@@ -1082,7 +1097,7 @@ declare namespace Shopify {
         authorization: string;
     }
 
-    interface IFulfilmentLineItemProperty {
+    interface IFulfillmentLineItemProperty {
         name: string;
         value: string;
     }
@@ -1093,7 +1108,7 @@ declare namespace Shopify {
         rate: number;
     }
 
-    interface IFulfilmentLineItem {
+    interface IFulfillmentLineItem {
         id: number;
         variant_id: number;
         title: string;
@@ -1110,7 +1125,7 @@ declare namespace Shopify {
         gift_card: boolean;
         name: string;
         variant_inventory_management: string;
-        properties: IFulfilmentLineItemProperty[];
+        properties: IFulfillmentLineItemProperty[];
         product_exists: boolean;
         fulfillable_quantity: number;
         total_discount: string;
@@ -1121,8 +1136,8 @@ declare namespace Shopify {
     interface IFulfillment {
         created_at: string;
         id: number;
-        line_items: IFulfilmentLineItem[];
-        notify_customer: string;
+        line_items: IFulfillmentLineItem[];
+        notify_customer: boolean;
         order_id: number;
         receipt: IFulfillmentReceipt;
         service: string;
@@ -1203,18 +1218,18 @@ declare namespace Shopify {
     }
 
     interface IInventoryItem {
-      id: number;
-      sku: string;
-      tracked: boolean;
-      created_at: string;
-      updated_at: string;
+        id: number;
+        sku: string;
+        tracked: boolean;
+        created_at: string;
+        updated_at: string;
     }
 
     interface IInventoryLevel {
-      inventory_item_id: number;
-      location_id: number;
-      available: number | null;
-      updated_at: string;
+        inventory_item_id: number;
+        location_id: number;
+        available: number | null;
+        updated_at: string;
     }
 
     type LineItemFulfillmentStatus = "fulfilled" | "partial" | null;
@@ -1284,7 +1299,18 @@ declare namespace Shopify {
         type: "product" | "collection" | "price_rule" | "discount" | "page" | "article" | "shop";
     }
 
-    type MarketingEventEventType = "ad" | "post" | "message" | "retargeting" | "sem" | "transactional" | "affiliate" | "loyalty" | "newsletter" | "abandoned_cart" | "receipt";
+    type MarketingEventEventType =
+        | "ad"
+        | "post"
+        | "message"
+        | "retargeting"
+        | "sem"
+        | "transactional"
+        | "affiliate"
+        | "loyalty"
+        | "newsletter"
+        | "abandoned_cart"
+        | "receipt";
     type MarketingEventMarketingChannel = "search" | "display" | "social" | "email" | "referral";
     type MarketingEventBudgetType = "daily" | "lifetime";
 
@@ -1365,20 +1391,20 @@ declare namespace Shopify {
     interface IOrderDiscountCode {
         amount: number;
         code: string;
-        type: OrderDiscountCodeType
+        type: OrderDiscountCodeType;
     }
-    
+
     interface IOrderFulfillmentLineItemTaxLine {
         title: string;
         price: string;
         rate: number;
     }
-    
+
     interface IOrderFulfillmentLineItemProperty {
         name: string;
         value: string;
     }
-    
+
     interface IOrderFulfillmentLineItem {
         id: number;
         variant_id: number;
@@ -1401,19 +1427,27 @@ declare namespace Shopify {
         total_discount: string;
         fulfillment_status: "fulfilled" | "partial" | null;
         tax_lines: IOrderFulfillmentLineItemTaxLine[];
-        properties: IOrderFulfillmentLineItemProperty[]
+        properties: IOrderFulfillmentLineItemProperty[];
     }
 
     interface IOrderFulfillment {
         created_at: string;
         id: number;
+        location_id: number | null;
         line_items: IOrderFulfillmentLineItem[];
+        notify_customer: boolean;
         order_id: number;
-        receipt: string;
-        shipment_status: "confirmed" | "in_transit" | "out_for_delivery" | "delivered" | "failure";
+        receipt: IFulfillmentReceipt;
+        service: string;
+        shipment_status: FulfillmentEventStatus;
+        status: IFulfillmentStatus;
         tracking_company: string;
         tracking_number: string;
+        tracking_numbers: string[];
+        tracking_url: string;
+        tracking_urls: string[];
         updated_at: string;
+        variant_inventory_management: string;
     }
 
     interface IOrderLineItemProperty {
@@ -1439,12 +1473,12 @@ declare namespace Shopify {
         grams: number;
         id: number;
         price: string;
-        product_id: number;
+        product_id: number | null;
         quantity: number;
         requires_shipping: boolean;
         sku: string;
         title: string;
-        variant_id: number;
+        variant_id: number | null;
         variant_title: string;
         vendor: string;
         name: string;
@@ -1463,12 +1497,21 @@ declare namespace Shopify {
 
     interface IOrderShippingLine {
         code: string;
-        price: number;
+        price: string;
+        discounted_price: string;
         source: string;
         title: string;
         tax_lines: IOrderShippingLineTaxLine[];
         carrier_identifier: string | null;
         requested_fulfillment_service_id: string | null;
+    }
+
+    interface IOrderPaymentDetails {
+        avs_result_code: string | null;
+        credit_card_bin: string | null;
+        credit_card_company: string;
+        credit_card_number: string;
+        cvv_result_code: string | null;
     }
 
     interface IOrder {
@@ -1484,7 +1527,7 @@ declare namespace Shopify {
         confirmed: boolean;
         created_at: string;
         currency: string;
-        customer: IOrderCustomer;
+        customer?: IOrderCustomer;
         customer_locale: string;
         discount_codes: IOrderDiscountCode[];
         email: string;
@@ -1496,13 +1539,13 @@ declare namespace Shopify {
         id: number;
         landing_site: string;
         line_items: IOrderLineItem[];
-        location_id: number;
+        location_id: number | null;
         name: string;
         note: string | null;
         note_attributes: IOrderLineItemNote[];
         number: number;
         order_number: number;
-        payment_details: any;
+        payment_details?: IOrderPaymentDetails;
         payment_gateway_names: string[];
         phone: string;
         processed_at: string;
@@ -1510,6 +1553,7 @@ declare namespace Shopify {
         referring_site: string;
         shipping_address: ICustomerAddress;
         shipping_lines: IOrderShippingLine[];
+        source_name: "web" | "pos" | "shopify_draft_order" | "iphone" | "android";
         subtotal_price: string;
         total_discounts: string;
         total_line_items_price: string;
@@ -1704,14 +1748,7 @@ declare namespace Shopify {
         tax_percentage: number;
     }
 
-    type RecurringApplicationChargeStatus =
-        "accepted" |
-        "active" |
-        "cancelled" |
-        "declined" |
-        "expired" |
-        "frozen" |
-        "pending";
+    type RecurringApplicationChargeStatus = "accepted" | "active" | "cancelled" | "declined" | "expired" | "frozen" | "pending";
 
     interface IRecurringApplicationCharge {
         activated_on: string | null;
@@ -1764,7 +1801,29 @@ declare namespace Shopify {
         line_item: ILineItem;
         line_item_id: number;
         quantity: number;
-        restock_type: "no_restock" | "cancel" | "return" | "legacy_restock"
+        restock_type: "no_restock" | "cancel" | "return" | "legacy_restock";
+    }
+
+    interface IOrderAdjustmentMoney {
+        amount: number;
+        currency_code: string;
+    }
+
+    interface IOrderAdjustmentAmountSet {
+        shop_money: IOrderAdjustmentMoney;
+        presentment_money: IOrderAdjustmentMoney;
+    }
+
+    interface IOrderAdjustment {
+        id: number;
+        order_id: number;
+        refund_id: number;
+        amount: string;
+        tax_amount: string;
+        kind: string;
+        reason: string;
+        amount_set: IOrderAdjustmentAmountSet;
+        tax_amount_set: IOrderAdjustmentAmountSet;
     }
 
     interface IRefund {
@@ -1777,6 +1836,7 @@ declare namespace Shopify {
         transactions: ITransaction[];
         user_id: string;
         order_id: number;
+        order_adjustments: IOrderAdjustment[];
     }
 
     interface IReport {
@@ -1846,7 +1906,7 @@ declare namespace Shopify {
         id: number;
         name: string;
         price: string;
-        shipping_zone_id: number
+        shipping_zone_id: number;
         weight_height: number;
         weight_low: number;
     }
@@ -1936,15 +1996,7 @@ declare namespace Shopify {
         condition: string;
     }
 
-    type SmartCollectionSortOrder =
-        "alpha-asc" |
-        "alpha-desc" |
-        "best-selling" |
-        "created" |
-        "created-desc" |
-        "manual" |
-        "price-asc" |
-        "price-desc";
+    type SmartCollectionSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
 
     interface ISmartCollection {
         body_html: string;
@@ -1983,18 +2035,18 @@ declare namespace Shopify {
     }
 
     type TransactionErrorCode =
-        "call_issuer" |
-        "card_declined" |
-        "expired_card" |
-        "incorrect_address" |
-        "incorrect_cvc" |
-        "incorrect_number" |
-        "incorrect_zip" |
-        "invalid_cvc" |
-        "invalid_expiry_date" |
-        "invalid_number" |
-        "pick_up_card" |
-        "processing_error";
+        | "call_issuer"
+        | "card_declined"
+        | "expired_card"
+        | "incorrect_address"
+        | "incorrect_cvc"
+        | "incorrect_number"
+        | "incorrect_zip"
+        | "invalid_cvc"
+        | "invalid_expiry_date"
+        | "invalid_number"
+        | "pick_up_card"
+        | "processing_error";
     type TransactionKind = "authorization" | "capture" | "refund" | "sale" | "void";
     type TransactionSourceName = "android" | "iphone" | "pos" | "web";
     type TransactionStatus = "error" | "failure" | "pending" | "success";
@@ -2042,7 +2094,7 @@ declare namespace Shopify {
         description: string;
         id: number;
         price: string;
-        risk_level: number
+        risk_level: number;
         recurring_application_charge_id: number;
         updated_at: string;
     }
@@ -2053,19 +2105,19 @@ declare namespace Shopify {
     }
 
     type UserPermissions =
-        "applications" |
-        "customers" |
-        "dashboard" |
-        "full" |
-        "gift_cards" |
-        "links" |
-        "marketing" |
-        "order" |
-        "pages" |
-        "preferences" |
-        "products" |
-        "reports" |
-        "themes";
+        | "applications"
+        | "customers"
+        | "dashboard"
+        | "full"
+        | "gift_cards"
+        | "links"
+        | "marketing"
+        | "order"
+        | "pages"
+        | "preferences"
+        | "products"
+        | "reports"
+        | "themes";
 
     type UserType = "regular" | "restricted";
 
@@ -2087,62 +2139,62 @@ declare namespace Shopify {
     }
 
     export type WebhookTopic =
-        "app/uninstalled" |
-        "carts/create" |
-        "carts/update" |
-        "checkouts/create" |
-        "checkouts/delete" |
-        "checkouts/update" |
-        "collection_listings/add" |
-        "collection_listings/remove" |
-        "collection_listings/update" |
-        "collections/create" |
-        "collections/delete" |
-        "collections/update" |
-        "customer_groups/create" |
-        "customer_groups/delete" |
-        "customer_groups/update" |
-        "customers/create" |
-        "customers/delete" |
-        "customers/disable" |
-        "customers/enable" |
-        "customers/update" |
-        "draft_orders/create" |
-        "draft_orders/delete" |
-        "draft_orders/update" |
-        "fulfillment_events/create" |
-        "fulfillment_events/delete" |
-        "fulfillments/create" |
-        "fulfillments/update" |
-        "inventory_items/create" |
-        "inventory_items/update" |
-        "inventory_items/delete" |
-        "inventory_levels/connect" |
-        "inventory_levels/update" |
-        "inventory_levels/disconnect" |
-        "locations/create" |
-        "locations/update" |
-        "locations/delete" |
-        "order_transactions/create" |
-        "orders/cancelled" |
-        "orders/create" |
-        "orders/delete" |
-        "orders/fulfilled" |
-        "orders/paid" |
-        "orders/partially_fulfilled" |
-        "orders/updated" |
-        "product_listings/add" |
-        "product_listings/remove" |
-        "product_listings/update" |
-        "products/create" |
-        "products/delete" |
-        "products/update" |
-        "refunds/create" |
-        "shop/update" |
-        "themes/create" |
-        "themes/delete" |
-        "themes/publish" |
-        "themes/update";
+        | "app/uninstalled"
+        | "carts/create"
+        | "carts/update"
+        | "checkouts/create"
+        | "checkouts/delete"
+        | "checkouts/update"
+        | "collection_listings/add"
+        | "collection_listings/remove"
+        | "collection_listings/update"
+        | "collections/create"
+        | "collections/delete"
+        | "collections/update"
+        | "customer_groups/create"
+        | "customer_groups/delete"
+        | "customer_groups/update"
+        | "customers/create"
+        | "customers/delete"
+        | "customers/disable"
+        | "customers/enable"
+        | "customers/update"
+        | "draft_orders/create"
+        | "draft_orders/delete"
+        | "draft_orders/update"
+        | "fulfillment_events/create"
+        | "fulfillment_events/delete"
+        | "fulfillments/create"
+        | "fulfillments/update"
+        | "inventory_items/create"
+        | "inventory_items/update"
+        | "inventory_items/delete"
+        | "inventory_levels/connect"
+        | "inventory_levels/update"
+        | "inventory_levels/disconnect"
+        | "locations/create"
+        | "locations/update"
+        | "locations/delete"
+        | "order_transactions/create"
+        | "orders/cancelled"
+        | "orders/create"
+        | "orders/delete"
+        | "orders/fulfilled"
+        | "orders/paid"
+        | "orders/partially_fulfilled"
+        | "orders/updated"
+        | "product_listings/add"
+        | "product_listings/remove"
+        | "product_listings/update"
+        | "products/create"
+        | "products/delete"
+        | "products/update"
+        | "refunds/create"
+        | "shop/update"
+        | "themes/create"
+        | "themes/delete"
+        | "themes/publish"
+        | "themes/update";
 
     type WebhookFormat = "json" | "xml";
 
