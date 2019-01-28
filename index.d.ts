@@ -813,7 +813,15 @@ declare namespace Shopify {
         sort_value?: string;
     }
 
-    type CollectionListingSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
+    type CollectionListingSortOrder =
+        | "alpha-asc"
+        | "alpha-desc"
+        | "best-selling"
+        | "created"
+        | "created-desc"
+        | "manual"
+        | "price-asc"
+        | "price-desc";
 
     interface ICollectionListingImage extends IImage {
         position: number;
@@ -908,7 +916,15 @@ declare namespace Shopify {
         currency: string;
     }
 
-    type CustomerCollectionSortOrder = "alpha-asc" | "alpha-desc" | "best-selling" | "created" | "created-desc" | "manual" | "price-asc" | "price-desc";
+    type CustomerCollectionSortOrder =
+        | "alpha-asc"
+        | "alpha-desc"
+        | "best-selling"
+        | "created"
+        | "created-desc"
+        | "manual"
+        | "price-asc"
+        | "price-desc";
 
     interface ICustomCollection {
         body_html: string | null;
@@ -1283,7 +1299,18 @@ declare namespace Shopify {
         type: "product" | "collection" | "price_rule" | "discount" | "page" | "article" | "shop";
     }
 
-    type MarketingEventEventType = "ad" | "post" | "message" | "retargeting" | "sem" | "transactional" | "affiliate" | "loyalty" | "newsletter" | "abandoned_cart" | "receipt";
+    type MarketingEventEventType =
+        | "ad"
+        | "post"
+        | "message"
+        | "retargeting"
+        | "sem"
+        | "transactional"
+        | "affiliate"
+        | "loyalty"
+        | "newsletter"
+        | "abandoned_cart"
+        | "receipt";
     type MarketingEventMarketingChannel = "search" | "display" | "social" | "email" | "referral";
     type MarketingEventBudgetType = "daily" | "lifetime";
 
@@ -2007,7 +2034,19 @@ declare namespace Shopify {
         updated_at: string;
     }
 
-    type TransactionErrorCode = "call_issuer" | "card_declined" | "expired_card" | "incorrect_address" | "incorrect_cvc" | "incorrect_number" | "incorrect_zip" | "invalid_cvc" | "invalid_expiry_date" | "invalid_number" | "pick_up_card" | "processing_error";
+    type TransactionErrorCode =
+        | "call_issuer"
+        | "card_declined"
+        | "expired_card"
+        | "incorrect_address"
+        | "incorrect_cvc"
+        | "incorrect_number"
+        | "incorrect_zip"
+        | "invalid_cvc"
+        | "invalid_expiry_date"
+        | "invalid_number"
+        | "pick_up_card"
+        | "processing_error";
     type TransactionKind = "authorization" | "capture" | "refund" | "sale" | "void";
     type TransactionSourceName = "android" | "iphone" | "pos" | "web";
     type TransactionStatus = "error" | "failure" | "pending" | "success";
@@ -2065,7 +2104,20 @@ declare namespace Shopify {
         price: number;
     }
 
-    type UserPermissions = "applications" | "customers" | "dashboard" | "full" | "gift_cards" | "links" | "marketing" | "order" | "pages" | "preferences" | "products" | "reports" | "themes";
+    type UserPermissions =
+        | "applications"
+        | "customers"
+        | "dashboard"
+        | "full"
+        | "gift_cards"
+        | "links"
+        | "marketing"
+        | "order"
+        | "pages"
+        | "preferences"
+        | "products"
+        | "reports"
+        | "themes";
 
     type UserType = "regular" | "restricted";
 
