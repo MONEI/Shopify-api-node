@@ -1137,7 +1137,7 @@ declare namespace Shopify {
         created_at: string;
         id: number;
         line_items: IFulfillmentLineItem[];
-        notify_customer: string;
+        notify_customer: boolean;
         order_id: number;
         receipt: IFulfillmentReceipt;
         service: string;
@@ -1435,7 +1435,7 @@ declare namespace Shopify {
         id: number;
         location_id: number | null;
         line_items: IOrderFulfillmentLineItem[];
-        notify_customer: string;
+        notify_customer: boolean;
         order_id: number;
         receipt: IFulfillmentReceipt;
         service: string;
