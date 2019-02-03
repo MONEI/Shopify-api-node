@@ -223,6 +223,10 @@ declare class Shopify {
       params?: any
     ) => Promise<Shopify.IDiscountCode>;
   };
+  dispute: {
+    get: (id: number) => Promise<Shopify.IDispute>;
+    list: (params?: any) => Promise<Shopify.IDispute[]>;
+  };
   draftOrder: {
     complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
     count: () => Promise<number>;
@@ -1218,6 +1222,44 @@ declare namespace Shopify {
     usage_count: number;
   }
 
+  type DisputeReason =
+    | 'bank_not_process'
+    | 'credit_not_processed'
+    | 'customer_initiated'
+    | 'debit_not_authorized'
+    | 'duplicate'
+    | 'fraudulent'
+    | 'general'
+    | 'incorrect_account_details'
+    | 'insufficient_funds'
+    | 'product_not_received'
+    | 'product_unacceptable'
+    | 'subscription_cancelled'
+    | 'unrecognized'
+    | 'credit_not_processed';
+
+  type DisputeStatus =
+    | 'needs_response'
+    | 'under_review'
+    | 'charge_refunded'
+    | 'accepted'
+    | 'won'
+    | 'lost';
+
+  interface IDispute {
+    id: number;
+    order_id: number;
+    type: 'inquiry' | 'chargeback';
+    currency: string;
+    amount: string;
+    reason: DisputeReason;
+    network_reason_code: number;
+    status: DisputeStatus;
+    evidence_due_by: string;
+    evidence_sent_on: string;
+    finalized_on: string;
+  }
+
   interface IDraftOrderNoteAttribute {
     name: string;
     value: string;
@@ -1771,7 +1813,7 @@ declare namespace Shopify {
     requested_fulfillment_service_id: string | null;
   }
 
-  interface IOrderPaymentDetails {
+  interface IPaymentDetails {
     avs_result_code: string | null;
     credit_card_bin: string | null;
     credit_card_company: string;
@@ -1810,7 +1852,7 @@ declare namespace Shopify {
     note_attributes: IOrderLineItemNote[];
     number: number;
     order_number: number;
-    payment_details?: IOrderPaymentDetails;
+    payment_details?: IPaymentDetails;
     payment_gateway_names: string[];
     phone: string;
     processed_at: string;
@@ -2389,14 +2431,6 @@ declare namespace Shopify {
   type TransactionSourceName = 'android' | 'iphone' | 'pos' | 'web';
   type TransactionStatus = 'error' | 'failure' | 'pending' | 'success';
 
-  interface ITransactionPaymentDetails {
-    avs_result_code: string | null;
-    credit_card_bin: string | null;
-    credit_card_company: string;
-    credit_card_number: string;
-    cvv_result_code: string | null;
-  }
-
   interface ITRansactionReceipt {
     testcase: boolean;
     authorization: string;
@@ -2409,7 +2443,7 @@ declare namespace Shopify {
     device_id: string;
     gateway: string;
     source_name: TransactionSourceName;
-    payment_details: ITransactionPaymentDetails;
+    payment_details: IPaymentDetails;
     id: number;
     kind: TransactionKind;
     order_id: number;

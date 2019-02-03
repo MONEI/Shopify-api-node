@@ -1,0 +1,16 @@
+{
+  "dispute": {
+    "id": 598735659,
+    "order_id": 625362839,
+    "type": "chargeback",
+    "amount": "11.50",
+    "currency": "USD",
+    "reason": "fraudulent",
+    "network_reason_code": "4827",
+    "status": "needs_response",
+    "evidence_due_by": "2019-01-21T19:00:00-05:00",
+    "evidence_sent_on": null,
+    "finalized_on": null,
+    "initiated_at": "2013-05-03T20:00:00-04:00"
+  }
+}

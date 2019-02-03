@@ -330,6 +330,9 @@ shopify.metafield.create({
   - `list(priceRuleId)`
   - `lookup(params)`
   - `update(priceRuleId, id, params)`
+- dispute
+  - `get(id)`
+  - `list([params])`
 - draftOrder
   - `complete(id[, params])`
   - `count()`
