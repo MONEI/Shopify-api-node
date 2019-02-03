@@ -1,0 +1,34 @@
+{
+  "tender_transactions": [
+    {
+      "id": 776836111,
+      "order_id": 450789469,
+      "amount": "250.94",
+      "currency": "USD",
+      "user_id": null,
+      "test": false,
+      "processed_at": "2005-08-07T10:22:51-04:00",
+      "remote_reference": "authorization-key",
+      "payment_details": {
+        "credit_card_number": "•••• •••• •••• 4242",
+        "credit_card_company": "Visa"
+      },
+      "payment_method": "credit_card"
+    },
+    {
+      "id": 776836110,
+      "order_id": 450789469,
+      "amount": "250.94",
+      "currency": "USD",
+      "user_id": null,
+      "test": false,
+      "processed_at": "2005-08-05T10:22:51-04:00",
+      "remote_reference": "authorization-key",
+      "payment_details": {
+        "credit_card_number": "•••• •••• •••• 4242",
+        "credit_card_company": "Visa"
+      },
+      "payment_method": "credit_card"
+    }
+  ]
+}

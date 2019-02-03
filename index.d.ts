@@ -388,6 +388,9 @@ declare class Shopify {
         products: (id: number, params: any) => Promise<Shopify.IProduct>;
         update: (id: number, params: any) => Promise<Shopify.ISmartCollection>;
     };
+    tenderTransaction: {
+        list: (params?: any) => Promise<Shopify.ITenderTransaction[]>
+    };
     theme: {
         create: (params: any) => Promise<Shopify.ITheme>;
         delete: (id: number) => Promise<void>;
@@ -2032,6 +2035,38 @@ declare namespace Shopify {
         role: ThemeRole;
         theme_store_id: number;
         updated_at: string;
+    }
+
+    type TenderTransactionPaymentMethod =
+        | "credit_card"
+        | "cash"
+        | "android_pay"
+        | "apple_pay"
+        | "google_pay"
+        | "samsung_pay"
+        | "shopify_pay"
+        | "amazon"
+        | "klarna"
+        | "paypal"
+        | "unknown"
+        | "other"
+
+    interface ITenderTransactionPaymentDetails {
+        credit_card_number: string;
+        credit_card_company: string;
+    }
+
+    interface TenderTransaction {
+        id: number;
+        order_id: number;
+        amount: string;
+        currency: string;
+        user_id: number;
+        test: boolean;
+        processed_at: string;
+        remote_reference: string;
+        payment_details: ITenderTransactionPaymentDetails;
+        payment_method: TenderTransactionPaymentMethod;
     }
 
     type TransactionErrorCode =

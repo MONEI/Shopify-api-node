@@ -522,6 +522,8 @@ shopify.metafield.create({
   - `create(params)`
   - `delete(id)`
   - `list()`
+- tenderTransaction
+  - `list([params])`
 - theme
   - `create(params)`
   - `delete(id)`
