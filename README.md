@@ -284,6 +284,8 @@ shopify.metafield.create({
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- currency
+  - `list()`
 - customCollection
   - `count([params])`
   - `create(params)`

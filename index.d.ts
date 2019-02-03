@@ -149,6 +149,9 @@ declare class Shopify {
       params: Shopify.IUpdateCountry
     ) => Promise<Shopify.ICountry>;
   };
+  currency: {
+    list: () => Promise<Shopify.ICurrency[]>;
+  };
   customCollection: {
     count: (params?: any) => Promise<number>;
     create: (params: any) => Promise<Shopify.ICustomCollection>;
@@ -1073,6 +1076,12 @@ declare namespace Shopify {
     original_amount: string;
     final_amount: string;
     currency: string;
+  }
+
+  interface ICurrency {
+    currency: string;
+    rate_updated_at: string;
+    enabled: boolean;
   }
 
   type CustomerCollectionSortOrder =
