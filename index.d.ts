@@ -387,6 +387,10 @@ declare class Shopify {
     get: (checkoutToken: string, id: number) => Promise<any>;
     list: (checkoutToken?: string) => Promise<any>;
   };
+  payout: {
+    get: (id: number) => Promise<Shopify.IPayout>;
+    list: (params?: any) => Promise<Shopify.IPayout[]>;
+  };
   policy: {
     list: (params?: any) => Promise<Shopify.IPolicy[]>;
   };
@@ -1901,6 +1905,14 @@ declare namespace Shopify {
     template_suffix: string | null;
     title: string;
     updated_at: string;
+  }
+
+  interface IPayout {
+    id: number;
+    status: 'scheduled' | 'in_transit' | 'paid' | 'failed' | 'canceled';
+    date: string;
+    currency: string;
+    amount: string;
   }
 
   interface IPolicy {

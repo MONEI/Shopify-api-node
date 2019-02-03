@@ -437,6 +437,9 @@ shopify.metafield.create({
   - `create(checkoutToken, params)`
   - `get(checkoutToken, id)`
   - `list(checkoutToken)`
+- payout
+  - `get(id)`
+  - `list([params])`
 - policy
   - `list([params])`
 - priceRule
