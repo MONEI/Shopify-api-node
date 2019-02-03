@@ -235,6 +235,9 @@ shopify.metafield.create({
   - `get(themeId, params)`
   - `list(themeId[, params])`
   - `update(themeId, params)`
+- balance
+  - `list()`
+  - `transactions([params])`
 - blog
   - `count()`
   - `create(params)`

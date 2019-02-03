@@ -82,6 +82,10 @@ declare class Shopify {
       params: Shopify.IUpdateAsset
     ) => Promise<Shopify.IAsset>;
   };
+  balance: {
+    list: () => Promise<Shopify.IBalance[]>;
+    transactions: () => Promise<Shopify.IBalanceTransaction[]>;
+  };
   blog: {
     count: () => Promise<number>;
     create: (params: Shopify.ICreateBlog) => Promise<Shopify.IBlog>;
@@ -858,6 +862,48 @@ declare namespace Shopify {
     source_key?: string;
     src?: string;
     value?: string;
+  }
+
+  type BalanceTransactionType =
+    | 'charge'
+    | 'refund'
+    | 'dispute'
+    | 'reserve'
+    | 'adjustment'
+    | 'credit'
+    | 'debit'
+    | 'payout'
+    | 'payout_failure'
+    | 'payout_cancellation';
+
+  type BalanceTransactionSourceType =
+    | 'charge'
+    | 'refund'
+    | 'dispute'
+    | 'reserve'
+    | 'adjustment'
+    | 'payout';
+
+  interface IBalanceTransaction {
+    id: number;
+    type: BalanceTransactionType;
+    test: boolean;
+    payout_id: number;
+    payout_status: string;
+    currency: string;
+    amount: string;
+    fee: string;
+    net: string;
+    source_id: number;
+    source_type: BalanceTransactionSourceType;
+    source_order_transaction_id: number;
+    source_order_id: number;
+    processed_at: string;
+  }
+
+  interface IBalance {
+    currency: string;
+    amount: string;
   }
 
   interface IBlog {
