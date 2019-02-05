@@ -2408,7 +2408,7 @@ declare namespace Shopify {
     credit_card_company: string;
   }
 
-  interface TenderTransaction {
+  interface ITenderTransaction {
     id: number;
     order_id: number;
     amount: string;
