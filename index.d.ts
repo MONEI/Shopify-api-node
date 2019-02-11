@@ -1169,7 +1169,7 @@ declare namespace Shopify {
     accepts_marketing: boolean;
     addresses?: ICustomerAddress[];
     created_at: string;
-    default_address: string;
+    default_address: ICustomerAddress;
     email: string;
     first_name: string;
     id: number;
