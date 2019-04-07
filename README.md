@@ -298,7 +298,7 @@ shopify.metafield.create({
   - `update(id, params)`
 - customer
   - `accountActivationUrl(id)`
-  - `count()`
+  - `count([params])`
   - `create(params)`
   - `delete(id)`
   - `get(id[, params])`

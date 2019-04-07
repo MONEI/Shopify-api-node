@@ -166,7 +166,7 @@ declare class Shopify {
   };
   customer: {
     accountActivationUrl: (id: number) => Promise<any>;
-    count: () => Promise<number>;
+    count: (params?: any) => Promise<number>;
     create: (params: any) => Promise<Shopify.ICustomer>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.ICustomer>;
