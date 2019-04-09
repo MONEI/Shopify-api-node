@@ -658,6 +658,7 @@ declare namespace Shopify {
     order?: ICheckoutOrder;
     payment_url?: string;
     phone: string | null;
+    presentment_currency: string;
     referring_site: string;
     request_details?: ICheckoutRequestDetails;
     requires_shipping?: boolean;
@@ -1169,6 +1170,7 @@ declare namespace Shopify {
     accepts_marketing: boolean;
     addresses?: ICustomerAddress[];
     created_at: string;
+    currency: string;
     default_address: ICustomerAddress;
     email: string;
     first_name: string;
@@ -1215,6 +1217,24 @@ declare namespace Shopify {
     name: string;
     query: string;
     updated_at: string;
+  }
+
+  type AllocationMethod = 'across' | 'each' | 'one';
+  type TargetSelection = 'all' | 'entitled' | 'explicit';
+  type TargetType = 'line_item' | 'shipping_line';
+  type DiscountApplicationType = 'manual' | 'script' | 'discount_code';
+  type ValueType = 'fixed_amount' | 'percentage';
+
+  interface IDiscountApplication {
+    allocation_method: AllocationMethod;
+    code: string;
+    description: string;
+    target_selection: TargetSelection;
+    target_type: TargetType;
+    title: string;
+    type: DiscountApplicationType;
+    value: string;
+    value_type: ValueType;
   }
 
   interface IDiscountCode {
@@ -1531,6 +1551,7 @@ declare namespace Shopify {
     title: string;
     price: string;
     rate: number;
+    price_set: IOrderAdjustmentAmountSet;
   }
 
   interface ILineItem {
@@ -1543,6 +1564,7 @@ declare namespace Shopify {
     id: number;
     name: string;
     price: number;
+    price_set: IOrderAdjustmentAmountSet;
     product_id: number;
     properties: ILineItemProperty[];
     quantity: number;
@@ -1554,6 +1576,7 @@ declare namespace Shopify {
     tip_payment_method: string;
     title: string;
     total_discount: string;
+    total_discount_set: IOrderAdjustmentAmountSet;
     variant_id: number;
     variant_title: string;
     vendor: string;
@@ -1808,8 +1831,10 @@ declare namespace Shopify {
 
   interface IOrderShippingLine {
     code: string;
-    price: string;
     discounted_price: string;
+    discounted_price_set: IOrderAdjustmentAmountSet;
+    price: string;
+    price_set: IOrderAdjustmentAmountSet;
     source: string;
     title: string;
     tax_lines: IOrderShippingLineTaxLine[];
@@ -1840,12 +1865,12 @@ declare namespace Shopify {
     currency: string;
     customer?: IOrderCustomer;
     customer_locale: string;
+    discount_applications: IDiscountApplication[];
     discount_codes: IOrderDiscountCode[];
     email: string;
     financial_status: OrderFinancialStatus;
     fulfillments: IOrderFulfillment[];
     fulfillment_status: OrderFulfillmentStatus;
-    tags: string;
     gateway: string;
     id: number;
     landing_site: string;
@@ -1859,24 +1884,33 @@ declare namespace Shopify {
     payment_details?: IPaymentDetails;
     payment_gateway_names: string[];
     phone: string;
+    presentment_currency: string;
     processed_at: string;
     processing_method: OrderProcessingMethod;
     referring_site: string;
+    refunds: IRefund[];
     shipping_address: ICustomerAddress;
     shipping_lines: IOrderShippingLine[];
     source_name: 'web' | 'pos' | 'shopify_draft_order' | 'iphone' | 'android';
     subtotal_price: string;
+    subtotal_price_set: IOrderAdjustmentAmountSet;
+    tags: string;
+    tax_lines: IOrderTaxLine[];
     total_discounts: string;
+    total_discounts_set: IOrderAdjustmentAmountSet;
     total_line_items_price: string;
+    total_line_items_price_set: IOrderAdjustmentAmountSet;
     total_price: string;
+    total_price_set: IOrderAdjustmentAmountSet;
+    total_shipping_price_set: IOrderAdjustmentAmountSet;
     total_tax: string;
+    total_tax_set: IOrderAdjustmentAmountSet;
     total_tip_received: string;
     total_weight: number;
     token: string;
     user_id: number | null;
     updated_at: string;
     order_status_url: string;
-    refunds: IRefund[];
   }
 
   type OrderRisksRecommendation = 'accept' | 'investigate' | 'cancel';
@@ -2017,6 +2051,7 @@ declare namespace Shopify {
     option1: string | null;
     option2: string | null;
     option3: string | null;
+    presentment_prices: IProductVariantPresentmentPriceSet[];
     position: number;
     price: string;
     product_id: number;
@@ -2033,6 +2068,11 @@ declare namespace Shopify {
     option_id: number;
     name: string;
     value: string;
+  }
+
+  interface IProductVariantPresentmentPriceSet {
+    price: IOrderAdjustmentMoney;
+    compare_at_price: IOrderAdjustmentMoney;
   }
 
   interface IProductListingVariant extends IProductVariant {
@@ -2128,6 +2168,11 @@ declare namespace Shopify {
     line_item_id: number;
     quantity: number;
     restock_type: 'no_restock' | 'cancel' | 'return' | 'legacy_restock';
+    location_id: number;
+    subtotal: string;
+    total_tax: string;
+    subtotal_set: IOrderAdjustmentAmountSet;
+    total_tax_set: IOrderAdjustmentAmountSet;
   }
 
   interface IOrderAdjustmentMoney {
@@ -2272,6 +2317,7 @@ declare namespace Shopify {
     domain: string;
     eligible_for_card_reader_giveaway: boolean;
     eligible_for_payments: boolean;
+    enabled_presentment_currencies: string[];
     email: string;
     finances: boolean;
     force_ssl: boolean;
@@ -2468,6 +2514,8 @@ declare namespace Shopify {
     message: string;
     parent_id: number;
     currency_exchange_adjustment: ICurrencyExchangeAdjustment;
+    location_id: number;
+    processed_at: string;
   }
 
   interface IUsageCharge {
