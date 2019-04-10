@@ -642,6 +642,7 @@ declare namespace Shopify {
     created_at: string;
     currency: string;
     customer: ICustomer;
+    customer_id: number;
     customer_locale: string;
     discount_code?: string;
     discount_codes?: ICheckoutDiscount[];
@@ -656,6 +657,7 @@ declare namespace Shopify {
     note: string | null;
     note_attributes: any[];
     order?: ICheckoutOrder;
+    payment_due: string;
     payment_url?: string;
     phone: string | null;
     presentment_currency: string;
@@ -761,9 +763,9 @@ declare namespace Shopify {
   }
 
   interface IApplicationCredit {
+    amount: string;
     description: string;
     id: number;
-    amount: string;
     test: boolean | null;
   }
 
@@ -1350,6 +1352,7 @@ declare namespace Shopify {
     order_id: number | null;
     shipping_address: ICustomerAddress;
     shipping_line: string;
+    status: string;
     subtotal_price: string;
     tags: string;
     tax_exempt: boolean;
@@ -1881,6 +1884,7 @@ declare namespace Shopify {
     note_attributes: IOrderLineItemNote[];
     number: number;
     order_number: number;
+    order_status_url: string;
     payment_details?: IPaymentDetails;
     payment_gateway_names: string[];
     phone: string;
@@ -1896,6 +1900,9 @@ declare namespace Shopify {
     subtotal_price_set: IOrderAdjustmentAmountSet;
     tags: string;
     tax_lines: IOrderTaxLine[];
+    taxes_included: boolean;
+    test: boolean;
+    token: string;
     total_discounts: string;
     total_discounts_set: IOrderAdjustmentAmountSet;
     total_line_items_price: string;
@@ -1907,10 +1914,8 @@ declare namespace Shopify {
     total_tax_set: IOrderAdjustmentAmountSet;
     total_tip_received: string;
     total_weight: number;
-    token: string;
-    user_id: number | null;
     updated_at: string;
-    order_status_url: string;
+    user_id: number | null;
   }
 
   type OrderRisksRecommendation = 'accept' | 'investigate' | 'cancel';
@@ -1921,6 +1926,7 @@ declare namespace Shopify {
     display: boolean;
     id: number;
     order_id: number;
+    merchant_message: string;
     message: string;
     recommendation: OrderRisksRecommendation;
     score: number;
@@ -2199,15 +2205,15 @@ declare namespace Shopify {
 
   interface IRefund {
     created_at: string;
-    processed_at: string;
     id: number;
     note: string;
+    order_adjustments: IOrderAdjustment[];
+    order_id: number;
+    processed_at: string;
     refund_line_items: IRefundLineItem[];
     restock: string;
     transactions: ITransaction[];
     user_id: string;
-    order_id: number;
-    order_adjustments: IOrderAdjustment[];
   }
 
   interface IReport {
@@ -2498,24 +2504,24 @@ declare namespace Shopify {
     amount: string;
     authorization: string;
     created_at: string;
+    currency: string;
+    currency_exchange_adjustment: ICurrencyExchangeAdjustment;
     device_id: string;
+    error_code: TransactionErrorCode;
     gateway: string;
-    source_name: TransactionSourceName;
-    payment_details: IPaymentDetails;
     id: number;
     kind: TransactionKind;
+    location_id: number;
+    message: string;
     order_id: number;
+    payment_details: IPaymentDetails;
+    parent_id: number;
+    processed_at: string;
     receipt: ITRansactionReceipt;
-    error_code: TransactionErrorCode;
+    source_name: TransactionSourceName;
     status: TransactionStatus;
     test: boolean;
     user_id: number;
-    currency: string;
-    message: string;
-    parent_id: number;
-    currency_exchange_adjustment: ICurrencyExchangeAdjustment;
-    location_id: number;
-    processed_at: string;
   }
 
   interface IUsageCharge {
