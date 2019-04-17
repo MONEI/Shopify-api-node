@@ -44,7 +44,7 @@ describe('Shopify#location', () => {
       .then(data => expect(data).to.equal(4));
   });
 
-  it('gets a list of inventory levels for a location', () => {
+  it('gets a list of inventory levels for a location (1/2)', () => {
     const output = fixtures.res.inventoryLevels;
 
     scope
@@ -52,6 +52,17 @@ describe('Shopify#location', () => {
       .reply(200, output);
 
     return shopify.location.inventoryLevels(487838322)
+      .then(data => expect(data).to.deep.equal(output.inventory_levels));
+  });
+
+  it('gets a list of inventory levels for a location (2/2)', () => {
+    const output = fixtures.res.inventoryLevels;
+
+    scope
+      .get('/admin/locations/487838322/inventory_levels.json?limit=50')
+      .reply(200, output);
+
+    return shopify.location.inventoryLevels(487838322, { limit: 50 })
       .then(data => expect(data).to.deep.equal(output.inventory_levels));
   });
 });

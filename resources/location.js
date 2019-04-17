@@ -28,9 +28,9 @@ assign(Location.prototype, omit(base, ['create', 'delete', 'update']));
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Location.prototype.inventoryLevels = function inventoryLevels(id) {
+Location.prototype.inventoryLevels = function inventoryLevels(id, params) {
   const key = 'inventory_levels';
-  const url = this.buildUrl(`${id}/${key}`);
+  const url = this.buildUrl(`${id}/${key}`, params);
   return this.shopify.request(url, 'GET', key);
 };
 
