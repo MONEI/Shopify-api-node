@@ -392,7 +392,7 @@ shopify.metafield.create({
 - location
   - `count`
   - `get(id)`
-  - `inventoryLevels(id)`
+  - `inventoryLevels(id[, params])`
   - `list()`
 - marketingEvent
   - `count()`
