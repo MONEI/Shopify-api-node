@@ -25,6 +25,7 @@ assign(Location.prototype, omit(base, ['create', 'delete', 'update']));
  * Retrieves a list of inventory levels for a location.
  *
  * @param {Number} id Location ID
+ * @param {Object} [params] Optional query params
  * @return {Promise} Promise that resolves with the result
  * @public
  */
