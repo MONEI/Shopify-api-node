@@ -542,6 +542,11 @@ declare class Shopify {
     products: (id: number, params: any) => Promise<Shopify.IProduct>;
     update: (id: number, params: any) => Promise<Shopify.ISmartCollection>;
   };
+  storefrontAccessToken: {
+    create: (params: any) => Promise<Shopify.IStorefrontAccessToken>;
+    delete: (id: number) => Promise<void>;
+    list: () => Promise<Shopify.IStorefrontAccessToken[]>;
+  };
   tenderTransaction: {
     list: (params?: any) => Promise<Shopify.ITenderTransaction[]>;
   };
