@@ -1587,6 +1587,8 @@ declare namespace Shopify {
 
   interface ILocation {
     id: number;
+    active: boolean;
+    admin_graphql_api_id: string;
     address1: string;
     address2: string | null;
     city: string;
@@ -1595,6 +1597,7 @@ declare namespace Shopify {
     country_name: string;
     created_at: string;
     deleted_at: string;
+    legacy: boolean;
     name: string;
     phone: string;
     province: string;
