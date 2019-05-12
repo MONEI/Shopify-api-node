@@ -1489,6 +1489,7 @@ declare namespace Shopify {
     format: 'json';
     handle: string;
     inventory_management: boolean;
+    location_id: number;
     name: string;
     provider_id: number | null;
     requires_shipping_method: boolean;
