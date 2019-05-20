@@ -1904,6 +1904,7 @@ declare namespace Shopify {
     refunds: IRefund[];
     shipping_address: ICustomerAddress;
     shipping_lines: IOrderShippingLine[];
+    source_identifier: string | null;
     source_name: 'web' | 'pos' | 'shopify_draft_order' | 'iphone' | 'android';
     subtotal_price: string;
     subtotal_price_set: IOrderAdjustmentAmountSet;
