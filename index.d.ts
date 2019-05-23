@@ -1727,7 +1727,11 @@ declare namespace Shopify {
     | 'pending'
     | 'refunded'
     | 'voided';
-  type OrderFulfillmentStatus = 'fulfilled' | 'partial' | null;
+  type OrderFulfillmentStatus =
+    | 'fulfilled'
+    | 'partial'
+    | 'restocked'
+    | null;
   type OrderProcessingMethod =
     | 'checkout'
     | 'direct'
