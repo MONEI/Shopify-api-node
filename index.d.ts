@@ -1725,6 +1725,7 @@ declare namespace Shopify {
     | 'partially_paid'
     | 'partially_refunded'
     | 'pending'
+    | 'refunded'
     | 'voided';
   type OrderFulfillmentStatus = 'fulfilled' | 'partial' | null;
   type OrderProcessingMethod =
