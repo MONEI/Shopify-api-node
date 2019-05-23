@@ -1695,7 +1695,7 @@ declare namespace Shopify {
     browser_height: number | null;
     browser_ip: string | null;
     browser_width: number | null;
-    session_has: string | null;
+    session_hash: string | null;
     user_agent: string | null;
   }
 
