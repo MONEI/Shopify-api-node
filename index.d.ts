@@ -2197,7 +2197,7 @@ declare namespace Shopify {
   }
 
   interface IOrderAdjustmentMoney {
-    amount: number;
+    amount: number | string;
     currency_code: string;
   }
 
