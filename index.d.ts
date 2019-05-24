@@ -1809,6 +1809,7 @@ declare namespace Shopify {
   interface IOrderTaxLine {
     title: string;
     price: string;
+    price_set: IOrderAdjustmentAmountSet;
     rate: number;
   }
 
