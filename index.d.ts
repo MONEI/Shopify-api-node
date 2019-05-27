@@ -1544,7 +1544,7 @@ declare namespace Shopify {
     updated_at: string;
   }
 
-  type LineItemFulfillmentStatus = 'fulfilled' | 'partial' | null;
+  type LineItemFulfillmentStatus = 'fulfilled' | 'not_eligible' | 'partial' | null;
 
   interface ILineItemProperty {
     name: string;
@@ -1572,7 +1572,7 @@ declare namespace Shopify {
     grams: number;
     id: number;
     name: string;
-    price: number;
+    price: string;
     price_set: IOrderAdjustmentAmountSet;
     product_id: number;
     properties: ILineItemProperty[];
