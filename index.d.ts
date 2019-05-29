@@ -1486,13 +1486,17 @@ declare namespace Shopify {
 
   interface IFulfillmentService {
     callback_url: string;
+    email: string | null;
     format: 'json';
     handle: string;
+    id: number;
+    include_pending_stock: boolean;
     inventory_management: boolean;
     location_id: number;
     name: string;
     provider_id: number | null;
     requires_shipping_method: boolean;
+    service_name: string | null;
     tracking_support: boolean;
   }
 
