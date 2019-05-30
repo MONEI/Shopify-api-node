@@ -1813,6 +1813,7 @@ declare namespace Shopify {
   interface IOrderTaxLine {
     title: string;
     price: string;
+    price_set: IOrderAdjustmentAmountSet;
     rate: number;
   }
 
@@ -1828,6 +1829,7 @@ declare namespace Shopify {
     grams: number;
     id: number;
     price: string;
+    price_set: IOrderAdjustmentAmountSet;
     product_id: number | null;
     quantity: number;
     requires_shipping: boolean;
@@ -1842,6 +1844,7 @@ declare namespace Shopify {
     taxable: boolean;
     tax_lines: IOrderTaxLine[];
     total_discount: string;
+    total_discount_set: IOrderAdjustmentAmountSet;
   }
 
   interface IOrderShippingLineTaxLine {
@@ -2517,6 +2520,9 @@ declare namespace Shopify {
   interface ITRansactionReceipt {
     testcase: boolean;
     authorization: string;
+    balance_transaction?: {
+      [k: string]: any
+    };
   }
 
   interface ITransaction {
