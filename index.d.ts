@@ -2517,8 +2517,7 @@ declare namespace Shopify {
     testcase: boolean;
     authorization: string;
     balance_transaction?: {
-      currency: string;
-      exchange_rate: number;
+      [k: string]: any
     };
   }
 
