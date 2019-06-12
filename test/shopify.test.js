@@ -500,7 +500,7 @@ describe('Shopify', () => {
       shopify.graphql(dummyData);
     });
 
-    it('does not update callGraphqlLimits if the extensions attribute is missing', () => {
+    it('does not update callGraphqlLimits if extensions is missing', () => {
       scope
         .post(path)
         .reply(200, {});

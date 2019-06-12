@@ -141,17 +141,17 @@ Shopify.prototype.request = function request(url, method, key, params) {
 /**
  * Updates GraphQL API call limits.
  *
- * @param {String} throttleStatus The throttle status returned in the GraphQL response, under "extensions"
+ * @param {String} throttle The status returned in the GraphQL response
  * @private
  */
-Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttleStatus) {
-  const callGraphqlLimits = this.callGraphqlLimits;
+Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
+  const limits = this.callGraphqlLimits;
 
-  callGraphqlLimits.remaining = throttleStatus.currentlyAvailable;
-  callGraphqlLimits.current = throttleStatus.maximumAvailable - throttleStatus.currentlyAvailable;
-  callGraphqlLimits.max = throttleStatus.maximumAvailable;
+  limits.remaining = throttle.currentlyAvailable;
+  limits.current = throttle.maximumAvailable - throttle.currentlyAvailable;
+  limits.max = throttle.maximumAvailable;
 
-  this.emit('callGraphqlLimits', callGraphqlLimits);
+  this.emit('callGraphqlLimits', limits);
 };
 
 /**
@@ -180,8 +180,8 @@ Shopify.prototype.graphql = function graphql(data) {
 
   return got(options).then(res => {
     const body = JSON.parse(res.body);
-    if (body.extensions && body.extensions.cost && body.extensions.cost.throttleStatus) {
-      this.updateGraphqlLimits(body.extensions.cost.throttleStatus);
+    if (body.extensions && body.extensions.cost) {
+      this.updateGqlLimits(body.extensions.cost.throttleStatus);
     }
     return body.data || {};
   });
