@@ -47,6 +47,11 @@ function Shopify(options) {
     current: undefined,
     max: undefined
   };
+  this.callGraphqlLimits = {
+    remaining: undefined,
+    current: undefined,
+    max: undefined
+  };
 
   this.baseUrl = {
     auth: !options.accessToken && `${options.apiKey}:${options.password}`,
@@ -134,6 +139,24 @@ Shopify.prototype.request = function request(url, method, key, params) {
 };
 
 /**
+ * Updates GraphQL API call limits.
+ *
+ * @param {String} throttleStatus The throttle status returned in the GraphQL response, under "extensions"
+ * @private
+ */
+Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttleStatus) {
+  if (!throttleStatus) return;
+
+  const callGraphqlLimits = this.callGraphqlLimits;
+
+  callGraphqlLimits.remaining = throttleStatus.currentlyAvailable;
+  callGraphqlLimits.current = throttleStatus.maximumAvailable - throttleStatus.currentlyAvailable;
+  callGraphqlLimits.max = throttleStatus.maximumAvailable;
+
+  this.emit('callGraphqlLimits', callGraphqlLimits);
+};
+
+/**
  * Sends a request to the Shopify GraphQL API endpoint.
  *
  * @param {Object} [data] Request body
@@ -142,7 +165,29 @@ Shopify.prototype.request = function request(url, method, key, params) {
  */
 Shopify.prototype.graphql = function graphql(data) {
   const url = assign({ path: '/admin/api/graphql.json' }, this.baseUrl);
-  return this.request(url, 'POST', undefined, data);
+  const options = assign({
+    headers: {
+      'User-Agent': `${pkg.name}/${pkg.version}`,
+      'Content-Type': 'application/graphql'
+    },
+    timeout: this.options.timeout,
+    json: false,
+    retries: 0,
+    method: 'POST',
+    body: data
+  }, url);
+
+  if (this.options.accessToken) {
+    options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
+  }
+
+  return got(options).then(res => {
+    const body = res.body ? JSON.parse(res.body) : {};
+    this.updateGraphqlLimits(body.extensions && body.extensions.cost && body.extensions.cost.throttleStatus);
+    return body.data || {};
+  }, err => {
+    return Promise.reject(err);
+  });
 };
 
 //
