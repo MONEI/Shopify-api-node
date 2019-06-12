@@ -145,8 +145,6 @@ Shopify.prototype.request = function request(url, method, key, params) {
  * @private
  */
 Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttleStatus) {
-  if (!throttleStatus) return;
-
   const callGraphqlLimits = this.callGraphqlLimits;
 
   callGraphqlLimits.remaining = throttleStatus.currentlyAvailable;
@@ -171,7 +169,6 @@ Shopify.prototype.graphql = function graphql(data) {
       'Content-Type': 'application/graphql'
     },
     timeout: this.options.timeout,
-    json: false,
     retries: 0,
     method: 'POST',
     body: data
@@ -182,11 +179,11 @@ Shopify.prototype.graphql = function graphql(data) {
   }
 
   return got(options).then(res => {
-    const body = res.body ? JSON.parse(res.body) : {};
-    this.updateGraphqlLimits(body.extensions && body.extensions.cost && body.extensions.cost.throttleStatus);
+    const body = JSON.parse(res.body);
+    if (body.extensions && body.extensions.cost && body.extensions.cost.throttleStatus) {
+      this.updateGraphqlLimits(body.extensions.cost.throttleStatus);
+    }
     return body.data || {};
-  }, err => {
-    return Promise.reject(err);
   });
 };
 

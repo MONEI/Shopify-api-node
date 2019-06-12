@@ -100,6 +100,8 @@ shopify.on('callLimits', limits => console.log(limits));
 When using the GraphQL API, a different property is used to track the API call
 limit: `callGraphqlLimits`.
 
+Keep in mind that the `autoLimit` option is ignored while using GraphQL API.
+
 ```js
 shopify.on('callGraphqlLimits', limits => console.log(limits));
 ```
@@ -576,8 +578,8 @@ for parameters details.
 
 ### GraphQL
 
-The `shopify` instance also allows to use the GraphQL API through the `graphql` method, which returns a
-promise that resolves with the result data:
+The `shopify` instance also allows to use the GraphQL API through the `graphql`
+method, which returns a promise that resolves with the result data:
 
 ```js
 const shopify = new Shopify({

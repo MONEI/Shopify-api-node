@@ -515,15 +515,6 @@ describe('Shopify', () => {
         });
     });
 
-    it('returns an empty object when response body is empty', () => {
-      scope
-        .post(path)
-        .reply(200);
-
-      return shopify.graphql(dummyData)
-        .then(res => expect(res).to.deep.equal({}));
-    });
-
     it('returns a valid response when using graphql endpoint', () => {
       const response = {
         data: { foo: 'bar' }
