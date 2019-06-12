@@ -594,8 +594,9 @@ shopify.graphql(`{
       }
     }
   }
-}`).then(customers => console.log(customers))
-   .catch(err => console.error(err));
+}`)
+.then(customers => console.log(customers))
+.catch(err => console.error(err));
 ```
 
 ## Become a master of the Shopify ecosystem by:
