@@ -50,7 +50,7 @@ describe('Shopify#asset', () => {
   });
 
   it('updates an asset', () => {
-    const input = fixtures.res.update;
+    const input = fixtures.req.update;
     const output = fixtures.res.update;
 
     scope
@@ -62,7 +62,7 @@ describe('Shopify#asset', () => {
   });
 
   it('creates an asset', () => {
-    const input = fixtures.res.create;
+    const input = fixtures.req.create;
     const output = fixtures.res.create;
 
     scope
