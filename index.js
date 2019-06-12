@@ -133,6 +133,18 @@ Shopify.prototype.request = function request(url, method, key, params) {
   });
 };
 
+/**
+ * Sends a request to the Shopify GraphQL API endpoint.
+ *
+ * @param {Object} [data] Request body
+ * @return {Promise}
+ * @public
+ */
+Shopify.prototype.graphql = function graphql(data) {
+  const url = assign({ path: '/admin/api/graphql.json' }, this.baseUrl);
+  return this.request(url, 'POST', undefined, data);
+};
+
 //
 // Require and instantiate the resources lazily.
 //

@@ -366,5 +366,22 @@ describe('Shopify', () => {
         expect(timestamps[1] - timestamps[0]).to.be.within(80, 120);
       });
     });
+
+    it('returns a valid response when using graphql endpoint', () => {
+      const response = {
+        data: { foo: 'bar' }
+      };
+      const data = {
+        query: '{"foo":"bar"}',
+        variables: {}
+      };
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, response);
+
+      return shopify.graphql(data)
+        .then(res => expect(res).to.deep.equal(response));
+    });
   });
 });
