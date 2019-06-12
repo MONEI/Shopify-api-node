@@ -8,6 +8,7 @@ const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const path = require('path');
 const got = require('got');
+const urlLib = require('url');
 const fs = require('fs');
 
 const pkg = require('./package');
@@ -43,6 +44,11 @@ function Shopify(options) {
   // API call limits, updated with each request.
   //
   this.callLimits = {
+    remaining: undefined,
+    current: undefined,
+    max: undefined
+  };
+  this.callGraphqlLimits = {
     remaining: undefined,
     current: undefined,
     max: undefined
@@ -130,6 +136,64 @@ Shopify.prototype.request = function request(url, method, key, params) {
     );
 
     return Promise.reject(err);
+  });
+};
+
+/**
+ * Updates GraphQL API call limits.
+ *
+ * @param {String} throttle The status returned in the GraphQL response
+ * @private
+ */
+Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
+  const limits = this.callGraphqlLimits;
+
+  limits.remaining = throttle.currentlyAvailable;
+  limits.current = throttle.maximumAvailable - throttle.currentlyAvailable;
+  limits.max = throttle.maximumAvailable;
+
+  this.emit('callGraphqlLimits', limits);
+};
+
+/**
+ * Sends a request to the Shopify GraphQL API endpoint.
+ *
+ * @param string [data] Request body
+ * @return {Promise}
+ * @public
+ */
+Shopify.prototype.graphql = function graphql(data) {
+  const url = assign({ path: '/admin/api/graphql.json' }, this.baseUrl);
+  const options = assign({
+    headers: {
+      'User-Agent': `${pkg.name}/${pkg.version}`,
+      'Content-Type': 'application/graphql'
+    },
+    timeout: this.options.timeout,
+    retries: 0,
+    method: 'POST',
+    body: data
+  }, url);
+
+  if (this.options.accessToken) {
+    options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
+  }
+
+  return got(options).then(res => {
+    try {
+      res.body = JSON.parse(res.body);
+    } catch (err) {
+      const opts = assign({
+        host: options.hostname,
+        url: urlLib.resolve(urlLib.format(options), options.path)
+      }, options);
+      throw new got.ParseError(err, res.statusCode, opts, res.body);
+    }
+
+    if (res.body.extensions && res.body.extensions.cost) {
+      this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
+    }
+    return res.body.data || {};
   });
 };
 

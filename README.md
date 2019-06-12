@@ -97,6 +97,16 @@ argument.
 shopify.on('callLimits', limits => console.log(limits));
 ```
 
+When using the GraphQL API, a different property is used to track the API call
+limit: `callGraphqlLimits`.
+
+Keep in mind that the `autoLimit` option is ignored while using GraphQL API.
+
+```js
+shopify.on('callGraphqlLimits', limits => console.log(limits));
+```
+
+
 ### Resources
 
 Every resource is accessed via your `shopify` instance:
@@ -564,6 +574,32 @@ shopify.metafield.create({
 
 where `params` is a plain JavaScript object. See https://help.shopify.com/api/reference?ref=microapps
 for parameters details.
+
+
+### GraphQL
+
+The `shopify` instance also allows to use the GraphQL API through the `graphql`
+method, which returns a promise that resolves with the result data:
+
+```js
+const shopify = new Shopify({
+  shopName: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+});
+
+shopify.graphql(`{
+  customers(first: 5) {
+    edges {
+      node {
+        displayName
+        totalSpent
+      }
+    }
+  }
+}`)
+.then(customers => console.log(customers))
+.catch(err => console.error(err));
+```
 
 ## Become a master of the Shopify ecosystem by:
 

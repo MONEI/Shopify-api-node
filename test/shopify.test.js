@@ -94,10 +94,16 @@ describe('Shopify', () => {
     expect(shopify.blog).to.equal(blog);
   });
 
-  it('has undefined callLimit values for the initial instance', () => {
+  it('has undefined callLimit and callGraphqlLimits values for the initial instance', () => {
     const shopify = new Shopify({ shopName, accessToken });
 
     expect(shopify.callLimits).to.deep.equal({
+      remaining: undefined,
+      current: undefined,
+      max: undefined
+    });
+
+    expect(shopify.callGraphqlLimits).to.deep.equal({
       remaining: undefined,
       current: undefined,
       max: undefined
@@ -365,6 +371,174 @@ describe('Shopify', () => {
         expect(timestamps[2] - timestamps[1]).to.be.within(80, 120);
         expect(timestamps[1] - timestamps[0]).to.be.within(80, 120);
       });
+    });
+  });
+
+  describe('Shopify#graphql', () => {
+    const path = '/admin/api/graphql.json';
+    const dummyData = 'dummy';
+    const dummyExtensions = {
+      cost: {
+        throttleStatus: {
+          maximumAvailable: 1000.0,
+          currentlyAvailable: 997,
+          restoreRate: 50.0
+        }
+      }
+    };
+
+    const scope = nock(`https://${shopName}.myshopify.com`, {
+      reqheaders: {
+        'User-Agent': `${pkg.name}/${pkg.version}`,
+        'X-Shopify-Access-Token': accessToken
+      }
+    });
+
+    afterEach(() => expect(nock.isDone()).to.be.true);
+
+    it('returns a RequestError when the request fails', () => {
+      const message = 'Something wrong happened';
+
+      scope
+        .post(path)
+        .replyWithError(message);
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.RequestError);
+        expect(err.message).to.equal(message);
+      });
+    });
+
+    it('returns a RequestError when timeout expires (1/2)', () => {
+      const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
+
+      shopify.baseUrl.hostname = '192.0.2.1';
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.RequestError);
+        expect(err.message).to.equal('Request timed out');
+      });
+    });
+
+    it('returns a RequestError when timeout expires (2/2)', () => {
+      const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
+
+      scope
+        .post(path)
+        .delayBody(200)
+        .reply(200, {});
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.RequestError);
+        expect(err.message).to.include('Request timed out');
+      });
+    });
+
+    it('returns a ParseError when it fails to parse the response body', () => {
+      scope
+        .post(path)
+        .reply(200, 'invalid JSON');
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.ParseError);
+        expect(err.message).to.be.a('string');
+      });
+    });
+
+    it('returns an HTTPError when the server response code is not 2xx', () => {
+      scope
+        .post(path)
+        .reply(400, {});
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.HTTPError);
+        expect(err.message).to.equal('Response code 400 (Bad Request)');
+      });
+    });
+
+    it('uses basic auth as intended', () => {
+      const shopify = new Shopify({ shopName, apiKey, password });
+
+      nock(`https://${shopName}.myshopify.com`, {
+        reqheaders: {
+          'User-Agent': `${pkg.name}/${pkg.version}`
+        },
+        badheaders: ['X-Shopify-Access-Token']
+      }).post(path)
+        .basicAuth({ user: apiKey, pass: password })
+        .reply(200, {});
+
+      return shopify.graphql(dummyData);
+    });
+
+    it('updates callGraphqlLimits if the extensions attribute exists', () => {
+      scope
+        .post(path)
+        .reply(200, { extensions: dummyExtensions });
+
+      return shopify.graphql(dummyData)
+        .then(() => {
+          expect(shopify.callGraphqlLimits).to.deep.equal({
+            remaining: 997,
+            current: 3,
+            max: 1000.0
+          });
+        });
+    });
+
+    it('emits the `callGraphqlLimits` event', (done) => {
+      scope
+        .post(path)
+        .reply(200, { extensions: dummyExtensions });
+
+      shopify.on('callGraphqlLimits', limits => {
+        expect(limits).to.deep.equal({
+          remaining: 997,
+          current: 3,
+          max: 1000.0
+        });
+        done();
+      });
+
+      shopify.graphql(dummyData);
+    });
+
+    it('does not update callGraphqlLimits if extensions is missing', () => {
+      scope
+        .post(path)
+        .reply(200, {});
+
+      return shopify.graphql(dummyData)
+        .then(() => {
+          expect(shopify.callLimits).to.deep.equal({
+            remaining: 34,
+            current: 6,
+            max: 40
+          });
+        });
+    });
+
+    it('returns a valid response when using graphql endpoint', () => {
+      const response = {
+        data: { foo: 'bar' }
+      };
+
+      scope
+        .post(path)
+        .reply(200, response);
+
+      return shopify.graphql(dummyData)
+        .then(res => expect(res).to.deep.equal(response.data));
     });
   });
 });
