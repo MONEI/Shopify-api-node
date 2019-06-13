@@ -107,12 +107,6 @@ Shopify.prototype.request = function request(url, method, key, params) {
     method
   }, url);
 
-  if (this.options.apiVersion) {
-    if (options.path.startsWith('/admin/') && !options.path.startsWith('/admin/api/')) {
-      options.path = `/admin/api/${this.options.apiVersion}/${options.path.slice(7)}`;
-    }
-  }
-
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
   }

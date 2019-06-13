@@ -100,6 +100,10 @@ const base = {
       .replace(/\/+/g, '/')
       .replace(/\/$/, '');
 
+    if (this.shopify.options.apiVersion) {
+      path = `/admin/api/${this.shopify.options.apiVersion}/${path.slice(7)}`;
+    }
+
     path += '.json';
 
     if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
