@@ -2306,7 +2306,7 @@ declare namespace Shopify {
     name: string;
     price: string;
     shipping_zone_id: number;
-    weight_height: number;
+    weight_high: number;
     weight_low: number;
   }
 
