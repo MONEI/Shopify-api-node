@@ -157,7 +157,7 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
 /**
  * Sends a request to the Shopify GraphQL API endpoint.
  *
- * @param {Object} [data] Request body
+ * @param string [data] Request body
  * @return {Promise}
  * @public
  */

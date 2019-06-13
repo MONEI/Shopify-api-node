@@ -29,6 +29,7 @@ declare class Shopify {
     config: Shopify.IPublicShopifyConfig | Shopify.IPrivateShopifyConfig
   );
   callLimits: Shopify.ICallLimits;
+  callGraphqlLimits: Shopify.ICallLimits;
   accessScope: {
     list: () => Promise<Shopify.IAccessScope[]>;
   };
@@ -315,6 +316,7 @@ declare class Shopify {
     ) => Promise<Shopify.IGiftCardAdjustment>;
     list: (giftCardId: number) => Promise<Shopify.IGiftCardAdjustment[]>;
   };
+  graphql: (data: string) => Promise<any>;
   inventoryItem: {
     get: (id: number) => Promise<Shopify.IInventoryItem>;
     list: (params?: any) => Promise<Shopify.IInventoryItem[]>;
