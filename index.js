@@ -185,10 +185,6 @@ Shopify.prototype.graphql = function graphql(data) {
     } catch (err) {
       const opts = assign({
         host: options.hostname,
-        hostname: options.hostname,
-        method: options.method,
-        path: options.path,
-        protocol: options.protocol,
         url: urlLib.resolve(urlLib.format(options), options.path)
       }, options);
       throw new got.ParseError(err, res.statusCode, opts, res.body);
