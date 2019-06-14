@@ -43,6 +43,7 @@ configuration options.
   with the `apiKey` and `password` options. If you are looking for a premade
   solution to obtain an access token, take a look at the [shopify-token][]
   module.
+- `apiVersion` - Optional - A string to specify the [Shopify API version](https://help.shopify.com/en/api/versioning) to use for requests
 - `autoLimit` - Optional - This option allows you to regulate the request rate
   in order to avoid hitting the [rate limit][api-call-limit]. Requests are
   limited using the token bucket algorithm. Accepted values are a boolean or a
