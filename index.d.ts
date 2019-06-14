@@ -612,6 +612,7 @@ declare namespace Shopify {
 
   export interface IPublicShopifyConfig {
     accessToken: string;
+    apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
     shopName: string;
     timeout?: number;
@@ -619,6 +620,7 @@ declare namespace Shopify {
 
   export interface IPrivateShopifyConfig {
     apiKey: string;
+    apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
     password: string;
     shopName: string;
