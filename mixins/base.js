@@ -99,7 +99,7 @@ const base = {
     let path = '/admin';
 
     if (this.shopify.options.apiVersion) {
-      path = `/api/${this.shopify.options.apiVersion}`;
+      path += `/api/${this.shopify.options.apiVersion}`;
     }
 
     path += `/${this.name}/${id}`;
