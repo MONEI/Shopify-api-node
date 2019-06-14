@@ -440,6 +440,19 @@ describe('Shopify', () => {
       });
     });
 
+    it('returns a ParseError when it fails to parse the response body', () => {
+      scope
+        .post(path)
+        .reply(200, 'invalid JSON');
+
+      return shopify.graphql(dummyData).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(got.ParseError);
+        expect(err.message).to.be.a('string');
+      });
+    });
+
     it('returns an HTTPError when the server response code is not 2xx', () => {
       scope
         .post(path)

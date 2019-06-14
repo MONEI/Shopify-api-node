@@ -8,6 +8,7 @@ const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const path = require('path');
 const got = require('got');
+const urlLib = require('url');
 const fs = require('fs');
 
 const pkg = require('./package');
@@ -179,11 +180,24 @@ Shopify.prototype.graphql = function graphql(data) {
   }
 
   return got(options).then(res => {
-    const body = JSON.parse(res.body);
-    if (body.extensions && body.extensions.cost) {
-      this.updateGqlLimits(body.extensions.cost.throttleStatus);
+    try {
+      res.body = JSON.parse(res.body);
+    } catch (err) {
+      const opts = assign({
+        host: options.hostname,
+        hostname: options.hostname,
+        method: options.method,
+        path: options.path,
+        protocol: options.protocol,
+        url: urlLib.resolve(urlLib.format(options), options.path)
+      }, options);
+      throw new got.ParseError(err, res.statusCode, opts, res.body);
     }
-    return body.data || {};
+
+    if (res.body.extensions && res.body.extensions.cost) {
+      this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
+    }
+    return res.body.data || {};
   });
 };
 
