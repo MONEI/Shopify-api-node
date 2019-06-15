@@ -142,6 +142,7 @@ describe('Shopify#fulfillment', () => {
 
     const shopify = new Shopify({ shopName, accessToken, apiVersion });
 
-    return shopify.fulfillment.count(450789469);
+    return shopify.fulfillment.count(450789469)
+      .then(data => expect(data).to.equal(1));
   });
 });

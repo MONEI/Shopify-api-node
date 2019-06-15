@@ -57,6 +57,7 @@ describe('Shopify#payout', () => {
       .get(`/admin/api/${apiVersion}/shopify_payments/payouts/623721858.json`)
       .reply(200, output);
 
-    return shopify.payout.get(623721858);
+    return shopify.payout.get(623721858)
+      .then(data => expect(data).to.deep.equal(output.payout));
   });
 });

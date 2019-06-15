@@ -89,6 +89,7 @@ describe('Shopify#fulfillmentEvent', () => {
       .delete(`/admin/api/${apiVersion}/orders/450789469/fulfillments/255858046/events/2.json`)
       .reply(200, {});
 
-    return shopify.fulfillmentEvent.delete(450789469, 255858046, 2);
+    return shopify.fulfillmentEvent.delete(450789469, 255858046, 2)
+      .then(data => expect(data).to.deep.equal({}));
   });
 });
