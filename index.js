@@ -164,7 +164,15 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
  * @public
  */
 Shopify.prototype.graphql = function graphql(data) {
-  const url = assign({ path: '/admin/api/graphql.json' }, this.baseUrl);
+  let path = '/admin/api';
+
+  if (this.options.apiVersion) {
+    path += '/' + this.options.apiVersion;
+  }
+
+  path += '/graphql.json';
+
+  const url = assign({ path: path }, this.baseUrl);
   const options = assign({
     headers: {
       'User-Agent': `${pkg.name}/${pkg.version}`,
