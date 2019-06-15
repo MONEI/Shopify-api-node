@@ -16,7 +16,6 @@ describe('Shopify', () => {
   const password = common.password;
   const shopify = common.shopify;
   const apiKey = common.apiKey;
-  const apiVersion = common.apiVersion;
 
   it('exports the constructor', () => {
     expect(Shopify).to.be.a('function');
@@ -302,55 +301,6 @@ describe('Shopify', () => {
             max: 40
           });
         });
-    });
-
-    // Test base mixin
-    it('injects the api version to the path if provided (1/4)', () => {
-      const shopify = new Shopify({ shopName, accessToken, apiVersion });
-
-      scope
-        .get(`/admin/api/${apiVersion}/shop.json`)
-        .reply(200, { status: 'success' });
-
-      return shopify.shop.get();
-    });
-
-    // Test base-children mixin
-    it('injects the api version to the path if provided (2/4)', () => {
-      scope
-        .get(`/admin/api/${apiVersion}/orders/450789469/fulfillments/count.json`)
-        .reply(200, { count: 1 });
-
-      const shopify = new Shopify({ shopName, accessToken, apiVersion });
-
-      return shopify.fulfillment.count(450789469)
-        .then(data => expect(data).to.equal(1));
-    });
-
-    // Test shopify-payment mixin
-    it('injects the api version to the path if provided (3/4)', () => {
-      const paymentFixtures = require('./fixtures/payout');
-      const output = paymentFixtures.res.get;
-      const shopify = new Shopify({ shopName, accessToken, apiVersion });
-
-      scope
-        .get(`/admin/api/${apiVersion}/shopify_payments/payouts/623721858.json`)
-        .reply(200, output);
-
-      return shopify.payout.get(623721858)
-        .then(data => expect(data).to.deep.equal(output.payout));
-    });
-
-    // Test fulfillment-events
-    it('injects the api version to the path if provided (4/4)', () => {
-      const shopify = new Shopify({ shopName, accessToken, apiVersion });
-
-      scope
-        .delete(`/admin/api/${apiVersion}/orders/450789469/fulfillments/255858046/events/2.json`)
-        .reply(200, {});
-
-      return shopify.fulfillmentEvent.delete(450789469, 255858046, 2)
-        .then(data => expect(data).to.deep.equal({}));
     });
 
     it('returns the subtree with root node at key', () => {
