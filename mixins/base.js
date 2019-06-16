@@ -96,10 +96,14 @@ const base = {
   buildUrl(id, query) {
     id || id === 0 || (id = '');
 
-    let path = `/admin/${this.name}/${id}`
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '');
+    let path = '/admin';
 
+    if (this.shopify.options.apiVersion) {
+      path += `/api/${this.shopify.options.apiVersion}`;
+    }
+
+    path += `/${this.name}/${id}`;
+    path = path.replace(/\/+/g, '/').replace(/\/$/, '');
     path += '.json';
 
     if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });

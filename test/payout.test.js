@@ -5,9 +5,14 @@ describe('Shopify#payout', () => {
 
   const fixtures = require('./fixtures/payout');
   const common = require('./common');
+  const Shopify = require('..');
 
   const shopify = common.shopify;
   const scope = common.scope;
+
+  const accessToken = common.accessToken;
+  const shopName = common.shopName;
+  const apiVersion = common.apiVersion;
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
@@ -38,6 +43,18 @@ describe('Shopify#payout', () => {
 
     scope
       .get('/admin/shopify_payments/payouts/623721858.json')
+      .reply(200, output);
+
+    return shopify.payout.get(623721858)
+      .then(data => expect(data).to.deep.equal(output.payout));
+  });
+
+  it('injects the api version to the request path if provided', () => {
+    const output = fixtures.res.get;
+    const shopify = new Shopify({ shopName, accessToken, apiVersion });
+
+    scope
+      .get(`/admin/api/${apiVersion}/shopify_payments/payouts/623721858.json`)
       .reply(200, output);
 
     return shopify.payout.get(623721858)

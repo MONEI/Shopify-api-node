@@ -16,6 +16,7 @@ describe('Shopify', () => {
   const password = common.password;
   const shopify = common.shopify;
   const apiKey = common.apiKey;
+  const apiVersion = common.apiVersion;
 
   it('exports the constructor', () => {
     expect(Shopify).to.be.a('function');
@@ -535,6 +536,21 @@ describe('Shopify', () => {
 
       scope
         .post(path)
+        .reply(200, response);
+
+      return shopify.graphql(dummyData)
+        .then(res => expect(res).to.deep.equal(response.data));
+    });
+
+    it('injects the api version to the request path if provided', () => {
+      const shopify = new Shopify({ shopName, accessToken, apiVersion });
+
+      const response = {
+        data: { foo: 'bar' }
+      };
+
+      scope
+        .post(`/admin/api/${apiVersion}/graphql.json`)
         .reply(200, response);
 
       return shopify.graphql(dummyData)

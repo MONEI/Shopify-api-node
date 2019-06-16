@@ -104,10 +104,14 @@ const baseChild = {
   buildUrl(parentId, id, query) {
     id || id === 0 || (id = '');
 
-    let path = `/admin/${this.parentName}/${parentId}/${this.name}/${id}`
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '');
+    let path = '/admin';
 
+    if (this.shopify.options.apiVersion) {
+      path += `/api/${this.shopify.options.apiVersion}`;
+    }
+
+    path += `/${this.parentName}/${parentId}/${this.name}/${id}`;
+    path = path.replace(/\/+/g, '/').replace(/\/$/, '');
     path += '.json';
 
     if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });

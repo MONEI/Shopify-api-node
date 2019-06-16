@@ -21,6 +21,7 @@ const pkg = require('./package');
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
+ * @param {String} [options.apiVersion] The Shopify API version to use
  * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
  * @constructor
@@ -163,7 +164,15 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
  * @public
  */
 Shopify.prototype.graphql = function graphql(data) {
-  const url = assign({ path: '/admin/api/graphql.json' }, this.baseUrl);
+  let path = '/admin/api';
+
+  if (this.options.apiVersion) {
+    path += '/' + this.options.apiVersion;
+  }
+
+  path += '/graphql.json';
+
+  const url = assign({ path: path }, this.baseUrl);
   const options = assign({
     headers: {
       'User-Agent': `${pkg.name}/${pkg.version}`,

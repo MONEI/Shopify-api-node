@@ -5,9 +5,14 @@ describe('Shopify#shop', () => {
 
   const fixtures = require('./fixtures/shop');
   const common = require('./common');
+  const Shopify = require('..');
 
   const shopify = common.shopify;
   const scope = common.scope;
+
+  const accessToken = common.accessToken;
+  const shopName = common.shopName;
+  const apiVersion = common.apiVersion;
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
@@ -31,5 +36,15 @@ describe('Shopify#shop', () => {
 
     return shopify.shop.get({ foo: 'bar' })
       .then(data => expect(data).to.deep.equal(output.shop));
+  });
+
+  it('injects the api version to the request path if provided', () => {
+    const shopify = new Shopify({ shopName, accessToken, apiVersion });
+
+    scope
+      .get(`/admin/api/${apiVersion}/shop.json`)
+      .reply(200, { status: 'success' });
+
+    return shopify.shop.get();
   });
 });

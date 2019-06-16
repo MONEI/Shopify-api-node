@@ -5,9 +5,14 @@ describe('Shopify#fulfillmentEvent', () => {
 
   const fixtures = require('./fixtures/fulfillment-event');
   const common = require('./common');
+  const Shopify = require('..');
 
   const shopify = common.shopify;
   const scope = common.scope;
+
+  const accessToken = common.accessToken;
+  const shopName = common.shopName;
+  const apiVersion = common.apiVersion;
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
@@ -71,6 +76,17 @@ describe('Shopify#fulfillmentEvent', () => {
   it('deletes a fulfillment event', () => {
     scope
       .delete('/admin/orders/450789469/fulfillments/255858046/events/2.json')
+      .reply(200, {});
+
+    return shopify.fulfillmentEvent.delete(450789469, 255858046, 2)
+      .then(data => expect(data).to.deep.equal({}));
+  });
+
+  it('injects the api version to the request path if provided', () => {
+    const shopify = new Shopify({ shopName, accessToken, apiVersion });
+
+    scope
+      .delete(`/admin/api/${apiVersion}/orders/450789469/fulfillments/255858046/events/2.json`)
       .reply(200, {});
 
     return shopify.fulfillmentEvent.delete(450789469, 255858046, 2)

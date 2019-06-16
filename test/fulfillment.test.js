@@ -5,9 +5,14 @@ describe('Shopify#fulfillment', () => {
 
   const fixtures = require('./fixtures/fulfillment');
   const common = require('./common');
+  const Shopify = require('..');
 
   const shopify = common.shopify;
   const scope = common.scope;
+
+  const accessToken = common.accessToken;
+  const shopName = common.shopName;
+  const apiVersion = common.apiVersion;
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
@@ -128,5 +133,16 @@ describe('Shopify#fulfillment', () => {
 
     return shopify.fulfillment.cancel(450789469, 255858046)
       .then(data => expect(data).to.deep.equal(output.fulfillment));
+  });
+
+  it('injects the api version to the request path if provided', () => {
+    scope
+      .get(`/admin/api/${apiVersion}/orders/450789469/fulfillments/count.json`)
+      .reply(200, { count: 1 });
+
+    const shopify = new Shopify({ shopName, accessToken, apiVersion });
+
+    return shopify.fulfillment.count(450789469)
+      .then(data => expect(data).to.equal(1));
   });
 });
