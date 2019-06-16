@@ -7,12 +7,11 @@ describe('Shopify#payout', () => {
   const common = require('./common');
   const Shopify = require('..');
 
-  const shopify = common.shopify;
-  const scope = common.scope;
-
   const accessToken = common.accessToken;
-  const shopName = common.shopName;
   const apiVersion = common.apiVersion;
+  const scope = common.scope;
+  const shopify = common.shopify;
+  const shopName = common.shopName;
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 

@@ -104,16 +104,16 @@ FulfillmentEvent.prototype.delete = function remove(orderId, fulfillmentId, id) 
 FulfillmentEvent.prototype.buildUrl = function buildUrl(orderId, fulfillmentId, id, query) {
   id || id === 0 || (id = '');
 
-  let base_url = '/admin';
+  let pathname = '/admin';
 
   if (this.shopify.options.apiVersion) {
-    base_url += `/api/${this.shopify.options.apiVersion}`;
+    pathname += `/api/${this.shopify.options.apiVersion}`;
   }
 
-  base_url += '/orders';
+  pathname += '/orders';
 
   let path = [
-    base_url,
+    pathname,
     orderId,
     this.parentName,
     fulfillmentId,

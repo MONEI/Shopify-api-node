@@ -24,7 +24,7 @@ Creates a new `Shopify` instance.
 #### Arguments
 
 - `options` - Required - A plain JavaScript object that contains the
-configuration options.
+  configuration options.
 
 #### Options
 
@@ -34,25 +34,25 @@ configuration options.
   string that specifies the API key of the app. This option must be used in
   conjunction with the `password` option and is mutually exclusive with the
   `accessToken` option.
-- `password` - Required for [private][generate-private-app-credentials] apps -
-  A string that specifies the private app password. This option must be used in
+- `password` - Required for [private][generate-private-app-credentials] apps - A
+  string that specifies the private app password. This option must be used in
   conjunction with the `apiKey` option and is mutually exclusive with the
   `accessToken` option.
-- `accessToken` - Required for public apps - A string representing the
-  permanent [OAuth 2.0][oauth] access token. This option is mutually exclusive
-  with the `apiKey` and `password` options. If you are looking for a premade
-  solution to obtain an access token, take a look at the [shopify-token][]
-  module.
-- `apiVersion` - Optional - A string to specify the [Shopify API version](https://help.shopify.com/en/api/versioning) to use for requests
+- `accessToken` - Required for public apps - A string representing the permanent
+  [OAuth 2.0][oauth] access token. This option is mutually exclusive with the
+  `apiKey` and `password` options. If you are looking for a premade solution to
+  obtain an access token, take a look at the [shopify-token][] module.
+- `apiVersion` - Optional - A string to specify the [Shopify API
+  version][api-versioning] to use for requests
 - `autoLimit` - Optional - This option allows you to regulate the request rate
   in order to avoid hitting the [rate limit][api-call-limit]. Requests are
   limited using the token bucket algorithm. Accepted values are a boolean or a
   plain JavaScript object. When using an object, the `calls` property and the
-  `interval` property specify the refill rate and the `bucketSize` property
-  the bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 35 }`
+  `interval` property specify the refill rate and the `bucketSize` property the
+  bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 35 }`
   specifies a limit of 2 requests per second with a burst of 35 requests. When
-  set to `true` requests are limited as specified in the above example.
-  Defaults to `false`.
+  set to `true` requests are limited as specified in the above example. Defaults
+  to `false`.
 - `timeout` - Optional - The number of milliseconds before the request times
   out. If the request takes longer than `timeout`, it will be aborted. Defaults
   to `60000`, or 1 minute.
@@ -79,8 +79,8 @@ const shopify = new Shopify({
 
 ### `shopify.callLimits`
 
-The `callLimits` property allows you to monitor the API call limit. The value
-is an object like this:
+The `callLimits` property allows you to monitor the API call limit. The value is
+an object like this:
 
 ```js
 {
@@ -95,7 +95,7 @@ every update the `callLimits` event is emitted with the updated limits as
 argument.
 
 ```js
-shopify.on('callLimits', limits => console.log(limits));
+shopify.on('callLimits', (limits) => console.log(limits));
 ```
 
 When using the GraphQL API, a different property is used to track the API call
@@ -104,9 +104,8 @@ limit: `callGraphqlLimits`.
 Keep in mind that the `autoLimit` option is ignored while using GraphQL API.
 
 ```js
-shopify.on('callGraphqlLimits', limits => console.log(limits));
+shopify.on('callGraphqlLimits', (limits) => console.log(limits));
 ```
-
 
 ### Resources
 
@@ -124,9 +123,10 @@ const shopify = new Shopify({
 Each method returns a `Promise` that resolves with the result:
 
 ```js
-shopify.order.list({ limit: 5 })
-  .then(orders => console.log(orders))
-  .catch(err => console.error(err));
+shopify.order
+  .list({ limit: 5 })
+  .then((orders) => console.log(orders))
+  .catch((err) => console.error(err));
 ```
 
 The Shopify API requires that you send a valid JSON string in the request body
@@ -142,18 +142,19 @@ country should be:
 }
 ```
 
-When using `shopify-api-node` you don't have to specify the full object but
-only the nested one as the module automatically wraps the provided data. Using
-the above example this translates to:
+When using `shopify-api-node` you don't have to specify the full object but only
+the nested one as the module automatically wraps the provided data. Using the
+above example this translates to:
 
 ```js
-shopify.country.create({ code: 'FR', tax: 0.25 })
-  .then(country => console.log(country))
-  .catch(err => console.error(err));
+shopify.country
+  .create({ code: 'FR', tax: 0.25 })
+  .then((country) => console.log(country))
+  .catch((err) => console.error(err));
 ```
 
-Similarly, the Shopify API includes the resource name in the JSON string that
-is returned in the response body:
+Similarly, the Shopify API includes the resource name in the JSON string that is
+returned in the response body:
 
 ```json
 {
@@ -192,28 +193,26 @@ to a particular resource as shown in the examples below.
 Get metafields that belong to a product:
 
 ```js
-shopify.metafield.list({
-  metafield: { owner_resource: 'product', owner_id: 632910392 }
-}).then(
-  metafields => console.log(metafields),
-  err => console.error(err)
-);
+shopify.metafield
+  .list({
+    metafield: { owner_resource: 'product', owner_id: 632910392 }
+  })
+  .then((metafields) => console.log(metafields), (err) => console.error(err));
 ```
 
 Create a new metafield for a product:
 
 ```js
-shopify.metafield.create({
-  key: 'warehouse',
-  value: 25,
-  value_type: 'integer',
-  namespace: 'inventory',
-  owner_resource: 'product',
-  owner_id: 632910392
-}).then(
-  metafield => console.log(metafield),
-  err => console.error(err)
-);
+shopify.metafield
+  .create({
+    key: 'warehouse',
+    value: 25,
+    value_type: 'integer',
+    namespace: 'inventory',
+    owner_resource: 'product',
+    owner_id: 632910392
+  })
+  .then((metafield) => console.log(metafield), (err) => console.error(err));
 ```
 
 ### Available resources and methods
@@ -573,9 +572,8 @@ shopify.metafield.create({
   - `list([params])`
   - `update(id, params)`
 
-where `params` is a plain JavaScript object. See https://help.shopify.com/api/reference?ref=microapps
-for parameters details.
-
+where `params` is a plain JavaScript object. See
+https://help.shopify.com/api/reference?ref=microapps for parameters details.
 
 ### GraphQL
 
@@ -588,7 +586,7 @@ const shopify = new Shopify({
   accessToken: 'your-oauth-token'
 });
 
-shopify.graphql(`{
+const query = `{
   customers(first: 5) {
     edges {
       node {
@@ -597,18 +595,21 @@ shopify.graphql(`{
       }
     }
   }
-}`)
-.then(customers => console.log(customers))
-.catch(err => console.error(err));
+}`;
+
+shopify
+  .graphql(query)
+  .then((customers) => console.log(customers))
+  .catch((err) => console.error(err));
 ```
 
 ## Become a master of the Shopify ecosystem by:
 
-* [Becoming a Shopify App Developer][becoming-a-shopify-app-developer]
-* [Checking out the roots][checking-out-the-roots]
-* [Talking To Other Masters][talking-to-other-masters]
-* [Reading API Docs][reading-api-docs]
-* [Learning from others][learning-from-others]
+- [Becoming a Shopify App Developer][becoming-a-shopify-app-developer]
+- [Checking out the roots][checking-out-the-roots]
+- [Talking To Other Masters][talking-to-other-masters]
+- [Reading API Docs][reading-api-docs]
+- [Learning from others][learning-from-others]
 
 ## Use Polaris, a React powered Frontend Framework which mimics the Shopify merchant admin:
 
@@ -618,11 +619,11 @@ shopify.graphql(`{
 
 (add yours!)
 
-* [Sample Node Express app by Shopify][sample-node-express-app-by-shopify]
-* [Wholesaler][wholesaler]
-* [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
-* [Wholesaler PRO][wholesaler-pro]
-* [Youtube Traffic][youtube-traffic]
+- [Sample Node Express app by Shopify][sample-node-express-app-by-shopify]
+- [Wholesaler][wholesaler]
+- [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
+- [Wholesaler PRO][wholesaler-pro]
+- [Youtube Traffic][youtube-traffic]
 
 ## Supported by:
 
@@ -634,29 +635,42 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 
 [MIT](LICENSE)
 
-[sample-node-express-app-by-shopify]: https://github.com/Shopify/shopify-node-app
+[sample-node-express-app-by-shopify]:
+  https://github.com/Shopify/shopify-node-app
 [npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
 [npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
-[travis-shopify-api-node-badge]: https://img.shields.io/travis/MONEI/Shopify-api-node/master.svg
+[travis-shopify-api-node-badge]:
+  https://img.shields.io/travis/MONEI/Shopify-api-node/master.svg
 [travis-shopify-api-node]: https://travis-ci.org/MONEI/Shopify-api-node
-[david-shopify-api-node-badge]: https://img.shields.io/david/MONEI/Shopify-api-node.svg
+[david-shopify-api-node-badge]:
+  https://img.shields.io/david/MONEI/Shopify-api-node.svg
 [david-shopify-api-node]: https://david-dm.org/MONEI/Shopify-api-node
-[coverage-shopify-api-node-badge]: https://img.shields.io/coveralls/MONEI/Shopify-api-node/master.svg
+[coverage-shopify-api-node-badge]:
+  https://img.shields.io/coveralls/MONEI/Shopify-api-node/master.svg
 [coverage-shopify-api-node]: https://coveralls.io/github/MONEI/Shopify-api-node
-[generate-private-app-credentials]: https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
+[generate-private-app-credentials]:
+  https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
 [oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
 [shopify-token]: https://github.com/lpinca/shopify-token
-[api-call-limit]: https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
-[becoming-a-shopify-app-developer]: https://app.shopify.com/services/partners/signup?ref=microapps
+[api-call-limit]:
+  https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
+[api-versioning]: https://help.shopify.com/en/api/versioning
+[becoming-a-shopify-app-developer]:
+  https://app.shopify.com/services/partners/signup?ref=microapps
 [checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
-[talking-to-other-masters]: https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
+[talking-to-other-masters]:
+  https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
 [reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
 [polaris]: https://polaris.shopify.com/?ref=microapps
-[microapps]: http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
-[moonmail]: https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
-[monei]: https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[microapps]:
+  http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[moonmail]:
+  https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
+[monei]:
+  https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [wholesaler]: https://apps.shopify.com/wholesaler?ref=microapps
-[wholesaler-customer-pricing]: https://apps.shopify.com/wholesaler-pro-1?ref=microapps
+[wholesaler-customer-pricing]:
+  https://apps.shopify.com/wholesaler-pro-1?ref=microapps
 [wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps

@@ -167,7 +167,7 @@ Shopify.prototype.graphql = function graphql(data) {
   let path = '/admin/api';
 
   if (this.options.apiVersion) {
-    path += '/' + this.options.apiVersion;
+    path += `/${this.options.apiVersion}`;
   }
 
   path += '/graphql.json';

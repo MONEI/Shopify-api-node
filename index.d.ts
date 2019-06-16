@@ -332,7 +332,10 @@ declare class Shopify {
   location: {
     count: () => Promise<number>;
     get: (id: number) => Promise<Shopify.ILocation>;
-    inventoryLevels: (id: number, params?: any) => Promise<Shopify.IInventoryLevel[]>;
+    inventoryLevels: (
+      id: number,
+      params?: any
+    ) => Promise<Shopify.IInventoryLevel[]>;
     list: () => Promise<Shopify.ILocation[]>;
   };
   marketingEvent: {
@@ -1552,7 +1555,11 @@ declare namespace Shopify {
     updated_at: string;
   }
 
-  type LineItemFulfillmentStatus = 'fulfilled' | 'not_eligible' | 'partial' | null;
+  type LineItemFulfillmentStatus =
+    | 'fulfilled'
+    | 'not_eligible'
+    | 'partial'
+    | null;
 
   interface ILineItemProperty {
     name: string;
@@ -1735,11 +1742,7 @@ declare namespace Shopify {
     | 'pending'
     | 'refunded'
     | 'voided';
-  type OrderFulfillmentStatus =
-    | 'fulfilled'
-    | 'partial'
-    | 'restocked'
-    | null;
+  type OrderFulfillmentStatus = 'fulfilled' | 'partial' | 'restocked' | null;
   type OrderProcessingMethod =
     | 'checkout'
     | 'direct'
@@ -1921,7 +1924,13 @@ declare namespace Shopify {
     shipping_address: ICustomerAddress;
     shipping_lines: IOrderShippingLine[];
     source_identifier: string | null;
-    source_name: 'web' | 'pos' | 'shopify_draft_order' | 'iphone' | 'android' | string;
+    source_name:
+      | 'web'
+      | 'pos'
+      | 'shopify_draft_order'
+      | 'iphone'
+      | 'android'
+      | string;
     subtotal_price: string;
     subtotal_price_set: IOrderAdjustmentAmountSet;
     tags: string;
@@ -2525,7 +2534,7 @@ declare namespace Shopify {
     testcase: boolean;
     authorization: string;
     balance_transaction?: {
-      [k: string]: any
+      [k: string]: any;
     };
   }
 

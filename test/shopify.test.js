@@ -12,11 +12,11 @@ describe('Shopify', () => {
   const Shopify = require('..');
 
   const accessToken = common.accessToken;
-  const shopName = common.shopName;
-  const password = common.password;
-  const shopify = common.shopify;
   const apiKey = common.apiKey;
   const apiVersion = common.apiVersion;
+  const password = common.password;
+  const shopify = common.shopify;
+  const shopName = common.shopName;
 
   it('exports the constructor', () => {
     expect(Shopify).to.be.a('function');
@@ -376,18 +376,6 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#graphql', () => {
-    const path = '/admin/api/graphql.json';
-    const dummyData = 'dummy';
-    const dummyExtensions = {
-      cost: {
-        throttleStatus: {
-          maximumAvailable: 1000.0,
-          currentlyAvailable: 997,
-          restoreRate: 50.0
-        }
-      }
-    };
-
     const scope = nock(`https://${shopName}.myshopify.com`, {
       reqheaders: {
         'User-Agent': `${pkg.name}/${pkg.version}`,
@@ -401,10 +389,10 @@ describe('Shopify', () => {
       const message = 'Something wrong happened';
 
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .replyWithError(message);
 
-      return shopify.graphql(dummyData).then(() => {
+      return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
@@ -417,7 +405,7 @@ describe('Shopify', () => {
 
       shopify.baseUrl.hostname = '192.0.2.1';
 
-      return shopify.graphql(dummyData).then(() => {
+      return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
@@ -429,11 +417,11 @@ describe('Shopify', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .delayBody(200)
         .reply(200, {});
 
-      return shopify.graphql(dummyData).then(() => {
+      return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.RequestError);
@@ -443,10 +431,10 @@ describe('Shopify', () => {
 
     it('returns a ParseError when it fails to parse the response body', () => {
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .reply(200, 'invalid JSON');
 
-      return shopify.graphql(dummyData).then(() => {
+      return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.ParseError);
@@ -456,10 +444,10 @@ describe('Shopify', () => {
 
     it('returns an HTTPError when the server response code is not 2xx', () => {
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .reply(400, {});
 
-      return shopify.graphql(dummyData).then(() => {
+      return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
         expect(err).to.be.an.instanceof(got.HTTPError);
@@ -475,19 +463,29 @@ describe('Shopify', () => {
           'User-Agent': `${pkg.name}/${pkg.version}`
         },
         badheaders: ['X-Shopify-Access-Token']
-      }).post(path)
+      }).post('/admin/api/graphql.json')
         .basicAuth({ user: apiKey, pass: password })
         .reply(200, {});
 
-      return shopify.graphql(dummyData);
+      return shopify.graphql('query');
     });
 
     it('updates callGraphqlLimits if the extensions attribute exists', () => {
       scope
-        .post(path)
-        .reply(200, { extensions: dummyExtensions });
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          extensions: {
+            cost: {
+              throttleStatus: {
+                maximumAvailable: 1000.0,
+                currentlyAvailable: 997,
+                restoreRate: 50.0
+              }
+            }
+          }
+        });
 
-      return shopify.graphql(dummyData)
+      return shopify.graphql('query')
         .then(() => {
           expect(shopify.callGraphqlLimits).to.deep.equal({
             remaining: 997,
@@ -499,8 +497,18 @@ describe('Shopify', () => {
 
     it('emits the `callGraphqlLimits` event', (done) => {
       scope
-        .post(path)
-        .reply(200, { extensions: dummyExtensions });
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          extensions: {
+            cost: {
+              throttleStatus: {
+                maximumAvailable: 1000.0,
+                currentlyAvailable: 997,
+                restoreRate: 50.0
+              }
+            }
+          }
+        });
 
       shopify.on('callGraphqlLimits', limits => {
         expect(limits).to.deep.equal({
@@ -511,20 +519,20 @@ describe('Shopify', () => {
         done();
       });
 
-      shopify.graphql(dummyData);
+      shopify.graphql('query');
     });
 
     it('does not update callGraphqlLimits if extensions is missing', () => {
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .reply(200, {});
 
-      return shopify.graphql(dummyData)
+      return shopify.graphql('query')
         .then(() => {
-          expect(shopify.callLimits).to.deep.equal({
-            remaining: 34,
-            current: 6,
-            max: 40
+          expect(shopify.callGraphqlLimits).to.deep.equal({
+            remaining: 997,
+            current: 3,
+            max: 1000.0
           });
         });
     });
@@ -535,10 +543,10 @@ describe('Shopify', () => {
       };
 
       scope
-        .post(path)
+        .post('/admin/api/graphql.json')
         .reply(200, response);
 
-      return shopify.graphql(dummyData)
+      return shopify.graphql('query')
         .then(res => expect(res).to.deep.equal(response.data));
     });
 
@@ -553,7 +561,7 @@ describe('Shopify', () => {
         .post(`/admin/api/${apiVersion}/graphql.json`)
         .reply(200, response);
 
-      return shopify.graphql(dummyData)
+      return shopify.graphql('query')
         .then(res => expect(res).to.deep.equal(response.data));
     });
   });

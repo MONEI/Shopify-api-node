@@ -28,8 +28,7 @@ const shopifyPayments = {
     }
 
     path += `/shopify_payments/${this.name}/${id}`;
-    path = path.replace(/\/+/g, '/').replace(/\/$/, '');
-    path += '.json';
+    path = path.replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
 
     if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
 
