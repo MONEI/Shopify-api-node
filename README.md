@@ -278,7 +278,7 @@ shopify.metafield
 - collectionListing
   - `get(id)`
   - `list([params])`
-  - `productIds(id)`
+  - `productIds(id[, params])`
 - comment
   - `approve(id)`
   - `count([params])`

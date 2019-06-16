@@ -126,7 +126,7 @@ declare class Shopify {
   collectionListing: {
     get: (id: number, params?: any) => Promise<Shopify.ICollectionListing>;
     list: (params?: any) => Promise<Shopify.ICollectionListing[]>;
-    productIds: (id: number) => Promise<any>;
+    productIds: (id: number, params?: any) => Promise<any>;
   };
   comment: {
     approve: (id: number) => Promise<Shopify.IComment>;

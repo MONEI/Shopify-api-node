@@ -29,11 +29,12 @@ assign(CollectionListing.prototype, pick(base, [
  * Retrieves product IDs that are published to a particular collection.
  *
  * @param {Number} id Collection ID
+ * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-CollectionListing.prototype.productIds = function productIds(id) {
-  const url = this.buildUrl(`${id}/product_ids`);
+CollectionListing.prototype.productIds = function productIds(id, params) {
+  const url = this.buildUrl(`${id}/product_ids`, params);
   return this.shopify.request(url, 'GET', 'product_ids');
 };
 

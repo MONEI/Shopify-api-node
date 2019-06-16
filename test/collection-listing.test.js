@@ -33,7 +33,7 @@ describe('Shopify#collectionListing', () => {
       .then(data => expect(data).to.deep.equal(output.collection_listings));
   });
 
-  it('gets product IDs published to a collection', () => {
+  it('gets product IDs published to a collection (1/2)', () => {
     const output = fixtures.res.productIds;
 
     scope
@@ -41,6 +41,17 @@ describe('Shopify#collectionListing', () => {
       .reply(200, output);
 
     return shopify.collectionListing.productIds(841564295)
+      .then(data => expect(data).to.deep.equal(output.product_ids));
+  });
+
+  it('gets product IDs published to a collection (2/2)', () => {
+    const output = fixtures.res.productIds;
+
+    scope
+      .get('/admin/collection_listings/841564295/product_ids.json?limit=50')
+      .reply(200, output);
+
+    return shopify.collectionListing.productIds(841564295, { limit: 50 })
       .then(data => expect(data).to.deep.equal(output.product_ids));
   });
 
