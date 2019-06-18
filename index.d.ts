@@ -1212,7 +1212,9 @@ declare namespace Shopify {
     company: string | null;
     country: string;
     country_code: string;
+    country_name: string;
     customer_id: number;
+    default: boolean;
     first_name: string;
     id: number;
     last_name: string;
@@ -1717,6 +1719,7 @@ declare namespace Shopify {
   interface IOrderCustomer {
     accepts_marketing: boolean;
     created_at: string;
+    default_address: ICustomerAddress;
     email: string;
     first_name: string;
     id: number;
