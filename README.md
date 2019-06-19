@@ -624,6 +624,7 @@ shopify
 - [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
 - [Wholesaler PRO][wholesaler-pro]
 - [Youtube Traffic][youtube-traffic]
+- [Shipatron][shipatron]
 
 ## Supported by:
 
@@ -674,3 +675,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://apps.shopify.com/wholesaler-pro-1?ref=microapps
 [wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
+[shipatron]: https://shipatron.io
