@@ -2618,6 +2618,21 @@ declare namespace Shopify {
     user_type: UserType;
   }
 
+  type ICartLineItem = ICheckoutLineItem;
+
+  interface ICart {
+    id: string;
+    token: string;
+    line_items: Shopify.ICartLineItem[];
+    note: string | null;
+    updated_at: string;
+    created_at: string;
+  }
+
+  export type IDeletedItem = {
+    id: number;
+  };
+
   export type WebhookTopic =
     | 'app/uninstalled'
     | 'carts/create'
@@ -2704,4 +2719,118 @@ declare namespace Shopify {
     metafield_namespaces?: string[];
     topic: WebhookTopic;
   }
+
+  export type WebhookType<T extends WebhookTopic> = T extends 'app/uninstalled'
+    ? IShop
+    : T extends 'carts/create'
+    ? ICart
+    : T extends 'carts/update'
+    ? ICart
+    : T extends 'checkouts/create'
+    ? ICheckout
+    : T extends 'checkouts/update'
+    ? ICheckout
+    : T extends 'checkouts/delete'
+    ? IDeletedItem
+    : T extends 'collections/create'
+    ? (ISmartCollection | ICustomCollection)
+    : T extends 'collections/update'
+    ? (ISmartCollection | ICustomCollection)
+    : T extends 'collections/delete'
+    ? IDeletedItem
+    : T extends 'collection_listings/add'
+    ? ICollectionListing
+    : T extends 'collection_listings/remove'
+    ? ICollectionListing
+    : T extends 'collection_listings/update'
+    ? ICollectionListing
+    : T extends 'customers/create'
+    ? ICustomer
+    : T extends 'customers/disable'
+    ? ICustomer
+    : T extends 'customers/enable'
+    ? ICustomer
+    : T extends 'customers/update'
+    ? ICustomer
+    : T extends 'customers/delete'
+    ? IDeletedItem
+    : T extends 'customer_groups/create'
+    ? ICustomerSavedSearch
+    : T extends 'customer_groups/update'
+    ? ICustomerSavedSearch
+    : T extends 'customer_groups/delete'
+    ? IDeletedItem
+    : T extends 'draft_orders/create'
+    ? IDraftOrder
+    : T extends 'draft_orders/update'
+    ? IDraftOrder
+    : T extends 'draft_orders/delete'
+    ? IDeletedItem
+    : T extends 'fulfillments/create'
+    ? IFulfillment
+    : T extends 'fulfillments/update'
+    ? IFulfillment
+    : T extends 'fulfillment_events/create'
+    ? IFulfillmentEvent
+    : T extends 'fulfillment_events/delete'
+    ? IDeletedItem
+    : T extends 'inventory_items/create'
+    ? IInventoryItem
+    : T extends 'inventory_items/update'
+    ? IInventoryItem
+    : T extends 'inventory_items/delete'
+    ? IDeletedItem
+    : T extends 'inventory_levels/connect'
+    ? IInventoryLevel
+    : T extends 'inventory_levels/update'
+    ? IInventoryLevel
+    : T extends 'inventory_levels/disconnect'
+    ? IInventoryLevel
+    : T extends 'locations/create'
+    ? ILocation
+    : T extends 'locations/update'
+    ? ILocation
+    : T extends 'locations/delete'
+    ? IDeletedItem
+    : T extends 'orders/cancelled'
+    ? IOrder
+    : T extends 'orders/create'
+    ? IOrder
+    : T extends 'orders/fulfilled'
+    ? IOrder
+    : T extends 'orders/paid'
+    ? IOrder
+    : T extends 'orders/partially_fulfilled'
+    ? IOrder
+    : T extends 'orders/updated'
+    ? IOrder
+    : T extends 'orders/delete'
+    ? IDeletedItem
+    : T extends 'order_transactions/create'
+    ? ITransaction
+    : T extends 'products/create'
+    ? IProduct
+    : T extends 'products/update'
+    ? IProduct
+    : T extends 'products/delete'
+    ? IDeletedItem
+    : T extends 'product_listings/add'
+    ? IProductListing
+    : T extends 'product_listings/remove'
+    ? IProductListing
+    : T extends 'product_listings/update'
+    ? IProductListing
+    : T extends 'refunds/create'
+    ? IRefund
+    : T extends 'shop/update'
+    ? IShop
+    : T extends 'themes/create'
+    ? ITheme
+    : T extends 'themes/publish'
+    ? ITheme
+    : T extends 'themes/update'
+    ? ITheme
+    : T extends 'themes/delete'
+    ? IDeletedItem
+    : any;
 }
