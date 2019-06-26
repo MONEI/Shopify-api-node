@@ -955,6 +955,7 @@ declare namespace Shopify {
   }
 
   interface ICarrierService {
+    id: number;
     active: boolean;
     callback_url: string;
     carrier_service_type: string; // I think this could be restricted to "api" or "legacy"
