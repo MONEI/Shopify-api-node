@@ -209,6 +209,18 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     if (res.body.extensions && res.body.extensions.cost) {
       this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
     }
+
+    if (res.body.errors) {
+      const first = res.body.errors[0];
+      const err = new Error(first.message);
+      err.locations = first.locations;
+      err.path = first.path;
+      err.extensions = first.extensions;
+      err.errors = res.body.errors;
+
+      throw err;
+    }
+
     return res.body.data || {};
   });
 };
