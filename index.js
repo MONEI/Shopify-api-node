@@ -165,7 +165,7 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
  * @return {Promise}
  * @public
  */
-Shopify.prototype.graphql = function graphql(data) {
+Shopify.prototype.graphql = function graphql(data, variables) {
   let path = '/admin/api';
 
   if (this.options.apiVersion) {
@@ -174,16 +174,22 @@ Shopify.prototype.graphql = function graphql(data) {
 
   path += '/graphql.json';
 
+  const json = variables !== null;
+  const body = json ? JSON.stringify({
+    query: data,
+    variables
+  }) : data;
+
   const url = assign({ path }, this.baseUrl);
   const options = assign({
     timeout: this.options.timeout,
     retries: 0,
     method: 'POST',
-    body: data
+    body
   }, url);
 
   options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
-  options.headers['Content-Type'] = 'application/graphql';
+  options.headers['Content-Type'] = json ? 'application/json' : 'application/graphql';
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
@@ -203,7 +209,6 @@ Shopify.prototype.graphql = function graphql(data) {
     if (res.body.extensions && res.body.extensions.cost) {
       this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
     }
-
     return res.body.data || {};
   });
 };

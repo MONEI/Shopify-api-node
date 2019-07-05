@@ -540,7 +540,7 @@ describe('Shopify', () => {
         });
     });
 
-    it('returns a valid response when using graphql endpoint', () => {
+    it('returns a valid response when using graphql endpoint without variables', () => {
       const response = {
         data: { foo: 'bar' }
       };
@@ -550,6 +550,19 @@ describe('Shopify', () => {
         .reply(200, response);
 
       return shopify.graphql('query')
+        .then(res => expect(res).to.deep.equal(response.data));
+    });
+
+    it('returns a valid response when using graphql endpoint with variables', () => {
+      const response = {
+        data: { foo: 'bar' }
+      };
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, response);
+
+      return shopify.graphql('query', { name: 'value' })
         .then(res => expect(res).to.deep.equal(response.data));
     });
 
