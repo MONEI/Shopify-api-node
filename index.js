@@ -185,6 +185,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     timeout: this.options.timeout,
     retries: 0,
     method: 'POST',
+    responseType: 'json',
     body
   }, url);
 
