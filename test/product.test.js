@@ -16,6 +16,7 @@ describe('Shopify#product', () => {
 
     scope
       .get('/admin/products.json')
+      .matchHeader('X-Shopify-Api-Features', 'include-presentment-prices')
       .reply(200, output);
 
     return shopify.product.list()

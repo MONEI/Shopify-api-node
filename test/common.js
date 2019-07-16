@@ -11,7 +11,7 @@ const apiKey = 'bc731e500840231da5b43bb3f388d2f0';
 const apiVersion = '2019-04';
 const shopName ='johns-apparel';
 
-const shopify = new Shopify({ shopName, accessToken });
+const shopify = new Shopify({ shopName, accessToken, presentmentPrices:true });
 
 const scope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {

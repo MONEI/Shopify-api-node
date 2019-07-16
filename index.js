@@ -16,7 +16,7 @@ const pkg = require('./package');
 /**
  * Creates a Shopify instance.
  *
- * @param {{presentmentPrices: boolean, shopName: string, accessToken: string}} options Configuration options
+ * @param {Object} options Configuration options
  * @param {String} options.shopName The name of the shop
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
