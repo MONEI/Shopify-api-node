@@ -16,12 +16,13 @@ const pkg = require('./package');
 /**
  * Creates a Shopify instance.
  *
- * @param {Object} options Configuration options
+ * @param {{presentmentPrices: boolean, shopName: string, accessToken: string}} options Configuration options
  * @param {String} options.shopName The name of the shop
  * @param {String} options.apiKey The API Key
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
  * @param {String} [options.apiVersion] The Shopify API version to use
+ * @param {Boolean} [options.presentmentPrices] Whether to include the header to pull presentment prices for products
  * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
  * @constructor
@@ -115,6 +116,10 @@ Shopify.prototype.request = function request(url, method, key, params) {
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
+  }
+
+  if (this.options.presentmentPrices) {
+    options.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   if (params) {
