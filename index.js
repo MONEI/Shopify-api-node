@@ -118,7 +118,10 @@ Shopify.prototype.request = function request(url, method, key, params) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
   }
 
-  if (this.options.presentmentPrices) {
+  if (this.options.presentmentPrices
+    && /(product(?!_)|variant|product_listing)[s]*/.test(key)
+    && !url.path.includes('smart_collection')
+    && method === 'GET') {
     options.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 

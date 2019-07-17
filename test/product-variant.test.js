@@ -7,14 +7,15 @@ describe('Shopify#productVariant', () => {
   const common = require('./common');
 
   const shopify = common.shopify;
-  const scope = common.scope;
+  const standardScope = common.scope;
+  const productApiScope = common.productApiScope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(standardScope.isDone()).to.be.true);
 
   it('gets a list of all product variants for a product (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
+    productApiScope
       .get('/admin/products/632910392/variants.json')
       .reply(200, output);
 
@@ -25,7 +26,7 @@ describe('Shopify#productVariant', () => {
   it('gets a list of all product variants for a product (2/2)', () => {
     const output = fixtures.res.list;
 
-    scope
+    productApiScope
       .get('/admin/products/632910392/variants.json?since_id=39072855')
       .reply(200, output);
 
@@ -34,7 +35,7 @@ describe('Shopify#productVariant', () => {
   });
 
   it('gets a count of all product variants', () => {
-    scope
+    standardScope
       .get('/admin/products/632910392/variants/count.json')
       .reply(200, { count: 4 });
 
@@ -45,7 +46,7 @@ describe('Shopify#productVariant', () => {
   it('gets a single product variant by its ID (1/2)', () => {
     const output = fixtures.res.get;
 
-    scope
+    productApiScope
       .get('/admin/variants/808950810.json')
       .reply(200, output);
 
@@ -56,7 +57,7 @@ describe('Shopify#productVariant', () => {
   it('gets a single product variant by its ID (2/2)', () => {
     const output = fixtures.res.get;
 
-    scope
+    productApiScope
       .get('/admin/variants/808950810.json?foo=bar')
       .reply(200, output);
 
@@ -68,7 +69,7 @@ describe('Shopify#productVariant', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope
+    standardScope
       .post('/admin/products/632910392/variants.json', input)
       .reply(201, output);
 
@@ -80,7 +81,7 @@ describe('Shopify#productVariant', () => {
     const input = fixtures.req.update;
     const output = fixtures.res.update;
 
-    scope
+    standardScope
       .put('/admin/variants/808950810.json', input)
       .reply(200, output);
 
@@ -89,7 +90,7 @@ describe('Shopify#productVariant', () => {
   });
 
   it('deletes a product variant', () => {
-    scope
+    standardScope
       .delete('/admin/products/632910392/variants/808950810.json')
       .reply(200, {});
 

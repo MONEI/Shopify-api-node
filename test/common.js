@@ -18,8 +18,18 @@ const scope = nock(`https://${shopName}.myshopify.com`, {
     'User-Agent': `${pkg.name}/${pkg.version}`,
     'X-Shopify-Access-Token': accessToken,
     'Accept': 'application/json'
-  }
+  },
+  badheaders: ['X-Shopify-Api-Features']
 });
+
+const productApiScope = nock(`https://${shopName}.myshopify.com`, {
+  reqheaders: {
+    'User-Agent': `${pkg.name}/${pkg.version}`,
+    'X-Shopify-Access-Token': accessToken,
+    'Accept': 'application/json'
+  }
+})
+  .matchHeader('X-Shopify-Api-Features', 'include-presentment-prices');
 
 module.exports = {
   accessToken,
@@ -28,5 +38,6 @@ module.exports = {
   shopify,
   apiKey,
   apiVersion,
-  scope
+  scope,
+  productApiScope
 };

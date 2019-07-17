@@ -7,16 +7,16 @@ describe('Shopify#product', () => {
   const common = require('./common');
 
   const shopify = common.shopify;
-  const scope = common.scope;
+  const standardScope = common.scope;
+  const productApiScope = common.productApiScope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(standardScope.isDone()).to.be.true);
 
   it('gets a list of all products (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
+    productApiScope
       .get('/admin/products.json')
-      .matchHeader('X-Shopify-Api-Features', 'include-presentment-prices')
       .reply(200, output);
 
     return shopify.product.list()
@@ -26,7 +26,7 @@ describe('Shopify#product', () => {
   it('gets a list of all products (2/2)', () => {
     const output = fixtures.res.list;
 
-    scope
+    productApiScope
       .get('/admin/products.json?published_status=any')
       .reply(200, output);
 
@@ -35,7 +35,7 @@ describe('Shopify#product', () => {
   });
 
   it('gets a count of all products (1/2)', () => {
-    scope
+    standardScope
       .get('/admin/products/count.json')
       .reply(200, { count: 2 });
 
@@ -44,7 +44,7 @@ describe('Shopify#product', () => {
   });
 
   it('gets a count of all products (2/2)', () => {
-    scope
+    standardScope
       .get('/admin/products/count.json?published_status=any')
       .reply(200, { count: 2 });
 
@@ -55,7 +55,7 @@ describe('Shopify#product', () => {
   it('gets a single product by its ID (1/2)', () => {
     const output = fixtures.res.get;
 
-    scope
+    productApiScope
       .get('/admin/products/632910392.json')
       .reply(200, output);
 
@@ -66,7 +66,7 @@ describe('Shopify#product', () => {
   it('gets a single product by its ID (2/2)', () => {
     const output = fixtures.res.get;
 
-    scope
+    productApiScope
       .get('/admin/products/632910392.json?foo=bar')
       .reply(200, output);
 
@@ -78,7 +78,7 @@ describe('Shopify#product', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope
+    standardScope
       .post('/admin/products.json', input)
       .reply(201, output);
 
@@ -90,7 +90,7 @@ describe('Shopify#product', () => {
     const input = fixtures.req.update;
     const output = fixtures.res.update;
 
-    scope
+    standardScope
       .put('/admin/products/632910392.json', input)
       .reply(200, output);
 
@@ -99,7 +99,7 @@ describe('Shopify#product', () => {
   });
 
   it('deletes a product', () => {
-    scope
+    standardScope
       .delete('/admin/products/632910392.json')
       .reply(200, {});
 
