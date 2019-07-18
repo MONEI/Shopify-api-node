@@ -21,7 +21,40 @@ function ProductVariant(shopify) {
   this.key = 'variant';
 }
 
-assign(ProductVariant.prototype, omit(baseChild, ['get', 'update']));
+assign(ProductVariant.prototype, omit(baseChild, ['get', 'update', 'buildUrl', 'count', 'delete']));
+
+/**
+ * Builds the request URL.
+ *
+ * @param {Number} parentId Parent record ID
+ * @param {Number|String} [id] Record ID
+ * @param {Object} [query] Query parameters
+ * @return {Object} URL object
+ * @private
+ */
+ProductVariant.prototype.buildUrl = function(parentId, id, query) {
+  const baseUrl = baseChild.buildUrl.call(this, parentId, id, query);
+
+  if (this.shopify.options.presentmentPrices) {
+    baseUrl.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
+  }
+
+  return baseUrl;
+};
+
+/**
+ * Counts the number of records.
+ *
+ * @param {Number} parentId Parent record ID
+ * @param {Object} [params] Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductVariant.prototype.count = function(parentId, params) {
+  const key = 'count';
+  const url = baseChild.buildUrl.call(this, parentId, key, params);
+  return this.shopify.request(url, 'GET', key);
+};
 
 /**
  * Gets a single product variant by its ID.
@@ -33,6 +66,11 @@ assign(ProductVariant.prototype, omit(baseChild, ['get', 'update']));
  */
 ProductVariant.prototype.get = function get(id, params) {
   const url = base.buildUrl.call(this, id, params);
+
+  if (this.shopify.options.presentmentPrices) {
+    url.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
+  }
+
   return this.shopify.request(url, 'GET', this.key);
 };
 
@@ -47,6 +85,20 @@ ProductVariant.prototype.get = function get(id, params) {
 ProductVariant.prototype.update = function update(id, params) {
   const url = base.buildUrl.call(this, id);
   return this.shopify.request(url, 'PUT', this.key, params);
+};
+
+/**
+ * Deletes a record.
+ *
+ * @param {Number} parentId Parent record ID
+ * @param {Number} id Record ID
+ * @param {Object} [params] Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductVariant.prototype.delete = function(parentId, id, params) {
+  const url = baseChild.buildUrl.call(this, parentId, id, params);
+  return this.shopify.request(url, 'DELETE');
 };
 
 module.exports = ProductVariant;

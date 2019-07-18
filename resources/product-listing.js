@@ -19,7 +19,38 @@ function ProductListing(shopify) {
   this.key = 'product_listing';
 }
 
-assign(ProductListing.prototype, omit(base, ['create', 'update']));
+assign(ProductListing.prototype, omit(base, ['create', 'update', 'buildUrl', 'productIds', 'count', 'delete']));
+
+/**
+ * Builds the request URL.
+ *
+ * @param {Number|String} [id] Record ID
+ * @param {Object} [query] Query parameters
+ * @return {Object} URL object
+ * @private
+ */
+ProductListing.prototype.buildUrl = function(id, query) {
+  const baseUrl = base.buildUrl.call(this, id, query);
+
+  if (this.shopify.options.presentmentPrices) {
+    baseUrl.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
+  }
+
+  return baseUrl;
+};
+
+/**
+ * Counts the number of records.
+ *
+ * @param {Object} [params] Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductListing.prototype.count = function(params) {
+  const key = 'count';
+  const url = base.buildUrl.call(this, key, params);
+  return this.shopify.request(url, 'GET', key);
+};
 
 /**
  * Creates a product listing.
@@ -36,6 +67,18 @@ ProductListing.prototype.create = function create(productId, params) {
 };
 
 /**
+ * Deletes a record.
+ *
+ * @param {Number} id Record ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductListing.prototype.delete = function(id) {
+  const url = base.buildUrl.call(this, id);
+  return this.shopify.request(url, 'DELETE');
+};
+
+/**
  * Retrieves product IDs that are published to a particular application.
  *
  * @param {Object} [params] Query parameters
@@ -44,7 +87,7 @@ ProductListing.prototype.create = function create(productId, params) {
  */
 ProductListing.prototype.productIds = function productIds(params) {
   const key = 'product_ids';
-  const url = this.buildUrl(key, params);
+  const url = base.buildUrl.call(this, key, params);
   return this.shopify.request(url, 'GET', key);
 };
 

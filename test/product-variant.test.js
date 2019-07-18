@@ -69,7 +69,7 @@ describe('Shopify#productVariant', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    standardScope
+    productApiScope
       .post('/admin/products/632910392/variants.json', input)
       .reply(201, output);
 

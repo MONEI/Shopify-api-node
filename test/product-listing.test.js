@@ -80,7 +80,7 @@ describe('Shopify#productListing', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    standardScope
+    productApiScope
       .put('/admin/product_listings/921728736.json', input)
       .reply(200, output);
 
@@ -92,7 +92,7 @@ describe('Shopify#productListing', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    standardScope
+    productApiScope
       .put('/admin/product_listings/921728736.json', input)
       .reply(200, output);
 
