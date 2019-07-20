@@ -22,6 +22,8 @@ const pkg = require('./package');
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
  * @param {String} [options.apiVersion] The Shopify API version to use
+ * @param {Boolean} [options.presentmentPrices] Whether to include the header to
+ *     pull presentment prices for products
  * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
  * @constructor
@@ -57,6 +59,7 @@ function Shopify(options) {
 
   this.baseUrl = {
     auth: !options.accessToken && `${options.apiKey}:${options.password}`,
+    headers: {},
     hostname: !options.shopName.endsWith('.myshopify.com')
       ? `${options.shopName}.myshopify.com`
       : options.shopName,
@@ -106,12 +109,13 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  */
 Shopify.prototype.request = function request(url, method, key, params) {
   const options = assign({
-    headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
     timeout: this.options.timeout,
     json: true,
     retries: 0,
     method
   }, url);
+
+  options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
@@ -159,7 +163,7 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
 /**
  * Sends a request to the Shopify GraphQL API endpoint.
  *
- * @param string [data] Request body
+ * @param {String} [data] Request body
  * @return {Promise}
  * @public
  */
@@ -172,17 +176,16 @@ Shopify.prototype.graphql = function graphql(data) {
 
   path += '/graphql.json';
 
-  const url = assign({ path: path }, this.baseUrl);
+  const url = assign({ path }, this.baseUrl);
   const options = assign({
-    headers: {
-      'User-Agent': `${pkg.name}/${pkg.version}`,
-      'Content-Type': 'application/graphql'
-    },
     timeout: this.options.timeout,
     retries: 0,
     method: 'POST',
     body: data
   }, url);
+
+  options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
+  options.headers['Content-Type'] = 'application/graphql';
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
@@ -202,6 +205,7 @@ Shopify.prototype.graphql = function graphql(data) {
     if (res.body.extensions && res.body.extensions.cost) {
       this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
     }
+
     return res.body.data || {};
   });
 };
