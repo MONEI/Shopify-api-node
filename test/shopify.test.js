@@ -47,7 +47,8 @@ describe('Shopify', () => {
     expect(shopify.baseUrl).to.deep.equal({
       auth: `${apiKey}:${password}`,
       hostname: shopName,
-      protocol: 'https:'
+      protocol: 'https:',
+      headers: {}
     });
   });
 
@@ -57,7 +58,8 @@ describe('Shopify', () => {
     expect(shopify.baseUrl).to.deep.equal({
       hostname: `${shopName}.myshopify.com`,
       auth: `${apiKey}:${password}`,
-      protocol: 'https:'
+      protocol: 'https:',
+      headers: {}
     });
   });
 
@@ -67,7 +69,8 @@ describe('Shopify', () => {
     expect(shopify.baseUrl).to.deep.equal({
       hostname: `${shopName}.myshopify.com`,
       protocol: 'https:',
-      auth: false
+      auth: false,
+      headers: {}
     });
   });
 

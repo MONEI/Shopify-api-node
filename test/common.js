@@ -12,7 +12,11 @@ const apiVersion = '2019-04';
 const shopName ='johns-apparel';
 
 const shopify = new Shopify({ shopName, accessToken });
-const shopifyWithPresentmentOption = new Shopify({ shopName, accessToken, presentmentPrices: true });
+const shopifyWithPresentmentOption = new Shopify({
+  accessToken,
+  presentmentPrices: true,
+  shopName
+});
 
 const scope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {
@@ -27,19 +31,19 @@ const presentmentApiScope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {
     'User-Agent': `${pkg.name}/${pkg.version}`,
     'X-Shopify-Access-Token': accessToken,
+    'X-Shopify-Api-Features': 'include-presentment-prices',
     'Accept': 'application/json'
   }
-})
-  .matchHeader('X-Shopify-Api-Features', 'include-presentment-prices');
+});
 
 module.exports = {
   accessToken,
-  password,
-  shopName,
-  shopify,
   apiKey,
   apiVersion,
-  scope,
+  password,
   presentmentApiScope,
-  shopifyWithPresentmentOption
+  scope,
+  shopify,
+  shopifyWithPresentmentOption,
+  shopName
 };

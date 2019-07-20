@@ -11,9 +11,12 @@ describe('Shopify#productVariant', () => {
   const standardScope = common.scope;
   const presentmentApiScope = common.presentmentApiScope;
 
-  afterEach(() => expect(standardScope.isDone()).to.be.true);
+  afterEach(() => {
+    expect(presentmentApiScope.isDone()).to.be.true;
+    expect(standardScope.isDone()).to.be.true;
+  });
 
-  it('gets a list of all product variants for a product (1/2)', () => {
+  it('gets a list of all product variants for a product (1/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -24,7 +27,7 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variants));
   });
 
-  it('gets a list of all product variants for a product (2/2)', () => {
+  it('gets a list of all product variants for a product (2/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -35,7 +38,7 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variants));
   });
 
-  it('gets a list of all product variants for a product (1/2) with presentment option', () => {
+  it('gets a list of all product variants for a product (3/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
@@ -46,14 +49,15 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variants));
   });
 
-  it('gets a list of all product variants for a product (2/2) with presentment option', () => {
+  it('gets a list of all product variants for a product (4/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
       .get('/admin/products/632910392/variants.json?since_id=39072855')
       .reply(200, output);
 
-    return shopifyWithPresenmentOption.productVariant.list(632910392, { since_id: 39072855 })
+    return shopifyWithPresenmentOption.productVariant
+      .list(632910392, { since_id: 39072855 })
       .then(data => expect(data).to.deep.equal(output.variants));
   });
 
@@ -66,7 +70,7 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.equal(4));
   });
 
-  it('gets a single product variant by its ID (1/2)', () => {
+  it('gets a single product variant by its ID (1/4)', () => {
     const output = fixtures.res.get;
 
     standardScope
@@ -77,7 +81,7 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 
-  it('gets a single product variant by its ID (2/2)', () => {
+  it('gets a single product variant by its ID (2/4)', () => {
     const output = fixtures.res.get;
 
     standardScope
@@ -88,7 +92,7 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 
-  it('gets a single product variant by its ID (1/2) with presentment option', () => {
+  it('gets a single product variant by its ID (3/4)', () => {
     const output = fixtures.res.get;
 
     presentmentApiScope
@@ -99,14 +103,15 @@ describe('Shopify#productVariant', () => {
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 
-  it('gets a single product variant by its ID (2/2) with presentment option', () => {
+  it('gets a single product variant by its ID (4/4)', () => {
     const output = fixtures.res.get;
 
     presentmentApiScope
       .get('/admin/variants/808950810.json?foo=bar')
       .reply(200, output);
 
-    return shopifyWithPresenmentOption.productVariant.get(808950810, { foo: 'bar' })
+    return shopifyWithPresenmentOption.productVariant
+      .get(808950810, { foo: 'bar' })
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 
@@ -130,7 +135,8 @@ describe('Shopify#productVariant', () => {
       .post('/admin/products/632910392/variants.json', input)
       .reply(201, output);
 
-    return shopifyWithPresenmentOption.productVariant.create(632910392, input.variant)
+    return shopifyWithPresenmentOption.productVariant
+      .create(632910392, input.variant)
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 
@@ -154,7 +160,8 @@ describe('Shopify#productVariant', () => {
       .put('/admin/variants/808950810.json', input)
       .reply(200, output);
 
-    return shopifyWithPresenmentOption.productVariant.update(808950810, input.variant)
+    return shopifyWithPresenmentOption.productVariant
+      .update(808950810, input.variant)
       .then(data => expect(data).to.deep.equal(output.variant));
   });
 

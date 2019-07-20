@@ -22,9 +22,9 @@ function ProductListing(shopify) {
 assign(ProductListing.prototype, pick(base, ['count', 'buildUrl', 'delete']));
 
 /**
- * Gets a single record by its ID.
+ * Gets a single product by its ID.
  *
- * @param {Number} id Record ID
+ * @param {Number} id Product ID
  * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
@@ -33,16 +33,14 @@ ProductListing.prototype.get = function(id, params) {
   const url = this.buildUrl(id, params);
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers = {
-      ['X-Shopify-Api-Features']: 'include-presentment-prices'
-    };
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'GET', this.key);
 };
 
 /**
- * Gets a list of records.
+ * Gets a list of products.
  *
  * @param {Object} params Query parameters
  * @return {Promise} Promise that resolves with the result
@@ -52,9 +50,7 @@ ProductListing.prototype.list = function(params) {
   const url = this.buildUrl(undefined, params);
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers = {
-      ['X-Shopify-Api-Features']: 'include-presentment-prices'
-    };
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'GET', this.name);
@@ -70,10 +66,10 @@ ProductListing.prototype.list = function(params) {
  */
 ProductListing.prototype.create = function create(productId, params) {
   params || (params = { product_id: productId });
-  let url = this.buildUrl(productId);
+  const url = this.buildUrl(productId);
 
   if (this.shopify.options.presentmentPrices) {
-    url = assign(url, this.shopify.presentmentHeader);
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'PUT', this.key, params);

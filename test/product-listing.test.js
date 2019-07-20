@@ -11,9 +11,12 @@ describe('Shopify#productListing', () => {
   const standardScope = common.scope;
   const presentmentApiScope = common.presentmentApiScope;
 
-  afterEach(() => expect(standardScope.isDone()).to.be.true);
+  afterEach(() => {
+    expect(presentmentApiScope.isDone()).to.be.true;
+    expect(standardScope.isDone()).to.be.true;
+  });
 
-  it('gets product listings published to an application (1/2)', () => {
+  it('gets product listings published to an application (1/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -24,7 +27,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
-  it('gets product listings published to an application (2/2)', () => {
+  it('gets product listings published to an application (2/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -35,7 +38,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
-  it('gets product listings published to an application (1/2) with presentment option', () => {
+  it('gets product listings published to an application (3/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
@@ -46,7 +49,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
-  it('gets product listings published to an application (2/2) with presentment option', () => {
+  it('gets product listings published to an application (4/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
@@ -110,7 +113,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 
-  it('creates a product listing (1/2)', () => {
+  it('creates a product listing (1/4)', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
@@ -122,7 +125,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 
-  it('creates a product listing (2/2)', () => {
+  it('creates a product listing (2/4)', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
@@ -134,7 +137,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 
-  it('creates a product listing (1/2) with presentment option', () => {
+  it('creates a product listing (3/4)', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
@@ -146,7 +149,7 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 
-  it('creates a product listing (2/2) with presentment option', () => {
+  it('creates a product listing (4/4)', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
@@ -154,7 +157,8 @@ describe('Shopify#productListing', () => {
       .put('/admin/product_listings/921728736.json', input)
       .reply(200, output);
 
-    return shopifyWithPresenmentOption.productListing.create(921728736, input.product_listing)
+    return shopifyWithPresenmentOption.productListing
+      .create(921728736, input.product_listing)
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 

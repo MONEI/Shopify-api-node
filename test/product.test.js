@@ -11,9 +11,12 @@ describe('Shopify#product', () => {
   const standardScope = common.scope;
   const presentmentApiScope = common.presentmentApiScope;
 
-  afterEach(() => expect(standardScope.isDone()).to.be.true);
+  afterEach(() => {
+    expect(presentmentApiScope.isDone()).to.be.true;
+    expect(standardScope.isDone()).to.be.true;
+  });
 
-  it('gets a list of all products (1/2)', () => {
+  it('gets a list of all products (1/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -24,7 +27,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.products));
   });
 
-  it('gets a list of all products (2/2)', () => {
+  it('gets a list of all products (2/4)', () => {
     const output = fixtures.res.list;
 
     standardScope
@@ -35,7 +38,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.products));
   });
 
-  it('gets a list of all products (1/2) with presentment option', () => {
+  it('gets a list of all products (3/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
@@ -46,7 +49,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.products));
   });
 
-  it('gets a list of all products (2/2) with presentment option', () => {
+  it('gets a list of all products (4/4)', () => {
     const output = fixtures.res.list;
 
     presentmentApiScope
@@ -75,7 +78,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.equal(2));
   });
 
-  it('gets a single product by its ID (1/2)', () => {
+  it('gets a single product by its ID (1/4)', () => {
     const output = fixtures.res.get;
 
     standardScope
@@ -86,7 +89,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.product));
   });
 
-  it('gets a single product by its ID (2/2)', () => {
+  it('gets a single product by its ID (2/4)', () => {
     const output = fixtures.res.get;
 
     standardScope
@@ -97,7 +100,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.product));
   });
 
-  it('gets a single product by its ID (1/2) with presentment option', () => {
+  it('gets a single product by its ID (3/4)', () => {
     const output = fixtures.res.get;
 
     presentmentApiScope
@@ -108,7 +111,7 @@ describe('Shopify#product', () => {
       .then(data => expect(data).to.deep.equal(output.product));
   });
 
-  it('gets a single product by its ID (2/2) with presentment option', () => {
+  it('gets a single product by its ID (4/4)', () => {
     const output = fixtures.res.get;
 
     presentmentApiScope

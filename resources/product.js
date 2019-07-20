@@ -22,70 +22,70 @@ function Product(shopify) {
 assign(Product.prototype, pick(base, ['buildUrl', 'delete', 'count']));
 
 /**
- * Gets a single record by its ID.
+ * Gets a single product by its ID.
  *
- * @param {Number} id Record ID
+ * @param {Number} id Product ID
  * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
 Product.prototype.get = function(id, params) {
-  let url = this.buildUrl(id, params);
+  const url = this.buildUrl(id, params);
 
   if (this.shopify.options.presentmentPrices) {
-    url = assign(url, this.shopify.presentmentHeader);
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'GET', this.key);
 };
 
 /**
- * Creates a new record.
+ * Creates a new product.
  *
- * @param {Object} params Record properties
+ * @param {Object} params Product properties
  * @return {Promise} Promise that resolves with the result
  * @public
  */
 Product.prototype.create = function(params) {
-  let url = this.buildUrl();
+  const url = this.buildUrl();
 
   if (this.shopify.options.presentmentPrices) {
-    url = assign(url, this.shopify.presentmentHeader);
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'POST', this.key, params);
 };
 
 /**
- * Gets a list of records.
+ * Gets a list of products.
  *
  * @param {Object} params Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
 Product.prototype.list = function(params) {
-  let url = this.buildUrl(undefined, params);
+  const url = this.buildUrl(undefined, params);
 
   if (this.shopify.options.presentmentPrices) {
-    url = assign(url, this.shopify.presentmentHeader);
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'GET', this.name);
 };
 
 /**
- * Updates a record.
+ * Updates a product.
  *
- * @param {Number} id Record ID
- * @param {Object} params Record properties
+ * @param {Number} id Products ID
+ * @param {Object} params Products properties
  * @return {Promise} Promise that resolves with the result
  * @public
  */
 Product.prototype.update = function(id, params) {
-  let url = this.buildUrl(id);
+  const url = this.buildUrl(id);
 
   if (this.shopify.options.presentmentPrices) {
-    url = assign(url, this.shopify.presentmentHeader);
+    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
   return this.shopify.request(url, 'PUT', this.key, params);
