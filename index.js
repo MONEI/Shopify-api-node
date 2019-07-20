@@ -22,7 +22,8 @@ const pkg = require('./package');
  * @param {String} options.password The private app password
  * @param {String} options.accessToken The persistent OAuth public app token
  * @param {String} [options.apiVersion] The Shopify API version to use
- * @param {Boolean} [options.presentmentPrices] Whether to include the header to pull presentment prices for products
+ * @param {Boolean} [options.presentmentPrices] Whether to include the header
+ *   to pull presentment prices for products
  * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
  * @constructor
@@ -72,6 +73,12 @@ function Shopify(options) {
 
     this.request = stopcock(this.request, conf);
   }
+
+  this.presentmentHeader = {
+    headers: {
+      ['X-Shopify-Api-Features']: 'include-presentment-prices'
+    }
+  };
 }
 
 Object.setPrototypeOf(Shopify.prototype, EventEmitter.prototype);
@@ -107,7 +114,7 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  */
 Shopify.prototype.request = function request(url, method, key, params) {
   const options = assign({
-    headers: { 'User-Agent': `${pkg.name}/${pkg.version}` },
+    headers: {},
     timeout: this.options.timeout,
     json: true,
     retries: 0,
@@ -162,7 +169,7 @@ Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
 /**
  * Sends a request to the Shopify GraphQL API endpoint.
  *
- * @param string [data] Request body
+ * @param {String} [data] Request body
  * @return {Promise}
  * @public
  */

@@ -7,15 +7,16 @@ describe('Shopify#productListing', () => {
   const common = require('./common');
 
   const shopify = common.shopify;
+  const shopifyWithPresenmentOption = common.shopifyWithPresentmentOption;
   const standardScope = common.scope;
-  const productApiScope = common.productApiScope;
+  const presentmentApiScope = common.presentmentApiScope;
 
   afterEach(() => expect(standardScope.isDone()).to.be.true);
 
   it('gets product listings published to an application (1/2)', () => {
     const output = fixtures.res.list;
 
-    productApiScope
+    standardScope
       .get('/admin/product_listings.json')
       .reply(200, output);
 
@@ -26,11 +27,33 @@ describe('Shopify#productListing', () => {
   it('gets product listings published to an application (2/2)', () => {
     const output = fixtures.res.list;
 
-    productApiScope
+    standardScope
       .get('/admin/product_listings.json?page=1')
       .reply(200, output);
 
     return shopify.productListing.list({ page: 1 })
+      .then(data => expect(data).to.deep.equal(output.product_listings));
+  });
+
+  it('gets product listings published to an application (1/2) with presentment option', () => {
+    const output = fixtures.res.list;
+
+    presentmentApiScope
+      .get('/admin/product_listings.json')
+      .reply(200, output);
+
+    return shopifyWithPresenmentOption.productListing.list()
+      .then(data => expect(data).to.deep.equal(output.product_listings));
+  });
+
+  it('gets product listings published to an application (2/2) with presentment option', () => {
+    const output = fixtures.res.list;
+
+    presentmentApiScope
+      .get('/admin/product_listings.json?page=1')
+      .reply(200, output);
+
+    return shopifyWithPresenmentOption.productListing.list({ page: 1 })
       .then(data => expect(data).to.deep.equal(output.product_listings));
   });
 
@@ -68,7 +91,7 @@ describe('Shopify#productListing', () => {
   it('gets a specific product listing', () => {
     const output = fixtures.res.get;
 
-    productApiScope
+    standardScope
       .get('/admin/product_listings/921728736.json')
       .reply(200, output);
 
@@ -76,11 +99,22 @@ describe('Shopify#productListing', () => {
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 
+  it('gets a specific product listing with presentment option', () => {
+    const output = fixtures.res.get;
+
+    presentmentApiScope
+      .get('/admin/product_listings/921728736.json')
+      .reply(200, output);
+
+    return shopifyWithPresenmentOption.productListing.get(921728736)
+      .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
   it('creates a product listing (1/2)', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    productApiScope
+    standardScope
       .put('/admin/product_listings/921728736.json', input)
       .reply(200, output);
 
@@ -92,11 +126,35 @@ describe('Shopify#productListing', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    productApiScope
+    standardScope
       .put('/admin/product_listings/921728736.json', input)
       .reply(200, output);
 
     return shopify.productListing.create(921728736, input.product_listing)
+      .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
+  it('creates a product listing (1/2) with presentment option', () => {
+    const input = fixtures.req.create;
+    const output = fixtures.res.create;
+
+    presentmentApiScope
+      .put('/admin/product_listings/921728736.json', input)
+      .reply(200, output);
+
+    return shopifyWithPresenmentOption.productListing.create(921728736)
+      .then(data => expect(data).to.deep.equal(output.product_listing));
+  });
+
+  it('creates a product listing (2/2) with presentment option', () => {
+    const input = fixtures.req.create;
+    const output = fixtures.res.create;
+
+    presentmentApiScope
+      .put('/admin/product_listings/921728736.json', input)
+      .reply(200, output);
+
+    return shopifyWithPresenmentOption.productListing.create(921728736, input.product_listing)
       .then(data => expect(data).to.deep.equal(output.product_listing));
   });
 

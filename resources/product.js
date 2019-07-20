@@ -1,7 +1,7 @@
 'use strict';
 
 const assign = require('lodash/assign');
-const omit = require('lodash/omit');
+const pick = require('lodash/pick');
 
 const base = require('../mixins/base');
 
@@ -19,49 +19,76 @@ function Product(shopify) {
   this.key = 'product';
 }
 
-assign(Product.prototype, omit(base, ['buildUrl', 'count', 'delete']));
+assign(Product.prototype, pick(base, ['buildUrl', 'delete', 'count']));
 
 /**
- * Builds the request URL.
+ * Gets a single record by its ID.
  *
- * @param {Number|String} [id] Record ID
- * @param {Object} [query] Query parameters
- * @return {Object} URL object
- * @private
- */
-Product.prototype.buildUrl = function(id, query) {
-  const baseUrl = base.buildUrl.call(this, id, query);
-
-  if (this.shopify.options.presentmentPrices) {
-    baseUrl.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
-  }
-
-  return baseUrl;
-};
-
-/**
- * Counts the number of records.
- *
+ * @param {Number} id Record ID
  * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.count = function(params) {
-  const key = 'count';
-  const url = base.buildUrl.call(this, key, params);
-  return this.shopify.request(url, 'GET', key);
+Product.prototype.get = function(id, params) {
+  let url = this.buildUrl(id, params);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'GET', this.key);
 };
 
 /**
- * Deletes a record.
+ * Creates a new record.
  *
- * @param {Number} id Record ID
+ * @param {Object} params Record properties
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.delete = function(id) {
-  const url = base.buildUrl.call(this, id);
-  return this.shopify.request(url, 'DELETE');
+Product.prototype.create = function(params) {
+  let url = this.buildUrl();
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'POST', this.key, params);
+};
+
+/**
+ * Gets a list of records.
+ *
+ * @param {Object} params Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Product.prototype.list = function(params) {
+  let url = this.buildUrl(undefined, params);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'GET', this.name);
+};
+
+/**
+ * Updates a record.
+ *
+ * @param {Number} id Record ID
+ * @param {Object} params Record properties
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Product.prototype.update = function(id, params) {
+  let url = this.buildUrl(id);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'PUT', this.key, params);
 };
 
 module.exports = Product;

@@ -1,7 +1,7 @@
 'use strict';
 
 const assign = require('lodash/assign');
-const omit = require('lodash/omit');
+const pick = require('lodash/pick');
 
 const baseChild = require('../mixins/base-child');
 const base = require('../mixins/base');
@@ -21,84 +21,81 @@ function ProductVariant(shopify) {
   this.key = 'variant';
 }
 
-assign(ProductVariant.prototype, omit(baseChild, ['get', 'update', 'buildUrl', 'count', 'delete']));
-
-/**
- * Builds the request URL.
- *
- * @param {Number} parentId Parent record ID
- * @param {Number|String} [id] Record ID
- * @param {Object} [query] Query parameters
- * @return {Object} URL object
- * @private
- */
-ProductVariant.prototype.buildUrl = function(parentId, id, query) {
-  const baseUrl = baseChild.buildUrl.call(this, parentId, id, query);
-
-  if (this.shopify.options.presentmentPrices) {
-    baseUrl.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
-  }
-
-  return baseUrl;
-};
-
-/**
- * Counts the number of records.
- *
- * @param {Number} parentId Parent record ID
- * @param {Object} [params] Query parameters
- * @return {Promise} Promise that resolves with the result
- * @public
- */
-ProductVariant.prototype.count = function(parentId, params) {
-  const key = 'count';
-  const url = baseChild.buildUrl.call(this, parentId, key, params);
-  return this.shopify.request(url, 'GET', key);
-};
+assign(
+  ProductVariant.prototype, pick(baseChild,
+    ['buildUrl', 'count', 'delete'])
+);
 
 /**
  * Gets a single product variant by its ID.
  *
  * @param {Number} id Product variant ID
- * @params {Object} [params] Query parameters
+ * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
 ProductVariant.prototype.get = function get(id, params) {
-  const url = base.buildUrl.call(this, id, params);
+  let url = base.buildUrl.call(this, id, params);
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers = { ['X-Shopify-Api-Features']: 'include-presentment-prices' };
+    url = assign(url, this.shopify.presentmentHeader);
   }
 
   return this.shopify.request(url, 'GET', this.key);
 };
 
 /**
- * Updates an existing product variant.
+ * Creates a new record.
  *
- * @param {Number} id Product variant ID
- * @params {Object} params Product variant properties
+ * @param {Number} parentId Parent record ID
+ * @param {Object} params Record properties
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductVariant.prototype.update = function update(id, params) {
-  const url = base.buildUrl.call(this, id);
-  return this.shopify.request(url, 'PUT', this.key, params);
+ProductVariant.prototype.create = function(parentId, params) {
+  let url = this.buildUrl(parentId);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'POST', this.key, params);
 };
 
 /**
- * Deletes a record.
+ * Get a list of records.
  *
  * @param {Number} parentId Parent record ID
- * @param {Number} id Record ID
  * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductVariant.prototype.delete = function(parentId, id, params) {
-  const url = baseChild.buildUrl.call(this, parentId, id, params);
-  return this.shopify.request(url, 'DELETE');
+ProductVariant.prototype.list = function(parentId, params) {
+  let url = this.buildUrl(parentId, undefined, params);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'GET', this.name);
+};
+
+/**
+ * Updates an existing product variant.
+ *
+ * @param {Number} id Product variant ID
+ * @param {Object} params Product variant properties
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+ProductVariant.prototype.update = function update(id, params) {
+  let url = base.buildUrl.call(this, id);
+
+  if (this.shopify.options.presentmentPrices) {
+    url = assign(url, this.shopify.presentmentHeader);
+  }
+
+  return this.shopify.request(url, 'PUT', this.key, params);
 };
 
 module.exports = ProductVariant;
