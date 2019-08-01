@@ -403,6 +403,64 @@ describe('Shopify', () => {
       });
     });
 
+    it('returns an Error with GraphQL info when the request fails', () => {
+      const message = 'Something wrong happened';
+      const locations = ['location'];
+      const path = 'path';
+      const extensions = ['extensions'];
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          data: {},
+          errors: [{
+            message: message,
+            locations: locations,
+            path: path,
+            extensions: extensions
+          }]
+        });
+
+      return shopify.graphql('query').then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal(message);
+        expect(err.locations).to.deep.equal(locations);
+        expect(err.path).to.equal(path);
+        expect(err.extensions).to.deep.equal(extensions);
+      });
+    });
+
+    it('returns an Error with GraphQL info when the request fails with variables', () => {
+      const message = 'Something wrong happened';
+      const locations = ['location'];
+      const path = 'path';
+      const extensions = ['extensions'];
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          data: {},
+          errors: [{
+            message: message,
+            locations: locations,
+            path: path,
+            extensions: extensions
+          }]
+        });
+
+      return shopify.graphql('query', { variable: 'value' }).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal(message);
+        expect(err.locations).to.deep.equal(locations);
+        expect(err.path).to.equal(path);
+        expect(err.extensions).to.deep.equal(extensions);
+      });
+    });
+
     it('returns a RequestError when timeout expires (1/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
