@@ -62,6 +62,9 @@ const RESOURCES = {
   webhook: 'webhook'
 };
 
+//
+// Require and instantiate the resources lazily.
+//
 function registerAll(Shopify) {
   Object.keys(RESOURCES).forEach(prop => {
     Object.defineProperty(Shopify.prototype, prop, {
