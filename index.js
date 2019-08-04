@@ -1,17 +1,15 @@
 'use strict';
 
-const camelCase = require('lodash/camelCase');
 const transform = require('lodash/transform');
 const defaults = require('lodash/defaults');
 const assign = require('lodash/assign');
 const EventEmitter = require('events');
 const stopcock = require('stopcock');
-const path = require('path');
 const got = require('got');
 const urlLib = require('url');
-const fs = require('fs');
 
 const pkg = require('./package');
+const resources = require('./resources');
 
 /**
  * Creates a Shopify instance.
@@ -210,24 +208,6 @@ Shopify.prototype.graphql = function graphql(data) {
   });
 };
 
-//
-// Require and instantiate the resources lazily.
-//
-fs.readdirSync(path.join(__dirname, 'resources')).forEach(name => {
-  const prop = camelCase(name.slice(0, -3));
-
-  Object.defineProperty(Shopify.prototype, prop, {
-    get: function get() {
-      const resource = require(`./resources/${name}`);
-
-      return Object.defineProperty(this, prop, {
-        value: new resource(this)
-      })[prop];
-    },
-    set: function set(value) {
-      return Object.defineProperty(this, prop, { value })[prop];
-    }
-  });
-});
+resources.registerAll(Shopify);
 
 module.exports = Shopify;
