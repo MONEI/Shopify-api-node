@@ -1,4 +1,6 @@
-const RESOURCES = {
+'use strict';
+
+const map = {
   accessScope: 'access-scope',
   apiPermission: 'api-permission',
   applicationCharge: 'application-charge',
@@ -15,34 +17,34 @@ const RESOURCES = {
   country: 'country',
   currency: 'currency',
   customCollection: 'custom-collection',
+  customer: 'customer',
   customerAddress: 'customer-address',
   customerSavedSearch: 'customer-saved-search',
-  customer: 'customer',
   discountCode: 'discount-code',
   dispute: 'dispute',
   draftOrder: 'draft-order',
   event: 'event',
+  fulfillment: 'fulfillment',
   fulfillmentEvent: 'fulfillment-event',
   fulfillmentService: 'fulfillment-service',
-  fulfillment: 'fulfillment',
-  giftCardAdjustment: 'gift-card-adjustment',
   giftCard: 'gift-card',
+  giftCardAdjustment: 'gift-card-adjustment',
   inventoryItem: 'inventory-item',
   inventoryLevel: 'inventory-level',
   location: 'location',
   marketingEvent: 'marketing-event',
   metafield: 'metafield',
-  orderRisk: 'order-risk',
   order: 'order',
+  orderRisk: 'order-risk',
   page: 'page',
   payment: 'payment',
   payout: 'payout',
   policy: 'policy',
   priceRule: 'price-rule',
+  product: 'product',
   productImage: 'product-image',
   productListing: 'product-listing',
   productVariant: 'product-variant',
-  product: 'product',
   province: 'province',
   recurringApplicationCharge: 'recurring-application-charge',
   redirect: 'redirect',
@@ -62,14 +64,17 @@ const RESOURCES = {
   webhook: 'webhook'
 };
 
-//
-// Require and instantiate the resources lazily.
-//
+/**
+ * Registers resources on the `Shopify` class.
+ *
+ * @param {Shopify} Shopify The `Shopify` class
+ * @private
+ */
 function registerAll(Shopify) {
-  Object.keys(RESOURCES).forEach(prop => {
+  Object.keys(map).forEach(prop => {
     Object.defineProperty(Shopify.prototype, prop, {
       get: function get() {
-        const resource = require(`./${RESOURCES[prop]}`);
+        const resource = require(`./${map[prop]}`);
 
         return Object.defineProperty(this, prop, {
           value: new resource(this)
