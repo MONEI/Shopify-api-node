@@ -69,7 +69,7 @@ describe('Shopify#checkout', () => {
 
     scope
       .post(`/admin/checkouts/${token}/complete.json`, {})
-      .reply(202, output);
+      .reply(200, output);
 
     return shopify.checkout.complete(token)
       .then(data => expect(data).to.deep.equal(output.checkout));
@@ -93,7 +93,7 @@ describe('Shopify#checkout', () => {
 
     scope
       .put(`/admin/checkouts/${token}.json`, input)
-      .reply(202, output);
+      .reply(200, output);
 
     return shopify.checkout.update(token, input.checkout)
       .then(data => expect(data).to.deep.equal(output.checkout));
