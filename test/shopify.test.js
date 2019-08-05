@@ -403,6 +403,64 @@ describe('Shopify', () => {
       });
     });
 
+    it('returns an Error with GraphQL info if the request fails (1/2)', () => {
+      const message = 'Something wrong happened';
+      const locations = ['location'];
+      const path = 'path';
+      const extensions = ['extensions'];
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          data: {},
+          errors: [{
+            message: message,
+            locations: locations,
+            path: path,
+            extensions: extensions
+          }]
+        });
+
+      return shopify.graphql('query').then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal(message);
+        expect(err.locations).to.deep.equal(locations);
+        expect(err.path).to.equal(path);
+        expect(err.extensions).to.deep.equal(extensions);
+      });
+    });
+
+    it('returns an Error with GraphQL info if the request fails (2/2)', () => {
+      const message = 'Something wrong happened';
+      const locations = ['location'];
+      const path = 'path';
+      const extensions = ['extensions'];
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          data: {},
+          errors: [{
+            message: message,
+            locations: locations,
+            path: path,
+            extensions: extensions
+          }]
+        });
+
+      return shopify.graphql('query', { variable: 'value' }).then(() => {
+        throw new Error('Test invalidation');
+      }, err => {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal(message);
+        expect(err.locations).to.deep.equal(locations);
+        expect(err.path).to.equal(path);
+        expect(err.extensions).to.deep.equal(extensions);
+      });
+    });
+
     it('returns a RequestError when timeout expires (1/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
@@ -540,7 +598,7 @@ describe('Shopify', () => {
         });
     });
 
-    it('returns a valid response when using graphql endpoint', () => {
+    it('returns a valid response when using graphql endpoint (1/2)', () => {
       const response = {
         data: { foo: 'bar' }
       };
@@ -550,6 +608,19 @@ describe('Shopify', () => {
         .reply(200, response);
 
       return shopify.graphql('query')
+        .then(res => expect(res).to.deep.equal(response.data));
+    });
+
+    it('returns a valid response when using graphql endpoint (2/2)', () => {
+      const response = {
+        data: { foo: 'bar' }
+      };
+
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, response);
+
+      return shopify.graphql('query', { name: 'value' })
         .then(res => expect(res).to.deep.equal(response.data));
     });
 

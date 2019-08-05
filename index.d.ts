@@ -316,7 +316,7 @@ declare class Shopify {
     ) => Promise<Shopify.IGiftCardAdjustment>;
     list: (giftCardId: number) => Promise<Shopify.IGiftCardAdjustment[]>;
   };
-  graphql: (data: string) => Promise<any>;
+  graphql: (data: string, variables?: any) => Promise<any>;
   inventoryItem: {
     get: (id: number) => Promise<Shopify.IInventoryItem>;
     list: (params?: any) => Promise<Shopify.IInventoryItem[]>;
