@@ -174,7 +174,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
   path += '/graphql.json';
 
-  const json = variables != null;
+  const json = variables !== undefined && variables !== null;
   const body = json ? JSON.stringify({
     query: data,
     variables
