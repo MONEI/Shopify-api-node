@@ -216,7 +216,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
       err.locations = first.locations;
       err.path = first.path;
       err.extensions = first.extensions;
-      err.errors = res.body.errors;
+      err.response = res;
 
       throw err;
     }
