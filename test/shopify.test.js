@@ -403,7 +403,7 @@ describe('Shopify', () => {
       });
     });
 
-    it('returns an Error with GraphQL info when the request fails', () => {
+    it('returns an Error with GraphQL info if the request fails (1/2)', () => {
       const message = 'Something wrong happened';
       const locations = ['location'];
       const path = 'path';
@@ -432,7 +432,7 @@ describe('Shopify', () => {
       });
     });
 
-    it('returns an Error with GraphQL info when the request fails with variables', () => {
+    it('returns an Error with GraphQL info if the request fails (2/2)', () => {
       const message = 'Something wrong happened';
       const locations = ['location'];
       const path = 'path';
@@ -598,7 +598,7 @@ describe('Shopify', () => {
         });
     });
 
-    it('returns a valid response when using graphql endpoint without variables', () => {
+    it('returns a valid response when using graphql endpoint (1/2)', () => {
       const response = {
         data: { foo: 'bar' }
       };
@@ -611,7 +611,7 @@ describe('Shopify', () => {
         .then(res => expect(res).to.deep.equal(response.data));
     });
 
-    it('returns a valid response when using graphql endpoint with variables', () => {
+    it('returns a valid response when using graphql endpoint (2/2)', () => {
       const response = {
         data: { foo: 'bar' }
       };
