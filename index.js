@@ -218,6 +218,14 @@ Shopify.prototype.graphql = function graphql(data) {
 
 resources.registerAll(Shopify);
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+/**
+ * Waits before resolving
+ *
+ * @param {Number} ms Amount of milliseconds to wait
+ * @private
+ */
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports = Shopify;
