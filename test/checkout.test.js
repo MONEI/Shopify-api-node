@@ -84,7 +84,7 @@ describe('Shopify#checkout', () => {
 
     scope
       .post(pathname, {})
-      .reply(202, output, { Location: href, 'Retry-After': 0 })
+      .reply(202, '', { Location: href, 'Retry-After': 0 })
       .get(pathname)
       .reply(200, output);
 
@@ -137,7 +137,7 @@ describe('Shopify#checkout', () => {
 
     scope
       .get(pathname)
-      .reply(202, [], { Location: href, 'Retry-After': 0 })
+      .reply(202, '', { Location: href, 'Retry-After': 0 })
       .get(pathname)
       .reply(200, output);
 
