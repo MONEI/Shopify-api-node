@@ -131,6 +131,14 @@ Shopify.prototype.request = function request(url, method, key, params) {
 
     this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
+    if (res.statusCode === 202) {
+      const retryAfter = res.headers['retry-after'] * 1000 || 0;
+      const path = urlLib.parse(res.headers['location']).path;
+      const newUrl = assign({ path }, this.baseUrl);
+      return delay(retryAfter)
+        .then(() => this.request(newUrl, 'GET', key));
+    }
+
     if (key) return body[key];
     return body || {};
   }, err => {
@@ -226,5 +234,15 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 };
 
 resources.registerAll(Shopify);
+
+/**
+ * Waits before resolving
+ *
+ * @param {Number} ms Amount of milliseconds to wait
+ * @private
+ */
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports = Shopify;

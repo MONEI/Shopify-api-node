@@ -69,7 +69,24 @@ describe('Shopify#checkout', () => {
 
     scope
       .post(`/admin/checkouts/${token}/complete.json`, {})
-      .reply(202, output);
+      .reply(200, output);
+
+    return shopify.checkout.complete(token)
+      .then(data => expect(data).to.deep.equal(output.checkout));
+  });
+
+  it('completes a free checkout and retries 202 response', () => {
+    const token = 'b490a9220cd14d7344024f4874f640a6';
+    const baseUrl = shopify.baseUrl;
+    const pathname = `/admin/checkouts/${token}/complete.json`;
+    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}`;
+    const output = fixtures.res.complete;
+
+    scope
+      .post(pathname, {})
+      .reply(202, '', { Location: href, 'Retry-After': 0 })
+      .get(pathname)
+      .reply(200, output);
 
     return shopify.checkout.complete(token)
       .then(data => expect(data).to.deep.equal(output.checkout));
@@ -93,7 +110,7 @@ describe('Shopify#checkout', () => {
 
     scope
       .put(`/admin/checkouts/${token}.json`, input)
-      .reply(202, output);
+      .reply(200, output);
 
     return shopify.checkout.update(token, input.checkout)
       .then(data => expect(data).to.deep.equal(output.checkout));
@@ -105,6 +122,23 @@ describe('Shopify#checkout', () => {
 
     scope
       .get(`/admin/checkouts/${token}/shipping_rates.json`)
+      .reply(200, output);
+
+    return shopify.checkout.shippingRates(token)
+      .then(data => expect(data).to.deep.equal(output.shipping_rates));
+  });
+
+  it('gets a list of shipping rates and retries 202 response', () => {
+    const token = 'exuw7apwoycchjuwtiqg8nytfhphr62a';
+    const baseUrl = shopify.baseUrl;
+    const pathname = `/admin/checkouts/${token}/shipping_rates.json`;
+    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}`;
+    const output = fixtures.res.shippingRates;
+
+    scope
+      .get(pathname)
+      .reply(202, '', { Location: href, 'Retry-After': 0 })
+      .get(pathname)
       .reply(200, output);
 
     return shopify.checkout.shippingRates(token)
