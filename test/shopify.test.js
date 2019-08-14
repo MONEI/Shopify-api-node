@@ -413,12 +413,7 @@ describe('Shopify', () => {
         .post('/admin/api/graphql.json')
         .reply(200, {
           data: {},
-          errors: [{
-            message: message,
-            locations: locations,
-            path: path,
-            extensions: extensions
-          }]
+          errors: [{ message, locations, path, extensions }]
         });
 
       return shopify.graphql('query').then(() => {
@@ -442,12 +437,7 @@ describe('Shopify', () => {
         .post('/admin/api/graphql.json')
         .reply(200, {
           data: {},
-          errors: [{
-            message: message,
-            locations: locations,
-            path: path,
-            extensions: extensions
-          }]
+          errors: [{ message, locations, path, extensions }]
         });
 
       return shopify.graphql('query', { variable: 'value' }).then(() => {

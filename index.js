@@ -236,9 +236,10 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 resources.registerAll(Shopify);
 
 /**
- * Waits before resolving
+ * Returns a promise that resolves after a given amount of time.
  *
  * @param {Number} ms Amount of milliseconds to wait
+ * @return {Promise} Promise that resolves after `ms` milliseconds
  * @private
  */
 function delay(ms) {
