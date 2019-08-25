@@ -627,6 +627,7 @@ shopify
 - [Wholesaler PRO][wholesaler-pro]
 - [Youtube Traffic][youtube-traffic]
 - [Shipatron][shipatron]
+- [UPC Code Manager](https://apps.shopify.com/upc-code-manager-1)
 
 ## Supported by:
 
