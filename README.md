@@ -627,6 +627,7 @@ shopify
 - [Wholesaler PRO][wholesaler-pro]
 - [Youtube Traffic][youtube-traffic]
 - [Shipatron][shipatron]
+- [UPC Code Manager][upc-code-manager]
 
 ## Supported by:
 
@@ -678,3 +679,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
 [shipatron]: https://shipatron.io
+[upc-code-manager]: https://apps.shopify.com/upc-code-manager-1
