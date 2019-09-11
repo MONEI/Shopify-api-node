@@ -73,6 +73,7 @@ const map = {
 function registerAll(Shopify) {
   Object.keys(map).forEach(prop => {
     Object.defineProperty(Shopify.prototype, prop, {
+      configurable: true,
       get: function get() {
         const resource = require(`./${map[prop]}`);
 
