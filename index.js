@@ -139,8 +139,16 @@ Shopify.prototype.request = function request(url, method, key, params) {
         .then(() => this.request(newUrl, 'GET', key));
     }
 
-    if (key) return body[key];
-    return body || {};
+    if (key) {
+      return {
+        body: body[key],
+        headers: res.headers
+      };
+    }
+    return {
+      body: body || {},
+      headers: res.headers
+    };
   }, err => {
     this.updateLimits(
       err.response && err.response.headers['x-shopify-shop-api-call-limit']
