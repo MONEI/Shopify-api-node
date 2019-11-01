@@ -43,7 +43,8 @@ Creates a new `Shopify` instance.
   `apiKey` and `password` options. If you are looking for a premade solution to
   obtain an access token, take a look at the [shopify-token][] module.
 - `apiVersion` - Optional - A string to specify the [Shopify API
-  version][api-versioning] to use for requests
+  version][api-versioning] to use for requests. Defaults to the oldest supported
+  stable version.
 - `autoLimit` - Optional - This option allows you to regulate the request rate
   in order to avoid hitting the [rate limit][api-call-limit]. Requests are
   limited using the token bucket algorithm. Accepted values are a boolean or a
