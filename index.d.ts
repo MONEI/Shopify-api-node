@@ -1551,6 +1551,9 @@ declare namespace Shopify {
     tracked: boolean;
     created_at: string;
     updated_at: string;
+    requires_shipping: boolean;
+    country_code_of_origin: string;
+    harmonized_system_code: string;
   }
 
   interface IInventoryLevel {
