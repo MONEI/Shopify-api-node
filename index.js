@@ -6,7 +6,7 @@ const assign = require('lodash/assign');
 const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const got = require('got');
-const urlLib = require('url');
+const url = require('url');
 
 const pkg = require('./package');
 const resources = require('./resources');
@@ -98,20 +98,20 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
 /**
  * Sends a request to a Shopify API endpoint.
  *
- * @param {Object} url URL object
+ * @param {Object} uri URL object
  * @param {String} method HTTP method
  * @param {String} [key] Key name to use for req/res body
  * @param {Object} [params] Request body
  * @return {Promise}
  * @private
  */
-Shopify.prototype.request = function request(url, method, key, params) {
+Shopify.prototype.request = function request(uri, method, key, params) {
   const options = assign({
     timeout: this.options.timeout,
     json: true,
     retries: 0,
     method
-  }, url);
+  }, uri);
 
   options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
 
@@ -133,10 +133,11 @@ Shopify.prototype.request = function request(url, method, key, params) {
 
     if (res.statusCode === 202) {
       const retryAfter = res.headers['retry-after'] * 1000 || 0;
-      const path = urlLib.parse(res.headers['location']).path;
-      const newUrl = assign({ path }, this.baseUrl);
-      return delay(retryAfter)
-        .then(() => this.request(newUrl, 'GET', key));
+      const path = url.parse(res.headers['location']).path;
+
+      return delay(retryAfter).then(() => {
+        return this.request(assign({ path }, this.baseUrl), 'GET', key);
+      });
     }
 
     if (key) return body[key];
@@ -156,7 +157,7 @@ Shopify.prototype.request = function request(url, method, key, params) {
  * @param {String} throttle The status returned in the GraphQL response
  * @private
  */
-Shopify.prototype.updateGqlLimits = function updateGqlLimits(throttle) {
+Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttle) {
   const limits = this.callGraphqlLimits;
 
   limits.remaining = throttle.currentlyAvailable;
@@ -183,21 +184,18 @@ Shopify.prototype.graphql = function graphql(data, variables) {
   path += '/graphql.json';
 
   const json = variables !== undefined && variables !== null;
-  const body = json ? JSON.stringify({
-    query: data,
-    variables
-  }) : data;
-
-  const url = assign({ path }, this.baseUrl);
   const options = assign({
     timeout: this.options.timeout,
     retries: 0,
     method: 'POST',
-    body
-  }, url);
+    body: json ? JSON.stringify({ query: data, variables }) : data,
+    path
+  }, this.baseUrl);
 
   options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
-  options.headers['Content-Type'] = json ? 'application/json' : 'application/graphql';
+  options.headers['Content-Type'] = json
+    ? 'application/json'
+    : 'application/graphql';
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
@@ -209,18 +207,19 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     } catch (err) {
       const opts = assign({
         host: options.hostname,
-        url: urlLib.resolve(urlLib.format(options), options.path)
+        url: url.resolve(url.format(options), options.path)
       }, options);
       throw new got.ParseError(err, res.statusCode, opts, res.body);
     }
 
     if (res.body.extensions && res.body.extensions.cost) {
-      this.updateGqlLimits(res.body.extensions.cost.throttleStatus);
+      this.updateGraphqlLimits(res.body.extensions.cost.throttleStatus);
     }
 
     if (res.body.errors) {
       const first = res.body.errors[0];
       const err = new Error(first.message);
+
       err.locations = first.locations;
       err.path = first.path;
       err.extensions = first.extensions;
