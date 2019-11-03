@@ -140,8 +140,25 @@ Shopify.prototype.request = function request(uri, method, key, params) {
       });
     }
 
-    if (key) return body[key];
-    return body || {};
+    const data = key ? body[key] : body || {};
+
+    if (res.headers.link) {
+      const link = parseLinkHeader(res.headers.link);
+
+      if (link.next) {
+        Object.defineProperties(data, {
+          nextPageParameters: { value: link.next.query }
+        });
+      }
+
+      if (link.previous) {
+        Object.defineProperties(data, {
+          previousPageParameters: { value: link.previous.query }
+        });
+      }
+    }
+
+    return data;
   }, err => {
     this.updateLimits(
       err.response && err.response.headers['x-shopify-shop-api-call-limit']
@@ -243,6 +260,37 @@ resources.registerAll(Shopify);
  */
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Parses the `Link` header into an object.
+ *
+ * @param {String} header The field value of the header
+ * @return {Object} The parsed header
+ * @private
+ */
+function parseLinkHeader(header) {
+  return header.split(',').reduce(reducer, {});
+}
+
+/**
+ * The callback function for `Array.prototype.reduce()` used by
+ * `parseLinkHeader()`.
+ *
+ * @param {Array} acc The accumulator
+ * @param {Object} cur The current element being processed in the array
+ * @return {Object} The accumulator
+ * @private
+ */
+function reducer(acc, cur) {
+  const pieces = cur.trim().split(';');
+  const link = url.parse(pieces[0].trim().slice(1, -1), true);
+  const rel = pieces[1].trim().slice(4);
+
+  if (rel === '"next"') acc.next = link;
+  else acc.previous = link;
+
+  return acc;
 }
 
 module.exports = Shopify;
