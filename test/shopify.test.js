@@ -3,8 +3,10 @@ describe('Shopify', () => {
 
   const expect = require('chai').expect;
   const assign = require('lodash/assign');
+  const format = require('url').format;
   const nock = require('nock');
   const got = require('got');
+  const qs = require('qs');
 
   const Blog = require('../resources/blog');
   const common = require('./common');
@@ -342,6 +344,117 @@ describe('Shopify', () => {
 
       return shopify.request(url, 'GET')
         .then(res => expect(res).to.deep.equal({}));
+    });
+
+    it('returns pagination parameters when available (1/3)', () => {
+      const data = { foo: [{ id: 4326561120291 }] };
+
+      const nextPageParams = {
+        limit: '1',
+        page_info:
+          'eyJsYXN0X2lkIjo0MzI2NTYxMTIwMjkxLCJsYXN0X3ZhbHVlIjoiMSIsImRpcmVjdG' +
+          'lvbiI6Im5leHQifQ'
+      };
+      const nextLink = format(
+        assign({ pathname: '/test', query: nextPageParams }, shopify.baseUrl)
+      );
+
+      scope
+        .get('/test')
+        .query({ limit: 1 })
+        .reply(200, data, { Link: `<${nextLink}>; rel="next"` });
+
+      const url = assign({ path: '/test?limit=1' }, shopify.baseUrl);
+
+      return shopify.request(url, 'GET', 'foo')
+        .then(res => {
+          expect(res).to.deep.equal(data.foo);
+          expect(res.nextPageParameters).to.deep.equal(nextPageParams);
+          expect(res.previousPageParameters).to.be.undefined;
+        });
+    });
+
+    it('returns pagination parameters when available (2/3)', () => {
+      const data = { foo: [{ id: 4326561218595 }] };
+      const query = {
+        limit: 1,
+        page_info:
+          'eyJsYXN0X2lkIjo0MzI2NTYxMTIwMjkxLCJsYXN0X3ZhbHVlIjoiMSIsImRpcmVjdG' +
+          'lvbiI6Im5leHQifQ'
+      };
+
+      const prevPageParams = {
+        limit: '1',
+        page_info:
+          'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDMyNjU2MTIxODU5NSwibGFzdF' +
+          '92YWx1ZSI6IjIifQ'
+      };
+      const prevLink = format(
+        assign({ pathname: '/test', query: prevPageParams }, shopify.baseUrl)
+      );
+      const nextPageParams = {
+        limit: '1',
+        page_info:
+          'eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDMyNjU2MTIxODU5NSwibGFzdF' +
+          '92YWx1ZSI6IjIifQ'
+      };
+      const nextLink = format(
+        assign({ pathname: '/test', query: nextPageParams }, shopify.baseUrl)
+      );
+
+      scope
+        .get('/test')
+        .query(query)
+        .reply(200, data, {
+          Link: `<${prevLink}>; rel="previous", <${nextLink}>; rel="next"`
+        });
+
+      const url = assign({
+        path: `/test?${qs.stringify(query)}`
+      }, shopify.baseUrl);
+
+      return shopify.request(url, 'GET', 'foo')
+        .then(res => {
+          expect(res).to.deep.equal(data.foo);
+          expect(res.nextPageParameters).to.deep.equal(nextPageParams);
+          expect(res.previousPageParameters).to.deep.equal(prevPageParams);
+        });
+    });
+
+    it('returns pagination parameters when available (3/3)', () => {
+      const data = { foo: [{ id: 4326561415203 }] };
+      const query = {
+        limit: 1,
+        page_info:
+          'eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDMyNjU2MTIxODU5NSwibGFzdF' +
+          '92YWx1ZSI6IjIifQ'
+      };
+
+      const prevPageParams = {
+        limit: '1',
+        page_info:
+          'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDMyNjU2MTQxNTIwMywibGFzdF' +
+          '92YWx1ZSI6IjMifQ'
+      };
+      const prevLink = format(
+        assign({ pathname: '/test', query: prevPageParams }, shopify.baseUrl)
+      );
+
+      scope
+        .get('/test')
+        .query(query)
+        .reply(200, data, { Link: `<${prevLink}>; rel="previous"` });
+
+      const url = assign({
+        path: `/test?${qs.stringify(query)}`
+      }, shopify.baseUrl);
+
+      return shopify.request(url, 'GET', 'foo')
+        .then(res => {
+          expect(res).to.deep.equal(data.foo);
+          expect(res.nextPageParameters).to.be.undefined;
+          expect(res.previousPageParameters).to.deep.equal(prevPageParams);
+        });
     });
 
     it('is throttled when the autoLimit option is set', () => {

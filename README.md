@@ -110,7 +110,7 @@ Keep in mind that the `autoLimit` option is ignored while using GraphQL API.
 shopify.on('callGraphqlLimits', (limits) => console.log(limits));
 ```
 
-### Resources
+## Resources
 
 Every resource is accessed via your `shopify` instance:
 
@@ -187,7 +187,7 @@ returned in the response body:
 
 This behavior is valid for all resources.
 
-#### Metafields
+## Metafields
 
 Shopify allows for adding metafields to various resources. You can use the
 `owner_resource` and `owner_id` properties to work with metafields that belong
@@ -218,7 +218,30 @@ shopify.metafield
   .then((metafield) => console.log(metafield), (err) => console.error(err));
 ```
 
-### Available resources and methods
+## Pagination
+
+[Pagination][paginated-rest-results] in API version 2019-07 and above can be
+done as shown in the following example:
+
+```js
+(async () => {
+  let params = { limit: 10 };
+
+  do {
+    const products = await shopify.product.list(params);
+
+    console.log(products);
+
+    params = products.nextPageParameters;
+  } while (params !== undefined);
+})().catch(console.error);
+```
+
+Each set of results may have the `nextPageParameters` and
+`previousPageParameters` properties. These properties specify respectively the
+parameters needed to fetch the next and previous page of results.
+
+## Available resources and methods
 
 - accessScope
   - `list()`
@@ -578,7 +601,7 @@ shopify.metafield
 where `params` is a plain JavaScript object. See
 https://help.shopify.com/api/reference?ref=microapps for parameters details.
 
-### GraphQL
+## GraphQL
 
 The `shopify` instance also allows to use the GraphQL API through the `graphql`
 method, which returns a promise that resolves with the result data:
@@ -667,6 +690,7 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
 [reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
+[paginated-rest-results]: https://help.shopify.com/en/api/guides/paginated-rest-results
 [polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]:
   http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
