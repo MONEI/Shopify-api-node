@@ -441,6 +441,16 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.IProductListing[]>;
     productIds: (params?: any) => Promise<any>;
   };
+  productResourceFeedback: {
+    create: (
+      productId: number,
+      params: any
+    ) => Promise<Shopify.IResourceFeedback>;
+    list: (
+      productId: number,
+      params?: any
+    ) => Promise<Shopify.IResourceFeedback[]>;
+  };
   productVariant: {
     count: (productId: number) => Promise<number>;
     create: (
