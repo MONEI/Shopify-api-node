@@ -29,7 +29,7 @@ function PriceRule(shopify) {
  */
 PriceRule.prototype.batch = function lookup(priceRuleId, params) {
   const url = this.buildUrl(`${priceRuleId}/batch`);
-  return this.shopify.request(url, "POST", "discount_codes", params);
+  return this.shopify.request(url, 'POST', 'discount_codes', params);
 };
 
 assign(PriceRule.prototype, omit(base, 'count'));
