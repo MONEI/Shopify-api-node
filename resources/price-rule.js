@@ -19,6 +19,19 @@ function PriceRule(shopify) {
   this.key = 'price_rule';
 }
 
+/**
+ * Creates a discount code creation job.
+ *
+ * @param {String} priceRuleId price rule id to create
+ * @param {Object} params Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+PriceRule.prototype.batch = function lookup(priceRuleId, params) {
+  const url = this.buildUrl(`${priceRuleId}/batch`);
+  return this.shopify.request(url, "POST", "discount_codes", params);
+};
+
 assign(PriceRule.prototype, omit(base, 'count'));
 
 module.exports = PriceRule;
