@@ -6,7 +6,7 @@ const pick = require('lodash/pick');
 const baseChild = require('../mixins/base-child');
 
 /**
- * Creates a ProductVariant instance.
+ * Creates a ProductResourceFeedback instance.
  *
  * @param {Shopify} shopify Reference to the Shopify instance
  * @constructor
