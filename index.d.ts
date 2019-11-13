@@ -2748,9 +2748,9 @@ declare namespace Shopify {
     : T extends 'checkouts/delete'
     ? IDeletedItem
     : T extends 'collections/create'
-    ? (ISmartCollection | ICustomCollection)
+    ? ISmartCollection | ICustomCollection
     : T extends 'collections/update'
-    ? (ISmartCollection | ICustomCollection)
+    ? ISmartCollection | ICustomCollection
     : T extends 'collections/delete'
     ? IDeletedItem
     : T extends 'collection_listings/add'

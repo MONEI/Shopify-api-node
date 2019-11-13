@@ -200,7 +200,10 @@ shopify.metafield
   .list({
     metafield: { owner_resource: 'product', owner_id: 632910392 }
   })
-  .then((metafields) => console.log(metafields), (err) => console.error(err));
+  .then(
+    (metafields) => console.log(metafields),
+    (err) => console.error(err)
+  );
 ```
 
 Create a new metafield for a product:
@@ -215,7 +218,10 @@ shopify.metafield
     owner_resource: 'product',
     owner_id: 632910392
   })
-  .then((metafield) => console.log(metafield), (err) => console.error(err));
+  .then(
+    (metafield) => console.log(metafield),
+    (err) => console.error(err)
+  );
 ```
 
 ## Pagination
@@ -505,6 +511,9 @@ parameters needed to fetch the next and previous page of results.
   - `get(productId)`
   - `list([params])`
   - `productIds([params])`
+- [productResourceFeedback](https://help.shopify.com/en/api/reference/sales-channels/productresourcefeedback)
+  - `create(productId[, params])`
+  - `list(productId)`
 - productVariant
   - `count(productId)`
   - `create(productId, params)`
@@ -690,7 +699,8 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
 [reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
-[paginated-rest-results]: https://help.shopify.com/en/api/guides/paginated-rest-results
+[paginated-rest-results]:
+  https://help.shopify.com/en/api/guides/paginated-rest-results
 [polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]:
   http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
