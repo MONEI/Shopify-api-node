@@ -21,6 +21,7 @@ const map = {
   customerAddress: 'customer-address',
   customerSavedSearch: 'customer-saved-search',
   discountCode: 'discount-code',
+  discountCodeCreationJob: 'discount-code-creation-job',
   dispute: 'dispute',
   draftOrder: 'draft-order',
   event: 'event',

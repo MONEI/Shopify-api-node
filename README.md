@@ -372,6 +372,10 @@ parameters needed to fetch the next and previous page of results.
   - `list(priceRuleId)`
   - `lookup(params)`
   - `update(priceRuleId, id, params)`
+- discountCodeCreationJob
+  - `create(priceRuleId, params)`
+  - `discountCodes(priceRuleId, id)`
+  - `get(priceRuleId, id)`
 - dispute
   - `get(id)`
   - `list([params])`
