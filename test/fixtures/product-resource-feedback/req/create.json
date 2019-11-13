@@ -1,0 +1,10 @@
+{
+  "resource_feedback": {
+    "state": "requires_action",
+    "messages": [
+      "Needs at least one image."
+    ],
+    "resource_updated_at": "2019-10-16T16:01:19-04:00",
+    "feedback_generated_at": "2019-10-16T20:03:08.376603Z"
+  }
+}

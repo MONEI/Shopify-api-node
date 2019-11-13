@@ -44,6 +44,7 @@ const map = {
   product: 'product',
   productImage: 'product-image',
   productListing: 'product-listing',
+  productResourceFeedback: 'product-resource-feedback',
   productVariant: 'product-variant',
   province: 'province',
   recurringApplicationCharge: 'recurring-application-charge',
