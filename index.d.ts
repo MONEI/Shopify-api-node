@@ -224,6 +224,17 @@ declare class Shopify {
       params?: any
     ) => Promise<Shopify.IDiscountCode>;
   };
+  discountCodeCreationJob: {
+    create: (
+      priceRuleId: number,
+      params: any[]
+    ) => Promise<Shopify.IDiscountCodeCreation>;
+    discountCodes: (priceRuleId: number, id: number) => Promise<any[]>;
+    get: (
+      priceRuleId: number,
+      id: number
+    ) => Promise<Shopify.IDiscountCodeCreation>;
+  };
   dispute: {
     get: (id: number) => Promise<Shopify.IDispute>;
     list: (params?: any) => Promise<Shopify.IDispute[]>;
@@ -1273,6 +1284,19 @@ declare namespace Shopify {
     price_rule_id: number;
     updated_at: string;
     usage_count: number;
+  }
+
+  interface IDiscountCodeCreation {
+    codes_count: number;
+    completed_at: string;
+    created_at: string;
+    failed_count: number;
+    id: number;
+    imported_count: number;
+    price_rule_id: number;
+    started_at: string;
+    status: string;
+    updated_at: string;
   }
 
   type DisputeReason =
