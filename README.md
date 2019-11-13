@@ -366,6 +366,7 @@ parameters needed to fetch the next and previous page of results.
   - `list(priceRuleId)`
   - `lookup(params)`
   - `update(priceRuleId, id, params)`
+  - `batch(priceRuleId, params)`
 - dispute
   - `get(id)`
   - `list([params])`

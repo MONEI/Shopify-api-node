@@ -223,6 +223,10 @@ declare class Shopify {
       id: number,
       params?: any
     ) => Promise<Shopify.IDiscountCode>;
+    batch: (
+      priceRuleId: number,
+      params: any
+    ) => Promise<Shopify.IDiscountCodeCreation>;
   };
   dispute: {
     get: (id: number) => Promise<Shopify.IDispute>;
@@ -1263,6 +1267,19 @@ declare namespace Shopify {
     price_rule_id: number;
     updated_at: string;
     usage_count: number;
+  }
+
+  interface IDiscountCodeCreation {
+    started_at: string;
+    completed_at: string;
+    status: string;
+    codes_count: number;
+    imported_count: number;
+    failed_count: number;
+    created_at: string;
+    id: number;
+    price_rule_id: number;
+    updated_at: string;
   }
 
   type DisputeReason =

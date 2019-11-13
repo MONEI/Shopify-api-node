@@ -24,6 +24,20 @@ function DiscountCode(shopify) {
 assign(DiscountCode.prototype, omit(baseChild, 'count'));
 
 /**
+ * Creates a discount code creation job.
+ *
+ * @param {String} priceRuleId price rule id to create
+ * @param {Object} params Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+DiscountCode.prototype.batch = function batch(priceRuleId, params) {
+  this.name = 'price_rules';
+  const url = base.buildUrl.call(this, `${priceRuleId}/batch`);
+  return this.shopify.request(url, 'POST', undefined, params);
+};
+
+/**
  * Searches by discount code.
  *
  * @param {Object} params Query parameters

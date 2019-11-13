@@ -84,4 +84,17 @@ describe('Shopify#discountCode', () => {
     return shopify.discountCode.delete(2772974277, 2769077509)
       .then(data => expect(data).to.deep.equal({}));
   });
+
+  it('Creates a discount code creation job', () => {
+    const input = fixtures.req.batch;
+    const output = fixtures.res.batch;
+
+    scope
+      .post('/admin/price_rules/2772974277/batch.json', input)
+      .reply(201, output);
+
+    return shopify.discountCode
+      .batch(2772974277, input)
+      .then(data => expect(data).to.deep.equal(output));
+  });
 });
