@@ -2142,6 +2142,7 @@ declare namespace Shopify {
     requires_shipping: boolean;
     sku: string;
     taxable: boolean;
+    tax_code: string;
     title: string;
     updated_at: string;
     weight: number;
