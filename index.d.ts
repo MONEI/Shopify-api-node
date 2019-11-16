@@ -1384,6 +1384,26 @@ declare namespace Shopify {
     variant_title: string;
     vendor: string;
   }
+  
+  interface IDraftOrderCustomer {
+    accepts_marketing: boolean;
+    created_at: string;
+    default_address: ICustomerAddress;
+    email: string;
+    first_name: string;
+    id: number;
+    last_name: string;
+    phone: string;
+    multipass_identifier: null;
+    last_order_id: number | null;
+    last_order_name: string | null;
+    note: string | null;
+    orders_count: number;
+    state: CustomerState;
+    tags: string;
+    total_spent: string;
+    updated_at: string;
+  }
 
   interface IDraftOrder {
     applied_discount: IDraftOrderDiscount[];
@@ -1391,7 +1411,7 @@ declare namespace Shopify {
     completed_at: string | null;
     created_at: string;
     currency: string;
-    customer: string;
+    customer: IDraftOrderCustomer;
     email: string;
     id: number;
     invoice_sent_at: string | null;
