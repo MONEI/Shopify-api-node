@@ -1391,7 +1391,7 @@ declare namespace Shopify {
     completed_at: string | null;
     created_at: string;
     currency: string;
-    customer: string;
+    customer: ICustomer | null;
     email: string;
     id: number;
     invoice_sent_at: string | null;
