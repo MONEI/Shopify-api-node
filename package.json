@@ -7,7 +7,7 @@
     "test": "test"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "resources",
@@ -16,7 +16,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "got": "^8.3.1",
+    "got": "^10.1.0",
     "lodash": "^4.17.10",
     "qs": "^6.5.2",
     "stopcock": "^1.0.0"

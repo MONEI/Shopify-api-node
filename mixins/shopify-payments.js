@@ -21,18 +21,22 @@ const shopifyPayments = {
   buildUrl(id, query) {
     id || id === 0 || (id = '');
 
-    let path = '/admin';
+    let pathname = '/admin';
 
     if (this.shopify.options.apiVersion) {
-      path += `/api/${this.shopify.options.apiVersion}`;
+      pathname += `/api/${this.shopify.options.apiVersion}`;
     }
 
-    path += `/shopify_payments/${this.name}/${id}`;
-    path = path.replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
+    pathname += `/shopify_payments/${this.name}/${id}`;
+    pathname = pathname.replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
 
-    if (query) path += '?' + qs.stringify(query, { arrayFormat: 'brackets' });
+    const url = { pathname };
 
-    return assign({ path }, this.shopify.baseUrl);
+    if (query) {
+      url.search = '?' + qs.stringify(query, { arrayFormat: 'brackets' });
+    }
+
+    return assign(url, this.shopify.baseUrl);
   }
 };
 

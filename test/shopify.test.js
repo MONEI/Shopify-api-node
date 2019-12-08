@@ -47,10 +47,10 @@ describe('Shopify', () => {
     const shopify = new Shopify({ shopName, apiKey, password });
 
     expect(shopify.baseUrl).to.deep.equal({
-      auth: `${apiKey}:${password}`,
-      hostname: shopName,
       protocol: 'https:',
-      headers: {}
+      hostname: shopName,
+      username: apiKey,
+      password: password
     });
   });
 
@@ -58,10 +58,10 @@ describe('Shopify', () => {
     const shopify = new Shopify({ shopName, apiKey, password });
 
     expect(shopify.baseUrl).to.deep.equal({
-      hostname: `${shopName}.myshopify.com`,
-      auth: `${apiKey}:${password}`,
       protocol: 'https:',
-      headers: {}
+      hostname: `${shopName}.myshopify.com`,
+      username: apiKey,
+      password: password
     });
   });
 
@@ -69,10 +69,8 @@ describe('Shopify', () => {
     const shopify = new Shopify({ shopName, accessToken });
 
     expect(shopify.baseUrl).to.deep.equal({
-      hostname: `${shopName}.myshopify.com`,
       protocol: 'https:',
-      auth: false,
-      headers: {}
+      hostname: `${shopName}.myshopify.com`
     });
   });
 
@@ -117,7 +115,7 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#request', () => {
-    const url = assign({ path: '/test' }, shopify.baseUrl);
+    const url = assign({ pathname: '/test' }, shopify.baseUrl);
     const scope = common.scope;
 
     afterEach(() => expect(nock.isDone()).to.be.true);
@@ -137,7 +135,7 @@ describe('Shopify', () => {
       });
     });
 
-    it('returns a RequestError when timeout expires (1/2)', () => {
+    it('returns a TimeoutError when timeout expires (1/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       //
@@ -151,12 +149,12 @@ describe('Shopify', () => {
       return shopify.request(shopify.baseUrl, 'GET').then(() => {
         throw new Error('Test invalidation');
       }, err => {
-        expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.equal('Request timed out');
+        expect(err).to.be.an.instanceof(got.TimeoutError);
+        expect(err.message).to.equal("Timeout awaiting 'request' for 100ms");
       });
     });
 
-    it('returns a RequestError when timeout expires (2/2)', () => {
+    it('returns a TimeoutError when timeout expires (2/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       scope
@@ -167,8 +165,8 @@ describe('Shopify', () => {
       return shopify.request(url, 'GET').then(() => {
         throw new Error('Test invalidation');
       }, err => {
-        expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.include('Request timed out');
+        expect(err).to.be.an.instanceof(got.TimeoutError);
+        expect(err.message).to.include("Timeout awaiting 'request' for 100ms");
       });
     });
 
@@ -200,7 +198,7 @@ describe('Shopify', () => {
 
     it('uses basic auth as intended', () => {
       const shopify = new Shopify({ shopName, apiKey, password });
-      const url = assign({ path: '/test' }, shopify.baseUrl);
+      const url = assign({ pathname: '/test' }, shopify.baseUrl);
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
@@ -364,7 +362,10 @@ describe('Shopify', () => {
         .query({ limit: 1 })
         .reply(200, data, { Link: `<${nextLink}>; rel="next"` });
 
-      const url = assign({ path: '/test?limit=1' }, shopify.baseUrl);
+      const url = assign(
+        { pathname: '/test', search: '?limit=1' },
+        shopify.baseUrl
+      );
 
       return shopify.request(url, 'GET', 'foo')
         .then(res => {
@@ -409,9 +410,10 @@ describe('Shopify', () => {
           Link: `<${prevLink}>; rel="previous", <${nextLink}>; rel="next"`
         });
 
-      const url = assign({
-        path: `/test?${qs.stringify(query)}`
-      }, shopify.baseUrl);
+      const url = assign(
+        { pathname: '/test', search: `?${qs.stringify(query)}` },
+        shopify.baseUrl
+      );
 
       return shopify.request(url, 'GET', 'foo')
         .then(res => {
@@ -445,9 +447,10 @@ describe('Shopify', () => {
         .query(query)
         .reply(200, data, { Link: `<${prevLink}>; rel="previous"` });
 
-      const url = assign({
-        path: `/test?${qs.stringify(query)}`
-      }, shopify.baseUrl);
+      const url = assign(
+        { pathname: '/test', search: `?${qs.stringify(query)}` },
+        shopify.baseUrl
+      );
 
       return shopify.request(url, 'GET', 'foo')
         .then(res => {
@@ -564,7 +567,7 @@ describe('Shopify', () => {
       });
     });
 
-    it('returns a RequestError when timeout expires (1/2)', () => {
+    it('returns a TimeoutError when timeout expires (1/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       shopify.baseUrl.hostname = '192.0.2.1';
@@ -572,12 +575,12 @@ describe('Shopify', () => {
       return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
-        expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.equal('Request timed out');
+        expect(err).to.be.an.instanceof(got.TimeoutError);
+        expect(err.message).to.equal("Timeout awaiting 'request' for 100ms");
       });
     });
 
-    it('returns a RequestError when timeout expires (2/2)', () => {
+    it('returns a TimeoutError when timeout expires (2/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       scope
@@ -588,8 +591,8 @@ describe('Shopify', () => {
       return shopify.graphql('query').then(() => {
         throw new Error('Test invalidation');
       }, err => {
-        expect(err).to.be.an.instanceof(got.RequestError);
-        expect(err.message).to.include('Request timed out');
+        expect(err).to.be.an.instanceof(got.TimeoutError);
+        expect(err.message).to.include("Timeout awaiting 'request' for 100ms");
       });
     });
 

@@ -37,12 +37,13 @@ assign(ProductVariant.prototype, pick(baseChild, [
  */
 ProductVariant.prototype.get = function get(id, params) {
   const url = base.buildUrl.call(this, id, params);
+  const headers = {};
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
+    headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
-  return this.shopify.request(url, 'GET', this.key);
+  return this.shopify.request(url, 'GET', this.key, undefined, headers);
 };
 
 /**
@@ -55,12 +56,13 @@ ProductVariant.prototype.get = function get(id, params) {
  */
 ProductVariant.prototype.create = function(productId, params) {
   const url = this.buildUrl(productId);
+  const headers = {};
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
+    headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
-  return this.shopify.request(url, 'POST', this.key, params);
+  return this.shopify.request(url, 'POST', this.key, params, headers);
 };
 
 /**
@@ -73,12 +75,13 @@ ProductVariant.prototype.create = function(productId, params) {
  */
 ProductVariant.prototype.list = function(productId, params) {
   const url = this.buildUrl(productId, undefined, params);
+  const headers = {};
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
+    headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
-  return this.shopify.request(url, 'GET', this.name);
+  return this.shopify.request(url, 'GET', this.name, undefined, headers);
 };
 
 /**
@@ -91,12 +94,13 @@ ProductVariant.prototype.list = function(productId, params) {
  */
 ProductVariant.prototype.update = function update(id, params) {
   const url = base.buildUrl.call(this, id);
+  const headers = {};
 
   if (this.shopify.options.presentmentPrices) {
-    url.headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
+    headers['X-Shopify-Api-Features'] = 'include-presentment-prices';
   }
 
-  return this.shopify.request(url, 'PUT', this.key, params);
+  return this.shopify.request(url, 'PUT', this.key, params, headers);
 };
 
 module.exports = ProductVariant;

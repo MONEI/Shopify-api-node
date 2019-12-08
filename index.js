@@ -56,13 +56,16 @@ function Shopify(options) {
   };
 
   this.baseUrl = {
-    auth: !options.accessToken && `${options.apiKey}:${options.password}`,
-    headers: {},
     hostname: !options.shopName.endsWith('.myshopify.com')
       ? `${options.shopName}.myshopify.com`
       : options.shopName,
     protocol: 'https:'
   };
+
+  if (!options.accessToken) {
+    this.baseUrl.username = options.apiKey;
+    this.baseUrl.password = options.password;
+  }
 
   if (options.autoLimit) {
     const conf = transform(options.autoLimit, (result, value, key) => {
@@ -100,43 +103,48 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  *
  * @param {Object} uri URL object
  * @param {String} method HTTP method
- * @param {String} [key] Key name to use for req/res body
- * @param {Object} [params] Request body
+ * @param {(String|undefined)} key Key name to use for req/res body
+ * @param {(Object|undefined)} data Request body
+ * @param {(Object|undefined)} headers Extra headers
  * @return {Promise}
  * @private
  */
-Shopify.prototype.request = function request(uri, method, key, params) {
-  const options = assign({
+Shopify.prototype.request = function request(uri, method, key, data, headers) {
+  const options = {
+    headers: assign({ 'User-Agent': `${pkg.name}/${pkg.version}` }, headers),
     timeout: this.options.timeout,
-    json: true,
-    retries: 0,
+    responseType: 'json',
+    retry: 0,
     method
-  }, uri);
-
-  options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
+  };
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
   }
 
-  if (params) {
-    const body = key ? { [key]: params } : params;
-
-    options.headers['Content-Type'] = 'application/json';
-    options.body = body;
+  if (data) {
+    options.json = key ? { [key]: data } : data;
   }
 
-  return got(options).then(res => {
+  return got(uri, options).then(res => {
     const body = res.body;
 
     this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
     if (res.statusCode === 202) {
       const retryAfter = res.headers['retry-after'] * 1000 || 0;
-      const path = url.parse(res.headers['location']).path;
+      const { pathname, search } = url.parse(res.headers['location']);
 
       return delay(retryAfter).then(() => {
-        return this.request(assign({ path }, this.baseUrl), 'GET', key);
+        const url = { pathname };
+
+        if (search) url.search = search;
+
+        return this.request(
+          assign(url, this.baseUrl),
+          'GET',
+          key
+        );
       });
     }
 
@@ -192,43 +200,33 @@ Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttle) {
  * @public
  */
 Shopify.prototype.graphql = function graphql(data, variables) {
-  let path = '/admin/api';
+  let pathname = '/admin/api';
 
   if (this.options.apiVersion) {
-    path += `/${this.options.apiVersion}`;
+    pathname += `/${this.options.apiVersion}`;
   }
 
-  path += '/graphql.json';
+  pathname += '/graphql.json';
 
+  const uri = assign({ pathname }, this.baseUrl);
   const json = variables !== undefined && variables !== null;
-  const options = assign({
+  const options = {
+    headers: {
+      'User-Agent': `${pkg.name}/${pkg.version}`,
+      'Content-Type': json ? 'application/json' : 'application/graphql'
+    },
     timeout: this.options.timeout,
-    retries: 0,
+    responseType: 'json',
+    retry: 0,
     method: 'POST',
-    body: json ? JSON.stringify({ query: data, variables }) : data,
-    path
-  }, this.baseUrl);
-
-  options.headers['User-Agent'] = `${pkg.name}/${pkg.version}`;
-  options.headers['Content-Type'] = json
-    ? 'application/json'
-    : 'application/graphql';
+    body: json ? JSON.stringify({ query: data, variables }) : data
+  };
 
   if (this.options.accessToken) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
   }
 
-  return got(options).then(res => {
-    try {
-      res.body = JSON.parse(res.body);
-    } catch (err) {
-      const opts = assign({
-        host: options.hostname,
-        url: url.resolve(url.format(options), options.path)
-      }, options);
-      throw new got.ParseError(err, res.statusCode, opts, res.body);
-    }
-
+  return got(uri, options).then(res => {
     if (res.body.extensions && res.body.extensions.cost) {
       this.updateGraphqlLimits(res.body.extensions.cost.throttleStatus);
     }
