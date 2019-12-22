@@ -32,8 +32,8 @@ function Shopify(options) {
   if (
     !options ||
     !options.shopName ||
-    !options.accessToken && (!options.apiKey || !options.password) ||
-    options.accessToken && (options.apiKey || options.password)
+    (!options.accessToken && (!options.apiKey || !options.password)) ||
+    (options.accessToken && (options.apiKey || options.password))
   ) {
     throw new Error('Missing or invalid options');
   }
@@ -68,10 +68,14 @@ function Shopify(options) {
   }
 
   if (options.autoLimit) {
-    const conf = transform(options.autoLimit, (result, value, key) => {
-      if (key === 'calls') key = 'limit';
-      result[key] = value;
-    }, { bucketSize: 35 });
+    const conf = transform(
+      options.autoLimit,
+      (result, value, key) => {
+        if (key === 'calls') key = 'limit';
+        result[key] = value;
+      },
+      { bucketSize: 35 }
+    );
 
     this.request = stopcock(this.request, conf);
   }
@@ -126,54 +130,53 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     options.json = key ? { [key]: data } : data;
   }
 
-  return got(uri, options).then(res => {
-    const body = res.body;
+  return got(uri, options).then(
+    (res) => {
+      const body = res.body;
 
-    this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+      this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
-    if (res.statusCode === 202) {
-      const retryAfter = res.headers['retry-after'] * 1000 || 0;
-      const { pathname, search } = url.parse(res.headers['location']);
+      if (res.statusCode === 202) {
+        const retryAfter = res.headers['retry-after'] * 1000 || 0;
+        const { pathname, search } = url.parse(res.headers['location']);
 
-      return delay(retryAfter).then(() => {
-        const url = { pathname };
+        return delay(retryAfter).then(() => {
+          const url = { pathname };
 
-        if (search) url.search = search;
+          if (search) url.search = search;
 
-        return this.request(
-          assign(url, this.baseUrl),
-          'GET',
-          key
-        );
-      });
-    }
-
-    const data = key ? body[key] : body || {};
-
-    if (res.headers.link) {
-      const link = parseLinkHeader(res.headers.link);
-
-      if (link.next) {
-        Object.defineProperties(data, {
-          nextPageParameters: { value: link.next.query }
+          return this.request(assign(url, this.baseUrl), 'GET', key);
         });
       }
 
-      if (link.previous) {
-        Object.defineProperties(data, {
-          previousPageParameters: { value: link.previous.query }
-        });
+      const data = key ? body[key] : body || {};
+
+      if (res.headers.link) {
+        const link = parseLinkHeader(res.headers.link);
+
+        if (link.next) {
+          Object.defineProperties(data, {
+            nextPageParameters: { value: link.next.query }
+          });
+        }
+
+        if (link.previous) {
+          Object.defineProperties(data, {
+            previousPageParameters: { value: link.previous.query }
+          });
+        }
       }
+
+      return data;
+    },
+    (err) => {
+      this.updateLimits(
+        err.response && err.response.headers['x-shopify-shop-api-call-limit']
+      );
+
+      return Promise.reject(err);
     }
-
-    return data;
-  }, err => {
-    this.updateLimits(
-      err.response && err.response.headers['x-shopify-shop-api-call-limit']
-    );
-
-    return Promise.reject(err);
-  });
+  );
 };
 
 /**
@@ -226,7 +229,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
   }
 
-  return got(uri, options).then(res => {
+  return got(uri, options).then((res) => {
     if (res.body.extensions && res.body.extensions.cost) {
       this.updateGraphqlLimits(res.body.extensions.cost.throttleStatus);
     }
@@ -257,7 +260,7 @@ resources.registerAll(Shopify);
  * @private
  */
 function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**

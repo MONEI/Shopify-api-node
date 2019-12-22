@@ -5,9 +5,7 @@
     "resource_id": 632910392,
     "resource_type": "Product",
     "resource_updated_at": "2019-10-16T16:01:19-04:00",
-    "messages": [
-      "Needs at least one image."
-    ],
+    "messages": ["Needs at least one image."],
     "feedback_generated_at": "2019-10-16T16:03:08-04:00",
     "state": "requires_action"
   }

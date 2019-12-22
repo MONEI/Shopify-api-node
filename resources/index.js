@@ -73,7 +73,7 @@ const map = {
  * @private
  */
 function registerAll(Shopify) {
-  Object.keys(map).forEach(prop => {
+  Object.keys(map).forEach((prop) => {
     Object.defineProperty(Shopify.prototype, prop, {
       configurable: true,
       get: function get() {

@@ -19,11 +19,7 @@ function CollectionListing(shopify) {
   this.key = 'collection_listing';
 }
 
-assign(CollectionListing.prototype, pick(base, [
-  'get',
-  'list',
-  'buildUrl'
-]));
+assign(CollectionListing.prototype, pick(base, ['get', 'list', 'buildUrl']));
 
 /**
  * Retrieves product IDs that are published to a particular collection.

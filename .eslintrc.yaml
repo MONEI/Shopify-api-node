@@ -1,31 +1,19 @@
-extends: eslint:recommended
 env:
+  es6: true
   mocha: true
   node: true
-  es6: true
+extends:
+  - eslint:recommended
+  - prettier
+parserOptions:
+  ecmaVersion: 9
+plugins:
+  - prettier
 rules:
-  comma-dangle: error
-  eol-last: error
-  eqeqeq: error
-  indent:
-    - error
-    - 2
-    - SwitchCase: 1
-  no-empty: off
-  no-multiple-empty-lines:
-    - error
-    - max: 1
-      maxEOF: 0
-      maxBOF: 0
-  no-tabs: error
-  no-trailing-spaces: error
-  object-curly-spacing:
-    - error
-    - always
+  no-var: error
+  prefer-const: error
+  prettier/prettier: error
   quotes:
     - error
     - single
-    - avoid-escape
-  semi:
-    - error
-    - always
+    - avoidEscape: true

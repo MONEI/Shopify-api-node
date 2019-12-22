@@ -19,8 +19,9 @@ describe('Shopify#productResourceFeedback', () => {
       .post('/admin/products/632910392/resource_feedback.json', input)
       .reply(201, output);
 
-    return shopify.productResourceFeedback.create(632910392, input.resource_feedback)
-      .then(data => expect(data).to.deep.equal(output.resource_feedback));
+    return shopify.productResourceFeedback
+      .create(632910392, input.resource_feedback)
+      .then((data) => expect(data).to.deep.equal(output.resource_feedback));
   });
 
   it('gets a list of resource feedbacks', () => {
@@ -30,7 +31,8 @@ describe('Shopify#productResourceFeedback', () => {
       .get('/admin/products/632910392/resource_feedback.json')
       .reply(200, output);
 
-    return shopify.productResourceFeedback.list(632910392)
-      .then(data => expect(data).to.deep.equal(output.resource_feedback));
+    return shopify.productResourceFeedback
+      .list(632910392)
+      .then((data) => expect(data).to.deep.equal(output.resource_feedback));
   });
 });

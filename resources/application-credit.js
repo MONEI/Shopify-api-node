@@ -19,10 +19,6 @@ function ApplicationCredit(shopify) {
   this.key = 'application_credit';
 }
 
-assign(ApplicationCredit.prototype, omit(base, [
-  'count',
-  'delete',
-  'update'
-]));
+assign(ApplicationCredit.prototype, omit(base, ['count', 'delete', 'update']));
 
 module.exports = ApplicationCredit;

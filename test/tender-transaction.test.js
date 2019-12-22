@@ -14,12 +14,11 @@ describe('Shopify#tenderTransaction', () => {
   it('gets a list of tender transactions (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/tender_transactions.json')
-      .reply(200, output);
+    scope.get('/admin/tender_transactions.json').reply(200, output);
 
-    return shopify.tenderTransaction.list()
-      .then(data => expect(data).to.deep.equal(output.tender_transactions));
+    return shopify.tenderTransaction
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.tender_transactions));
   });
 
   it('gets a list of tender transactions (2/2)', () => {
@@ -29,7 +28,8 @@ describe('Shopify#tenderTransaction', () => {
       .get('/admin/tender_transactions.json?since_id=776836109')
       .reply(200, output);
 
-    return shopify.tenderTransaction.list({ since_id: 776836109 })
-      .then(data => expect(data).to.deep.equal(output.tender_transactions));
+    return shopify.tenderTransaction
+      .list({ since_id: 776836109 })
+      .then((data) => expect(data).to.deep.equal(output.tender_transactions));
   });
 });

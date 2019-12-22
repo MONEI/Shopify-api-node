@@ -19,31 +19,28 @@ describe('Shopify#storefrontAccessToken', () => {
       .post('/admin/storefront_access_tokens.json', input)
       .reply(200, output);
 
-    return shopify.storefrontAccessToken.create(input.storefront_access_token)
-      .then(data => {
+    return shopify.storefrontAccessToken
+      .create(input.storefront_access_token)
+      .then((data) => {
         expect(data).to.deep.equal(output.storefront_access_token);
       });
   });
 
   it('deletes an existing/issued public access token', () => {
-    scope
-      .delete('/admin/storefront_access_tokens/755357713.json')
-      .reply(200);
+    scope.delete('/admin/storefront_access_tokens/755357713.json').reply(200);
 
-    return shopify.storefrontAccessToken.delete(755357713)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.storefrontAccessToken
+      .delete(755357713)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 
   it('gets a list of public access tokens', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/storefront_access_tokens.json')
-      .reply(200, output);
+    scope.get('/admin/storefront_access_tokens.json').reply(200, output);
 
-    return shopify.storefrontAccessToken.list()
-      .then(data => {
-        expect(data).to.deep.equal(output.storefront_access_tokens);
-      });
+    return shopify.storefrontAccessToken.list().then((data) => {
+      expect(data).to.deep.equal(output.storefront_access_tokens);
+    });
   });
 });

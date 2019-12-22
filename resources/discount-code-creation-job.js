@@ -35,9 +35,11 @@ DiscountCodeCreationJob.prototype.create = function create(
   params
 ) {
   const url = this.buildUrl(priceRuleId);
-  return this.shopify.request(url, 'POST', undefined, {
-    discount_codes: params
-  }).then((data) => data[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, {
+      discount_codes: params
+    })
+    .then((data) => data[this.key]);
 };
 
 /**

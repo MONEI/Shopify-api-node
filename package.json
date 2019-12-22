@@ -25,15 +25,18 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.9",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.1.0",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "prettier": "^1.19.1"
   },
   "scripts": {
     "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
     "watch": "mocha -w",
-    "lint": "eslint ."
+    "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\""
   },
   "repository": "MONEI/Shopify-api-node",
   "keywords": [

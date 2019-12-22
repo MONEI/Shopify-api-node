@@ -14,12 +14,11 @@ describe('Shopify#dispute', () => {
   it('gets a list disputes (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/shopify_payments/disputes.json')
-      .reply(200, output);
+    scope.get('/admin/shopify_payments/disputes.json').reply(200, output);
 
-    return shopify.dispute.list()
-      .then(data => expect(data).to.deep.equal(output.disputes));
+    return shopify.dispute
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.disputes));
   });
 
   it('gets a list disputes (2/2)', () => {
@@ -29,8 +28,9 @@ describe('Shopify#dispute', () => {
       .get('/admin/shopify_payments/disputes.json?since_id=35982382')
       .reply(200, output);
 
-    return shopify.dispute.list({ since_id: 35982382 })
-      .then(data => expect(data).to.deep.equal(output.disputes));
+    return shopify.dispute
+      .list({ since_id: 35982382 })
+      .then((data) => expect(data).to.deep.equal(output.disputes));
   });
 
   it('gets a single dispute by its ID', () => {
@@ -40,7 +40,8 @@ describe('Shopify#dispute', () => {
       .get('/admin/shopify_payments/disputes/598735659.json')
       .reply(200, output);
 
-    return shopify.dispute.get(598735659)
-      .then(data => expect(data).to.deep.equal(output.dispute));
+    return shopify.dispute
+      .get(598735659)
+      .then((data) => expect(data).to.deep.equal(output.dispute));
   });
 });

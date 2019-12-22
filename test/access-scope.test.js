@@ -14,11 +14,10 @@ describe('Shopify#accessScope', () => {
   it('gets a list of access scopes associated to the access token', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/oauth/access_scopes.json')
-      .reply(200, output);
+    scope.get('/admin/oauth/access_scopes.json').reply(200, output);
 
-    return shopify.accessScope.list()
-      .then(data => expect(data).to.deep.equal(output.access_scopes));
+    return shopify.accessScope
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.access_scopes));
   });
 });

@@ -27,7 +27,11 @@ function FulfillmentEvent(shopify) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentEvent.prototype.list = function list(orderId, fulfillmentId, params) {
+FulfillmentEvent.prototype.list = function list(
+  orderId,
+  fulfillmentId,
+  params
+) {
   const url = this.buildUrl(orderId, fulfillmentId, undefined, params);
   return this.shopify.request(url, 'GET', `${this.key}s`);
 };
@@ -55,10 +59,15 @@ FulfillmentEvent.prototype.get = function get(orderId, fulfillmentId, id) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentEvent.prototype.create = function create(orderId, fulfillmentId, params) {
+FulfillmentEvent.prototype.create = function create(
+  orderId,
+  fulfillmentId,
+  params
+) {
   const url = this.buildUrl(orderId, fulfillmentId);
-  return this.shopify.request(url, 'POST', undefined, { event: params })
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, { event: params })
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -71,10 +80,16 @@ FulfillmentEvent.prototype.create = function create(orderId, fulfillmentId, para
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentEvent.prototype.update = function update(orderId, fulfillmentId, id, params) {
+FulfillmentEvent.prototype.update = function update(
+  orderId,
+  fulfillmentId,
+  id,
+  params
+) {
   const url = this.buildUrl(orderId, fulfillmentId, id);
-  return this.shopify.request(url, 'PUT', undefined, { event: params })
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'PUT', undefined, { event: params })
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -86,7 +101,11 @@ FulfillmentEvent.prototype.update = function update(orderId, fulfillmentId, id, 
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentEvent.prototype.delete = function remove(orderId, fulfillmentId, id) {
+FulfillmentEvent.prototype.delete = function remove(
+  orderId,
+  fulfillmentId,
+  id
+) {
   const url = this.buildUrl(orderId, fulfillmentId, id);
   return this.shopify.request(url, 'DELETE');
 };
@@ -101,7 +120,12 @@ FulfillmentEvent.prototype.delete = function remove(orderId, fulfillmentId, id) 
  * @return {Object} URL object
  * @private
  */
-FulfillmentEvent.prototype.buildUrl = function buildUrl(orderId, fulfillmentId, id, query) {
+FulfillmentEvent.prototype.buildUrl = function buildUrl(
+  orderId,
+  fulfillmentId,
+  id,
+  query
+) {
   id || id === 0 || (id = '');
 
   let pathname = ['admin'];
@@ -115,10 +139,15 @@ FulfillmentEvent.prototype.buildUrl = function buildUrl(orderId, fulfillmentId, 
     orderId,
     this.parentName,
     fulfillmentId,
-    this.name,id
+    this.name,
+    id
   );
 
-  pathname = pathname.join('/').replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
+  pathname =
+    pathname
+      .join('/')
+      .replace(/\/+/g, '/')
+      .replace(/\/$/, '') + '.json';
 
   const url = { pathname };
 

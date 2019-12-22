@@ -57,9 +57,7 @@
           "value": "green"
         }
       ],
-      "payment_gateway_names": [
-        "bogus"
-      ],
+      "payment_gateway_names": ["bogus"],
       "processing_method": "direct",
       "source": "browser",
       "checkout_id": 450789469,
@@ -209,9 +207,7 @@
           "updated_at": "2015-09-02T14:48:56-04:00",
           "tracking_company": null,
           "tracking_number": "1Z2345",
-          "tracking_numbers": [
-            "1Z2345"
-          ],
+          "tracking_numbers": ["1Z2345"],
           "tracking_url": "http://wwwapps.ups.com/etracking/tracking.cgi?InquiryNumber1=1Z2345&TypeOfInquiryNumber=T&AcceptUPSLicenseAgreement=yes&submit=Track",
           "tracking_urls": [
             "http://wwwapps.ups.com/etracking/tracking.cgi?InquiryNumber1=1Z2345&TypeOfInquiryNumber=T&AcceptUPSLicenseAgreement=yes&submit=Track"

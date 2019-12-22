@@ -12,55 +12,48 @@ describe('Shopify#checkout', () => {
   afterEach(() => expect(scope.isDone()).to.be.true);
 
   it('gets a count of all checkout (1/2)', () => {
-    scope
-      .get('/admin/checkouts/count.json')
-      .reply(200, { count: 5 });
+    scope.get('/admin/checkouts/count.json').reply(200, { count: 5 });
 
-    return shopify.checkout.count()
-      .then(data => expect(data).to.equal(5));
+    return shopify.checkout.count().then((data) => expect(data).to.equal(5));
   });
 
   it('gets a count of all checkout (2/2)', () => {
-    scope
-      .get('/admin/checkouts/count.json?foo=bar')
-      .reply(200, { count: 5 });
+    scope.get('/admin/checkouts/count.json?foo=bar').reply(200, { count: 5 });
 
-    return shopify.checkout.count({ foo: 'bar' })
-      .then(data => expect(data).to.equal(5));
+    return shopify.checkout
+      .count({ foo: 'bar' })
+      .then((data) => expect(data).to.equal(5));
   });
 
   it('gets a list of all checkout (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/checkouts.json')
-      .reply(200, output);
+    scope.get('/admin/checkouts.json').reply(200, output);
 
-    return shopify.checkout.list()
-      .then(data => expect(data).to.deep.equal(output.checkouts));
+    return shopify.checkout
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.checkouts));
   });
 
   it('gets a list of all checkout (2/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/checkouts.json?foo=bar')
-      .reply(200, output);
+    scope.get('/admin/checkouts.json?foo=bar').reply(200, output);
 
-    return shopify.checkout.list({ foo: 'bar' })
-      .then(data => expect(data).to.deep.equal(output.checkouts));
+    return shopify.checkout
+      .list({ foo: 'bar' })
+      .then((data) => expect(data).to.deep.equal(output.checkouts));
   });
 
   it('creates a new checkout', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope
-      .post('/admin/checkouts.json', input)
-      .reply(201, output);
+    scope.post('/admin/checkouts.json', input).reply(201, output);
 
-    return shopify.checkout.create(input.checkout)
-      .then(data => expect(data).to.deep.equal(output.checkout));
+    return shopify.checkout
+      .create(input.checkout)
+      .then((data) => expect(data).to.deep.equal(output.checkout));
   });
 
   it('completes a free checkout', () => {
@@ -71,8 +64,9 @@ describe('Shopify#checkout', () => {
       .post(`/admin/checkouts/${token}/complete.json`, {})
       .reply(200, output);
 
-    return shopify.checkout.complete(token)
-      .then(data => expect(data).to.deep.equal(output.checkout));
+    return shopify.checkout
+      .complete(token)
+      .then((data) => expect(data).to.deep.equal(output.checkout));
   });
 
   it('completes a free checkout and retries 202 response', () => {
@@ -88,8 +82,9 @@ describe('Shopify#checkout', () => {
       .get(pathname)
       .reply(200, output);
 
-    return shopify.checkout.complete(token)
-      .then(data => expect(data).to.deep.equal(output.checkout));
+    return shopify.checkout
+      .complete(token)
+      .then((data) => expect(data).to.deep.equal(output.checkout));
   });
 
   it('gets a single checkout by its token', () => {
@@ -99,8 +94,9 @@ describe('Shopify#checkout', () => {
       .get('/admin/checkouts/bd5a8aa1ecd019dd3520ff791ee3a24c.json')
       .reply(200, output);
 
-    return shopify.checkout.get('bd5a8aa1ecd019dd3520ff791ee3a24c')
-      .then(data => expect(data).to.deep.equal(output.checkout));
+    return shopify.checkout
+      .get('bd5a8aa1ecd019dd3520ff791ee3a24c')
+      .then((data) => expect(data).to.deep.equal(output.checkout));
   });
 
   it('updates an existing checkout', () => {
@@ -108,12 +104,11 @@ describe('Shopify#checkout', () => {
     const input = fixtures.req.update;
     const output = fixtures.res.update;
 
-    scope
-      .put(`/admin/checkouts/${token}.json`, input)
-      .reply(200, output);
+    scope.put(`/admin/checkouts/${token}.json`, input).reply(200, output);
 
-    return shopify.checkout.update(token, input.checkout)
-      .then(data => expect(data).to.deep.equal(output.checkout));
+    return shopify.checkout
+      .update(token, input.checkout)
+      .then((data) => expect(data).to.deep.equal(output.checkout));
   });
 
   it('gets a list of shipping rates', () => {
@@ -124,8 +119,9 @@ describe('Shopify#checkout', () => {
       .get(`/admin/checkouts/${token}/shipping_rates.json`)
       .reply(200, output);
 
-    return shopify.checkout.shippingRates(token)
-      .then(data => expect(data).to.deep.equal(output.shipping_rates));
+    return shopify.checkout
+      .shippingRates(token)
+      .then((data) => expect(data).to.deep.equal(output.shipping_rates));
   });
 
   it('gets a list of shipping rates and retries 202 response', () => {
@@ -141,7 +137,8 @@ describe('Shopify#checkout', () => {
       .get(pathname)
       .reply(200, output);
 
-    return shopify.checkout.shippingRates(token)
-      .then(data => expect(data).to.deep.equal(output.shipping_rates));
+    return shopify.checkout
+      .shippingRates(token)
+      .then((data) => expect(data).to.deep.equal(output.shipping_rates));
   });
 });

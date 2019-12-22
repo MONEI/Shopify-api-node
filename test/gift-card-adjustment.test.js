@@ -14,12 +14,11 @@ describe('Shopify#giftCardAdjustment', () => {
   it('gets a list of all gift card adjustments', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/gift_cards/48394658/adjustments.json')
-      .reply(200, output);
+    scope.get('/admin/gift_cards/48394658/adjustments.json').reply(200, output);
 
-    return shopify.giftCardAdjustment.list(48394658)
-      .then(data => expect(data).to.deep.equal(output.adjustments));
+    return shopify.giftCardAdjustment
+      .list(48394658)
+      .then((data) => expect(data).to.deep.equal(output.adjustments));
   });
 
   it('gets a single gift card adjustment by its ID', () => {
@@ -29,8 +28,9 @@ describe('Shopify#giftCardAdjustment', () => {
       .get('/admin/gift_cards/48394658/adjustments/2.json')
       .reply(200, output);
 
-    return shopify.giftCardAdjustment.get(48394658, 2)
-      .then(data => expect(data).to.deep.equal(output.adjustment));
+    return shopify.giftCardAdjustment
+      .get(48394658, 2)
+      .then((data) => expect(data).to.deep.equal(output.adjustment));
   });
 
   it('creates a new gift card adjustment', () => {
@@ -41,7 +41,8 @@ describe('Shopify#giftCardAdjustment', () => {
       .post('/admin/gift_cards/48394658/adjustments.json', input)
       .reply(201, output);
 
-    return shopify.giftCardAdjustment.create(48394658, input.adjustment)
-      .then(data => expect(data).to.deep.equal(output.adjustment));
+    return shopify.giftCardAdjustment
+      .create(48394658, input.adjustment)
+      .then((data) => expect(data).to.deep.equal(output.adjustment));
   });
 });

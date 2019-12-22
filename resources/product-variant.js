@@ -21,11 +21,10 @@ function ProductVariant(shopify) {
   this.key = 'variant';
 }
 
-assign(ProductVariant.prototype, pick(baseChild, [
-  'buildUrl',
-  'count',
-  'delete'
-]));
+assign(
+  ProductVariant.prototype,
+  pick(baseChild, ['buildUrl', 'count', 'delete'])
+);
 
 /**
  * Gets a single product variant by its ID.
