@@ -24,10 +24,10 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^6.8.0",
+    "husky": "^3.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^6.2.2",
-    "nock": "^11.7.0",
-    "pre-commit": "^1.2.2"
+    "nock": "^11.7.0"
   },
   "scripts": {
     "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
@@ -36,10 +36,6 @@
     "lint": "eslint .",
     "test": "mocha"
   },
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
   "repository": "MONEI/Shopify-api-node",
   "keywords": [
     "Shopify",
