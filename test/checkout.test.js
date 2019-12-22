@@ -72,14 +72,14 @@ describe('Shopify#checkout', () => {
   it('completes a free checkout and retries 202 response', () => {
     const token = 'b490a9220cd14d7344024f4874f640a6';
     const baseUrl = shopify.baseUrl;
-    const pathname = `/admin/checkouts/${token}/complete.json`;
-    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}`;
+    const pathname = `/admin/checkouts/${token}`;
+    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}.json`;
     const output = fixtures.res.complete;
 
     scope
-      .post(pathname, {})
+      .post(`${pathname}/complete.json`, {})
       .reply(202, '', { Location: href, 'Retry-After': 0 })
-      .get(pathname)
+      .get(`${pathname}.json`)
       .reply(200, output);
 
     return shopify.checkout
@@ -128,13 +128,13 @@ describe('Shopify#checkout', () => {
     const token = 'exuw7apwoycchjuwtiqg8nytfhphr62a';
     const baseUrl = shopify.baseUrl;
     const pathname = `/admin/checkouts/${token}/shipping_rates.json`;
-    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}`;
+    const href = `${baseUrl.protocol}//${baseUrl.hostname}${pathname}?foo=bar`;
     const output = fixtures.res.shippingRates;
 
     scope
       .get(pathname)
       .reply(202, '', { Location: href, 'Retry-After': 0 })
-      .get(pathname)
+      .get(`${pathname}?foo=bar`)
       .reply(200, output);
 
     return shopify.checkout
