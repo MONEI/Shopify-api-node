@@ -77,12 +77,12 @@ describe('Shopify', () => {
   it('instantiates the resources lazily', () => {
     const shopify = new Shopify({ shopName, accessToken });
 
-    expect(shopify.hasOwnProperty('blog')).to.be.false;
+    expect(Object.prototype.hasOwnProperty.call(shopify,'blog')).to.be.false;
 
     const blog = shopify.blog;
 
     expect(blog).to.be.an.instanceof(Blog);
-    expect(shopify.hasOwnProperty('blog')).to.be.true;
+    expect(Object.prototype.hasOwnProperty.call(shopify, 'blog')).to.be.true;
     expect(shopify.blog).to.equal(blog);
   });
 
@@ -90,11 +90,11 @@ describe('Shopify', () => {
     const shopify = new Shopify({ shopName, accessToken });
     const blog = new Blog(shopify);
 
-    expect(shopify.hasOwnProperty('blog')).to.be.false;
+    expect(Object.prototype.hasOwnProperty.call(shopify, 'blog')).to.be.false;
 
     shopify.blog = blog;
 
-    expect(shopify.hasOwnProperty('blog')).to.be.true;
+    expect(Object.prototype.hasOwnProperty.call(shopify, 'blog')).to.be.true;
     expect(shopify.blog).to.equal(blog);
   });
 
