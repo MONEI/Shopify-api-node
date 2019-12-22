@@ -3,9 +3,7 @@ node_js:
   - '13'
   - '12'
   - '10'
-script:
-  - "npm run test-travis"
-after_script:
-  - "npm install coveralls@3 && cat coverage/lcov.info | coveralls"
+after_success:
+  - "npm install coveralls@3 && nyc report --reporter=text-lcov | coveralls"
 notifications:
   email: a@alexandresaiz.com
