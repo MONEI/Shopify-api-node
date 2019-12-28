@@ -2377,6 +2377,7 @@ declare namespace Shopify {
     tax_percentage: number;
     tax_type: any | null;
     shipping_zone_id: number;
+    provinces: IProvince[];
   }
 
   interface IShippingZone {
