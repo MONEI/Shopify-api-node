@@ -12,6 +12,7 @@ const map = {
   carrierService: 'carrier-service',
   checkout: 'checkout',
   collect: 'collect',
+  collection: 'collection',
   collectionListing: 'collection-listing',
   comment: 'comment',
   country: 'country',

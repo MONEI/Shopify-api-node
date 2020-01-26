@@ -307,6 +307,9 @@ parameters needed to fetch the next and previous page of results.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+- collection
+  - `get(id[, params])`
+  - `products(id[, params])`
 - collectionListing
   - `get(id)`
   - `list([params])`
