@@ -13,15 +13,14 @@ const Order = require('../resources/order.js');
  * @public
  */
 function FulfillmentOrder(shopify) {
-  shopify.options.apiVersion = "2020-01";
-  this.shopify = shopify;
+  this.shopify = {...shopify};
+  this.shopify.options = {...shopify.options};
+  this.shopify.options.apiVersion = '2020-01';
 
   this.parentName = 'fulfillments';
   this.key = 'fulfillment_order';
   this.name = 'fulfillment_orders';
 }
-
-assign(FulfillmentOrder.prototype, base);
 
 /**
  * Gets a list of fulfillment orders for an order.
@@ -31,7 +30,7 @@ assign(FulfillmentOrder.prototype, base);
  * @public
  */
 FulfillmentOrder.prototype.list = function list(orderId) {
-  var orders = new Order(this.shopify);
+  const orders = new Order(this.shopify);
   const url = orders.buildUrl(`${orderId}/fulfillment_orders`);
   return this.shopify.request(url, 'GET', `${this.key}s`);
 };
