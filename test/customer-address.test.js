@@ -15,12 +15,11 @@ describe('Shopify#customerAddress', () => {
   it('gets a list of all addresses from a customer (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/customers/207119551/addresses.json')
-      .reply(200, output);
+    scope.get('/admin/customers/207119551/addresses.json').reply(200, output);
 
-    return shopify.customerAddress.list(207119551)
-      .then(data => expect(data).to.deep.equal(output.addresses));
+    return shopify.customerAddress
+      .list(207119551)
+      .then((data) => expect(data).to.deep.equal(output.addresses));
   });
 
   it('gets a list of all articles from a certain blog (2/2)', () => {
@@ -30,8 +29,9 @@ describe('Shopify#customerAddress', () => {
       .get('/admin/customers/207119551/addresses.json?page=1')
       .reply(200, output);
 
-    return shopify.customerAddress.list(207119551, { page: 1 })
-      .then(data => expect(data).to.deep.equal(output.addresses));
+    return shopify.customerAddress
+      .list(207119551, { page: 1 })
+      .then((data) => expect(data).to.deep.equal(output.addresses));
   });
 
   it('gets a single address by its ID', () => {
@@ -41,8 +41,9 @@ describe('Shopify#customerAddress', () => {
       .get('/admin/customers/207119551/addresses/207119551.json')
       .reply(200, output);
 
-    return shopify.customerAddress.get(207119551, 207119551)
-      .then(data => expect(data).to.deep.equal(output.customer_address));
+    return shopify.customerAddress
+      .get(207119551, 207119551)
+      .then((data) => expect(data).to.deep.equal(output.customer_address));
   });
 
   it('creates a new address for a customer', () => {
@@ -53,8 +54,9 @@ describe('Shopify#customerAddress', () => {
       .post('/admin/customers/207119551/addresses.json', input)
       .reply(201, output);
 
-    return shopify.customerAddress.create(207119551, input.address)
-      .then(data => expect(data).to.deep.equal(output.customer_address));
+    return shopify.customerAddress
+      .create(207119551, input.address)
+      .then((data) => expect(data).to.deep.equal(output.customer_address));
   });
 
   it('updates an address', () => {
@@ -65,8 +67,9 @@ describe('Shopify#customerAddress', () => {
       .put('/admin/customers/207119551/addresses/207119551.json', input)
       .reply(200, output);
 
-    return shopify.customerAddress.update(207119551, 207119551, input.address)
-      .then(data => expect(data).to.deep.equal(output.customer_address));
+    return shopify.customerAddress
+      .update(207119551, 207119551, input.address)
+      .then((data) => expect(data).to.deep.equal(output.customer_address));
   });
 
   it('deletes an address', () => {
@@ -74,24 +77,29 @@ describe('Shopify#customerAddress', () => {
       .delete('/admin/customers/207119551/addresses/207119551.json')
       .reply(200, {});
 
-    return shopify.customerAddress.delete(207119551, 207119551)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.customerAddress
+      .delete(207119551, 207119551)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 
   it('performs bulk operations against a number of addresses', () => {
     const query = {
-      address_ids: [ 1053317300 ],
+      address_ids: [1053317300],
       operations: 'destroy'
     };
 
     scope
-      .put('/admin/customers/207119551/addresses/set.json?' + qs.stringify(query, {
-        arrayFormat: 'brackets'
-      }))
+      .put(
+        '/admin/customers/207119551/addresses/set.json?' +
+          qs.stringify(query, {
+            arrayFormat: 'brackets'
+          })
+      )
       .reply(200, {});
 
-    return shopify.customerAddress.set(207119551, query)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.customerAddress
+      .set(207119551, query)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 
   it('sets default address for a customer', () => {
@@ -101,7 +109,8 @@ describe('Shopify#customerAddress', () => {
       .put('/admin/customers/207119551/addresses/1053317297/default.json')
       .reply(200, output);
 
-    return shopify.customerAddress.default(207119551, 1053317297)
-      .then(data => expect(data).to.deep.equal(output.customer_address));
+    return shopify.customerAddress
+      .default(207119551, 1053317297)
+      .then((data) => expect(data).to.deep.equal(output.customer_address));
   });
 });

@@ -11,9 +11,7 @@
     "account_owner": true,
     "receive_announcements": 1,
     "bio": null,
-    "permissions": [
-      "full"
-    ],
+    "permissions": ["full"],
     "user_type": "regular",
     "phone_validated?": false,
     "tfa_enabled?": false

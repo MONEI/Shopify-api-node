@@ -15,22 +15,20 @@ describe('Shopify#resourceFeedback', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope
-      .post('/admin/resource_feedback.json', input)
-      .reply(201, output);
+    scope.post('/admin/resource_feedback.json', input).reply(201, output);
 
-    return shopify.resourceFeedback.create(input.resource_feedback)
-      .then(data => expect(data).to.deep.equal(output.resource_feedback));
+    return shopify.resourceFeedback
+      .create(input.resource_feedback)
+      .then((data) => expect(data).to.deep.equal(output.resource_feedback));
   });
 
   it('gets a list of resource feedbacks', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/resource_feedback.json')
-      .reply(200, output);
+    scope.get('/admin/resource_feedback.json').reply(200, output);
 
-    return shopify.resourceFeedback.list()
-      .then(data => expect(data).to.deep.equal(output.resource_feedback));
+    return shopify.resourceFeedback
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.resource_feedback));
   });
 });

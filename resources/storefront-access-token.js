@@ -19,10 +19,6 @@ function StorefrontAccessToken(shopify) {
   this.key = 'storefront_access_token';
 }
 
-assign(StorefrontAccessToken.prototype, omit(base, [
-  'count',
-  'get',
-  'update'
-]));
+assign(StorefrontAccessToken.prototype, omit(base, ['count', 'get', 'update']));
 
 module.exports = StorefrontAccessToken;

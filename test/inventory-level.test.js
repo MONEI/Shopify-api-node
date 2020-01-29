@@ -20,20 +20,20 @@ describe('Shopify#inventoryLevel', () => {
       .get('/admin/inventory_levels.json?' + qs.stringify(query))
       .reply(200, output);
 
-    return shopify.inventoryLevel.list(query)
-      .then(data => expect(data).to.deep.equal(output.inventory_levels));
+    return shopify.inventoryLevel
+      .list(query)
+      .then((data) => expect(data).to.deep.equal(output.inventory_levels));
   });
 
   it('adjusts the inventory level for an inventory item at a location', () => {
     const input = fixtures.req.adjust;
     const output = fixtures.res.adjust;
 
-    scope
-      .post('/admin/inventory_levels/adjust.json', input)
-      .reply(200, output);
+    scope.post('/admin/inventory_levels/adjust.json', input).reply(200, output);
 
-    return shopify.inventoryLevel.adjust(input)
-      .then(data => expect(data).to.deep.equal(output.inventory_level));
+    return shopify.inventoryLevel
+      .adjust(input)
+      .then((data) => expect(data).to.deep.equal(output.inventory_level));
   });
 
   it('removes an inventory level from a location', () => {
@@ -46,8 +46,9 @@ describe('Shopify#inventoryLevel', () => {
       .delete('/admin/inventory_levels.json?' + qs.stringify(query))
       .reply(204);
 
-    return shopify.inventoryLevel.delete(query)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.inventoryLevel
+      .delete(query)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 
   it('connects an inventory item to a location', () => {
@@ -58,19 +59,19 @@ describe('Shopify#inventoryLevel', () => {
       .post('/admin/inventory_levels/connect.json', input)
       .reply(201, output);
 
-    return shopify.inventoryLevel.connect(input)
-      .then(data => expect(data).to.deep.equal(output.inventory_level));
+    return shopify.inventoryLevel
+      .connect(input)
+      .then((data) => expect(data).to.deep.equal(output.inventory_level));
   });
 
   it('sets the inventory level for an inventory item at a location', () => {
     const input = fixtures.req.set;
     const output = fixtures.res.set;
 
-    scope
-      .post('/admin/inventory_levels/set.json', input)
-      .reply(200, output);
+    scope.post('/admin/inventory_levels/set.json', input).reply(200, output);
 
-    return shopify.inventoryLevel.set(input)
-      .then(data => expect(data).to.deep.equal(output.inventory_level));
+    return shopify.inventoryLevel
+      .set(input)
+      .then((data) => expect(data).to.deep.equal(output.inventory_level));
   });
 });

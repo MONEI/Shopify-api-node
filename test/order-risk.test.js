@@ -15,23 +15,21 @@ describe('Shopify#orderRisk', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope
-      .post('/admin/orders/450789469/risks.json', input)
-      .reply(201, output);
+    scope.post('/admin/orders/450789469/risks.json', input).reply(201, output);
 
-    return shopify.orderRisk.create(450789469, input.risk)
-      .then(data => expect(data).to.deep.equal(output.risk));
+    return shopify.orderRisk
+      .create(450789469, input.risk)
+      .then((data) => expect(data).to.deep.equal(output.risk));
   });
 
   it('gets a list of all order risks from an order', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/orders/450789469/risks.json')
-      .reply(200, output);
+    scope.get('/admin/orders/450789469/risks.json').reply(200, output);
 
-    return shopify.orderRisk.list(450789469)
-      .then(data => expect(data).to.deep.equal(output.risks));
+    return shopify.orderRisk
+      .list(450789469)
+      .then((data) => expect(data).to.deep.equal(output.risks));
   });
 
   it('gets a single order risk by its ID', () => {
@@ -41,8 +39,9 @@ describe('Shopify#orderRisk', () => {
       .get('/admin/orders/450789469/risks/284138680.json')
       .reply(200, output);
 
-    return shopify.orderRisk.get(450789469, 284138680)
-      .then(data => expect(data).to.deep.equal(output.risk));
+    return shopify.orderRisk
+      .get(450789469, 284138680)
+      .then((data) => expect(data).to.deep.equal(output.risk));
   });
 
   it('updates an order risk', () => {
@@ -53,16 +52,16 @@ describe('Shopify#orderRisk', () => {
       .put('/admin/orders/450789469/risks/284138680.json', input)
       .reply(200, output);
 
-    return shopify.orderRisk.update(450789469, 284138680, input.risk)
-      .then(data => expect(data).to.deep.equal(output.risk));
+    return shopify.orderRisk
+      .update(450789469, 284138680, input.risk)
+      .then((data) => expect(data).to.deep.equal(output.risk));
   });
 
   it('deletes an order risk', () => {
-    scope
-      .delete('/admin/orders/450789469/risks/284138680.json')
-      .reply(200, {});
+    scope.delete('/admin/orders/450789469/risks/284138680.json').reply(200, {});
 
-    return shopify.orderRisk.delete(450789469, 284138680)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.orderRisk
+      .delete(450789469, 284138680)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 });

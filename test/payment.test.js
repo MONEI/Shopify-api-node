@@ -18,8 +18,9 @@ describe('Shopify#payment', () => {
       .get('/admin/checkouts/7yjf4v2we7gamku6a6h7tvm8h3mmvs4x/payments.json')
       .reply(200, output);
 
-    return shopify.payment.list('7yjf4v2we7gamku6a6h7tvm8h3mmvs4x')
-      .then(data => expect(data).to.deep.equal(output.payments));
+    return shopify.payment
+      .list('7yjf4v2we7gamku6a6h7tvm8h3mmvs4x')
+      .then((data) => expect(data).to.deep.equal(output.payments));
   });
 
   it('creates a new payment', () => {
@@ -31,8 +32,9 @@ describe('Shopify#payment', () => {
       .post(`/admin/checkouts/${token}/payments.json`, input)
       .reply(201, output);
 
-    return shopify.payment.create(token, input.payment)
-      .then(data => expect(data).to.deep.equal(output.payment));
+    return shopify.payment
+      .create(token, input.payment)
+      .then((data) => expect(data).to.deep.equal(output.payment));
   });
 
   it('gets a single payment by its ID', () => {
@@ -43,8 +45,9 @@ describe('Shopify#payment', () => {
       .get(`/admin/checkouts/${token}/payments/25428999.json`)
       .reply(200, output);
 
-    return shopify.payment.get(token, 25428999)
-      .then(data => expect(data).to.deep.equal(output.payment));
+    return shopify.payment
+      .get(token, 25428999)
+      .then((data) => expect(data).to.deep.equal(output.payment));
   });
 
   it('counts the number of payments attempted on a checkout', () => {
@@ -54,7 +57,8 @@ describe('Shopify#payment', () => {
       .get(`/admin/checkouts/${token}/payments/count.json`)
       .reply(200, { count: 1 });
 
-    return shopify.payment.count(token)
-      .then(data => expect(data).to.equal(1));
+    return shopify.payment
+      .count(token)
+      .then((data) => expect(data).to.equal(1));
   });
 });

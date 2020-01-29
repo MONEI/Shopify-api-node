@@ -1,13 +1,13 @@
 {
   "name": "shopify-api-node",
-  "version": "2.20.1",
+  "version": "3.1.0",
   "description": "Shopify API bindings for Node.js",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "resources",
@@ -16,30 +16,29 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "got": "^8.3.1",
+    "got": "^10.1.0",
     "lodash": "^4.17.10",
     "qs": "^6.5.2",
     "stopcock": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "eslint": "^4.19.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.1.1",
-    "nock": "^9.2.5",
-    "pre-commit": "^1.2.2"
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.2",
+    "mocha": "^7.0.1",
+    "nock": "^11.7.0",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1"
   },
   "scripts": {
-    "test-travis": "npm run lint && istanbul cover _mocha --report lcovonly",
-    "coverage": "istanbul cover _mocha",
+    "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
     "watch": "mocha -w",
-    "lint": "eslint .",
-    "test": "mocha"
+    "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\""
   },
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
   "repository": "MONEI/Shopify-api-node",
   "keywords": [
     "Shopify",

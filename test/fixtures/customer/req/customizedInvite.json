@@ -2,9 +2,7 @@
   "customer_invite": {
     "to": "new_test_email@shopify.com",
     "from": "noaccesssteve@jobs.com",
-    "bcc": [
-      "noaccesssteve@jobs.com"
-    ],
+    "bcc": ["noaccesssteve@jobs.com"],
     "subject": "Welcome to my new shop",
     "custom_message": "My awesome new store"
   }

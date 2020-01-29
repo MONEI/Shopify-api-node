@@ -14,12 +14,11 @@ describe('Shopify#balance', () => {
   it('gets the current balance', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/shopify_payments/balance.json')
-      .reply(200, output);
+    scope.get('/admin/shopify_payments/balance.json').reply(200, output);
 
-    return shopify.balance.list()
-      .then(data => expect(data).to.deep.equal(output.balance));
+    return shopify.balance
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.balance));
   });
 
   it('gets a list of balance transactions (1/2)', () => {
@@ -29,8 +28,9 @@ describe('Shopify#balance', () => {
       .get('/admin/shopify_payments/balance/transactions.json')
       .reply(200, output);
 
-    return shopify.balance.transactions()
-      .then(data => expect(data).to.deep.equal(output.transactions));
+    return shopify.balance
+      .transactions()
+      .then((data) => expect(data).to.deep.equal(output.transactions));
   });
 
   it('gets a list of balance transactions (2/2)', () => {
@@ -42,7 +42,8 @@ describe('Shopify#balance', () => {
       .query(params)
       .reply(200, output);
 
-    return shopify.balance.transactions(params)
-      .then(data => expect(data).to.deep.equal(output.transactions));
+    return shopify.balance
+      .transactions(params)
+      .then((data) => expect(data).to.deep.equal(output.transactions));
   });
 });

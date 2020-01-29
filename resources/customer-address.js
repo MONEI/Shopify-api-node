@@ -20,11 +20,10 @@ function CustomerAddress(shopify) {
   this.key = 'customer_address';
 }
 
-assign(CustomerAddress.prototype, pick(baseChild, [
-  'buildUrl',
-  'delete',
-  'get'
-]));
+assign(
+  CustomerAddress.prototype,
+  pick(baseChild, ['buildUrl', 'delete', 'get'])
+);
 
 /**
  * Gets a list of addresses for a customer.
@@ -49,8 +48,9 @@ CustomerAddress.prototype.list = function list(customerId, params) {
  */
 CustomerAddress.prototype.create = function create(customerId, params) {
   const url = this.buildUrl(customerId);
-  return this.shopify.request(url, 'POST', undefined, { address: params })
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, { address: params })
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -64,8 +64,9 @@ CustomerAddress.prototype.create = function create(customerId, params) {
  */
 CustomerAddress.prototype.update = function update(customerId, id, params) {
   const url = this.buildUrl(customerId, id);
-  return this.shopify.request(url, 'PUT', undefined, { address: params })
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'PUT', undefined, { address: params })
+    .then((body) => body[this.key]);
 };
 
 /**

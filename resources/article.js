@@ -44,21 +44,24 @@ Article.prototype.authors = function authors() {
  * @public
  */
 Article.prototype.tags = function tags(blogId, params) {
-  let path = '/admin';
+  let pathname = '/admin';
 
   if (!params && typeof blogId === 'object') {
     params = blogId;
     blogId = undefined;
   }
 
-  if (blogId || blogId === 0) path += `/blogs/${blogId}`;
+  if (blogId || blogId === 0) pathname += `/blogs/${blogId}`;
 
-  path += `/${this.name}/tags.json`;
+  pathname += `/${this.name}/tags.json`;
 
-  if (params) path += '?' + qs.stringify(params, { arrayFormat: 'brackets' });
+  const url = { pathname };
 
-  const url = assign({ path }, this.shopify.baseUrl);
-  return this.shopify.request(url, 'GET', 'tags');
+  if (params) {
+    url.search = '?' + qs.stringify(params, { arrayFormat: 'brackets' });
+  }
+
+  return this.shopify.request(assign(url, this.shopify.baseUrl), 'GET', 'tags');
 };
 
 module.exports = Article;

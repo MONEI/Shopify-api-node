@@ -134,12 +134,7 @@
           "product_id": 632910392,
           "name": "Color",
           "position": 1,
-          "values": [
-            "Pink",
-            "Red",
-            "Green",
-            "Black"
-          ]
+          "values": ["Pink", "Red", "Green", "Black"]
         }
       ],
       "images": [
@@ -166,9 +161,7 @@
           "width": 123,
           "height": 456,
           "src": "https://cdn.shopify.com/s/files/1/0006/9093/3842/products/ipod-nano-2.png?v=1542127504",
-          "variant_ids": [
-            808950810
-          ],
+          "variant_ids": [808950810],
           "admin_graphql_api_id": "gid://shopify/ProductImage/562641783"
         }
       ],
@@ -238,9 +231,7 @@
           "product_id": 921728736,
           "name": "Title",
           "position": 1,
-          "values": [
-            "Black"
-          ]
+          "values": ["Black"]
         }
       ],
       "images": [],

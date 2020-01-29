@@ -19,10 +19,9 @@ describe('Shopify#recurringApplicationCharge', () => {
       .post('/admin/recurring_application_charges.json', input)
       .reply(201, output);
 
-    return resource.create(input.recurring_application_charge)
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charge);
-      });
+    return resource.create(input.recurring_application_charge).then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charge);
+    });
   });
 
   it('gets a single recurring application charge by its ID (1/2)', () => {
@@ -32,10 +31,9 @@ describe('Shopify#recurringApplicationCharge', () => {
       .get('/admin/recurring_application_charges/455696195.json')
       .reply(200, output);
 
-    return resource.get(455696195)
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charge);
-      });
+    return resource.get(455696195).then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charge);
+    });
   });
 
   it('gets a single recurring application charge by its ID (2/2)', () => {
@@ -45,23 +43,19 @@ describe('Shopify#recurringApplicationCharge', () => {
       .get('/admin/recurring_application_charges/455696195.json?foo=bar')
       .reply(200, output);
 
-    return resource.get(455696195, { foo: 'bar' })
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charge);
-      });
+    return resource.get(455696195, { foo: 'bar' }).then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charge);
+    });
   });
 
   it('gets a list of all recurring application charges (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/recurring_application_charges.json')
-      .reply(200, output);
+    scope.get('/admin/recurring_application_charges.json').reply(200, output);
 
-    return resource.list()
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charges);
-      });
+    return resource.list().then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charges);
+    });
   });
 
   it('gets a list of all recurring application charges (2/2)', () => {
@@ -71,10 +65,9 @@ describe('Shopify#recurringApplicationCharge', () => {
       .get('/admin/recurring_application_charges.json?since_id=455696195')
       .reply(200, output);
 
-    return resource.list({ since_id: '455696195' })
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charges);
-      });
+    return resource.list({ since_id: '455696195' }).then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charges);
+    });
   });
 
   it('activates a recurring application charge', () => {
@@ -86,8 +79,9 @@ describe('Shopify#recurringApplicationCharge', () => {
       .post(`/admin/recurring_application_charges/${id}/activate.json`, input)
       .reply(200, output);
 
-    return resource.activate(id, input.recurring_application_charge)
-      .then(data => {
+    return resource
+      .activate(id, input.recurring_application_charge)
+      .then((data) => {
         expect(data).to.deep.equal(output.recurring_application_charge);
       });
   });
@@ -97,8 +91,9 @@ describe('Shopify#recurringApplicationCharge', () => {
       .delete('/admin/recurring_application_charges/455696195.json')
       .reply(200);
 
-    return resource.delete(455696195)
-      .then(data => expect(data).to.deep.equal({}));
+    return resource
+      .delete(455696195)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 
   it('customizes a recurring application charge', () => {
@@ -112,9 +107,8 @@ describe('Shopify#recurringApplicationCharge', () => {
       })
       .reply(200, output);
 
-    return resource.customize(id, { capped_amount: 200 })
-      .then(data => {
-        expect(data).to.deep.equal(output.recurring_application_charge);
-      });
+    return resource.customize(id, { capped_amount: 200 }).then((data) => {
+      expect(data).to.deep.equal(output.recurring_application_charge);
+    });
   });
 });

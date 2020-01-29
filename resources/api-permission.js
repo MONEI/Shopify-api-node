@@ -27,7 +27,7 @@ assign(ApiPermission.prototype, pick(base, 'buildUrl'));
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ApiPermission.prototype.delete = function () {
+ApiPermission.prototype.delete = function() {
   const url = this.buildUrl('current');
   return this.shopify.request(url, 'DELETE');
 };
