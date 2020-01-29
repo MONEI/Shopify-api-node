@@ -11,11 +11,10 @@ describe('Shopify#apiPermission', () => {
   afterEach(() => expect(scope.isDone()).to.be.true);
 
   it('deletes an api permission', () => {
-    scope
-      .delete('/admin/api_permissions/current.json')
-      .reply(200);
+    scope.delete('/admin/api_permissions/current.json').reply(200);
 
-    return shopify.apiPermission.delete()
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.apiPermission
+      .delete()
+      .then((data) => expect(data).to.deep.equal({}));
   });
 });

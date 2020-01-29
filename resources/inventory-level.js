@@ -30,8 +30,9 @@ assign(InventoryLevel.prototype, pick(base, ['list', 'buildUrl']));
  */
 InventoryLevel.prototype.adjust = function adjust(params) {
   const url = this.buildUrl('adjust');
-  return this.shopify.request(url, 'POST', undefined, params)
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, params)
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -44,8 +45,9 @@ InventoryLevel.prototype.adjust = function adjust(params) {
  */
 InventoryLevel.prototype.connect = function connect(params) {
   const url = this.buildUrl('connect');
-  return this.shopify.request(url, 'POST', undefined, params)
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, params)
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -69,8 +71,9 @@ InventoryLevel.prototype.delete = function remove(params) {
  */
 InventoryLevel.prototype.set = function set(params) {
   const url = this.buildUrl('set');
-  return this.shopify.request(url, 'POST', undefined, params)
-    .then(body => body[this.key]);
+  return this.shopify
+    .request(url, 'POST', undefined, params)
+    .then((body) => body[this.key]);
 };
 
 module.exports = InventoryLevel;

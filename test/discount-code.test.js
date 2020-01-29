@@ -19,8 +19,9 @@ describe('Shopify#discountCode', () => {
       .post('/admin/price_rules/2772974277/discount_codes.json', input)
       .reply(201, output);
 
-    return shopify.discountCode.create(2772974277, input.discount_code)
-      .then(data => expect(data).to.deep.equal(output.discount_code));
+    return shopify.discountCode
+      .create(2772974277, input.discount_code)
+      .then((data) => expect(data).to.deep.equal(output.discount_code));
   });
 
   it('updates a single discount code', () => {
@@ -32,8 +33,9 @@ describe('Shopify#discountCode', () => {
       .put(`/admin/price_rules/2772974277/discount_codes/${id}.json`, input)
       .reply(200, output);
 
-    return shopify.discountCode.update(2772974277, id, input.discount_code)
-      .then(data => expect(data).to.deep.equal(output.discount_code));
+    return shopify.discountCode
+      .update(2772974277, id, input.discount_code)
+      .then((data) => expect(data).to.deep.equal(output.discount_code));
   });
 
   it('gets a list of discount codes', () => {
@@ -43,8 +45,9 @@ describe('Shopify#discountCode', () => {
       .get('/admin/price_rules/2772974277/discount_codes.json')
       .reply(200, output);
 
-    return shopify.discountCode.list(2772974277)
-      .then(data => expect(data).to.deep.equal(output.discount_codes));
+    return shopify.discountCode
+      .list(2772974277)
+      .then((data) => expect(data).to.deep.equal(output.discount_codes));
   });
 
   it('gets a single discount code by its ID', () => {
@@ -54,8 +57,9 @@ describe('Shopify#discountCode', () => {
       .get('/admin/price_rules/2772974277/discount_codes/2769077509.json')
       .reply(200, output);
 
-    return shopify.discountCode.get(2772974277, 2769077509)
-      .then(data => expect(data).to.deep.equal(output.discount_code));
+    return shopify.discountCode
+      .get(2772974277, 2769077509)
+      .then((data) => expect(data).to.deep.equal(output.discount_code));
   });
 
   it('looks up a discount code', () => {
@@ -67,13 +71,14 @@ describe('Shopify#discountCode', () => {
     scope
       .get('/admin/discount_codes/lookup.json?code=10OFF')
       .reply(303, fixtures.res.lookup.replace('{{href}}', href), {
-        'Location': href
+        Location: href
       })
       .get(pathname)
       .reply(200, output);
 
-    return shopify.discountCode.lookup({ code: '10OFF' })
-      .then(data => expect(data).to.deep.equal(output.discount_code));
+    return shopify.discountCode
+      .lookup({ code: '10OFF' })
+      .then((data) => expect(data).to.deep.equal(output.discount_code));
   });
 
   it('deletes an existing discount code', () => {
@@ -81,7 +86,8 @@ describe('Shopify#discountCode', () => {
       .delete('/admin/price_rules/2772974277/discount_codes/2769077509.json')
       .reply(204);
 
-    return shopify.discountCode.delete(2772974277, 2769077509)
-      .then(data => expect(data).to.deep.equal({}));
+    return shopify.discountCode
+      .delete(2772974277, 2769077509)
+      .then((data) => expect(data).to.deep.equal({}));
   });
 });

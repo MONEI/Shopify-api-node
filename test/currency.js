@@ -14,11 +14,10 @@ describe('Shopify#currency', () => {
   it('gets a list of currencies enabled on a shop', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/currencies.json')
-      .reply(200, output);
+    scope.get('/admin/currencies.json').reply(200, output);
 
-    return shopify.currency.list()
-      .then(data => expect(data).to.deep.equal(output.currencies));
+    return shopify.currency
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.currencies));
   });
 });

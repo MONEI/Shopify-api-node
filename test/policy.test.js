@@ -14,22 +14,20 @@ describe('Shopify#policy', () => {
   it('gets a list of all policies (1/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/policies.json')
-      .reply(200, output);
+    scope.get('/admin/policies.json').reply(200, output);
 
-    return shopify.policy.list()
-      .then(data => expect(data).to.deep.equal(output.policies));
+    return shopify.policy
+      .list()
+      .then((data) => expect(data).to.deep.equal(output.policies));
   });
 
   it('gets a list of all policies (2/2)', () => {
     const output = fixtures.res.list;
 
-    scope
-      .get('/admin/policies.json?foo=bar')
-      .reply(200, output);
+    scope.get('/admin/policies.json?foo=bar').reply(200, output);
 
-    return shopify.policy.list({ foo: 'bar' })
-      .then(data => expect(data).to.deep.equal(output.policies));
+    return shopify.policy
+      .list({ foo: 'bar' })
+      .then((data) => expect(data).to.deep.equal(output.policies));
   });
 });

@@ -20,10 +20,9 @@ function GiftCardAdjustment(shopify) {
   this.key = 'adjustment';
 }
 
-assign(GiftCardAdjustment.prototype, omit(baseChild, [
-  'count',
-  'delete',
-  'update'
-]));
+assign(
+  GiftCardAdjustment.prototype,
+  omit(baseChild, ['count', 'delete', 'update'])
+);
 
 module.exports = GiftCardAdjustment;

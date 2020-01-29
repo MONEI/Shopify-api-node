@@ -123,6 +123,10 @@ declare class Shopify {
     get: (id: number, params?: any) => Promise<Shopify.ICollect>;
     list: (params?: any) => Promise<Shopify.ICollect[]>;
   };
+  collection: {
+    get: (id: number, params?: any) => Promise<Shopify.ICollection>;
+    products: (id: number, params?: any) => Promise<Shopify.IProduct[]>;
+  };
   collectionListing: {
     get: (id: number, params?: any) => Promise<Shopify.ICollectionListing>;
     list: (params?: any) => Promise<Shopify.ICollectionListing[]>;
@@ -224,6 +228,17 @@ declare class Shopify {
       params?: any
     ) => Promise<Shopify.IDiscountCode>;
   };
+  discountCodeCreationJob: {
+    create: (
+      priceRuleId: number,
+      params: any[]
+    ) => Promise<Shopify.IDiscountCodeCreation>;
+    discountCodes: (priceRuleId: number, id: number) => Promise<any[]>;
+    get: (
+      priceRuleId: number,
+      id: number
+    ) => Promise<Shopify.IDiscountCodeCreation>;
+  };
   dispute: {
     get: (id: number) => Promise<Shopify.IDispute>;
     list: (params?: any) => Promise<Shopify.IDispute[]>;
@@ -316,7 +331,7 @@ declare class Shopify {
     ) => Promise<Shopify.IGiftCardAdjustment>;
     list: (giftCardId: number) => Promise<Shopify.IGiftCardAdjustment[]>;
   };
-  graphql: (data: string) => Promise<any>;
+  graphql: (data: string, variables?: any) => Promise<any>;
   inventoryItem: {
     get: (id: number) => Promise<Shopify.IInventoryItem>;
     list: (params?: any) => Promise<Shopify.IInventoryItem[]>;
@@ -440,6 +455,16 @@ declare class Shopify {
     get: (productId: number) => Promise<Shopify.IProductListing>;
     list: (params?: any) => Promise<Shopify.IProductListing[]>;
     productIds: (params?: any) => Promise<any>;
+  };
+  productResourceFeedback: {
+    create: (
+      productId: number,
+      params: any
+    ) => Promise<Shopify.IResourceFeedback>;
+    list: (
+      productId: number,
+      params?: any
+    ) => Promise<Shopify.IResourceFeedback[]>;
   };
   productVariant: {
     count: (productId: number) => Promise<number>;
@@ -619,6 +644,7 @@ declare namespace Shopify {
     accessToken: string;
     apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
+    presentmentPrices?: boolean;
     shopName: string;
     timeout?: number;
   }
@@ -628,6 +654,7 @@ declare namespace Shopify {
     apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
     password: string;
+    presentmentPrices?: boolean;
     shopName: string;
     timeout?: number;
   }
@@ -955,6 +982,7 @@ declare namespace Shopify {
   }
 
   interface ICarrierService {
+    id: number;
     active: boolean;
     callback_url: string;
     carrier_service_type: string; // I think this could be restricted to "api" or "legacy"
@@ -1042,6 +1070,22 @@ declare namespace Shopify {
     position?: number;
     product_id: number;
     sort_value?: string;
+  }
+
+  interface ICollection {
+    admin_graphql_api_id: string;
+    body_html: string;
+    collection_type: string;
+    handle: string;
+    id: number;
+    image: IImage;
+    products_count: number;
+    published_at: string;
+    published_scope: string;
+    sort_order: string;
+    template_suffix: string | null;
+    title: string;
+    updated_at: string;
   }
 
   type CollectionListingSortOrder =
@@ -1262,6 +1306,19 @@ declare namespace Shopify {
     usage_count: number;
   }
 
+  interface IDiscountCodeCreation {
+    codes_count: number;
+    completed_at: string;
+    created_at: string;
+    failed_count: number;
+    id: number;
+    imported_count: number;
+    price_rule_id: number;
+    started_at: string;
+    status: string;
+    updated_at: string;
+  }
+
   type DisputeReason =
     | 'bank_not_process'
     | 'credit_not_processed'
@@ -1354,7 +1411,7 @@ declare namespace Shopify {
     completed_at: string | null;
     created_at: string;
     currency: string;
-    customer: string;
+    customer: ICustomer | null;
     email: string;
     id: number;
     invoice_sent_at: string | null;
@@ -1548,6 +1605,9 @@ declare namespace Shopify {
     tracked: boolean;
     created_at: string;
     updated_at: string;
+    requires_shipping: boolean;
+    country_code_of_origin: string;
+    harmonized_system_code: string;
   }
 
   interface IInventoryLevel {
@@ -2102,6 +2162,7 @@ declare namespace Shopify {
     requires_shipping: boolean;
     sku: string;
     taxable: boolean;
+    tax_code: string | null;
     title: string;
     updated_at: string;
     weight: number;
@@ -2336,6 +2397,7 @@ declare namespace Shopify {
     tax_percentage: number;
     tax_type: any | null;
     shipping_zone_id: number;
+    provinces: IProvince[];
   }
 
   interface IShippingZone {
@@ -2617,6 +2679,21 @@ declare namespace Shopify {
     user_type: UserType;
   }
 
+  type ICartLineItem = ICheckoutLineItem;
+
+  interface ICart {
+    id: string;
+    token: string;
+    line_items: Shopify.ICartLineItem[];
+    note: string | null;
+    updated_at: string;
+    created_at: string;
+  }
+
+  export type IDeletedItem = {
+    id: number;
+  };
+
   export type WebhookTopic =
     | 'app/uninstalled'
     | 'carts/create'
@@ -2702,5 +2779,173 @@ declare namespace Shopify {
     format?: WebhookFormat;
     metafield_namespaces?: string[];
     topic: WebhookTopic;
+  }
+
+  export type WebhookType<T extends WebhookTopic> = T extends 'app/uninstalled'
+    ? IShop
+    : T extends 'carts/create'
+    ? ICart
+    : T extends 'carts/update'
+    ? ICart
+    : T extends 'checkouts/create'
+    ? ICheckout
+    : T extends 'checkouts/update'
+    ? ICheckout
+    : T extends 'checkouts/delete'
+    ? IDeletedItem
+    : T extends 'collections/create'
+    ? ISmartCollection | ICustomCollection
+    : T extends 'collections/update'
+    ? ISmartCollection | ICustomCollection
+    : T extends 'collections/delete'
+    ? IDeletedItem
+    : T extends 'collection_listings/add'
+    ? ICollectionListing
+    : T extends 'collection_listings/remove'
+    ? ICollectionListing
+    : T extends 'collection_listings/update'
+    ? ICollectionListing
+    : T extends 'customers/create'
+    ? ICustomer
+    : T extends 'customers/disable'
+    ? ICustomer
+    : T extends 'customers/enable'
+    ? ICustomer
+    : T extends 'customers/update'
+    ? ICustomer
+    : T extends 'customers/delete'
+    ? IDeletedItem
+    : T extends 'customer_groups/create'
+    ? ICustomerSavedSearch
+    : T extends 'customer_groups/update'
+    ? ICustomerSavedSearch
+    : T extends 'customer_groups/delete'
+    ? IDeletedItem
+    : T extends 'draft_orders/create'
+    ? IDraftOrder
+    : T extends 'draft_orders/update'
+    ? IDraftOrder
+    : T extends 'draft_orders/delete'
+    ? IDeletedItem
+    : T extends 'fulfillments/create'
+    ? IFulfillment
+    : T extends 'fulfillments/update'
+    ? IFulfillment
+    : T extends 'fulfillment_events/create'
+    ? IFulfillmentEvent
+    : T extends 'fulfillment_events/delete'
+    ? IDeletedItem
+    : T extends 'inventory_items/create'
+    ? IInventoryItem
+    : T extends 'inventory_items/update'
+    ? IInventoryItem
+    : T extends 'inventory_items/delete'
+    ? IDeletedItem
+    : T extends 'inventory_levels/connect'
+    ? IInventoryLevel
+    : T extends 'inventory_levels/update'
+    ? IInventoryLevel
+    : T extends 'inventory_levels/disconnect'
+    ? IInventoryLevel
+    : T extends 'locations/create'
+    ? ILocation
+    : T extends 'locations/update'
+    ? ILocation
+    : T extends 'locations/delete'
+    ? IDeletedItem
+    : T extends 'orders/cancelled'
+    ? IOrder
+    : T extends 'orders/create'
+    ? IOrder
+    : T extends 'orders/fulfilled'
+    ? IOrder
+    : T extends 'orders/paid'
+    ? IOrder
+    : T extends 'orders/partially_fulfilled'
+    ? IOrder
+    : T extends 'orders/updated'
+    ? IOrder
+    : T extends 'orders/delete'
+    ? IDeletedItem
+    : T extends 'order_transactions/create'
+    ? ITransaction
+    : T extends 'products/create'
+    ? IProduct
+    : T extends 'products/update'
+    ? IProduct
+    : T extends 'products/delete'
+    ? IDeletedItem
+    : T extends 'product_listings/add'
+    ? IProductListing
+    : T extends 'product_listings/remove'
+    ? IProductListing
+    : T extends 'product_listings/update'
+    ? IProductListing
+    : T extends 'refunds/create'
+    ? IRefund
+    : T extends 'shop/update'
+    ? IShop
+    : T extends 'themes/create'
+    ? ITheme
+    : T extends 'themes/publish'
+    ? ITheme
+    : T extends 'themes/update'
+    ? ITheme
+    : T extends 'themes/delete'
+    ? IDeletedItem
+    : any;
+
+  interface ICarrierAddress {
+    country: string;
+    postal_code: string;
+    province?: string;
+    city: string;
+    name?: string;
+    address1?: string;
+    address2?: string;
+    address3?: string;
+    phone?: string;
+    fax?: string;
+    email?: string;
+    address_type?: string;
+    company_name?: string;
+  }
+
+  interface ICarrierItem {
+    name?: string;
+    sku?: string;
+    quantity: number;
+    grams?: number;
+    price: number;
+    vendor?: string;
+    requires_shipping: boolean;
+    taxable: boolean;
+    fulfillment_service?: string;
+    properties?: ILineItemProperty;
+    product_id: number;
+    variant_id: number;
+  }
+
+  interface ICarrierRequestBody {
+    origin: ICarrierAddress;
+    destination: ICarrierAddress;
+    items: ICarrierItem[];
+    currency: string;
+    locale: string;
+  }
+
+  export interface ICarrierRequest {
+    rate: ICarrierRequestBody;
+  }
+
+  export interface ICarrierResponse {
+    service_name: string;
+    description?: string;
+    service_code: string;
+    currency: string;
+    total_price: number;
+    phone_required?: boolean;
+    min_delivery_date?: string;
+    max_delivery_date?: string;
   }
 }

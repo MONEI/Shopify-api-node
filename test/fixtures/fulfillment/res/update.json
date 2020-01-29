@@ -8,13 +8,9 @@
     "updated_at": "2015-09-02T14:49:30-04:00",
     "tracking_company": "Other",
     "tracking_number": "987654321",
-    "tracking_numbers": [
-      "987654321"
-    ],
+    "tracking_numbers": ["987654321"],
     "tracking_url": "http://www.google.com/search?q=987654321",
-    "tracking_urls": [
-      "http://www.google.com/search?q=987654321"
-    ],
+    "tracking_urls": ["http://www.google.com/search?q=987654321"],
     "receipt": {
       "testcase": true,
       "authorization": "123456"

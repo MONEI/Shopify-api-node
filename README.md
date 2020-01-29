@@ -43,7 +43,8 @@ Creates a new `Shopify` instance.
   `apiKey` and `password` options. If you are looking for a premade solution to
   obtain an access token, take a look at the [shopify-token][] module.
 - `apiVersion` - Optional - A string to specify the [Shopify API
-  version][api-versioning] to use for requests
+  version][api-versioning] to use for requests. Defaults to the oldest supported
+  stable version.
 - `autoLimit` - Optional - This option allows you to regulate the request rate
   in order to avoid hitting the [rate limit][api-call-limit]. Requests are
   limited using the token bucket algorithm. Accepted values are a boolean or a
@@ -53,6 +54,8 @@ Creates a new `Shopify` instance.
   specifies a limit of 2 requests per second with a burst of 35 requests. When
   set to `true` requests are limited as specified in the above example. Defaults
   to `false`.
+- `presentmentPrices` - Optional - Whether to include the header to pull
+  presentment prices for products. Defaults to `false`.
 - `timeout` - Optional - The number of milliseconds before the request times
   out. If the request takes longer than `timeout`, it will be aborted. Defaults
   to `60000`, or 1 minute.
@@ -107,7 +110,7 @@ Keep in mind that the `autoLimit` option is ignored while using GraphQL API.
 shopify.on('callGraphqlLimits', (limits) => console.log(limits));
 ```
 
-### Resources
+## Resources
 
 Every resource is accessed via your `shopify` instance:
 
@@ -184,7 +187,7 @@ returned in the response body:
 
 This behavior is valid for all resources.
 
-#### Metafields
+## Metafields
 
 Shopify allows for adding metafields to various resources. You can use the
 `owner_resource` and `owner_id` properties to work with metafields that belong
@@ -197,7 +200,10 @@ shopify.metafield
   .list({
     metafield: { owner_resource: 'product', owner_id: 632910392 }
   })
-  .then((metafields) => console.log(metafields), (err) => console.error(err));
+  .then(
+    (metafields) => console.log(metafields),
+    (err) => console.error(err)
+  );
 ```
 
 Create a new metafield for a product:
@@ -212,10 +218,36 @@ shopify.metafield
     owner_resource: 'product',
     owner_id: 632910392
   })
-  .then((metafield) => console.log(metafield), (err) => console.error(err));
+  .then(
+    (metafield) => console.log(metafield),
+    (err) => console.error(err)
+  );
 ```
 
-### Available resources and methods
+## Pagination
+
+[Pagination][paginated-rest-results] in API version 2019-07 and above can be
+done as shown in the following example:
+
+```js
+(async () => {
+  let params = { limit: 10 };
+
+  do {
+    const products = await shopify.product.list(params);
+
+    console.log(products);
+
+    params = products.nextPageParameters;
+  } while (params !== undefined);
+})().catch(console.error);
+```
+
+Each set of results may have the `nextPageParameters` and
+`previousPageParameters` properties. These properties specify respectively the
+parameters needed to fetch the next and previous page of results.
+
+## Available resources and methods
 
 - accessScope
   - `list()`
@@ -275,6 +307,9 @@ shopify.metafield
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+- collection
+  - `get(id[, params])`
+  - `products(id[, params])`
 - collectionListing
   - `get(id)`
   - `list([params])`
@@ -340,6 +375,10 @@ shopify.metafield
   - `list(priceRuleId)`
   - `lookup(params)`
   - `update(priceRuleId, id, params)`
+- discountCodeCreationJob
+  - `create(priceRuleId, params)`
+  - `discountCodes(priceRuleId, id)`
+  - `get(priceRuleId, id)`
 - dispute
   - `get(id)`
   - `list([params])`
@@ -479,6 +518,9 @@ shopify.metafield
   - `get(productId)`
   - `list([params])`
   - `productIds([params])`
+- [productResourceFeedback](https://help.shopify.com/en/api/reference/sales-channels/productresourcefeedback)
+  - `create(productId[, params])`
+  - `list(productId)`
 - productVariant
   - `count(productId)`
   - `create(productId, params)`
@@ -575,7 +617,7 @@ shopify.metafield
 where `params` is a plain JavaScript object. See
 https://help.shopify.com/api/reference?ref=microapps for parameters details.
 
-### GraphQL
+## GraphQL
 
 The `shopify` instance also allows to use the GraphQL API through the `graphql`
 method, which returns a promise that resolves with the result data:
@@ -625,6 +667,7 @@ shopify
 - [Wholesaler PRO][wholesaler-pro]
 - [Youtube Traffic][youtube-traffic]
 - [Shipatron][shipatron]
+- [UPC Code Manager][upc-code-manager]
 
 ## Supported by:
 
@@ -663,6 +706,8 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
 [reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
+[paginated-rest-results]:
+  https://help.shopify.com/en/api/guides/paginated-rest-results
 [polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]:
   http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
@@ -676,3 +721,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
 [shipatron]: https://shipatron.io
+[upc-code-manager]: https://apps.shopify.com/upc-code-manager-1

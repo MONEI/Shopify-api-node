@@ -22,8 +22,8 @@ function AccessScope(shopify) {
  * @public
  */
 AccessScope.prototype.list = function list() {
-  const path = `/admin/oauth/${this.name}.json`;
-  const url = assign({ path }, this.shopify.baseUrl);
+  const pathname = `/admin/oauth/${this.name}.json`;
+  const url = assign({ pathname }, this.shopify.baseUrl);
   return this.shopify.request(url, 'GET', this.name);
 };
 

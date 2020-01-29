@@ -19,11 +19,7 @@ function ApplicationCharge(shopify) {
   this.key = 'application_charge';
 }
 
-assign(ApplicationCharge.prototype, omit(base, [
-  'count',
-  'delete',
-  'update'
-]));
+assign(ApplicationCharge.prototype, omit(base, ['count', 'delete', 'update']));
 
 /**
  * Activates a previously accepted one-time application charge.

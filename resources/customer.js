@@ -41,9 +41,11 @@ Customer.prototype.search = function search(params) {
  */
 Customer.prototype.accountActivationUrl = function accountActivationUrl(id) {
   const url = this.buildUrl(`${id}/account_activation_url`);
-  return this.shopify.request(url, 'POST', undefined, {
-    customer: { id }
-  }).then(body => body.account_activation_url);
+  return this.shopify
+    .request(url, 'POST', undefined, {
+      customer: { id }
+    })
+    .then((body) => body.account_activation_url);
 };
 
 /**

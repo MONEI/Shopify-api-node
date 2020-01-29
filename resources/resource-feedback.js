@@ -19,11 +19,9 @@ function ResourceFeedback(shopify) {
   this.key = 'resource_feedback';
 }
 
-assign(ResourceFeedback.prototype, omit(base, [
-  'count',
-  'delete',
-  'get',
-  'update'
-]));
+assign(
+  ResourceFeedback.prototype,
+  omit(base, ['count', 'delete', 'get', 'update'])
+);
 
 module.exports = ResourceFeedback;
