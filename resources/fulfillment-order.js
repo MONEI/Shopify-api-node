@@ -22,6 +22,8 @@ function FulfillmentOrder(shopify) {
   this.name = 'fulfillment_orders';
 }
 
+assign(Order.prototype, base);
+
 /**
  * Gets a list of fulfillment orders for an order.
  *
