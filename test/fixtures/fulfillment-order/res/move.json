@@ -1,5 +1,5 @@
 {
-    "original_fulfillment_order": {
+  "original_fulfillment_order": {
     "id": 1025578643,
     "shop_id": 690933842,
     "order_id": 450789469,
@@ -47,7 +47,7 @@
     },
     "merchant_requests": []
   },
-    "moved_fulfillment_order": {
+  "moved_fulfillment_order": {
     "id": 1025578644,
     "shop_id": 690933842,
     "order_id": 450789469,
@@ -55,10 +55,7 @@
     "fulfillment_service_handle": "manual",
     "request_status": "unsubmitted",
     "status": "open",
-    "supported_actions": [
-      "create_fulfillment",
-      "move"
-    ],
+    "supported_actions": ["create_fulfillment", "move"],
     "destination": {
       "id": 1025578638,
       "address1": "Chestnut Street 92",
@@ -98,5 +95,5 @@
     },
     "merchant_requests": []
   },
-    "remaining_fulfillment_order": null
-  }
+  "remaining_fulfillment_order": null
+}

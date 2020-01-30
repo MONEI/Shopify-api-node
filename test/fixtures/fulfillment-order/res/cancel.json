@@ -1,5 +1,5 @@
 {
-    "fulfillment_order": {
+  "fulfillment_order": {
     "id": 1025578640,
     "shop_id": 690933842,
     "order_id": 450789469,
@@ -47,7 +47,7 @@
     },
     "merchant_requests": []
   },
-    "replacement_fulfillment_order": {
+  "replacement_fulfillment_order": {
     "id": 1025578641,
     "shop_id": 690933842,
     "order_id": 450789469,
@@ -55,10 +55,7 @@
     "fulfillment_service_handle": "mars-fulfillment",
     "request_status": "unsubmitted",
     "status": "open",
-    "supported_actions": [
-      "request_fulfillment",
-      "create_fulfillment"
-    ],
+    "supported_actions": ["request_fulfillment", "create_fulfillment"],
     "destination": {
       "id": 1025578635,
       "address1": "Chestnut Street 92",
@@ -98,4 +95,4 @@
     },
     "merchant_requests": []
   }
-  }
+}
