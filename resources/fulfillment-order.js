@@ -13,8 +13,8 @@ const Order = require('../resources/order.js');
  * @public
  */
 function FulfillmentOrder(shopify) {
-  this.shopify = {...shopify};
-  this.shopify.options = {...shopify.options};
+  this.shopify = { ...shopify };
+  this.shopify.options = { ...shopify.options };
   this.shopify.options.apiVersion = '2020-01';
 
   this.parentName = 'fulfillments';
@@ -58,8 +58,9 @@ FulfillmentOrder.prototype.get = function get(id) {
  */
 FulfillmentOrder.prototype.cancel = function cancel(id) {
   const url = this.buildUrl(`${id}/cancel`);
+
   return this.shopify.request(url, 'POST', undefined)
-    .then(body => body[this.key]);
+    .then((body) => body[this.key]);
 };
 
 /**
@@ -70,9 +71,10 @@ FulfillmentOrder.prototype.cancel = function cancel(id) {
  * @public
  */
 FulfillmentOrder.prototype.close = function close(id) {
-    const url = this.buildUrl(`${id}/close`);
-    return this.shopify.request(url, 'POST', undefined)
-      .then(body => body[this.key]);
+  const url = this.buildUrl(`${id}/close`);
+  
+  return this.shopify.request(url, 'POST', undefined)
+    .then((body) => body[this.key]);
 };
   
 /**
@@ -84,8 +86,9 @@ FulfillmentOrder.prototype.close = function close(id) {
  * @public
  */
 FulfillmentOrder.prototype.move = function move(id, params) {
-    const url = this.buildUrl(`${id}/move`);
-    return this.shopify.request(url, 'POST', undefined, params)
-      .then(body => body[this.key]);
+  const url = this.buildUrl(`${id}/move`);
+  
+  return this.shopify.request(url, 'POST', undefined, params)
+    .then((body) => body[this.key]);
 };
 module.exports = FulfillmentOrder;
