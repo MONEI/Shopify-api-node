@@ -59,7 +59,8 @@ FulfillmentOrder.prototype.get = function get(id) {
 FulfillmentOrder.prototype.cancel = function cancel(id) {
   const url = this.buildUrl(`${id}/cancel`);
 
-  return this.shopify.request(url, 'POST', undefined)
+  return this.shopify
+    .request(url, 'POST', undefined)
     .then((body) => body[this.key]);
 };
 
@@ -72,11 +73,12 @@ FulfillmentOrder.prototype.cancel = function cancel(id) {
  */
 FulfillmentOrder.prototype.close = function close(id) {
   const url = this.buildUrl(`${id}/close`);
-  
-  return this.shopify.request(url, 'POST', undefined)
+
+  return this.shopify
+    .request(url, 'POST', undefined)
     .then((body) => body[this.key]);
 };
-  
+
 /**
  * Moves a fulfillment order.
  *
@@ -87,8 +89,9 @@ FulfillmentOrder.prototype.close = function close(id) {
  */
 FulfillmentOrder.prototype.move = function move(id, params) {
   const url = this.buildUrl(`${id}/move`);
-  
-  return this.shopify.request(url, 'POST', undefined, params)
+
+  return this.shopify
+    .request(url, 'POST', undefined, params)
     .then((body) => body[this.key]);
 };
 module.exports = FulfillmentOrder;
