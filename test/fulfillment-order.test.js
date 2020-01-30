@@ -18,10 +18,10 @@ describe('Shopify#fulfillment-order', () => {
       .get('/admin/api/2020-01/orders/450789469/fulfillment_orders.json')
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.list(450789469)
-      .then(data => expect(data).to.deep.equal(output.fulfillment_orders));
+    return shopify.fulfillmentOrder
+      .list(450789469)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_orders));
   });
-
 
   it('gets a single fulfillment order by its ID', () => {
     const output = fixtures.res.get;
@@ -30,8 +30,9 @@ describe('Shopify#fulfillment-order', () => {
       .get('/admin/api/2020-01/fulfillment_orders/450789469.json')
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.get(450789469)
-      .then(data => expect(data).to.deep.equal(output.fulfillment_order));
+    return shopify.fulfillmentOrder
+      .get(450789469)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
 
   it('cancels a fulfillment order', () => {
@@ -41,8 +42,9 @@ describe('Shopify#fulfillment-order', () => {
       .post('/admin/api/2020-01/fulfillment_orders/450789469/cancel.json')
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.cancel(450789469)
-      .then(data => expect(data).to.deep.equal(output.fulfillment_order));
+    return shopify.fulfillmentOrder
+      .cancel(450789469)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
 
   it('closes a fulfillment order', () => {
@@ -52,8 +54,9 @@ describe('Shopify#fulfillment-order', () => {
       .post('/admin/api/2020-01/fulfillment_orders/450789469/close.json')
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.close(450789469)
-      .then(data => expect(data).to.deep.equal(output.fulfillment_order));
+    return shopify.fulfillmentOrder
+      .close(450789469)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
 
   it('moves a fulfillment order', () => {
@@ -63,8 +66,8 @@ describe('Shopify#fulfillment-order', () => {
       .post('/admin/api/2020-01/fulfillment_orders/450789469/move.json')
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.move(450789469, { new_location_id: 333 })
-      .then(data => expect(data).to.deep.equal(output.fulfillment_order));
+    return shopify.fulfillmentOrder
+      .move(450789469, { new_location_id: 333 })
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
-
 });
