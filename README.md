@@ -410,6 +410,12 @@ parameters needed to fetch the next and previous page of results.
   - `get(orderId, fulfillmentId, id)`
   - `list(orderId, fulfillmentId[, params])`
   - `update(orderId, fulfillmentId, id, params)`
+- fulfillmentOrder
+  - `cancel(id, params)`
+  - `close(id[, message])`
+  - `get(id)`
+  - `list(orderId)`
+  - `move(id, locationId)`
 - fulfillmentService
   - `create(params)`
   - `delete(id)`

@@ -1,0 +1,52 @@
+{
+  "fulfillment_orders": [
+    {
+      "id": 1025578638,
+      "shop_id": 690933842,
+      "order_id": 450789469,
+      "assigned_location_id": 48752903,
+      "fulfillment_service_handle": "mars-fulfillment",
+      "request_status": "submitted",
+      "status": "open",
+      "supported_actions": ["cancel_fulfillment_order"],
+      "destination": {
+        "id": 1025578632,
+        "address1": "Chestnut Street 92",
+        "address2": "",
+        "city": "Louisville",
+        "company": null,
+        "country": "United States",
+        "email": "bob.norman@hostmail.com",
+        "first_name": "Bob",
+        "last_name": "Norman",
+        "phone": "555-625-1199",
+        "province": "Kentucky",
+        "zip": "40202"
+      },
+      "line_items": [
+        {
+          "id": 1025578651,
+          "shop_id": 690933842,
+          "fulfillment_order_id": 1025578638,
+          "quantity": 1,
+          "line_item_id": 518995019,
+          "inventory_item_id": 49148385,
+          "fulfillable_quantity": 1,
+          "variant_id": 49148385
+        }
+      ],
+      "assigned_location": {
+        "address1": null,
+        "address2": null,
+        "city": null,
+        "country_code": "DE",
+        "location_id": 48752903,
+        "name": "Apple Api Shipwire",
+        "phone": null,
+        "province": null,
+        "zip": null
+      },
+      "merchant_requests": []
+    }
+  ]
+}
