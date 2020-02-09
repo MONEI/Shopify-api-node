@@ -2,7 +2,6 @@ describe('Shopify', () => {
   'use strict';
 
   const expect = require('chai').expect;
-  const assign = require('lodash/assign');
   const format = require('url').format;
   const nock = require('nock');
   const got = require('got');
@@ -115,7 +114,7 @@ describe('Shopify', () => {
   });
 
   describe('Shopify#request', () => {
-    const url = assign({ pathname: '/test' }, shopify.baseUrl);
+    const url = { pathname: '/test', ...shopify.baseUrl };
     const scope = common.scope;
 
     afterEach(() => expect(nock.isDone()).to.be.true);
@@ -209,7 +208,7 @@ describe('Shopify', () => {
 
     it('uses basic auth as intended', () => {
       const shopify = new Shopify({ shopName, apiKey, password });
-      const url = assign({ pathname: '/test' }, shopify.baseUrl);
+      const url = { pathname: '/test', ...shopify.baseUrl };
 
       nock(`https://${shopName}.myshopify.com`, {
         reqheaders: {
@@ -370,19 +369,18 @@ describe('Shopify', () => {
           'eyJsYXN0X2lkIjo0MzI2NTYxMTIwMjkxLCJsYXN0X3ZhbHVlIjoiMSIsImRpcmVjdG' +
           'lvbiI6Im5leHQifQ'
       };
-      const nextLink = format(
-        assign({ pathname: '/test', query: nextPageParams }, shopify.baseUrl)
-      );
+      const nextLink = format({
+        pathname: '/test',
+        query: nextPageParams,
+        ...shopify.baseUrl
+      });
 
       scope
         .get('/test')
         .query({ limit: 1 })
         .reply(200, data, { Link: `<${nextLink}>; rel="next"` });
 
-      const url = assign(
-        { pathname: '/test', search: '?limit=1' },
-        shopify.baseUrl
-      );
+      const url = { pathname: '/test', search: '?limit=1', ...shopify.baseUrl };
 
       return shopify.request(url, 'GET', 'foo').then((res) => {
         expect(res).to.deep.equal(data.foo);
@@ -406,18 +404,22 @@ describe('Shopify', () => {
           'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDMyNjU2MTIxODU5NSwibGFzdF' +
           '92YWx1ZSI6IjIifQ'
       };
-      const prevLink = format(
-        assign({ pathname: '/test', query: prevPageParams }, shopify.baseUrl)
-      );
+      const prevLink = format({
+        pathname: '/test',
+        query: prevPageParams,
+        ...shopify.baseUrl
+      });
       const nextPageParams = {
         limit: '1',
         page_info:
           'eyJkaXJlY3Rpb24iOiJuZXh0IiwibGFzdF9pZCI6NDMyNjU2MTIxODU5NSwibGFzdF' +
           '92YWx1ZSI6IjIifQ'
       };
-      const nextLink = format(
-        assign({ pathname: '/test', query: nextPageParams }, shopify.baseUrl)
-      );
+      const nextLink = format({
+        pathname: '/test',
+        query: nextPageParams,
+        ...shopify.baseUrl
+      });
 
       scope
         .get('/test')
@@ -426,11 +428,11 @@ describe('Shopify', () => {
           Link: `<${prevLink}>; rel="previous", <${nextLink}>; rel="next"`
         });
 
-      const url = assign(
-        { pathname: '/test', search: `?${qs.stringify(query)}` },
-        shopify.baseUrl
-      );
-
+      const url = {
+        pathname: '/test',
+        search: `?${qs.stringify(query)}`,
+        ...shopify.baseUrl
+      };
       return shopify.request(url, 'GET', 'foo').then((res) => {
         expect(res).to.deep.equal(data.foo);
         expect(res.nextPageParameters).to.deep.equal(nextPageParams);
@@ -453,19 +455,22 @@ describe('Shopify', () => {
           'eyJkaXJlY3Rpb24iOiJwcmV2IiwibGFzdF9pZCI6NDMyNjU2MTQxNTIwMywibGFzdF' +
           '92YWx1ZSI6IjMifQ'
       };
-      const prevLink = format(
-        assign({ pathname: '/test', query: prevPageParams }, shopify.baseUrl)
-      );
+      const prevLink = format({
+        pathname: '/test',
+        query: prevPageParams,
+        ...shopify.baseUrl
+      });
 
       scope
         .get('/test')
         .query(query)
         .reply(200, data, { Link: `<${prevLink}>; rel="previous"` });
 
-      const url = assign(
-        { pathname: '/test', search: `?${qs.stringify(query)}` },
-        shopify.baseUrl
-      );
+      const url = {
+        pathname: '/test',
+        search: `?${qs.stringify(query)}`,
+        ...shopify.baseUrl
+      };
 
       return shopify.request(url, 'GET', 'foo').then((res) => {
         expect(res).to.deep.equal(data.foo);

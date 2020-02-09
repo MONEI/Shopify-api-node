@@ -2,7 +2,6 @@
 
 const transform = require('lodash/transform');
 const defaults = require('lodash/defaults');
-const assign = require('lodash/assign');
 const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const got = require('got');
@@ -115,7 +114,7 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  */
 Shopify.prototype.request = function request(uri, method, key, data, headers) {
   const options = {
-    headers: assign({ 'User-Agent': `${pkg.name}/${pkg.version}` }, headers),
+    headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
@@ -141,11 +140,11 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
         const { pathname, search } = url.parse(res.headers['location']);
 
         return delay(retryAfter).then(() => {
-          const url = { pathname };
+          const uri = { pathname, ...this.baseUrl };
 
-          if (search) url.search = search;
+          if (search) uri.search = search;
 
-          return this.request(assign(url, this.baseUrl), 'GET', key);
+          return this.request(uri, 'GET', key);
         });
       }
 
@@ -211,7 +210,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
   pathname += '/graphql.json';
 
-  const uri = assign({ pathname }, this.baseUrl);
+  const uri = { pathname, ...this.baseUrl };
   const json = variables !== undefined && variables !== null;
   const options = {
     headers: {

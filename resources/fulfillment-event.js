@@ -1,6 +1,5 @@
 'use strict';
 
-const assign = require('lodash/assign');
 const qs = require('qs');
 
 /**
@@ -149,13 +148,13 @@ FulfillmentEvent.prototype.buildUrl = function buildUrl(
       .replace(/\/+/g, '/')
       .replace(/\/$/, '') + '.json';
 
-  const url = { pathname };
+  const url = { pathname, ...this.shopify.baseUrl };
 
   if (query) {
     url.search = '?' + qs.stringify(query, { arrayFormat: 'brackets' });
   }
 
-  return assign(url, this.shopify.baseUrl);
+  return url;
 };
 
 module.exports = FulfillmentEvent;

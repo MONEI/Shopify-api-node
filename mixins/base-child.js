@@ -1,6 +1,5 @@
 'use strict';
 
-const assign = require('lodash/assign');
 const qs = require('qs');
 
 /**
@@ -113,13 +112,13 @@ const baseChild = {
     pathname += `/${this.parentName}/${parentId}/${this.name}/${id}`;
     pathname = pathname.replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
 
-    const url = { pathname };
+    const url = { pathname, ...this.shopify.baseUrl };
 
     if (query) {
       url.search = '?' + qs.stringify(query, { arrayFormat: 'brackets' });
     }
 
-    return assign(url, this.shopify.baseUrl);
+    return url;
   }
 };
 
