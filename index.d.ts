@@ -304,6 +304,19 @@ declare class Shopify {
       params: any
     ) => Promise<Shopify.IFulfillmentEvent>;
   };
+  fulfillmentOrder: {
+    cancel: (
+      id: number,
+      params: Shopify.IFulfillmentOrder
+    ) => Promise<Shopify.IFulfillmentOrder>;
+    close: (id: number, message?: string) => Promise<Shopify.IFulfillmentOrder>;
+    get: (id: number) => Promise<Shopify.IFulfillmentOrder>;
+    list: (orderId: number) => Promise<Shopify.IFulfillmentOrder[]>;
+    move: (
+      id: number,
+      locationId: number
+    ) => Promise<Shopify.IFulfillmentOrder>;
+  };
   fulfillmentService: {
     create: (params: any) => Promise<Shopify.IFulfillmentService>;
     delete: (id: number) => Promise<void>;
@@ -1548,6 +1561,94 @@ declare namespace Shopify {
     status: FulfillmentEventStatus;
     updated_at: string;
     zip: string | null;
+  }
+
+  interface IFulfillmentOrderDestination {
+    address1: string;
+    address2: string;
+    city: string;
+    company: string;
+    country: string;
+    email: string;
+    first_name: string;
+    id: number;
+    last_name: string;
+    phone: string;
+    province: string;
+    zip: string;
+  }
+
+  interface IFulfillmentOrderLineItem {
+    id: number;
+    shop_id: number;
+    fulfillment_order_id: number;
+    line_item_id: number;
+    inventory_item_id: number;
+    quantity: number;
+    fulfillable_quantity: number;
+    variant_id: number;
+  }
+
+  type FulfillmentOrderRequestStatus =
+    | 'accepted'
+    | 'cancellation_accepted'
+    | 'cancellation_rejected'
+    | 'cancellation_requested'
+    | 'closed'
+    | 'rejected'
+    | 'submitted'
+    | 'unsubmitted';
+
+  type FulfillmentOrderStatus =
+    | 'cancelled'
+    | 'closed'
+    | 'in_progress'
+    | 'incomplete'
+    | 'open';
+
+  type FulfillmentOrderSupportedAction =
+    | 'cancel_fulfillment_order'
+    | 'create_fulfillment'
+    | 'move'
+    | 'request_cancellation'
+    | 'request_fulfillment';
+
+  interface IFulfillmentOrderMerchantRequestRequestOptions {
+    date: string;
+    note: string;
+    shipping_method: string;
+  }
+
+  interface IFulfillmentOrderMerchantRequest {
+    kind: string;
+    message: string;
+    request_options: IFulfillmentOrderMerchantRequestRequestOptions;
+  }
+
+  interface IFulfillmentOrderAssignedLocation {
+    address1: string;
+    address2: string;
+    city: string;
+    country_code: string;
+    location_id: number;
+    name: string;
+    phone: string;
+    province: string;
+    zip: string;
+  }
+
+  interface IFulfillmentOrder {
+    assigned_location: IFulfillmentOrderAssignedLocation;
+    assigned_location_id: number;
+    destination: IFulfillmentOrderDestination;
+    id: number;
+    line_items: IFulfillmentOrderLineItem[];
+    merchant_requests: IFulfillmentOrderMerchantRequest[];
+    order_id: number;
+    request_status: FulfillmentOrderRequestStatus;
+    shop_id: number;
+    status: FulfillmentOrderStatus;
+    supported_actions: FulfillmentOrderSupportedAction[];
   }
 
   interface IFulfillmentService {

@@ -28,6 +28,7 @@ const map = {
   event: 'event',
   fulfillment: 'fulfillment',
   fulfillmentEvent: 'fulfillment-event',
+  fulfillmentOrder: 'fulfillment-order',
   fulfillmentService: 'fulfillment-service',
   giftCard: 'gift-card',
   giftCardAdjustment: 'gift-card-adjustment',
