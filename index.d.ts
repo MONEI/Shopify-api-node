@@ -383,7 +383,10 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.IMetafield[]>;
     update: (id: number, params: any) => Promise<Shopify.IMetafield>;
   };
-  on: (event: 'callLimits', callback: onCallLimitsFn) => Shopify;
+  on: (
+    event: 'callLimits' | 'callGraphqlLimits',
+    callback: onCallLimitsFn
+  ) => Shopify;
   order: {
     cancel: (id: number, params?: any) => Promise<Shopify.IOrder>;
     close: (id: number) => Promise<Shopify.IOrder>;
