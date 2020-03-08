@@ -247,6 +247,8 @@ Each set of results may have the `nextPageParameters` and
 `previousPageParameters` properties. These properties specify respectively the
 parameters needed to fetch the next and previous page of results.
 
+This feature is only available on version 2.24.0 and above.
+
 ## Available resources and methods
 
 - accessScope
