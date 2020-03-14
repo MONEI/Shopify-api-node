@@ -422,6 +422,10 @@ This feature is only available on version 2.24.0 and above.
   - `get(id)`
   - `list(orderId)`
   - `move(id, locationId)`
+- fulfillmentRequest
+  - `accept(fulfillmentOrderId[, message])`
+  - `create(fulfillmentOrderId, params)`
+  - `reject(fulfillmentOrderId[, message])`
 - fulfillmentService
   - `create(params)`
   - `delete(id)`

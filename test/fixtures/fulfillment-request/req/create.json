@@ -1,0 +1,15 @@
+{
+  "fulfillment_request": {
+    "message": "Fulfill this ASAP please.",
+    "fulfillment_order_line_items": [
+      {
+        "id": 1025578619,
+        "quantity": 1
+      },
+      {
+        "id": 1025578620,
+        "quantity": 1
+      }
+    ]
+  }
+}

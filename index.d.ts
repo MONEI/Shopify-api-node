@@ -331,6 +331,20 @@ declare class Shopify {
       locationId: number
     ) => Promise<Shopify.IFulfillmentOrder>;
   };
+  fulfillmentRequest: {
+    accept: (
+      fulfillmentOrderId: number,
+      message?: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
+    create: (
+      fulfillmentOrderId: number,
+      params: Shopify.ICreateFulfillmentRequest
+    ) => Promise<Shopify.IFulfillmentOrder>;
+    reject: (
+      fulfillmentOrderId: number,
+      message?: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
+  };
   fulfillmentService: {
     create: (params: any) => Promise<Shopify.IFulfillmentService>;
     delete: (id: number) => Promise<void>;
@@ -1666,6 +1680,16 @@ declare namespace Shopify {
     shop_id: number;
     status: FulfillmentOrderStatus;
     supported_actions: FulfillmentOrderSupportedAction[];
+  }
+
+  interface ICreateFulfillmentRequestFulfillmentOrderLineItem {
+    id: number;
+    quantity: number;
+  }
+
+  interface ICreateFulfillmentRequest {
+    message?: string;
+    fulfillment_order_line_items?: ICreateFulfillmentRequestFulfillmentOrderLineItem[];
   }
 
   interface IFulfillmentService {

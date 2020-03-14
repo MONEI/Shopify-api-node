@@ -30,6 +30,7 @@ const map = {
   fulfillment: 'fulfillment',
   fulfillmentEvent: 'fulfillment-event',
   fulfillmentOrder: 'fulfillment-order',
+  fulfillmentRequest: 'fulfillment-request',
   fulfillmentService: 'fulfillment-service',
   giftCard: 'gift-card',
   giftCardAdjustment: 'gift-card-adjustment',
