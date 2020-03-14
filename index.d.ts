@@ -95,6 +95,20 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.IBlog[]>;
     update: (id: number, params: any) => Promise<Shopify.IBlog>;
   };
+  cancellationRequest: {
+    create: (
+      fulfillmentOrderId: number,
+      message?: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
+    accept: (
+      fulfillmentOrderId: number,
+      message?: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
+    reject: (
+      fulfillmentOrderId: number,
+      message?: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
+  };
   carrierService: {
     create: (
       params: Shopify.ICreateCarrierService

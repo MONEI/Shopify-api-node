@@ -289,6 +289,10 @@ This feature is only available on version 2.24.0 and above.
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- cancellationRequest
+  - `accept(fulfillmentOrderId[, message])`
+  - `create(fulfillmentOrderId[, message])`
+  - `reject(fulfillmentOrderId[, message])`
 - carrierService
   - `create(params)`
   - `delete(id)`

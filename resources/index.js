@@ -9,6 +9,7 @@ const map = {
   asset: 'asset',
   balance: 'balance',
   blog: 'blog',
+  cancellationRequest: 'cancellation-request',
   carrierService: 'carrier-service',
   checkout: 'checkout',
   collect: 'collect',
