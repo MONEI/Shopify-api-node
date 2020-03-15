@@ -421,6 +421,7 @@ This feature is only available on version 2.24.0 and above.
   - `close(id[, message])`
   - `get(id)`
   - `list(orderId)`
+  - `locationsForMove(id)`
   - `move(id, locationId)`
 - fulfillmentRequest
   - `accept(fulfillmentOrderId[, message])`

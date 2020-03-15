@@ -1,0 +1,20 @@
+{
+  "locations_for_move": [
+    {
+      "location": {
+        "id": 1059367778,
+        "name": "Alpha Location"
+      },
+      "message": "Current location.",
+      "movable": false
+    },
+    {
+      "location": {
+        "id": 1059367779,
+        "name": "Bravo Location"
+      },
+      "message": "No items are stocked at this location.",
+      "movable": false
+    }
+  ]
+}

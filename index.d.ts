@@ -326,6 +326,7 @@ declare class Shopify {
     close: (id: number, message?: string) => Promise<Shopify.IFulfillmentOrder>;
     get: (id: number) => Promise<Shopify.IFulfillmentOrder>;
     list: (orderId: number) => Promise<Shopify.IFulfillmentOrder[]>;
+    locationsForMove: (id: number) => Promise<Shopify.ILocationForMove[]>;
     move: (
       id: number,
       locationId: number
@@ -1680,6 +1681,17 @@ declare namespace Shopify {
     shop_id: number;
     status: FulfillmentOrderStatus;
     supported_actions: FulfillmentOrderSupportedAction[];
+  }
+
+  interface ILocationForMoveLocation {
+    id: number;
+    name: string;
+  }
+
+  interface ILocationForMove {
+    location: ILocationForMoveLocation;
+    movable: boolean;
+    message: string;
   }
 
   interface ICreateFulfillmentRequestFulfillmentOrderLineItem {

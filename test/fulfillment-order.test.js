@@ -73,6 +73,20 @@ describe('Shopify#fulfillmentOrder', () => {
       .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
 
+  it('gets a list of locations that a fulfillment order can move to', () => {
+    const output = fixtures.res.locationsForMove;
+
+    scope
+      .get('/admin/fulfillment_orders/1025578643/locations_for_move.json')
+      .reply(200, output);
+
+    return shopify.fulfillmentOrder
+      .locationsForMove(1025578643)
+      .then((data) => {
+        expect(data).to.deep.equal(output.locations_for_move);
+      });
+  });
+
   it('moves a fulfillment order to a new location', () => {
     const input = fixtures.req.move;
     const output = fixtures.res.move;

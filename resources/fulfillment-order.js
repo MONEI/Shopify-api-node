@@ -86,4 +86,17 @@ FulfillmentOrder.prototype.move = function move(id, locationId) {
     .then((body) => body.original_fulfillment_order);
 };
 
+/**
+ * Retrieves a list of locations that a fulfillment order can potentially move
+ * to.
+ *
+ * @param {Number} id Fulfillment order ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.locationsForMove = function locationsForMove(id) {
+  const url = this.buildUrl(`${id}/locations_for_move`);
+  return this.shopify.request(url, 'GET', 'locations_for_move');
+};
+
 module.exports = FulfillmentOrder;
