@@ -325,7 +325,7 @@ declare class Shopify {
     ) => Promise<Shopify.IFulfillmentOrder>;
     close: (id: number, message?: string) => Promise<Shopify.IFulfillmentOrder>;
     get: (id: number) => Promise<Shopify.IFulfillmentOrder>;
-    list: (orderId: number) => Promise<Shopify.IFulfillmentOrder[]>;
+    list: (params?: any) => Promise<Shopify.IFulfillmentOrder[]>;
     locationsForMove: (id: number) => Promise<Shopify.ILocationForMove[]>;
     move: (
       id: number,

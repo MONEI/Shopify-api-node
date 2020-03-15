@@ -22,16 +22,17 @@ function FulfillmentOrder(shopify) {
 assign(FulfillmentOrder.prototype, pick(base, ['get', 'buildUrl']));
 
 /**
- * Retrieve a list of all fulfillment orders for an order.
+ * Retrieves a list of fulfillment orders on a shop for a specific app.
  *
- * @param {Number} id Order ID
+ * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentOrder.prototype.list = function list(orderId) {
+FulfillmentOrder.prototype.list = function list(params) {
   const url = base.buildUrl.call(
-    { ...this, name: 'orders' },
-    `${orderId}/fulfillment_orders`
+    { ...this, name: 'assigned_fulfillment_orders' },
+    undefined,
+    params
   );
   return this.shopify.request(url, 'GET', this.name);
 };

@@ -420,7 +420,7 @@ This feature is only available on version 2.24.0 and above.
   - `cancel(id, params)`
   - `close(id[, message])`
   - `get(id)`
-  - `list(orderId)`
+  - `list([params])`
   - `locationsForMove(id)`
   - `move(id, locationId)`
 - fulfillmentRequest

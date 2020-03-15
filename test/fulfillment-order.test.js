@@ -11,15 +11,21 @@ describe('Shopify#fulfillmentOrder', () => {
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
-  it('gets a list of fulfillment orders for a specific order', () => {
+  it('gets a list of fulfillment orders on a shop for a specific app', () => {
     const output = fixtures.res.list;
 
     scope
-      .get('/admin/orders/450789469/fulfillment_orders.json')
+      .get(
+        '/admin/assigned_fulfillment_orders.json' +
+          '?assignment_status=cancellation&location_ids[]=48752903'
+      )
       .reply(200, output);
 
     return shopify.fulfillmentOrder
-      .list(450789469)
+      .list({
+        assignment_status: 'cancellation',
+        location_ids: ['48752903']
+      })
       .then((data) => expect(data).to.deep.equal(output.fulfillment_orders));
   });
 
