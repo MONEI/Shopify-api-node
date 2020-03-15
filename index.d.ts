@@ -422,6 +422,7 @@ declare class Shopify {
     count: (params?: any) => Promise<number>;
     create: (params: any) => Promise<Shopify.IOrder>;
     delete: (id: number) => Promise<any>;
+    fulfillmentOrders: (id: number) => Promise<Shopify.IFulfillmentOrder[]>;
     get: (id: number, params?: any) => Promise<Shopify.IOrder>;
     list: (params?: any) => Promise<Shopify.IOrder[]>;
     open: (id: number) => Promise<Shopify.IOrder>;

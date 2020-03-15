@@ -63,4 +63,16 @@ Order.prototype.cancel = function cancel(id, params) {
     .then((body) => body[this.key]);
 };
 
+/**
+ * Retrieves a list of all fulfillment orders for an order.
+ *
+ * @param {Number} id Order ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Order.prototype.fulfillmentOrders = function fulfillmentOrders(id) {
+  const url = this.buildUrl(`${id}/fulfillment_orders`);
+  return this.shopify.request(url, 'GET', 'fulfillment_orders');
+};
+
 module.exports = Order;

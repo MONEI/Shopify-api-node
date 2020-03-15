@@ -481,6 +481,7 @@ This feature is only available on version 2.24.0 and above.
   - `count([params])`
   - `create(params)`
   - `delete(id)`
+  - `fulfillmentOrders(id)`
   - `get(id[, params])`
   - `list([params])`
   - `open(id)`

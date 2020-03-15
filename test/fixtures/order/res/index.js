@@ -1,5 +1,6 @@
 'use strict';
 
+exports.fulfillmentOrders = require('./fulfillment-orders');
 exports.cancel = require('./cancel');
 exports.create = require('./create');
 exports.update = require('./update');

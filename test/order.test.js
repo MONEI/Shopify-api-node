@@ -135,4 +135,16 @@ describe('Shopify#order', () => {
       .delete(450789469)
       .then((data) => expect(data).to.deep.equal({}));
   });
+
+  it('retrieves a list of fulfillment orders for a specific order', () => {
+    const output = fixtures.res.fulfillmentOrders;
+
+    scope
+      .get('/admin/orders/450789469/fulfillment_orders.json')
+      .reply(200, output);
+
+    return shopify.order
+      .fulfillmentOrders(450789469)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment_orders));
+  });
 });
