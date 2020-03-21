@@ -717,7 +717,7 @@ declare namespace Shopify {
 
   interface ICheckout {
     abandoned_checkout_url: string;
-    applied_discount?: ICheckoutDiscount[];
+    applied_discount?: ICheckoutDiscount;
     billing_address?: ICustomerAddress;
     buyer_accepts_marketing: boolean;
     cancel_reason?: 'customer' | 'fraud' | 'inventory' | 'other' | null;
