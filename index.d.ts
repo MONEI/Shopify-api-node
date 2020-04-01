@@ -1795,34 +1795,6 @@ declare namespace Shopify {
     price_set: IOrderAdjustmentAmountSet;
   }
 
-  interface ILineItem {
-    discount_allocations: ILineItemDiscountAllocation[];
-    fulfillable_quantity: number;
-    fulfillment_service: string;
-    fulfillment_status: LineItemFulfillmentStatus;
-    gift_card: boolean;
-    grams: number;
-    id: number;
-    name: string;
-    price: string;
-    price_set: IOrderAdjustmentAmountSet;
-    product_id: number;
-    properties: ILineItemProperty[];
-    quantity: number;
-    require_shipping: boolean;
-    sku: string;
-    tax_lines: ILineItemTaxLine[];
-    taxable: boolean;
-    tip_payment_gateway: string;
-    tip_payment_method: string;
-    title: string;
-    total_discount: string;
-    total_discount_set: IOrderAdjustmentAmountSet;
-    variant_id: number;
-    variant_title: string;
-    vendor: string;
-  }
-
   interface ILocation {
     id: number;
     active: boolean;
@@ -2038,7 +2010,6 @@ declare namespace Shopify {
   interface IOrderTaxLine {
     title: string;
     price: string;
-    price_set: IOrderAdjustmentAmountSet;
     rate: number;
   }
 
@@ -2048,9 +2019,10 @@ declare namespace Shopify {
   }
 
   interface IOrderLineItem {
+    discount_allocations: ILineItemDiscountAllocation[];
     fulfillable_quantity: number;
     fulfillment_service: string;
-    fulfillment_status: OrderFulfillmentStatus;
+    fulfillment_status: LineItemFulfillmentStatus;
     grams: number;
     id: number;
     price: string;
@@ -2067,7 +2039,9 @@ declare namespace Shopify {
     gift_card: boolean;
     properties: IOrderLineItemProperty[];
     taxable: boolean;
-    tax_lines: IOrderTaxLine[];
+    tax_lines: ILineItemTaxLine[];
+    tip_payment_gateway?: string;
+    tip_payment_method?: string;
     total_discount: string;
     total_discount_set: IOrderAdjustmentAmountSet;
   }
@@ -2424,7 +2398,7 @@ declare namespace Shopify {
 
   interface IRefundLineItem {
     id: number;
-    line_item: ILineItem;
+    line_item: IOrderLineItem;
     line_item_id: number;
     quantity: number;
     restock_type: 'no_restock' | 'cancel' | 'return' | 'legacy_restock';
