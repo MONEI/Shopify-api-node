@@ -229,7 +229,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
   }
 
   return got(uri, options).then((res) => {
-    if (res.body.extensions && res.body.extensions.cost) {
+    if (res.body.extensions && res.body.extensions.cost && res.body.extensions.cost.throttleStatus) {
       this.updateGraphqlLimits(res.body.extensions.cost.throttleStatus);
     }
 
