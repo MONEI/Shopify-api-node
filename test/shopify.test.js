@@ -160,10 +160,7 @@ describe('Shopify', () => {
     it('returns a TimeoutError when timeout expires (2/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
-      scope
-        .get('/test')
-        .delayBody(200)
-        .reply(200, {});
+      scope.get('/test').delayBody(200).reply(200, {});
 
       return shopify.request(url, 'GET').then(
         () => {
@@ -483,7 +480,7 @@ describe('Shopify', () => {
       const original = Shopify.prototype.request;
       const timestamps = [];
 
-      Shopify.prototype.request = function() {
+      Shopify.prototype.request = function () {
         timestamps.push(Date.now());
         return original.apply(this, arguments);
       };
@@ -496,10 +493,7 @@ describe('Shopify', () => {
 
       Shopify.prototype.request = original;
 
-      scope
-        .get('/test')
-        .times(3)
-        .reply(200, {});
+      scope.get('/test').times(3).reply(200, {});
 
       return Promise.all([
         shopify.request(url, 'GET'),
@@ -608,10 +602,7 @@ describe('Shopify', () => {
     it('returns a TimeoutError when timeout expires (2/2)', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
-      scope
-        .post('/admin/api/graphql.json')
-        .delayBody(200)
-        .reply(200, {});
+      scope.post('/admin/api/graphql.json').delayBody(200).reply(200, {});
 
       return shopify.graphql('query').then(
         () => {

@@ -27,7 +27,7 @@ assign(User.prototype, pick(base, ['get', 'list', 'buildUrl']));
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-User.prototype.current = function() {
+User.prototype.current = function current() {
   return this.get('current');
 };
 

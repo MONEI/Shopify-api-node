@@ -29,7 +29,7 @@ assign(Product.prototype, pick(base, ['buildUrl', 'delete', 'count']));
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.get = function(id, params) {
+Product.prototype.get = function get(id, params) {
   const url = this.buildUrl(id, params);
   const headers = {};
 
@@ -47,7 +47,7 @@ Product.prototype.get = function(id, params) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.create = function(params) {
+Product.prototype.create = function create(params) {
   const url = this.buildUrl();
   const headers = {};
 
@@ -65,7 +65,7 @@ Product.prototype.create = function(params) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.list = function(params) {
+Product.prototype.list = function list(params) {
   const url = this.buildUrl(undefined, params);
   const headers = {};
 
@@ -84,7 +84,7 @@ Product.prototype.list = function(params) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Product.prototype.update = function(id, params) {
+Product.prototype.update = function update(id, params) {
   const url = this.buildUrl(id);
   const headers = {};
 

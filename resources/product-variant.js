@@ -53,7 +53,7 @@ ProductVariant.prototype.get = function get(id, params) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductVariant.prototype.create = function(productId, params) {
+ProductVariant.prototype.create = function create(productId, params) {
   const url = this.buildUrl(productId);
   const headers = {};
 
@@ -72,7 +72,7 @@ ProductVariant.prototype.create = function(productId, params) {
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-ProductVariant.prototype.list = function(productId, params) {
+ProductVariant.prototype.list = function list(productId, params) {
   const url = this.buildUrl(productId, undefined, params);
   const headers = {};
 

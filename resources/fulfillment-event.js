@@ -143,10 +143,7 @@ FulfillmentEvent.prototype.buildUrl = function buildUrl(
   );
 
   pathname =
-    pathname
-      .join('/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') + '.json';
+    pathname.join('/').replace(/\/+/g, '/').replace(/\/$/, '') + '.json';
 
   const url = { pathname, ...this.shopify.baseUrl };
 
