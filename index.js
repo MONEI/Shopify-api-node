@@ -185,6 +185,8 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
  * @private
  */
 Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttle) {
+  if (!throttle) return;
+
   const limits = this.callGraphqlLimits;
 
   limits.remaining = throttle.currentlyAvailable;
