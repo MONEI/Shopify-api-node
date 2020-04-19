@@ -189,7 +189,7 @@ declare class Shopify {
     create: (params: any) => Promise<Shopify.ICustomer>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.ICustomer>;
-    list: (params: any) => Promise<Shopify.ICustomer[]>;
+    list: (params?: any) => Promise<Shopify.ICustomer[]>;
     search: (params: any) => Promise<any>;
     update: (id: number, params: any) => Promise<Shopify.ICustomer>;
   };
