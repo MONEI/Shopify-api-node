@@ -505,6 +505,42 @@ describe('Shopify', () => {
         expect(timestamps[1] - timestamps[0]).to.be.within(80, 120);
       });
     });
+
+    it('retries on initial 429 response with autoLimit option', () => {
+      const data = { foo: 'bar' };
+
+      scope.get('/test').times(3).reply(429, {}, { 'Retry-After': 0 });
+      scope.get('/test').reply(200, data);
+
+      const shopify = new Shopify({
+        autoLimit: { calls: 1, interval: 100, bucketSize: 1 },
+        accessToken,
+        shopName
+      });
+
+      return shopify
+        .request(url, 'GET')
+        .then((res) => expect(res).to.deep.equal(data));
+    });
+
+    it('fails on initial 429 response without autoLimit option', () => {
+      scope.get('/test').reply(429, {}, { 'Retry-After': 2 });
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName
+      });
+
+      return shopify
+        .request(url, 'GET')
+        .then(() => {
+          throw Error('this should never be thrown');
+        })
+        .catch((err) => {
+          expect(err).to.be.an.instanceof(got.HTTPError);
+          expect(err.message).to.equal('Response code 429 (Too Many Requests)');
+        });
+    });
   });
 
   describe('Shopify#graphql', () => {
