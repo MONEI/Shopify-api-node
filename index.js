@@ -136,7 +136,9 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
       this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
       if (res.statusCode === 202) {
-        const retryAfter = res.headers['retry-after'] * 1000 || 0;
+        const retryAfter = res.headers['retry-after']
+          ? res.headers['retry-after'] * 1000
+          : 0;
         const { pathname, search } = url.parse(res.headers['location']);
 
         return delay(retryAfter).then(() => {
@@ -172,6 +174,16 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
       this.updateLimits(
         err.response && err.response.headers['x-shopify-shop-api-call-limit']
       );
+
+      if (err.response.statusCode === 429) {
+        const retryAfter = err.response.headers['retry-after']
+          ? err.response.headers['retry-after'] * 1000
+          : 0;
+
+        return delay(retryAfter).then(() => {
+          return this.request(uri, method, key, data, headers);
+        });
+      }
 
       return Promise.reject(err);
     }
