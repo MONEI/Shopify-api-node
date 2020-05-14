@@ -175,7 +175,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
         err.response && err.response.headers['x-shopify-shop-api-call-limit']
       );
 
-      if (err.response.statusCode === 429) {
+      if (err.response.statusCode === 429 && this.options.autoLimit) {
         const retryAfter = err.response.headers['retry-after']
           ? err.response.headers['retry-after'] * 1000
           : 0;
