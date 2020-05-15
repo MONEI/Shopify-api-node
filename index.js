@@ -28,13 +28,36 @@ const resources = require('./resources');
  */
 function Shopify(options) {
   if (!(this instanceof Shopify)) return new Shopify(options);
-  if (
-    !options ||
-    !options.shopName ||
-    (!options.accessToken && (!options.apiKey || !options.password)) ||
-    (options.accessToken && (options.apiKey || options.password))
-  ) {
-    throw new Error('Missing or invalid options');
+
+  let instantiationError = '';
+
+  if (!options) {
+    instantiationError =
+      'No errors options object provided to Shopify object instantiation';
+  } else if (!options.shopName) {
+    instantiationError = 'No shopName provided to Shopify object instantiation';
+  } else if (!options.accessToken) {
+    if (!options.apiKey) {
+      instantiationError =
+        'Detected attempt to instantiate Shopify object for a personal app, but private app apiKey is missing or invalid (did you mean to authenticate a private app?)';
+    }
+    if (!options.password) {
+      instantiationError =
+        'Detected attempt to instantiate Shopify object for a personal app, but private app password is missing or invalid (did you mean to authenticate a private app?)';
+    }
+  } else if (options.accessToken) {
+    if (options.apiKey) {
+      instantiationError =
+        'Detected attempt to instantiate Shopify object for a public app, but private app apiKey also provided (it is not needed). Did you mean to authenticate a public app?';
+    }
+    if (options.password) {
+      instantiationError =
+        'Detected attempt to instantiate Shopify object for a public app, but private app password also provided (it is not needed). Did you mean to authenticate a public app?';
+    }
+  }
+
+  if (instantiationError !== '') {
+    throw new Error('Missing or invalid options: ', instantiationError);
   }
 
   EventEmitter.call(this);
