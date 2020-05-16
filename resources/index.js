@@ -88,7 +88,7 @@ function registerAll(Shopify) {
         })[prop];
       },
       set: function set(value) {
-        return Object.defineProperty(this, prop, { value })[prop];
+        Object.defineProperty(this, prop, { value })[prop];
       }
     });
   });
