@@ -16,7 +16,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "got": "^10.1.0",
+    "got": "^11.1.4",
     "lodash": "^4.17.10",
     "qs": "^6.5.2",
     "stopcock": "^1.0.0"
