@@ -3,6 +3,8 @@
     "namespace": "inventory",
     "key": "warehouse",
     "value": 25,
-    "value_type": "integer"
+    "value_type": "integer",
+    "owner_id": 905684977,
+    "owner_resource": "product"
   }
 }

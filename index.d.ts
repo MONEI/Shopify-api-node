@@ -936,6 +936,8 @@ declare namespace Shopify {
     value: string | number;
     value_type: 'string' | 'integer';
     description?: string | null;
+    owner_id?: number;
+    owner_resource?: string;
   }
 
   interface IAsset {

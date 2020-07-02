@@ -2,6 +2,8 @@
   "metafield": {
     "id": 721389482,
     "value": "something new",
-    "value_type": "string"
+    "value_type": "string",
+    "owner_id": 905684977,
+    "owner_resource": "product"
   }
 }
