@@ -1786,6 +1786,7 @@ declare namespace Shopify {
   interface ILineItemDiscountAllocation {
     amount: string;
     discount_application_index: number;
+    amount_set: IMoneySet;
   }
 
   interface ILineItemTaxLine {
