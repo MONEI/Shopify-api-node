@@ -1792,7 +1792,7 @@ declare namespace Shopify {
     title: string;
     price: string;
     rate: number;
-    price_set: IOrderAdjustmentAmountSet;
+    price_set: IMoneySet;
   }
 
   interface ILocation {
@@ -2026,7 +2026,7 @@ declare namespace Shopify {
     grams: number;
     id: number;
     price: string;
-    price_set: IOrderAdjustmentAmountSet;
+    price_set: IMoneySet;
     product_id: number | null;
     quantity: number;
     requires_shipping: boolean;
@@ -2043,7 +2043,7 @@ declare namespace Shopify {
     tip_payment_gateway?: string;
     tip_payment_method?: string;
     total_discount: string;
-    total_discount_set: IOrderAdjustmentAmountSet;
+    total_discount_set: IMoneySet;
   }
 
   interface IOrderShippingLineTaxLine {
@@ -2055,9 +2055,9 @@ declare namespace Shopify {
   interface IOrderShippingLine {
     code: string;
     discounted_price: string;
-    discounted_price_set: IOrderAdjustmentAmountSet;
+    discounted_price_set: IMoneySet;
     price: string;
-    price_set: IOrderAdjustmentAmountSet;
+    price_set: IMoneySet;
     source: string;
     title: string;
     tax_lines: IOrderShippingLineTaxLine[];
@@ -2124,21 +2124,21 @@ declare namespace Shopify {
       | 'android'
       | string;
     subtotal_price: string;
-    subtotal_price_set: IOrderAdjustmentAmountSet;
+    subtotal_price_set: IMoneySet;
     tags: string;
     tax_lines: IOrderTaxLine[];
     taxes_included: boolean;
     test: boolean;
     token: string;
     total_discounts: string;
-    total_discounts_set: IOrderAdjustmentAmountSet;
+    total_discounts_set: IMoneySet;
     total_line_items_price: string;
-    total_line_items_price_set: IOrderAdjustmentAmountSet;
+    total_line_items_price_set: IMoneySet;
     total_price: string;
-    total_price_set: IOrderAdjustmentAmountSet;
-    total_shipping_price_set: IOrderAdjustmentAmountSet;
+    total_price_set: IMoneySet;
+    total_shipping_price_set: IMoneySet;
     total_tax: string;
-    total_tax_set: IOrderAdjustmentAmountSet;
+    total_tax_set: IMoneySet;
     total_tip_received: string;
     total_weight: number;
     updated_at: string;
@@ -2305,8 +2305,8 @@ declare namespace Shopify {
   }
 
   interface IProductVariantPresentmentPriceSet {
-    price: IOrderAdjustmentMoney;
-    compare_at_price: IOrderAdjustmentMoney;
+    price: IMoney;
+    compare_at_price: IMoney;
   }
 
   interface IProductListingVariant extends IProductVariant {
@@ -2405,18 +2405,18 @@ declare namespace Shopify {
     location_id: number;
     subtotal: string;
     total_tax: string;
-    subtotal_set: IOrderAdjustmentAmountSet;
-    total_tax_set: IOrderAdjustmentAmountSet;
+    subtotal_set: IMoneySet;
+    total_tax_set: IMoneySet;
   }
 
-  interface IOrderAdjustmentMoney {
+  interface IMoney {
     amount: number | string;
     currency_code: string;
   }
 
-  interface IOrderAdjustmentAmountSet {
-    shop_money: IOrderAdjustmentMoney;
-    presentment_money: IOrderAdjustmentMoney;
+  interface IMoneySet {
+    shop_money: IMoney;
+    presentment_money: IMoney;
   }
 
   interface IOrderAdjustment {
@@ -2427,8 +2427,8 @@ declare namespace Shopify {
     tax_amount: string;
     kind: string;
     reason: string;
-    amount_set: IOrderAdjustmentAmountSet;
-    tax_amount_set: IOrderAdjustmentAmountSet;
+    amount_set: IMoneySet;
+    tax_amount_set: IMoneySet;
   }
 
   interface IRefund {
