@@ -23,13 +23,14 @@ export = Shopify;
 
 /*~ Write your module's methods and properties in this class */
 type onCallLimitsFn = (limits: Shopify.ICallLimits) => void;
+type onCallGraphqlLimitsFn = (limits: Shopify.ICallGraphqlLimits) => void;
 
 declare class Shopify {
   constructor(
     config: Shopify.IPublicShopifyConfig | Shopify.IPrivateShopifyConfig
   );
   callLimits: Shopify.ICallLimits;
-  callGraphqlLimits: Shopify.ICallLimits;
+  callGraphqlLimits: Shopify.ICallGraphqlLimits;
   accessScope: {
     list: () => Promise<Shopify.IAccessScope[]>;
   };
@@ -412,10 +413,8 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.IMetafield[]>;
     update: (id: number, params: any) => Promise<Shopify.IMetafield>;
   };
-  on: (
-    event: 'callLimits' | 'callGraphqlLimits',
-    callback: onCallLimitsFn
-  ) => Shopify;
+  on: (event: 'callLimits', callback: onCallLimitsFn) => Shopify;
+  on: (event: 'callGraphqlLimits', callback: onCallGraphqlLimitsFn) => Shopify;
   order: {
     cancel: (id: number, params?: any) => Promise<Shopify.IOrder>;
     close: (id: number) => Promise<Shopify.IOrder>;
@@ -706,6 +705,13 @@ declare namespace Shopify {
   }
 
   export interface ICallLimits {
+    remaining: number;
+    current: number;
+    max: number;
+  }
+
+  export interface ICallGraphqlLimits {
+    restoreRate: number;
     remaining: number;
     current: number;
     max: number;

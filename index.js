@@ -49,6 +49,7 @@ function Shopify(options) {
     max: undefined
   };
   this.callGraphqlLimits = {
+    restoreRate: undefined,
     remaining: undefined,
     current: undefined,
     max: undefined
@@ -189,8 +190,9 @@ Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(throttle) {
 
   const limits = this.callGraphqlLimits;
 
-  limits.remaining = throttle.currentlyAvailable;
   limits.current = throttle.maximumAvailable - throttle.currentlyAvailable;
+  limits.remaining = throttle.currentlyAvailable;
+  limits.restoreRate = throttle.restoreRate;
   limits.max = throttle.maximumAvailable;
 
   this.emit('callGraphqlLimits', limits);

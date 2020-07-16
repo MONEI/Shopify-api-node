@@ -107,6 +107,7 @@ describe('Shopify', () => {
     });
 
     expect(shopify.callGraphqlLimits).to.deep.equal({
+      restoreRate: undefined,
       remaining: undefined,
       current: undefined,
       max: undefined
@@ -676,6 +677,7 @@ describe('Shopify', () => {
 
       return shopify.graphql('query').then(() => {
         expect(shopify.callGraphqlLimits).to.deep.equal({
+          restoreRate: 50.0,
           remaining: 997,
           current: 3,
           max: 1000.0
@@ -698,6 +700,7 @@ describe('Shopify', () => {
 
       shopify.on('callGraphqlLimits', (limits) => {
         expect(limits).to.deep.equal({
+          restoreRate: 50.0,
           remaining: 997,
           current: 3,
           max: 1000.0
@@ -713,6 +716,7 @@ describe('Shopify', () => {
 
       return shopify.graphql('query').then(() => {
         expect(shopify.callGraphqlLimits).to.deep.equal({
+          restoreRate: 50.0,
           remaining: 997,
           current: 3,
           max: 1000.0
