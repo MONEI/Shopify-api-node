@@ -119,6 +119,13 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
+    hooks: {
+      beforeRedirect: [
+        (options) => {
+          options.url.href = `${options.url.protocol}//${this.options.apiKey}:${this.options.password}@${options.url.hostname}${options.url.pathname}`;
+        }
+      ]
+    },
     method
   };
 
