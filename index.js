@@ -1,7 +1,6 @@
 'use strict';
 
 const transform = require('lodash/transform');
-const defaults = require('lodash/defaults');
 const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const got = require('got');
@@ -38,7 +37,7 @@ function Shopify(options) {
   }
 
   EventEmitter.call(this);
-  this.options = defaults(options, { timeout: 60000 });
+  this.options = { timeout: 60000, ...options };
 
   //
   // API call limits, updated with each request.
@@ -62,9 +61,14 @@ function Shopify(options) {
     protocol: 'https:'
   };
 
-  if (!options.accessToken) {
-    this.baseUrl.username = options.apiKey;
-    this.baseUrl.password = options.password;
+  this.baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}` };
+
+  if (options.accessToken) {
+    this.baseHeaders['X-Shopify-Access-Token'] = options.accessToken;
+  } else {
+    this.baseHeaders.Authorization =
+      'Basic ' +
+      Buffer.from(`${options.apiKey}:${options.password}`).toString('base64');
   }
 
   if (options.autoLimit) {
@@ -115,16 +119,12 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  */
 Shopify.prototype.request = function request(uri, method, key, data, headers) {
   const options = {
-    headers: { 'User-Agent': `${pkg.name}/${pkg.version}`, ...headers },
+    headers: { ...headers, ...this.baseHeaders },
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
     method
   };
-
-  if (this.options.accessToken) {
-    options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
-  }
 
   if (data) {
     options.json = key ? { [key]: data } : data;
@@ -218,7 +218,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
   const json = variables !== undefined && variables !== null;
   const options = {
     headers: {
-      'User-Agent': `${pkg.name}/${pkg.version}`,
+      ...this.baseHeaders,
       'Content-Type': json ? 'application/json' : 'application/graphql'
     },
     timeout: this.options.timeout,
@@ -227,10 +227,6 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     method: 'POST',
     body: json ? JSON.stringify({ query: data, variables }) : data
   };
-
-  if (this.options.accessToken) {
-    options.headers['X-Shopify-Access-Token'] = this.options.accessToken;
-  }
 
   return got(uri, options).then((res) => {
     if (res.body.extensions && res.body.extensions.cost) {

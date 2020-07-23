@@ -47,29 +47,27 @@ describe('Shopify', () => {
 
     expect(shopify.baseUrl).to.deep.equal({
       protocol: 'https:',
-      hostname: shopName,
-      username: apiKey,
-      password: password
+      hostname: shopName
     });
   });
 
-  it('adds basic auth to the URL when using apiKey and password', () => {
+  it('adds the Authorization header when using apiKey and password', () => {
     const shopify = new Shopify({ shopName, apiKey, password });
 
-    expect(shopify.baseUrl).to.deep.equal({
-      protocol: 'https:',
-      hostname: `${shopName}.myshopify.com`,
-      username: apiKey,
-      password: password
+    expect(shopify.baseHeaders).to.deep.equal({
+      'User-Agent': `${pkg.name}/${pkg.version}`,
+      Authorization:
+        'Basic YmM3MzFlNTAwODQwMjMxZGE1YjQzYmIzZjM4OGQyZjA6NzIyOTdkOTcxMjcxYm' +
+        'M2MmNhODk5YmJhNzQzMmFjYjE='
     });
   });
 
-  it('does not add basic auth to the URL when using an access token', () => {
+  it('adds the X-Shopify-Access-Token header when using accessToken', () => {
     const shopify = new Shopify({ shopName, accessToken });
 
-    expect(shopify.baseUrl).to.deep.equal({
-      protocol: 'https:',
-      hostname: `${shopName}.myshopify.com`
+    expect(shopify.baseHeaders).to.deep.equal({
+      'User-Agent': `${pkg.name}/${pkg.version}`,
+      'X-Shopify-Access-Token': 'f85632530bf277ec9ac6f649fc327f17'
     });
   });
 

@@ -24,7 +24,7 @@ const scope = nock(`https://${shopName}.myshopify.com`, {
     'X-Shopify-Access-Token': accessToken,
     Accept: 'application/json'
   },
-  badheaders: ['X-Shopify-Api-Features']
+  badheaders: ['Authorization', 'X-Shopify-Api-Features']
 });
 
 const presentmentApiScope = nock(`https://${shopName}.myshopify.com`, {
@@ -33,7 +33,8 @@ const presentmentApiScope = nock(`https://${shopName}.myshopify.com`, {
     'X-Shopify-Access-Token': accessToken,
     'X-Shopify-Api-Features': 'include-presentment-prices',
     Accept: 'application/json'
-  }
+  },
+  badheaders: ['Authorization']
 });
 
 module.exports = {
