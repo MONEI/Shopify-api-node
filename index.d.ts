@@ -22,14 +22,6 @@
 export = Shopify;
 
 /*~ Write your module's methods and properties in this class */
-type onCallLimits = (
-  event: 'callLimits',
-  callback: (limits: Shopify.ICallLimits) => void
-) => Shopify;
-type onCallGraphqlLimits = (
-  event: 'callGraphqlLimits',
-  callback: (limits: Shopify.ICallGraphqlLimits) => void
-) => Shopify;
 
 declare class Shopify {
   constructor(
@@ -419,7 +411,14 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.IMetafield[]>;
     update: (id: number, params: any) => Promise<Shopify.IMetafield>;
   };
-  on: onCallLimits | onCallGraphqlLimits;
+  on(
+    event: 'callLimits',
+    callback: (limits: Shopify.ICallLimits) => void
+  ): Shopify;
+  on(
+    event: 'callGraphqlLimits',
+    callback: (limits: Shopify.ICallGraphqlLimits) => void
+  ): Shopify;
   order: {
     cancel: (id: number, params?: any) => Promise<Shopify.IOrder>;
     close: (id: number) => Promise<Shopify.IOrder>;
