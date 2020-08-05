@@ -722,6 +722,23 @@ describe('Shopify', () => {
       });
     });
 
+    it('does not update callGraphqlLimits if throttleStatus is missing', () => {
+      scope.post('/admin/api/graphql.json').reply(200, {
+        extensions: {
+          cost: {}
+        }
+      });
+
+      return shopify.graphql('query').then(() => {
+        expect(shopify.callGraphqlLimits).to.deep.equal({
+          restoreRate: 50.0,
+          remaining: 997,
+          current: 3,
+          max: 1000.0
+        });
+      });
+    });
+
     it('returns a valid response when using graphql endpoint (1/2)', () => {
       const response = {
         data: { foo: 'bar' }
