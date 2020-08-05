@@ -2202,7 +2202,20 @@ declare namespace Shopify {
   }
 
   interface IPriceRulePrerequisiteSubtotalRange {
-    prerequisite_subtotal_range: string;
+    greater_than_or_equal_to: string;
+  }
+
+  interface IPriceRulePrerequisiteQuantityRange {
+    greater_than_or_equal_to: string;
+  }
+
+  interface IPriceRulePrerequisiteToEntitlementQuantityRange {
+    prerequisite_quantity: number | null;
+    entitled_quantity: number | null;
+  }
+
+  interface IPriceRulePrerequisiteShippingPriceRange {
+    less_than_or_equal_to: string;
   }
 
   type PriceRuleTargetType = 'line_item' | 'shipping_line';
@@ -2212,7 +2225,6 @@ declare namespace Shopify {
   type PriceRuleCustomerSelection = 'all' | 'prerequisite';
 
   interface IPriceRule {
-    created_at: string;
     id: number;
     title: string;
     target_type: PriceRuleTargetType;
@@ -2222,16 +2234,26 @@ declare namespace Shopify {
     value: string;
     once_per_customer: boolean;
     usage_limit: number | null;
+    allocation_limit: number | null;
     customer_selection: PriceRuleCustomerSelection;
     prerequisite_saved_search_ids: number[];
     prerequisite_subtotal_range: IPriceRulePrerequisiteSubtotalRange | null;
-    prerequisite_shipping_price_range: string;
+    prerequisite_shipping_price_range: IPriceRulePrerequisiteShippingPriceRange | null;
+    prerequisite_quantity_range: IPriceRulePrerequisiteQuantityRange | null;
+    prerequisite_to_entitlement_quantity_ratio: IPriceRulePrerequisiteToEntitlementQuantityRange | null;
+    prerequisite_product_ids: number[];
+    prerequisite_variant_ids: number[];
+    prerequisite_collection_ids: number[];
+    prerequisite_customer_ids: number[];
     entitled_product_ids: number[];
     entitled_variant_ids: number[];
     entitled_collection_ids: number[];
     entitled_country_ids: number[];
+    created_at: string;
+    updated_at: string;
     starts_at: string;
     ends_at: string;
+    admin_graphql_api_id: string;
   }
 
   interface IProductOption {
