@@ -4,6 +4,6 @@ node_js:
   - '12'
   - '10'
 after_success:
-  - nyc report --reporter=text-lcov | coveralls
+  - c8 report --reporter=text-lcov | coveralls
 notifications:
   email: a@alexandresaiz.com
