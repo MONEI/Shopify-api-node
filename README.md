@@ -354,7 +354,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
-  - `orders(id)`
+  - `orders(id[, params])`
   - `search(params)`
   - `sendInvite(id[, params])`
   - `update(id, params)`
