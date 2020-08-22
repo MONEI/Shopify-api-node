@@ -191,6 +191,7 @@ declare class Shopify {
     list: (params?: any) => Promise<Shopify.ICustomer[]>;
     search: (params: any) => Promise<any>;
     update: (id: number, params: any) => Promise<Shopify.ICustomer>;
+    orders: (id: number, params?: any) => Promise<Shopify.IOrder[]>;
   };
   customerAddress: {
     create: (
