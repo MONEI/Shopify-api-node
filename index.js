@@ -61,7 +61,10 @@ function Shopify(options) {
     protocol: 'https:'
   };
 
-  this.baseHeaders = { 'User-Agent': `${pkg.name}/${pkg.version}` };
+  this.baseHeaders = {
+    'User-Agent': `${pkg.name}/${pkg.version}`,
+    Accept: 'application/json'
+  };
 
   if (options.accessToken) {
     this.baseHeaders['X-Shopify-Access-Token'] = options.accessToken;
