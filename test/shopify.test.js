@@ -58,7 +58,8 @@ describe('Shopify', () => {
       'User-Agent': `${pkg.name}/${pkg.version}`,
       Authorization:
         'Basic YmM3MzFlNTAwODQwMjMxZGE1YjQzYmIzZjM4OGQyZjA6NzIyOTdkOTcxMjcxYm' +
-        'M2MmNhODk5YmJhNzQzMmFjYjE='
+        'M2MmNhODk5YmJhNzQzMmFjYjE=',
+      Accept: 'application/json'
     });
   });
 
@@ -67,7 +68,8 @@ describe('Shopify', () => {
 
     expect(shopify.baseHeaders).to.deep.equal({
       'User-Agent': `${pkg.name}/${pkg.version}`,
-      'X-Shopify-Access-Token': 'f85632530bf277ec9ac6f649fc327f17'
+      'X-Shopify-Access-Token': 'f85632530bf277ec9ac6f649fc327f17',
+      Accept: 'application/json'
     });
   });
 
@@ -510,7 +512,8 @@ describe('Shopify', () => {
     const scope = nock(`https://${shopName}.myshopify.com`, {
       reqheaders: {
         'User-Agent': `${pkg.name}/${pkg.version}`,
-        'X-Shopify-Access-Token': accessToken
+        'X-Shopify-Access-Token': accessToken,
+        Accept: 'application/json'
       }
     });
 
