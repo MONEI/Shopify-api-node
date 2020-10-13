@@ -406,6 +406,7 @@ This feature is only available on version 2.24.0 and above.
   - `complete(orderId, id)`
   - `count(orderId[, params)`
   - `create(orderId, params)`
+  - `createV2(params)`
   - `get(orderId, id[, params])`
   - `list(orderId[, params])`
   - `open(orderId, id)`
