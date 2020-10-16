@@ -277,6 +277,7 @@ declare class Shopify {
     complete: (orderId: number, id: number) => Promise<Shopify.IFulfillment>;
     count: (orderId: number, params?: any) => Promise<number>;
     create: (orderId: number, params: any) => Promise<Shopify.IFulfillment>;
+    createV2: (params: any) => Promise<Shopify.IFulfillment>;
     get: (
       orderId: number,
       id: number,
