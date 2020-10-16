@@ -69,9 +69,9 @@ Fulfillment.prototype.cancel = function cancel(orderId, id) {
 };
 
 /**
- * Creates a fulfillment for one or many fulfillment orders.
- * The fulfillment orders are associated with the same order and are assigned to
- * the same location.
+ * Creates a fulfillment for one or many fulfillment orders. The fulfillment
+ * orders are associated with the same order and are assigned to the same
+ * location.
  *
  * @param {Object} [params] Query parameters
  * @return {Promise} Promise that resolves with the result
