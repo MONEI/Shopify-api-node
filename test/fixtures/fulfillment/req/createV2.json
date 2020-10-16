@@ -1,0 +1,22 @@
+{
+  "fulfillment": {
+    "message": "The package was shipped this morning.",
+    "notify_customer": false,
+    "tracking_info": {
+      "number": 1562678,
+      "url": "https://www.example.com",
+      "company": "example"
+    },
+    "line_items_by_fulfillment_order": [
+      {
+        "fulfillment_order_id": 1046000799,
+        "fulfillment_order_line_items": [
+          {
+            "id": 1025578644,
+            "quantity": 1
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -3,6 +3,7 @@
 const assign = require('lodash/assign');
 const omit = require('lodash/omit');
 
+const base = require('../mixins/base');
 const baseChild = require('../mixins/base-child');
 
 /**
@@ -65,6 +66,20 @@ Fulfillment.prototype.cancel = function cancel(orderId, id) {
   return this.shopify
     .request(url, 'POST', undefined, {})
     .then((body) => body[this.key]);
+};
+
+/**
+ * Creates a fulfillment for one or many fulfillment orders.
+ * The fulfillment orders are associated with the same order and are assigned to
+ * the same location.
+ *
+ * @param {Object} [params] Query parameters
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Fulfillment.prototype.createV2 = function createV2(params) {
+  const url = base.buildUrl.call(this);
+  return this.shopify.request(url, 'POST', this.key, params);
 };
 
 module.exports = Fulfillment;
