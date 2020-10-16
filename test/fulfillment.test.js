@@ -81,7 +81,7 @@ describe('Shopify#fulfillment', () => {
       .then((data) => expect(data).to.deep.equal(output.fulfillment));
   });
 
-  it('create a fulfillment for an order', () => {
+  it('creates a fulfillment for an order', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
@@ -94,7 +94,7 @@ describe('Shopify#fulfillment', () => {
       .then((data) => expect(data).to.deep.equal(output.fulfillment));
   });
 
-  it('create a fulfillment for one or many fulfillment orders', () => {
+  it('creates a fulfillment for one or many fulfillment orders', () => {
     const input = fixtures.req.createV2;
     const output = fixtures.res.createV2;
 
