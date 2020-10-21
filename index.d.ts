@@ -786,7 +786,7 @@ declare namespace Shopify {
 
   interface ICheckoutLineItem {
     applied_discounts: any[];
-    compare_at_price: string;
+    compare_at_price: string | null;
     destination_location_id: number;
     discount_codes: any[];
     fulfillment_service: 'api' | 'custom' | 'legacy' | 'manual';
@@ -2305,7 +2305,7 @@ declare namespace Shopify {
 
   interface IProductVariant {
     barcode: string;
-    compare_at_price: string;
+    compare_at_price: string | null;
     created_at: string;
     fulfillment_service: string;
     grams: number;
