@@ -1767,8 +1767,8 @@ declare namespace Shopify {
   }
 
   interface IInventoryItemCountryHarmonizedSystemCode {
-    harmonized_system_code: string | null;
-    country_code: string | null;
+    harmonized_system_code: string;
+    country_code: string;
   }
 
   interface IInventoryItem {
