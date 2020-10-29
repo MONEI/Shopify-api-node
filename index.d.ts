@@ -1766,6 +1766,11 @@ declare namespace Shopify {
     processed_at: string;
   }
 
+  interface IInventoryItemCountryHarmonizedSystemCode {
+    harmonized_system_code: string;
+    country_code: string;
+  }
+
   interface IInventoryItem {
     id: number;
     sku: string;
@@ -1773,8 +1778,11 @@ declare namespace Shopify {
     created_at: string;
     updated_at: string;
     requires_shipping: boolean;
-    country_code_of_origin: string;
-    harmonized_system_code: string;
+    cost: string | null;
+    country_code_of_origin: string | null;
+    province_code_of_origin: string | null;
+    harmonized_system_code: string | null;
+    country_harmonized_system_codes: IInventoryItemCountryHarmonizedSystemCode[];
   }
 
   interface IInventoryLevel {
