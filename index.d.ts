@@ -1690,6 +1690,7 @@ declare namespace Shopify {
     line_items: IFulfillmentOrderLineItem[];
     merchant_requests: IFulfillmentOrderMerchantRequest[];
     order_id: number;
+    fulfillment_service_handle: string;
     request_status: FulfillmentOrderRequestStatus;
     shop_id: number;
     status: FulfillmentOrderStatus;
