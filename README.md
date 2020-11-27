@@ -1,7 +1,7 @@
 # Shopify API Node.js (Official module)
 
 [![Version npm][npm-shopify-api-node-badge]][npm-shopify-api-node]
-[![Build Status][travis-shopify-api-node-badge]][travis-shopify-api-node]
+[![Build Status][ci-shopify-api-node-badge]][ci-shopify-api-node]
 [![Dependencies][david-shopify-api-node-badge]][david-shopify-api-node]
 [![Coverage Status][coverage-shopify-api-node-badge]][coverage-shopify-api-node]
 
@@ -702,9 +702,10 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://github.com/Shopify/shopify-node-app
 [npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
 [npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
-[travis-shopify-api-node-badge]:
-  https://img.shields.io/travis/MONEI/Shopify-api-node/master.svg
-[travis-shopify-api-node]: https://travis-ci.org/MONEI/Shopify-api-node
+[ci-shopify-api-node-badge]:
+  https://img.shields.io/github/workflow/status/MONEI/Shopify-api-node/CI/master?label=CI
+[ci-shopify-api-node]:
+  https://github.com/MONEI/Shopify-api-node/actions?query=workflow%3ACI+branch%3Amaster
 [david-shopify-api-node-badge]:
   https://img.shields.io/david/MONEI/Shopify-api-node.svg
 [david-shopify-api-node]: https://david-dm.org/MONEI/Shopify-api-node

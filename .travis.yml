@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - '14'
-  - '12'
-  - '10'
-after_success:
-  - c8 report --reporter=text-lcov | coveralls
-notifications:
-  email: a@alexandresaiz.com
