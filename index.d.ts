@@ -2047,6 +2047,8 @@ declare namespace Shopify {
     fulfillment_status: LineItemFulfillmentStatus;
     grams: number;
     id: number;
+    pre_tax_price?: string;
+    pre_tax_price_set?: IMoneySet;
     price: string;
     price_set: IMoneySet;
     product_id: number | null;
