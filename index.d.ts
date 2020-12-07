@@ -2294,7 +2294,7 @@ declare namespace Shopify {
     updated_at: string;
     variants: IProductVariant[];
     vendor: string;
-    status: string;
+    status: 'active' | 'archived' | 'draft';
   }
 
   interface IProductImage {
