@@ -429,7 +429,7 @@ declare class Shopify {
     delete: (id: number) => Promise<any>;
     fulfillmentOrders: (id: number) => Promise<Shopify.IFulfillmentOrder[]>;
     get: (id: number, params?: any) => Promise<Shopify.IOrder>;
-    list: (params?: any) => Promise<Shopify.IOrder[]>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IOrder>>;
     open: (id: number) => Promise<Shopify.IOrder>;
     update: (id: number, params: any) => Promise<Shopify.IOrder>;
   };
@@ -477,7 +477,7 @@ declare class Shopify {
     create: (params: any) => Promise<Shopify.IProduct>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.IProduct>;
-    list: (params?: any) => Promise<Shopify.IProduct[]>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IProduct>>;
     update: (id: number, params: any) => Promise<Shopify.IProduct>;
   };
   productImage: {
@@ -2167,6 +2167,11 @@ declare namespace Shopify {
     total_weight: number;
     updated_at: string;
     user_id: number | null;
+  }
+
+  interface IPaginatedResult<T> extends Array<T> {
+    nextPageParameters?: any;
+    previousPageParameters?: any;
   }
 
   type OrderRisksRecommendation = 'accept' | 'investigate' | 'cancel';
