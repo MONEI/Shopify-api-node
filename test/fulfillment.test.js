@@ -165,4 +165,17 @@ describe('Shopify#fulfillment', () => {
       .count(450789469)
       .then((data) => expect(data).to.equal(1));
   });
+
+  it('updates the tracking information for a fulfillment', () => {
+    const input = fixtures.req.updateTracking;
+    const output = fixtures.res.updateTracking;
+
+    scope
+      .post('/admin/fulfillments/1022782904/update_tracking.json', input)
+      .reply(200, output);
+
+    return shopify.fulfillment
+      .updateTracking(1022782904, input.fulfillment)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment));
+  });
 });

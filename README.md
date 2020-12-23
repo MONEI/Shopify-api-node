@@ -411,6 +411,7 @@ This feature is only available on version 2.24.0 and above.
   - `list(orderId[, params])`
   - `open(orderId, id)`
   - `update(orderId, id, params)`
+  - `updateTracking(id, params)`
 - fulfillmentEvent
   - `create(orderId, fulfillmentId, params)`
   - `delete(orderId, fulfillmentId, id)`

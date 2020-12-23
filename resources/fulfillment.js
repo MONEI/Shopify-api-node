@@ -27,7 +27,7 @@ assign(Fulfillment.prototype, omit(baseChild, ['delete']));
  * Completes a pending fulfillment.
  *
  * @param {Number} orderId Order ID
- * @param {Number} id Fulfillment id
+ * @param {Number} id Fulfillment ID
  * @return {Promise} Promise that resolves with the result
  * @public
  */
@@ -42,7 +42,7 @@ Fulfillment.prototype.complete = function complete(orderId, id) {
  * Opens a pending fulfillment.
  *
  * @param {Number} orderId Order ID
- * @param {Number} id Fulfillment id
+ * @param {Number} id Fulfillment ID
  * @return {Promise} Promise that resolves with the result
  * @public
  */
@@ -57,7 +57,7 @@ Fulfillment.prototype.open = function open(orderId, id) {
  * Cancels a pending fulfillment.
  *
  * @param {Number} orderId Order ID
- * @param {Number} id Fulfillment id
+ * @param {Number} id Fulfillment ID
  * @return {Promise} Promise that resolves with the result
  * @public
  */
@@ -79,6 +79,19 @@ Fulfillment.prototype.cancel = function cancel(orderId, id) {
  */
 Fulfillment.prototype.createV2 = function createV2(params) {
   const url = base.buildUrl.call(this);
+  return this.shopify.request(url, 'POST', this.key, params);
+};
+
+/**
+ * Updates the tracking information for a fulfillment.
+ *
+ * @param {Number} id Fulfillment ID
+ * @param {Object} params Tracking information
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Fulfillment.prototype.updateTracking = function updateTracking(id, params) {
+  const url = base.buildUrl.call(this, `${id}/update_tracking`);
   return this.shopify.request(url, 'POST', this.key, params);
 };
 

@@ -1,0 +1,10 @@
+{
+  "fulfillment": {
+    "notify_customer": true,
+    "tracking_info": {
+      "number": "1111",
+      "url": "http://www.my-url.com",
+      "company": "my-company"
+    }
+  }
+}
