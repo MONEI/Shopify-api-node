@@ -290,10 +290,7 @@ declare class Shopify {
       id: number,
       params: any
     ) => Promise<Shopify.IFulfillment>;
-    updateTracking: (
-      fulfillmentId: number,
-      params: any
-    ) => Promise<Shopify.IFulfillment>;
+    updateTracking: (id: number, params: any) => Promise<Shopify.IFulfillment>;
   };
   fulfillmentEvent: {
     create: (
