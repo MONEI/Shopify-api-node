@@ -840,6 +840,13 @@ declare namespace Shopify {
     zone: string;
   }
 
+  type ApplicationChargeStatus =
+    | 'accepted'
+    | 'active'
+    | 'declined'
+    | 'expired'
+    | 'pending';
+
   interface IApplicationCharge {
     confirmation_url: string;
     created_at: string;
@@ -847,7 +854,7 @@ declare namespace Shopify {
     name: string;
     price: string;
     return_url: string;
-    status: 'accepted' | 'declined' | 'expired' | 'pending';
+    status: ApplicationChargeStatus;
     test: boolean | null;
     updated_at: string;
   }
@@ -856,7 +863,7 @@ declare namespace Shopify {
     name: string;
     price: string;
     return_url: string;
-    status: 'accepted' | 'declined' | 'expired' | 'pending';
+    status: ApplicationChargeStatus;
     test?: true;
   }
 
