@@ -2156,6 +2156,7 @@ declare namespace Shopify {
     phone: string;
     presentment_currency: string;
     processed_at: string;
+    checkout_id: number;
     processing_method: OrderProcessingMethod;
     referring_site: string;
     refunds: IRefund[];
