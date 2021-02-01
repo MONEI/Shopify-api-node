@@ -1447,7 +1447,7 @@ declare namespace Shopify {
   type DraftOrderLineItemFulfullmentStatus = 'fulfilled' | 'partial';
 
   interface IDraftOrderLineItem {
-    applied_discounts: any[] | null;
+    applied_discount: IDraftOrderDiscount;
     discount_codes: any[];
     fulfillment_service: DraftOrderLineItemFulfullmentService;
     fulfillment_status?: DraftOrderLineItemFulfullmentStatus | null;
@@ -1472,7 +1472,7 @@ declare namespace Shopify {
   }
 
   interface IDraftOrder {
-    applied_discount: IDraftOrderDiscount[];
+    applied_discount: IDraftOrderDiscount;
     billing_address: ICustomerAddress;
     completed_at: string | null;
     created_at: string;
@@ -1511,14 +1511,14 @@ declare namespace Shopify {
     message: string;
     subject_id: number;
     subject_type:
-      | 'Article'
-      | 'Blog'
-      | 'Collection'
-      | 'Comment'
-      | 'Order'
-      | 'Page'
-      | 'Product'
-      | 'ApiPermission';
+    | 'Article'
+    | 'Blog'
+    | 'Collection'
+    | 'Comment'
+    | 'Order'
+    | 'Page'
+    | 'Product'
+    | 'ApiPermission';
     verb: string;
   }
 
@@ -1849,13 +1849,13 @@ declare namespace Shopify {
   interface IMarketingEventMarketedResources {
     id: number;
     type:
-      | 'product'
-      | 'collection'
-      | 'price_rule'
-      | 'discount'
-      | 'page'
-      | 'article'
-      | 'shop';
+    | 'product'
+    | 'collection'
+    | 'price_rule'
+    | 'discount'
+    | 'page'
+    | 'article'
+    | 'shop';
   }
 
   type MarketingEventEventType =
@@ -2149,12 +2149,12 @@ declare namespace Shopify {
     shipping_lines: IOrderShippingLine[];
     source_identifier: string | null;
     source_name:
-      | 'web'
-      | 'pos'
-      | 'shopify_draft_order'
-      | 'iphone'
-      | 'android'
-      | string;
+    | 'web'
+    | 'pos'
+    | 'shopify_draft_order'
+    | 'iphone'
+    | 'android'
+    | string;
     subtotal_price: string;
     subtotal_price_set: IMoneySet;
     tags: string;
@@ -2674,8 +2674,8 @@ declare namespace Shopify {
   interface ISmartCollectionRule {
     column: SmartCollectionRuleTextColumn | SmartCollectionRuleNumberColumn;
     relation:
-      | SmartCollectionRuleTextRelation
-      | TSmartCollectionRuleNumberRelation;
+    | SmartCollectionRuleTextRelation
+    | TSmartCollectionRuleNumberRelation;
     condition: string;
   }
 
