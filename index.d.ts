@@ -1447,7 +1447,7 @@ declare namespace Shopify {
   type DraftOrderLineItemFulfullmentStatus = 'fulfilled' | 'partial';
 
   interface IDraftOrderLineItem {
-    applied_discounts: any[] | null;
+    applied_discount: IDraftOrderDiscount | null;
     discount_codes: any[];
     fulfillment_service: DraftOrderLineItemFulfullmentService;
     fulfillment_status?: DraftOrderLineItemFulfullmentStatus | null;
@@ -1472,7 +1472,7 @@ declare namespace Shopify {
   }
 
   interface IDraftOrder {
-    applied_discount: IDraftOrderDiscount[];
+    applied_discount: IDraftOrderDiscount | null;
     billing_address: ICustomerAddress;
     completed_at: string | null;
     created_at: string;
