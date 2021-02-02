@@ -59,10 +59,7 @@ const base = {
     do {
       const batch = await this.list(params);
 
-      for (let i = 0; i < batch.length; i++) {
-        const element = batch[i];
-        yield element;
-      }
+      for (let i = 0; i < batch.length; i++) yield batch[i];
 
       params = batch.nextPageParameters;
     } while (params !== undefined);
