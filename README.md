@@ -309,6 +309,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - cancellationRequest
   - `accept(fulfillmentOrderId[, message])`
@@ -358,6 +359,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - currency
   - `list()`
@@ -367,6 +369,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - customer
   - `accountActivationUrl(id)`
@@ -375,6 +378,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `orders(id[, params])`
   - `search(params)`
   - `sendInvite(id[, params])`
@@ -394,6 +398,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - discountCode
   - `create(priceRuleId, params)`
@@ -416,6 +421,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `sendInvoice(id[, params])`
   - `update(id, params)`
 - event
@@ -489,6 +495,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id)`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
   - `engagements(id, params)`
 - metafield
@@ -497,6 +504,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - order
   - `cancel(id[, params])`
@@ -522,6 +530,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - payment
   - `count(checkoutToken)`
@@ -589,6 +598,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - refund
   - `calculate(orderId, params)`
@@ -610,6 +620,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - shippingZone
   - `list([params])`
@@ -621,6 +632,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `order(id, params)`
   - `products(id[, params])`
   - `update(id, params)`
@@ -655,6 +667,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 
 where `params` is a plain JavaScript object. See
