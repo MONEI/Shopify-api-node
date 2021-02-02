@@ -12,6 +12,36 @@ describe('Shopify#webhook', () => {
 
   afterEach(() => expect(scope.isDone()).to.be.true);
 
+  it('iterates through all webhooks (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/webhooks.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.webhook.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.webhooks);
+  });
+
+  it('iterates through all webhooks (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/webhooks.json?page=1').reply(200, output);
+
+    const params = {
+      page: 1
+    };
+
+    const data = [];
+    for await (const record of shopify.webhook.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.webhooks);
+  });
+
   it('gets a list of all webhooks (1/2)', () => {
     const output = fixtures.res.list;
 
@@ -22,7 +52,7 @@ describe('Shopify#webhook', () => {
       .then((data) => expect(data).to.deep.equal(output.webhooks));
   });
 
-  it('gets a list of all webhooks (2/2)', () => {
+  it('gets a list ofof all webhooks (2/2)', () => {
     const output = fixtures.res.list;
 
     scope.get('/admin/webhooks.json?page=1').reply(200, output);

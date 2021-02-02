@@ -34,6 +34,38 @@ describe('Shopify#smartCollection', () => {
       .then((data) => expect(data).to.deep.equal(output.smart_collections));
   });
 
+  it('iterates through all smart collections (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/smart_collections.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.smartCollection.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.smart_collections);
+  });
+
+  it('iterates through all smart collections (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope
+      .get('/admin/smart_collections.json?since_id=482865238')
+      .reply(200, output);
+
+    const params = {
+      since_id: 482865238
+    };
+
+    const data = [];
+    for await (const record of shopify.smartCollection.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.smart_collections);
+  });
+
   it('gets a count of all smart collections (1/2)', () => {
     scope.get('/admin/smart_collections/count.json').reply(200, { count: 1 });
 

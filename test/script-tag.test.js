@@ -31,6 +31,36 @@ describe('Shopify#scriptTag', () => {
       .then((data) => expect(data).to.deep.equal(output.script_tags));
   });
 
+  it('iterates through all script_tags (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/script_tags.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.scriptTag.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.script_tags);
+  });
+
+  it('iterates through all script_tags (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/script_tags.json?page=1').reply(200, output);
+
+    const params = {
+      page: 1
+    };
+
+    const data = [];
+    for await (const record of shopify.scriptTag.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.script_tags);
+  });
+
   it('gets a count of all script tags (1/2)', () => {
     scope.get('/admin/script_tags/count.json').reply(200, { count: 2 });
 

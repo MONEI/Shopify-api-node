@@ -33,6 +33,38 @@ describe('Shopify#customCollection', () => {
       .then((data) => expect(data).to.deep.equal(output.custom_collections));
   });
 
+  it('iterates through all custom_collections (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/custom_collections.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.customCollection.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.custom_collections);
+  });
+
+  it('iterates through all custom_collections (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope
+      .get('/admin/custom_collections.json?since_id=395646239')
+      .reply(200, output);
+
+    const params = {
+      since_id: 395646239
+    };
+
+    const data = [];
+    for await (const record of shopify.customCollection.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.custom_collections);
+  });
+
   it('gets a count of all custom collections (1/2)', () => {
     scope.get('/admin/custom_collections/count.json').reply(200, { count: 3 });
 

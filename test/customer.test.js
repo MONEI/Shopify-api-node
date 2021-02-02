@@ -32,6 +32,36 @@ describe('Shopify#customer', () => {
       .then((data) => expect(data).to.deep.equal(output.customers));
   });
 
+  it('iterates through all customers (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/customers.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.customer.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.customers);
+  });
+
+  it('iterates through all customers (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/customers.json?since_id=207119550').reply(200, output);
+
+    const params = {
+      since_id: 207119550
+    };
+
+    const data = [];
+    for await (const record of shopify.customer.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.customers);
+  });
+
   it('gets a list of customers matching a given query', () => {
     const params = { query: 'Bob country:United States' };
     const output = fixtures.res.search;

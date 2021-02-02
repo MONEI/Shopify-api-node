@@ -37,6 +37,38 @@ describe('Shopify#customerSavedSearch', () => {
       );
   });
 
+  it('iterates through all customer_saved_searches (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/customer_saved_searches.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.customerSavedSearch.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.customer_saved_searches);
+  });
+
+  it('iterates through all customer_saved_searches (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope
+      .get('/admin/customer_saved_searches.json?since_id=20610972')
+      .reply(200, output);
+
+    const params = {
+      since_id: 20610972
+    };
+
+    const data = [];
+    for await (const record of shopify.customerSavedSearch.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.customer_saved_searches);
+  });
+
   it('gets a count of all customer saved searches (1/2)', () => {
     scope
       .get('/admin/customer_saved_searches/count.json')

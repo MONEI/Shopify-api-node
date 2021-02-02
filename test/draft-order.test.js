@@ -31,6 +31,36 @@ describe('Shopify#draftOrder', () => {
       .then((data) => expect(data).to.deep.equal(output.draft_orders));
   });
 
+  it('iterates through all draft_orders (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/draft_orders.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.draftOrder.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.draft_orders);
+  });
+
+  it('iterates through all draft_orders (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/draft_orders.json?since_id=58379909').reply(200, output);
+
+    const params = {
+      since_id: 58379909
+    };
+
+    const data = [];
+    for await (const record of shopify.draftOrder.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.draft_orders);
+  });
+
   it('gets a count of all draft orders', () => {
     const output = { count: 2 };
 

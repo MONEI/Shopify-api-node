@@ -31,6 +31,36 @@ describe('Shopify#metafield', () => {
       .then((data) => expect(data).to.deep.equal(output.metafields));
   });
 
+  it('iterates through all metafields that belong to a store (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/metafields.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.metafield.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.metafields);
+  });
+
+  it('iterates through all metafields that belong to a store (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/metafields.json?since_id=721389481').reply(200, output);
+
+    const params = {
+      since_id: 721389481
+    };
+
+    const data = [];
+    for await (const record of shopify.metafield.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.metafields);
+  });
+
   it('gets a count of metafields that belong to a store (1/2)', () => {
     scope.get('/admin/metafields/count.json').reply(200, { count: 1 });
 

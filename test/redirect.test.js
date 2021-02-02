@@ -31,6 +31,36 @@ describe('Shopify#redirect', () => {
       .then((data) => expect(data).to.deep.equal(output.redirects));
   });
 
+  it('iterates through all redirects (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/redirects.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.redirect.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.redirects);
+  });
+
+  it('iterates through all redirects (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/redirects.json?since_id=304339088').reply(200, output);
+
+    const params = {
+      since_id: 304339088
+    };
+
+    const data = [];
+    for await (const record of shopify.redirect.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.redirects);
+  });
+
   it('gets a count of all redirects (1/2)', () => {
     scope.get('/admin/redirects/count.json').reply(200, { count: 3 });
 

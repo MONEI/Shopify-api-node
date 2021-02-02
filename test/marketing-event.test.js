@@ -31,6 +31,36 @@ describe('Shopify#marketingEvent', () => {
       .then((data) => expect(data).to.deep.equal(output.marketing_events));
   });
 
+  it('iterates through all marketing_events (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/marketing_events.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.marketingEvent.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.marketing_events);
+  });
+
+  it('iterates through all marketing_events (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/marketing_events.json?limit=50').reply(200, output);
+
+    const params = {
+      limit: 50
+    };
+
+    const data = [];
+    for await (const record of shopify.marketingEvent.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.marketing_events);
+  });
+
   it('gets a count of all marketing events', () => {
     const output = { count: 1 };
 

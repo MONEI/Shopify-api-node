@@ -31,6 +31,36 @@ describe('Shopify#country', () => {
       .then((data) => expect(data).to.deep.equal(output.countries));
   });
 
+  it('iterates through all countries (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/countries.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.country.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.countries);
+  });
+
+  it('iterates through all countries (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/countries.json?since_id=359115487').reply(200, output);
+
+    const params = {
+      since_id: 359115487
+    };
+
+    const data = [];
+    for await (const record of shopify.country.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.countries);
+  });
+
   it('gets a count of all countries', () => {
     scope.get('/admin/countries/count.json').reply(200, { count: 3 });
 

@@ -31,6 +31,36 @@ describe('Shopify#page', () => {
       .then((data) => expect(data).to.deep.equal(output.pages));
   });
 
+  it('iterates through all pages (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/pages.json').reply(200, output);
+
+    const data = [];
+    for await (const record of shopify.page.iterate()) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.pages);
+  });
+
+  it('iterates through all pages (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/pages.json?since_id=108828308').reply(200, output);
+
+    const params = {
+      since_id: 108828308
+    };
+
+    const data = [];
+    for await (const record of shopify.page.iterate(params)) {
+      data.push(record);
+    }
+
+    return expect(data).to.deep.equal(output.pages);
+  });
+
   it('gets a count of all pages (1/2)', () => {
     scope.get('/admin/pages/count.json').reply(200, { count: 4 });
 
