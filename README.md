@@ -248,8 +248,8 @@ done as shown in the following example:
 An iterator is provided for certain entities such `Orders` and `Products`. Such
 iterator is a wrapper for list and paginate so that a resource can be treated
 pretty much like an array but it will be computed on the fly. Iterator will not
-flood shopify with api calls since it will buffer as much products as the query
-allows and will yield those products one at a time. When that buffer is
+flood shopify with api calls since it will buffer as much elements as the query
+allows and will yield those elements one at a time. When that buffer is
 completed the buffer will be refilled with another api call.
 
 Iteration can be done as shown in the following example:
