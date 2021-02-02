@@ -60,6 +60,40 @@ describe('Shopify#product', () => {
       .then((data) => expect(data).to.deep.equal(output.products));
   });
 
+  it('iterates through all products (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    presentmentApiScope.get('/admin/products.json').reply(200, output);
+
+    const data = [];
+    for await (const product of shopifyWithPresenmentOption.product.iterate()) {
+      data.push(product);
+    }
+
+    return expect(data).to.deep.equal(output.products);
+  });
+
+  it('iterates through all products (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    presentmentApiScope
+      .get('/admin/products.json?published_status=any')
+      .reply(200, output);
+
+    const params = {
+      published_status: 'any'
+    };
+
+    const data = [];
+    for await (const product of shopifyWithPresenmentOption.product.iterate(
+      params
+    )) {
+      data.push(product);
+    }
+
+    return expect(data).to.deep.equal(output.products);
+  });
+
   it('gets a count of all products (1/2)', () => {
     standardScope.get('/admin/products/count.json').reply(200, { count: 2 });
 

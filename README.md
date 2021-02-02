@@ -243,6 +243,27 @@ done as shown in the following example:
 })().catch(console.error);
 ```
 
+## Iteration
+
+An iterator is provided for certain entities such `Orders` and `Products`. Such
+iterator is a wrapper for list and paginate so that a resource can be treated
+pretty much like an array but it will be computed on the fly. Iterator will not
+flood shopify with api calls since it will buffer as much products as the query
+allows and will yield those products one at a time. When that buffer is
+completed the buffer will be refilled with another api call.
+
+Iteration can be done as shown in the following example:
+
+```js
+params = {
+  updated_at_min: '2021-01-29T00:00:00-00:00'
+};
+
+for await (let product of shopify.product.iterate(params)) {
+  console.log(products);
+}
+```
+
 Each set of results may have the `nextPageParameters` and
 `previousPageParameters` properties. These properties specify respectively the
 parameters needed to fetch the next and previous page of results.
@@ -486,6 +507,7 @@ This feature is only available on version 2.24.0 and above.
   - `fulfillmentOrders(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `open(id)`
   - `update(id, params)`
 - orderRisk
@@ -523,6 +545,7 @@ This feature is only available on version 2.24.0 and above.
   - `delete(id)`
   - `get(id[, params])`
   - `list([params])`
+  - `iterate([params])`
   - `update(id, params)`
 - productImage
   - `count(productId[, params])`

@@ -19,7 +19,10 @@ function Product(shopify) {
   this.key = 'product';
 }
 
-assign(Product.prototype, pick(base, ['buildUrl', 'delete', 'count']));
+assign(
+  Product.prototype,
+  pick(base, ['buildUrl', 'delete', 'count', 'iterate'])
+);
 
 /**
  * Gets a single product by its ID.

@@ -47,6 +47,28 @@ const base = {
   },
 
   /**
+   * Iterates all the elements that match the params. And yields one at a time.
+   * It buffers as much elements as possible with one single query and yields from that pool until its
+   * depleted and then buffers again.
+   *
+   * @param {Object} params Record properties
+   * @return {Promise} Promise that resolves with the individual element that is being iterated
+   * @public
+   */
+  async *iterate(params) {
+    do {
+      const batch = await this.list(params);
+
+      for (let i = 0; i < batch.length; i++) {
+        const element = batch[i];
+        yield element;
+      }
+
+      params = batch.nextPageParameters;
+    } while (params !== undefined);
+  },
+
+  /**
    * Gets a single record by its ID.
    *
    * @param {Number} id Record ID

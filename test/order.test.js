@@ -31,6 +31,36 @@ describe('Shopify#order', () => {
       .then((data) => expect(data).to.deep.equal(output.orders));
   });
 
+  it('iterates through all orders (1/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/orders.json').reply(200, output);
+
+    const data = [];
+    for await (const order of shopify.order.iterate()) {
+      data.push(order);
+    }
+
+    return expect(data).to.deep.equal(output.orders);
+  });
+
+  it('iterates through all orders (2/2)', async () => {
+    const output = fixtures.res.list;
+
+    scope.get('/admin/orders.json?page=1').reply(200, output);
+
+    const params = {
+      page: 1
+    };
+
+    const data = [];
+    for await (const order of shopify.order.iterate(params)) {
+      data.push(order);
+    }
+
+    return expect(data).to.deep.equal(output.orders);
+  });
+
   it('gets a single order by its ID (1/2)', () => {
     const output = fixtures.res.get;
 
