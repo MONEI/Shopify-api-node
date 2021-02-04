@@ -2529,6 +2529,7 @@ declare namespace Shopify {
     id: number;
     src: string;
     display_scope: ScriptTagDisplayScope;
+    cache: boolean;
     updated_at: string;
   }
 
@@ -2536,12 +2537,14 @@ declare namespace Shopify {
     event: ScriptTagEvent;
     src: string;
     display_scope?: ScriptTagDisplayScope;
+    cache?: boolean;
   }
 
   interface IUpdateScriptTag {
     event: ScriptTagEvent;
     src: string;
     display_scope?: ScriptTagDisplayScope;
+    cache?: boolean;
   }
 
   interface ICarrierShippingRateProvider {
