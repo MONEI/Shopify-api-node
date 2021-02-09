@@ -1171,7 +1171,7 @@ declare namespace Shopify {
   }
 
   interface ICollectionListing {
-    collection_id: string;
+    collection_id: number;
     body_html: string;
     default_product_image: ICollectionListingImage;
     image: IImage;
