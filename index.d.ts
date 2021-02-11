@@ -2782,14 +2782,6 @@ declare namespace Shopify {
   type TransactionSourceName = 'android' | 'iphone' | 'pos' | 'web';
   type TransactionStatus = 'error' | 'failure' | 'pending' | 'success';
 
-  interface ITRansactionReceipt {
-    testcase: boolean;
-    authorization: string;
-    balance_transaction?: {
-      [k: string]: any;
-    };
-  }
-
   interface ITransaction {
     amount: string;
     authorization: string;
@@ -2807,7 +2799,7 @@ declare namespace Shopify {
     payment_details: IPaymentDetails;
     parent_id: number;
     processed_at: string;
-    receipt: ITRansactionReceipt;
+    receipt: Record<string, any>;
     source_name: TransactionSourceName;
     status: TransactionStatus;
     test: boolean;
