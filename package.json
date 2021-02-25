@@ -25,7 +25,7 @@
     "c8": "^7.3.0",
     "chai": "^4.1.2",
     "eslint": "^7.0.0",
-    "eslint-config-prettier": "^7.1.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.1",
     "lint-staged": "^10.0.2",
