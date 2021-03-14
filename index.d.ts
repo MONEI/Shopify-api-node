@@ -190,6 +190,10 @@ declare class Shopify {
     get: (id: number, params?: any) => Promise<Shopify.ICustomer>;
     list: (params?: any) => Promise<Shopify.ICustomer[]>;
     search: (params: any) => Promise<any>;
+    sendInvite: (
+      id: number,
+      params?: Shopify.ICustomerSendInvite
+    ) => Promise<Shopify.ICustomerSendInvite>;
     update: (id: number, params: any) => Promise<Shopify.ICustomer>;
     orders: (id: number, params?: any) => Promise<Shopify.IOrder[]>;
   };
@@ -1343,6 +1347,14 @@ declare namespace Shopify {
     name: string;
     query: string;
     updated_at: string;
+  }
+
+  interface ICustomerSendInvite {
+    to: string;
+    from: string;
+    bcc: string[];
+    subject: string;
+    custom_message: string;
   }
 
   type AllocationMethod = 'across' | 'each' | 'one';
