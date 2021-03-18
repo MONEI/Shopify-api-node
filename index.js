@@ -6,7 +6,7 @@ const stopcock = require('stopcock');
 const got = require('got');
 const url = require('url');
 
-const pkg = require('./package');
+const pkg = require('./package.json');
 const resources = require('./resources');
 
 /**
