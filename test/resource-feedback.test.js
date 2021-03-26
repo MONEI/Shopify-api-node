@@ -15,7 +15,7 @@ describe('Shopify#resourceFeedback', () => {
     const input = fixtures.req.create;
     const output = fixtures.res.create;
 
-    scope.post('/admin/resource_feedback.json', input).reply(201, output);
+    scope.post('/admin/resource_feedback.json', input).reply(202, output);
 
     return shopify.resourceFeedback
       .create(input.resource_feedback)

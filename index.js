@@ -136,7 +136,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
 
       this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
 
-      if (res.statusCode === 202) {
+      if (res.statusCode === 202 && res.headers['location']) {
         const retryAfter = res.headers['retry-after'] * 1000 || 0;
         const { pathname, search } = url.parse(res.headers['location']);
 
