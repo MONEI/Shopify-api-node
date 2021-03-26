@@ -17,13 +17,13 @@ describe('Shopify#fulfillmentOrder', () => {
     scope
       .get(
         '/admin/assigned_fulfillment_orders.json' +
-          '?assignment_status=cancellation&location_ids[]=48752903'
+          '?assignment_status=cancellation_requested&location_ids[]=48752903'
       )
       .reply(200, output);
 
     return shopify.fulfillmentOrder
       .list({
-        assignment_status: 'cancellation',
+        assignment_status: 'cancellation_requested',
         location_ids: ['48752903']
       })
       .then((data) => expect(data).to.deep.equal(output.fulfillment_orders));
