@@ -531,7 +531,7 @@ declare class Shopify {
     create: (params: any) => Promise<Shopify.IProduct>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.IProduct>;
-    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IProduct>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IProduct[]>>;
     update: (id: number, params: any) => Promise<Shopify.IProduct>;
   };
   productImage: {
