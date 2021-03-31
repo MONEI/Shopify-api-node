@@ -132,7 +132,9 @@ declare class Shopify {
     count: (params?: any) => Promise<number>;
     create: (params?: any) => Promise<Shopify.ICheckout>;
     get: (token: string) => Promise<Shopify.ICheckout>;
-    list: (params?: any) => Promise<Shopify.ICheckout[]>;
+    list: (
+      params?: any
+    ) => Promise<Shopify.IPaginatedResult<Shopify.ICheckout[]>>;
     shippingRates: (token: string) => Promise<any>;
     update: (token: any, params: any) => Promise<Shopify.ICheckout>;
   };
