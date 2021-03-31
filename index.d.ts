@@ -2232,6 +2232,18 @@ declare namespace Shopify {
     date: string;
     currency: string;
     amount: string;
+    summary: {
+      adjustments_fee_amount: string
+      adjustments_gross_amount: string
+      charges_fee_amount: string
+      charges_gross_amount: string
+      refunds_fee_amount: string
+      refunds_gross_amount: string
+      reserved_funds_fee_amount: string
+      reserved_funds_gross_amount: string
+      retried_payouts_fee_amount: string
+      retried_payouts_gross_amount: string
+    }
   }
 
   interface IPolicy {
