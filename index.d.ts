@@ -400,7 +400,7 @@ declare class Shopify {
     ) => Promise<Shopify.IPaginatedResult<Shopify.IGiftCard[]>>;
     search: (
       params: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IGiftCard>>;
+    ) => Promise<Shopify.IPaginatedResult<Shopify.IGiftCard[]>>;
     update: (id: number, params: any) => Promise<Shopify.IGiftCard>;
   };
   giftCardAdjustment: {
