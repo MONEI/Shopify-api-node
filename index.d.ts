@@ -89,9 +89,9 @@ declare class Shopify {
   };
   balance: {
     list: () => Promise<Shopify.IBalance[]>;
-    transactions: (params?: any) => Promise<
-      Shopify.IPaginatedResult<Shopify.IBalanceTransaction>
-    >;
+    transactions: (
+      params?: any
+    ) => Promise<Shopify.IPaginatedResult<Shopify.IBalanceTransaction>>;
   };
   blog: {
     count: () => Promise<number>;
@@ -143,9 +143,7 @@ declare class Shopify {
     create: (params: Shopify.ICreateCollect) => Promise<Shopify.ICollect>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.ICollect>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.ICollect>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.ICollect>>;
   };
   collection: {
     get: (id: number, params?: any) => Promise<Shopify.ICollection>;
@@ -166,9 +164,7 @@ declare class Shopify {
     count: (params?: any) => Promise<number>;
     create: (params: Shopify.ICreateComment) => Promise<Shopify.IComment>;
     get: (id: number, params?: any) => Promise<Shopify.IComment>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IComment>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IComment>>;
     notSpam: (id: number) => Promise<Shopify.IComment>;
     remove: (id: number) => Promise<Shopify.IComment>;
     restore: (id: number) => Promise<Shopify.IComment>;
@@ -285,9 +281,7 @@ declare class Shopify {
   };
   dispute: {
     get: (id: number) => Promise<Shopify.IDispute>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IDispute>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IDispute>>;
   };
   draftOrder: {
     complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
@@ -512,9 +506,7 @@ declare class Shopify {
   };
   payout: {
     get: (id: number) => Promise<Shopify.IPayout>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IPayout>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IPayout>>;
   };
   policy: {
     list: (params?: any) => Promise<Shopify.IPolicy[]>;
@@ -533,9 +525,7 @@ declare class Shopify {
     create: (params: any) => Promise<Shopify.IProduct>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.IProduct>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IProduct>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IProduct>>;
     update: (id: number, params: any) => Promise<Shopify.IProduct>;
   };
   productImage: {
@@ -654,9 +644,7 @@ declare class Shopify {
     create: (params: any) => Promise<Shopify.IReport>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.IReport>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IReport>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IReport>>;
     update: (id: number, params: any) => Promise<Shopify.IReport>;
   };
   resourceFeedback: {
@@ -749,9 +737,7 @@ declare class Shopify {
     create: (params: Shopify.ICreateWebhook) => Promise<Shopify.IWebhook>;
     delete: (id: number) => Promise<void>;
     get: (id: number, params?: any) => Promise<Shopify.IWebhook>;
-    list: (
-      params?: any
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IWebhook>>;
+    list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IWebhook>>;
     update: (
       id: number,
       params: Shopify.IUpdateWebhook
