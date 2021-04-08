@@ -3189,7 +3189,9 @@ declare namespace Shopify {
     requires_shipping: boolean;
     taxable: boolean;
     fulfillment_service?: string;
-    properties?: ILineItemProperty;
+    properties?: {
+      [key: string]: string;
+    };
     product_id: number;
     variant_id: number;
   }
