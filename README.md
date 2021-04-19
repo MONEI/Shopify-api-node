@@ -1,11 +1,11 @@
-# Shopify API Node.js (Official module)
+# Shopify API Node.js
 
 [![Version npm][npm-shopify-api-node-badge]][npm-shopify-api-node]
 [![Build Status][ci-shopify-api-node-badge]][ci-shopify-api-node]
 [![Dependencies][david-shopify-api-node-badge]][david-shopify-api-node]
 [![Coverage Status][coverage-shopify-api-node-badge]][coverage-shopify-api-node]
 
-Official Shopify API bindings for Node.js.
+Shopify API bindings for Node.js.
 
 ## Installation:
 
