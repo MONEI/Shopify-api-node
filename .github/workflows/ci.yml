@@ -13,6 +13,7 @@ jobs:
           - 10
           - 12
           - 14
+          - 16
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -21,6 +22,6 @@ jobs:
       - run: npm install
       - run: npm test
       - uses: coverallsapp/github-action@v1.1.2
-        if: matrix.node == 14
+        if: matrix.node == 16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
