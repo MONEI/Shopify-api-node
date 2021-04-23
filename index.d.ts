@@ -1391,12 +1391,12 @@ declare namespace Shopify {
     first_name: string;
     id: number;
     last_name: string;
-    latitude: string;
-    longitude: string;
+    latitude: number | null;
+    longitude: number | null;
     name: string;
     phone: string | null;
-    province: string;
-    province_code: string;
+    province: string | null;
+    province_code: string | null;
     zip: string;
   }
 
