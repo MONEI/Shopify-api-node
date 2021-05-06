@@ -2189,6 +2189,15 @@ declare namespace Shopify {
     confirmed: boolean;
     created_at: string;
     currency: string;
+    current_subtotal_price: string;
+    current_subtotal_price_set: IMoneySet;
+    current_total_discounts: string;
+    current_total_discounts_set: IMoneySet;
+    current_total_duties_set: null | IMoneySet;
+    current_total_price: string;
+    current_total_price_set: IMoneySet;
+    current_total_tax: string;
+    current_total_tax_set: IMoneySet;
     customer?: IOrderCustomer;
     customer_locale: string;
     discount_applications: IDiscountApplication[];
