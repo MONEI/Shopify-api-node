@@ -545,7 +545,7 @@ declare class Shopify {
     ) => Promise<Shopify.IProductImage>;
   };
   productListing: {
-    count: (params?: any) => Promise<number>;
+    count: () => Promise<number>;
     create: (
       productId: number,
       params: any

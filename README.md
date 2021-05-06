@@ -532,7 +532,7 @@ This feature is only available on version 2.24.0 and above.
   - `list(productId[, params])`
   - `update(productId, id, params)`
 - productListing
-  - `count([params])`
+  - `count()`
   - `create(productId[, params])`
   - `delete(productId)`
   - `get(productId)`
