@@ -688,6 +688,7 @@ shopify
 - [Youtube Traffic][youtube-traffic]
 - [Shipatron][shipatron]
 - [UPC Code Manager][upc-code-manager]
+- [Shopify Passwordless Login][dimension-software]
 
 ## Supported by:
 
@@ -743,3 +744,4 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
 [shipatron]: https://shipatron.io
 [upc-code-manager]: https://apps.shopify.com/upc-code-manager-1
+[dimension-software]: https://login.dimensionsoftware.com
