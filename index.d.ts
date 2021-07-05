@@ -3027,7 +3027,8 @@ declare namespace Shopify {
     | 'themes/create'
     | 'themes/delete'
     | 'themes/publish'
-    | 'themes/update';
+    | 'themes/update'
+    | 'tender_transactions/create';
 
   type WebhookFormat = 'json' | 'xml';
 
