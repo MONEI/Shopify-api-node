@@ -3000,14 +3000,14 @@ declare namespace Shopify {
     | 'fulfillments/create'
     | 'fulfillments/update'
     | 'inventory_items/create'
-    | 'inventory_items/update'
     | 'inventory_items/delete'
+    | 'inventory_items/update'
     | 'inventory_levels/connect'
-    | 'inventory_levels/update'
     | 'inventory_levels/disconnect'
+    | 'inventory_levels/update'
     | 'locations/create'
-    | 'locations/update'
     | 'locations/delete'
+    | 'locations/update'
     | 'order_transactions/create'
     | 'orders/cancelled'
     | 'orders/create'
@@ -3024,11 +3024,11 @@ declare namespace Shopify {
     | 'products/update'
     | 'refunds/create'
     | 'shop/update'
+    | 'tender_transactions/create'
     | 'themes/create'
     | 'themes/delete'
     | 'themes/publish'
-    | 'themes/update'
-    | 'tender_transactions/create';
+    | 'themes/update';
 
   type WebhookFormat = 'json' | 'xml';
 
