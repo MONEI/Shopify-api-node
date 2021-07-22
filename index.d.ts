@@ -2711,7 +2711,7 @@ declare namespace Shopify {
     enabled_presentment_currencies: string[];
     email: string;
     finances: boolean;
-    force_ssl: boolean;
+    force_ssl?: boolean;
     google_apps_domain: string | null;
     google_apps_login_enabled: any | null;
     has_discounts: boolean;
