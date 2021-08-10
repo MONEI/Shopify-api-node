@@ -138,10 +138,10 @@ describe('Shopify', () => {
       const shopify = new Shopify({ shopName, accessToken, timeout: 100 });
 
       //
-      // `scope.delay()` can only delay the `response` event. The connection is
-      // still established so it is useless for this test. To work around this
-      // issue a non-routable IP address is used here instead of `nock`. See
-      // https://tools.ietf.org/html/rfc5737#section-3
+      // `scope.delay()` can only delay the `'response'` event. The connection
+      // is still established so it is useless for this test. To work around
+      // this issue a non-routable IP address is used here instead of `nock`.
+      // See https://tools.ietf.org/html/rfc5737#section-3
       //
       shopify.baseUrl.hostname = '192.0.2.1';
 
@@ -295,7 +295,7 @@ describe('Shopify', () => {
       );
     });
 
-    it('emits the `callLimits` event', (done) => {
+    it("emits the 'callLimits' event", (done) => {
       scope.get('/test').reply(
         200,
         {},
@@ -683,7 +683,7 @@ describe('Shopify', () => {
       });
     });
 
-    it('emits the `callGraphqlLimits` event', (done) => {
+    it("emits the 'callGraphqlLimits' event", (done) => {
       scope.post('/admin/api/graphql.json').reply(200, {
         extensions: {
           cost: {
