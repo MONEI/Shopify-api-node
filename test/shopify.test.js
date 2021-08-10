@@ -1,6 +1,7 @@
 describe('Shopify', () => {
   'use strict';
 
+  const jsonBigInt = require('json-bigint');
   const expect = require('chai').expect;
   const format = require('url').format;
   const nock = require('nock');
@@ -11,6 +12,10 @@ describe('Shopify', () => {
   const common = require('./common');
   const pkg = require('../package');
   const Shopify = require('..');
+
+  const { parse: parseJson, stringify: stringifyJson } = jsonBigInt({
+    useNativeBigInt: true
+  });
 
   const accessToken = common.accessToken;
   const apiKey = common.apiKey;
@@ -504,6 +509,24 @@ describe('Shopify', () => {
         expect(timestamps[1] - timestamps[0]).to.be.within(80, 120);
       });
     });
+
+    it('honors the parseJson and stringifyJson options', () => {
+      const shopify = new Shopify({
+        accessToken,
+        parseJson,
+        shopName,
+        stringifyJson
+      });
+
+      const data = { x: 9223372036854775807n };
+      const serialized = '{"x":9223372036854775807}';
+
+      scope.post('/test', serialized).reply(200, serialized);
+
+      return shopify.request(url, 'POST', undefined, data).then((res) => {
+        expect(res).to.deep.equal(data);
+      });
+    });
   });
 
   describe('Shopify#graphql', () => {
@@ -775,6 +798,28 @@ describe('Shopify', () => {
       return shopify
         .graphql('query')
         .then((res) => expect(res).to.deep.equal(response.data));
+    });
+
+    it('honors the parseJson and stringifyJson options', () => {
+      const shopify = new Shopify({
+        accessToken,
+        parseJson,
+        shopName,
+        stringifyJson
+      });
+
+      const data = { x: 9223372036854775807n };
+
+      scope
+        .post(
+          '/admin/api/graphql.json',
+          '{"query":"query","variables":{"x":9223372036854775807}}'
+        )
+        .reply(200, '{"data":{"x":9223372036854775807}}');
+
+      return shopify.graphql('query', data).then((res) => {
+        expect(res).to.deep.equal(data);
+      });
     });
   });
 });

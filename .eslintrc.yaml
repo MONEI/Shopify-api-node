@@ -6,7 +6,7 @@ extends:
   - eslint:recommended
   - plugin:prettier/recommended
 parserOptions:
-  ecmaVersion: 9
+  ecmaVersion: latest
 rules:
   no-var: error
   prefer-const: error
