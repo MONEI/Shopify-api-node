@@ -3012,6 +3012,7 @@ declare namespace Shopify {
     | 'orders/cancelled'
     | 'orders/create'
     | 'orders/delete'
+    | 'orders/edited'
     | 'orders/fulfilled'
     | 'orders/paid'
     | 'orders/partially_fulfilled'
