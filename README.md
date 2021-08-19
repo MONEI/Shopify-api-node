@@ -54,8 +54,16 @@ Creates a new `Shopify` instance.
   specifies a limit of 2 requests per second with a burst of 35 requests. When
   set to `true` requests are limited as specified in the above example. Defaults
   to `false`.
+- `parseJson` - Optional - The function used to parse JSON. The function is
+  passed a single argument. This option allows the use of a custom JSON parser
+  that might be needed to properly handle long integer IDs. Defaults to
+  `JSON.parse()`.
 - `presentmentPrices` - Optional - Whether to include the header to pull
   presentment prices for products. Defaults to `false`.
+- `stringifyJson` - Optional - The function used to serialize to JSON. The
+  function is passed a single argument. This option allows the use of a custom
+  JSON serializer that might be needed to properly handle long integer IDs.
+  Defaults to `JSON.stringify()`.
 - `timeout` - Optional - The number of milliseconds before the request times
   out. If the request takes longer than `timeout`, it will be aborted. Defaults
   to `60000`, or 1 minute.

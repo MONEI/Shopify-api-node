@@ -22,6 +22,9 @@ const resources = require('./resources');
  *     pull presentment prices for products
  * @param {Boolean|Object} [options.autoLimit] Limits the request rate
  * @param {Number} [options.timeout] The request timeout
+ * @param {Function} [options.parseJson] The function used to parse JSON
+ * @param {Function} [options.stringifyJson] The function used to serialize to
+ *     JSON
  * @constructor
  * @public
  */
@@ -37,7 +40,12 @@ function Shopify(options) {
   }
 
   EventEmitter.call(this);
-  this.options = { timeout: 60000, ...options };
+  this.options = {
+    parseJson: JSON.parse,
+    stringifyJson: JSON.stringify,
+    timeout: 60000,
+    ...options
+  };
 
   //
   // API call limits, updated with each request.
@@ -120,6 +128,8 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
 Shopify.prototype.request = function request(uri, method, key, data, headers) {
   const options = {
     headers: { ...headers, ...this.baseHeaders },
+    stringifyJson: this.options.stringifyJson,
+    parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
@@ -221,11 +231,12 @@ Shopify.prototype.graphql = function graphql(data, variables) {
       ...this.baseHeaders,
       'Content-Type': json ? 'application/json' : 'application/graphql'
     },
+    parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
     method: 'POST',
-    body: json ? JSON.stringify({ query: data, variables }) : data
+    body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
 
   return got(uri, options).then((res) => {
