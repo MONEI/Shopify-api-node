@@ -1973,7 +1973,25 @@ declare namespace Shopify {
     utm_source: string;
   }
 
-  type MetaFieldValueType = 'string' | 'integer';
+  type MetaFieldType =
+    | 'boolean'
+    | 'color'
+    | 'date'
+    | 'date_time'
+    | 'dimension'
+    | 'file_reference'
+    | 'json'
+    | 'multi_line_text_field'
+    | 'number_decimal'
+    | 'number_integer'
+    | 'page_reference'
+    | 'product_reference'
+    | 'rating'
+    | 'single_line_text_field'
+    | 'url'
+    | 'variant_reference'
+    | 'volume'
+    | 'weight';
 
   interface IMetafield {
     created_at: string;
@@ -1983,9 +2001,10 @@ declare namespace Shopify {
     namespace: string;
     owner_id: number;
     owner_resource: string;
-    value: string | number;
-    value_type: MetaFieldValueType;
+    type?: MetaFieldType;
     updated_at: string;
+    value: string | number;
+    value_type?: 'string' | 'integer' | 'json_string';
   }
 
   type OrderCancelReason =
