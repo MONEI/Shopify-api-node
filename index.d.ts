@@ -1525,6 +1525,7 @@ declare namespace Shopify {
     gift_card: boolean;
     grams: number;
     key: string;
+    id: number;
     line_price: string;
     name: string;
     origin_location_id: number;
