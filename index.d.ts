@@ -3054,6 +3054,8 @@ declare namespace Shopify {
     | 'selling_plan_groups/update'
     | 'shop/update'
     | 'subscription_billing_attempts/challenged'
+    | 'subscription_billing_attempts/failure'
+    | 'subscription_billing_attempts/success'
     | 'tender_transactions/create'
     | 'themes/create'
     | 'themes/delete'
