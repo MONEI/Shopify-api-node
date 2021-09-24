@@ -197,7 +197,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
  * @param {Object} cost The cost object returned in the GraphQL response
  * @private
  */
-Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(cost) {
+Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({ throttleStatus, actualQueryCost, requestedQueryCost }) {
   const {
     throttleStatus: throttle,
     actualQueryCost,
