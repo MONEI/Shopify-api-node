@@ -198,11 +198,6 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
  * @private
  */
 Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({ throttleStatus, actualQueryCost, requestedQueryCost }) {
-  const {
-    throttleStatus: throttle,
-    actualQueryCost,
-    requestedQueryCost
-  } = cost;
   if (!throttle) return;
 
   const limits = this.callGraphqlLimits;
