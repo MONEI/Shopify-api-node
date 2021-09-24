@@ -113,7 +113,9 @@ describe('Shopify', () => {
       restoreRate: undefined,
       remaining: undefined,
       current: undefined,
-      max: undefined
+      max: undefined,
+      actualQueryCost: undefined,
+      requestedQueryCost: undefined
     });
   });
 

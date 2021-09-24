@@ -59,7 +59,9 @@ function Shopify(options) {
     restoreRate: undefined,
     remaining: undefined,
     current: undefined,
-    max: undefined
+    max: undefined,
+    actualQueryCost: undefined,
+    requestedQueryCost: undefined
   };
 
   this.baseUrl = {
@@ -192,16 +194,15 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
 /**
  * Updates GraphQL API call limits.
  *
- * @param {String} throttle The status returned in the GraphQL response
- * @param {Number} requestedQueryCost The requested cost from the GraphQL query
- * @param {Number} actualQueryCost The actual cost from the GraphQL query
+ * @param {String} cost The status returned in the GraphQL response
  * @private
  */
-Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(
-  throttle,
-  requestedQueryCost,
-  actualQueryCost
-) {
+Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits(cost) {
+  const {
+    throttleStatus: throttle,
+    actualQueryCost,
+    requestedQueryCost
+  } = cost;
   if (!throttle) return;
 
   const limits = this.callGraphqlLimits;
@@ -248,16 +249,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
   return got(uri, options).then((res) => {
     if (res.body.extensions && res.body.extensions.cost) {
-      const {
-        extensions: {
-          cost: { requestedQueryCost, actualQueryCost, throttleStatus }
-        }
-      } = res.body;
-      this.updateGraphqlLimits(
-        throttleStatus,
-        requestedQueryCost,
-        actualQueryCost
-      );
+      this.updateGraphqlLimits(res.body.extensions.cost);
     }
 
     if (res.body.errors) {

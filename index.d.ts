@@ -785,6 +785,8 @@ declare namespace Shopify {
     remaining: number;
     current: number;
     max: number;
+    actualQueryCost: number;
+    requestedQueryCost: number;
   }
 
   interface IAccessScope {
