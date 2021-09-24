@@ -201,10 +201,10 @@ Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({ throttleS
   if (!throttle) return;
 
   const limits = this.callGraphqlLimits;
-  limits.current = throttle.maximumAvailable - throttle.currentlyAvailable;
-  limits.remaining = throttle.currentlyAvailable;
-  limits.restoreRate = throttle.restoreRate;
-  limits.max = throttle.maximumAvailable;
+  limits.current = throttleStatus.maximumAvailable - throttleStatus.currentlyAvailable;
+  limits.remaining = throttleStatus.currentlyAvailable;
+  limits.restoreRate = throttleStatus.restoreRate;
+  limits.max = throttleStatus.maximumAvailable;
   limits.requestedQueryCost = requestedQueryCost;
   limits.actualQueryCost = actualQueryCost;
 
