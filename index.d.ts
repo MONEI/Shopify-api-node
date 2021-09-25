@@ -781,10 +781,12 @@ declare namespace Shopify {
   }
 
   export interface ICallGraphqlLimits {
-    restoreRate: number;
-    remaining: number;
+    actualQueryCost: number;
     current: number;
     max: number;
+    remaining: number;
+    requestedQueryCost: number;
+    restoreRate: number;
   }
 
   interface IAccessScope {

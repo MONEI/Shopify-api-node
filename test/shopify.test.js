@@ -113,7 +113,9 @@ describe('Shopify', () => {
       restoreRate: undefined,
       remaining: undefined,
       current: undefined,
-      max: undefined
+      max: undefined,
+      actualQueryCost: undefined,
+      requestedQueryCost: undefined
     });
   });
 
@@ -687,6 +689,8 @@ describe('Shopify', () => {
       scope.post('/admin/api/graphql.json').reply(200, {
         extensions: {
           cost: {
+            requestedQueryCost: 3,
+            actualQueryCost: 3,
             throttleStatus: {
               maximumAvailable: 1000.0,
               currentlyAvailable: 997,
@@ -701,7 +705,9 @@ describe('Shopify', () => {
           restoreRate: 50.0,
           remaining: 997,
           current: 3,
-          max: 1000.0
+          max: 1000.0,
+          actualQueryCost: 3,
+          requestedQueryCost: 3
         });
       });
     });
@@ -710,6 +716,8 @@ describe('Shopify', () => {
       scope.post('/admin/api/graphql.json').reply(200, {
         extensions: {
           cost: {
+            requestedQueryCost: 3,
+            actualQueryCost: 3,
             throttleStatus: {
               maximumAvailable: 1000.0,
               currentlyAvailable: 997,
@@ -724,7 +732,9 @@ describe('Shopify', () => {
           restoreRate: 50.0,
           remaining: 997,
           current: 3,
-          max: 1000.0
+          max: 1000.0,
+          actualQueryCost: 3,
+          requestedQueryCost: 3
         });
         done();
       });
@@ -740,7 +750,9 @@ describe('Shopify', () => {
           restoreRate: 50.0,
           remaining: 997,
           current: 3,
-          max: 1000.0
+          max: 1000.0,
+          actualQueryCost: 3,
+          requestedQueryCost: 3
         });
       });
     });
@@ -757,7 +769,9 @@ describe('Shopify', () => {
           restoreRate: 50.0,
           remaining: 997,
           current: 3,
-          max: 1000.0
+          max: 1000.0,
+          actualQueryCost: 3,
+          requestedQueryCost: 3
         });
       });
     });
