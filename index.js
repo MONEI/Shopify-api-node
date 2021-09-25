@@ -194,7 +194,8 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
 /**
  * Updates GraphQL API call limits.
  *
- * @param {Object} cost The cost object returned in the GraphQL response
+ * @param {Object} cost The `extensions.cost` object returned in the GraphQL
+ *     response
  * @private
  */
 Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({
