@@ -197,11 +197,16 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
  * @param {Object} cost The cost object returned in the GraphQL response
  * @private
  */
-Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({ throttleStatus, actualQueryCost, requestedQueryCost }) {
+Shopify.prototype.updateGraphqlLimits = function updateGraphqlLimits({
+  throttleStatus,
+  actualQueryCost,
+  requestedQueryCost
+}) {
   if (!throttleStatus) return;
 
   const limits = this.callGraphqlLimits;
-  limits.current = throttleStatus.maximumAvailable - throttleStatus.currentlyAvailable;
+  limits.current =
+    throttleStatus.maximumAvailable - throttleStatus.currentlyAvailable;
   limits.remaining = throttleStatus.currentlyAvailable;
   limits.restoreRate = throttleStatus.restoreRate;
   limits.max = throttleStatus.maximumAvailable;
