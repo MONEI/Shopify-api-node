@@ -35,7 +35,7 @@
     "prettier": "^2.0.2"
   },
   "scripts": {
-    "test": "npm run lint && c8 --reporter=lcov --reporter=text mocha",
+    "test": "c8 --reporter=lcov --reporter=text mocha",
     "watch": "mocha -w",
     "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\"",
     "prepare": "husky install"
