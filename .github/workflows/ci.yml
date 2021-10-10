@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm install
+      - run: npm run lint
+        if: matrix.node == 16
       - run: npm test
       - uses: coverallsapp/github-action@1.1.3
         if: matrix.node == 16
