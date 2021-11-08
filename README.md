@@ -2,7 +2,6 @@
 
 [![Version npm][npm-shopify-api-node-badge]][npm-shopify-api-node]
 [![Build Status][ci-shopify-api-node-badge]][ci-shopify-api-node]
-[![Dependencies][david-shopify-api-node-badge]][david-shopify-api-node]
 [![Coverage Status][coverage-shopify-api-node-badge]][coverage-shopify-api-node]
 
 Shopify API bindings for Node.js.
@@ -716,9 +715,6 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://img.shields.io/github/workflow/status/MONEI/Shopify-api-node/CI/master?label=CI
 [ci-shopify-api-node]:
   https://github.com/MONEI/Shopify-api-node/actions?query=workflow%3ACI+branch%3Amaster
-[david-shopify-api-node-badge]:
-  https://img.shields.io/david/MONEI/Shopify-api-node.svg
-[david-shopify-api-node]: https://david-dm.org/MONEI/Shopify-api-node
 [coverage-shopify-api-node-badge]:
   https://img.shields.io/coveralls/MONEI/Shopify-api-node/master.svg
 [coverage-shopify-api-node]: https://coveralls.io/github/MONEI/Shopify-api-node
