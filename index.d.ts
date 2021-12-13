@@ -1077,8 +1077,8 @@ declare namespace Shopify {
     net: string;
     source_id: number;
     source_type: BalanceTransactionSourceType;
-    source_order_transaction_id: number;
-    source_order_id: number;
+    source_order_transaction_id: number | null;
+    source_order_id: number | null;
     processed_at: string;
   }
 
