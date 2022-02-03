@@ -2178,6 +2178,7 @@ declare namespace Shopify {
   }
 
   interface IOrderShippingLine {
+    id: number;
     code: string;
     discounted_price: string;
     discounted_price_set: IMoneySet;
