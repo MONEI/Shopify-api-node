@@ -7,6 +7,7 @@
     "updated_at": "2015-09-02T14:52:56-04:00",
     "format": "json",
     "fields": [],
-    "metafield_namespaces": []
+    "metafield_namespaces": [],
+    "private_metafield_namespaces": []
   }
 }
