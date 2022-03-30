@@ -22,6 +22,7 @@ const map = {
   customer: 'customer',
   customerAddress: 'customer-address',
   customerSavedSearch: 'customer-saved-search',
+  deprecatedApiCall: 'deprecated-api-call',
   discountCode: 'discount-code',
   discountCodeCreationJob: 'discount-code-creation-job',
   dispute: 'dispute',

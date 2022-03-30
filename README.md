@@ -381,6 +381,8 @@ This feature is only available on version 2.24.0 and above.
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+- deprecatedApiCall
+  - `list()`
 - discountCode
   - `create(priceRuleId, params)`
   - `delete(priceRuleId, id)`

@@ -250,6 +250,9 @@ declare class Shopify {
     ) => Promise<Shopify.IPaginatedResult<Shopify.ICustomerSavedSearch>>;
     update: (id: number, params: any) => Promise<Shopify.ICustomerSavedSearch>;
   };
+  deprecatedApiCall: {
+    list: () => Promise<Shopify.IDeprecatedApiCall[]>;
+  };
   discountCode: {
     create: (
       priceRuleId: number,
@@ -1416,6 +1419,17 @@ declare namespace Shopify {
     bcc: string[];
     subject: string;
     custom_message: string;
+  }
+
+  interface IDeprecatedApiCall {
+    api_type: string;
+    description: string;
+    documentation_url: string;
+    endpoint: string;
+    graphql_schema_name: string | null;
+    last_call_at: string;
+    migration_deadline: string;
+    version: string;
   }
 
   type AllocationMethod = 'across' | 'each' | 'one';
