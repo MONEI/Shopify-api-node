@@ -3088,6 +3088,7 @@ declare namespace Shopify {
     format: WebhookFormat;
     id: number;
     metafield_namespaces: string[];
+    private_metafield_namespaces: string[];
     topic: WebhookTopic;
     updated_at: string;
   }
@@ -3097,6 +3098,7 @@ declare namespace Shopify {
     fields?: string[];
     format?: WebhookFormat;
     metafield_namespaces?: string[];
+    private_metafield_namespaces?: string[];
     topic: WebhookTopic;
   }
 
@@ -3105,6 +3107,7 @@ declare namespace Shopify {
     fields?: string[];
     format?: WebhookFormat;
     metafield_namespaces?: string[];
+    private_metafield_namespaces?: string[];
     topic: WebhookTopic;
   }
 
