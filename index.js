@@ -8,6 +8,7 @@ const url = require('url');
 
 const pkg = require('./package');
 const resources = require('./resources');
+const utils = require('./mixins/utils');
 
 /**
  * Creates a Shopify instance.
@@ -24,6 +25,9 @@ const resources = require('./resources');
  * @param {Number} [options.timeout] The request timeout
  * @param {Function} [options.parseJson] The function used to parse JSON
  * @param {Function} [options.stringifyJson] The function used to serialize to
+ * @param {Boolean} [options.enableRetry] Enable retry - Default setting
+ * @param {Number} [options.maxRetries] Max Retries
+ * @param {Number} [options.retryAfter] Retry After (in seconds)
  *     JSON
  * @constructor
  * @public
@@ -81,6 +85,12 @@ function Shopify(options) {
       Buffer.from(`${options.apiKey}:${options.password}`).toString('base64');
   }
 
+  if (options.enableRetry) {
+    this.baseHeaders['should-retry'] = options.enableRetry;
+    this.baseHeaders['max-retries'] = options.maxRetries;
+    this.baseHeaders['retry-after'] = options.retryAfter;
+  }
+
   if (options.autoLimit) {
     const conf = transform(
       options.autoLimit,
@@ -129,13 +139,19 @@ Shopify.prototype.updateLimits = function updateLimits(header) {
  */
 Shopify.prototype.request = function request(uri, method, key, data, headers) {
   const options = {
-    headers: { ...headers, ...this.baseHeaders },
+    headers: { ...this.baseHeaders, ...headers },
     stringifyJson: this.options.stringifyJson,
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
     retry: 0,
     method
+  };
+
+  const retryConfiguration = {
+    shouldRetry: options.headers['should-retry'] || false,
+    maxRetries: options.headers['max-retries'] || 10,
+    retryAfter: options.headers['retry-after']
   };
 
   if (data) {
@@ -182,6 +198,21 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
       return data;
     },
     (err) => {
+      if (retryConfiguration.shouldRetry) {
+        const attemptNumber = options.headers['number-of-retries'] || 0;
+        if (attemptNumber <= retryConfiguration.maxRetries) {
+          const maybeRetryAfterSeconds = utils.shouldRetryError(err);
+          if (maybeRetryAfterSeconds != null) {
+            const retryAfter = maybeRetryAfterSeconds * 1000 || 0;
+
+            return delay(retryAfter).then(() => {
+              options.headers['number-of-retries'] = attemptNumber + 1;
+
+              return this.request(uri, method, key, data, options.headers);
+            });
+          }
+        }
+      }
       this.updateLimits(
         err.response && err.response.headers['x-shopify-shop-api-call-limit']
       );
@@ -248,25 +279,44 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
 
-  return got(uri, options).then((res) => {
-    if (res.body.extensions && res.body.extensions.cost) {
-      this.updateGraphqlLimits(res.body.extensions.cost);
-    }
+  return got(uri, options).then(
+    async (res) => {
+      if (res.body.extensions && res.body.extensions.cost) {
+        this.updateGraphqlLimits(res.body.extensions.cost);
+      }
 
-    if (res.body.errors) {
-      const first = res.body.errors[0];
-      const err = new Error(first.message);
+      if (res.body.errors) {
+        const first = res.body.errors[0];
 
-      err.locations = first.locations;
-      err.path = first.path;
-      err.extensions = first.extensions;
-      err.response = res;
+        const shouldRetry = await shouldRetryGraphqlQuery(this.options, res);
+        if (shouldRetry) {
+          const attemptNumber = this.options.headers['number-of-retries'] || 0;
+          this.options.headers['number-of-retries'] = attemptNumber + 1;
+          return this.graphql(data, variables);
+        }
 
+        const err = new Error(first.message);
+
+        err.locations = first.locations;
+        err.path = first.path;
+        err.extensions = first.extensions;
+        err.response = res;
+
+        throw err;
+      }
+
+      return res.body.data || {};
+    },
+    async (err) => {
+      const shouldRetry = await shouldRetryGraphqlQuery(this.options, err);
+      if (shouldRetry) {
+        const attemptNumber = this.options.headers['number-of-retries'] || 0;
+        this.options.headers['number-of-retries'] = attemptNumber + 1;
+        return this.graphql(data, variables);
+      }
       throw err;
     }
-
-    return res.body.data || {};
-  });
+  );
 };
 
 resources.registerAll(Shopify);
@@ -311,6 +361,34 @@ function reducer(acc, cur) {
   else acc.previous = link;
 
   return acc;
+}
+
+/**
+ * Check if graphql query should be retried
+ *
+ * @param {Object} options Shopify options to add retries
+ * @param {Object} error Error object from graphql
+ * @return {Boolean} Retrun true/false
+ * @private
+ */
+function shouldRetryGraphqlQuery(options, error) {
+  if (options.enableRetry) {
+    if (!options.headers) {
+      options.headers = {};
+    }
+    const attemptNumber = options.headers['number-of-retries'] || 0;
+    if (attemptNumber <= options.maxRetries) {
+      const maybeRetryAfterSeconds = utils.shouldRetryError(error);
+      if (maybeRetryAfterSeconds != null) {
+        const retryAfter = maybeRetryAfterSeconds * 1000 || 0;
+
+        return delay(retryAfter).then(() => {
+          return true;
+        });
+      }
+    }
+  }
+  return false;
 }
 
 module.exports = Shopify;
