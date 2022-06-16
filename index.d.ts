@@ -2914,31 +2914,45 @@ declare namespace Shopify {
     | 'refund'
     | 'sale'
     | 'void';
-  type TransactionSourceName = 'android' | 'iphone' | 'pos' | 'web';
   type TransactionStatus = 'error' | 'failure' | 'pending' | 'success';
+
+  interface IExtendedAuthorizationAttributes {
+    standard_authorization_expires_at: string;
+    extended_authorization_expires_at: string;
+  }
+
+  interface IPaymentsRefund {
+    status: TransactionStatus;
+    acquirer_reference_number: string;
+  }
 
   interface ITransaction {
     amount: string;
-    authorization: string;
+    authorization: string | null;
+    authorization_expires_at?: string | null;
     created_at: string;
     currency: string;
-    currency_exchange_adjustment: ICurrencyExchangeAdjustment;
-    device_id: string;
-    error_code: TransactionErrorCode;
+    currency_exchange_adjustment?: ICurrencyExchangeAdjustment | null;
+    device_id: number | null;
+    error_code: TransactionErrorCode | null;
+    extended_authorization_attributes?:
+      | IExtendedAuthorizationAttributes
+      | Record<string, never>;
     gateway: string;
     id: number;
     kind: TransactionKind;
-    location_id: number;
-    message: string;
+    location_id: number | null;
+    message: string | null;
     order_id: number;
-    payment_details: IPaymentDetails;
-    parent_id: number;
+    parent_id: number | null;
+    payment_details?: IPaymentDetails;
+    payments_refund_attributes?: IPaymentsRefund;
     processed_at: string;
     receipt: Record<string, any>;
-    source_name: TransactionSourceName;
+    source_name: string;
     status: TransactionStatus;
     test: boolean;
-    user_id: number;
+    user_id: number | null;
   }
 
   interface IUsageCharge {
