@@ -9,7 +9,7 @@ describe('Shopify#accessScope', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of access scopes associated to the access token', () => {
     const output = fixtures.res.list;

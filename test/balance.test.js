@@ -9,7 +9,7 @@ describe('Shopify#balance', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets the current balance', () => {
     const output = fixtures.res.list;

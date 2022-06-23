@@ -9,7 +9,7 @@ describe('Shopify#giftCard', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of all gift cards (1/2)', () => {
     const output = fixtures.res.list;

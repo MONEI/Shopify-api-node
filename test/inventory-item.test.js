@@ -10,7 +10,7 @@ describe('Shopify#inventoryItem', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of inventory items', () => {
     const query = { ids: '808950810,39072856,457924702' };

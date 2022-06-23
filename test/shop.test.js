@@ -13,7 +13,7 @@ describe('Shopify#shop', () => {
   const shopify = common.shopify;
   const shopName = common.shopName;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets the configuration of the shop (1/2)', () => {
     const output = fixtures.res.get;

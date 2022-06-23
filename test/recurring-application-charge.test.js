@@ -9,7 +9,7 @@ describe('Shopify#recurringApplicationCharge', () => {
   const resource = common.shopify.recurringApplicationCharge;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('creates a recurring application charge', () => {
     const input = fixtures.req.create;

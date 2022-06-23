@@ -12,8 +12,8 @@ describe('Shopify#productVariant', () => {
   const presentmentApiScope = common.presentmentApiScope;
 
   afterEach(() => {
-    expect(presentmentApiScope.isDone()).to.be.true;
-    expect(standardScope.isDone()).to.be.true;
+    expect(presentmentApiScope.pendingMocks()).to.deep.equal([]);
+    expect(standardScope.pendingMocks()).to.deep.equal([]);
   });
 
   it('gets a list of all product variants for a product (1/4)', () => {

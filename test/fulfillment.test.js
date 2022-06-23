@@ -13,7 +13,7 @@ describe('Shopify#fulfillment', () => {
   const shopify = common.shopify;
   const shopName = common.shopName;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of all fulfillments for an order (1/2)', () => {
     const output = fixtures.res.list;
