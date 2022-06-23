@@ -10,7 +10,7 @@ describe('Shopify#inventoryLevel', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of inventory levels', () => {
     const query = { inventory_item_ids: 808950810 };

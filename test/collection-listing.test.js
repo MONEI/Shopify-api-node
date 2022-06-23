@@ -9,7 +9,7 @@ describe('Shopify#collectionListing', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets collection listings published to an application (1/2)', () => {
     const output = fixtures.res.list;

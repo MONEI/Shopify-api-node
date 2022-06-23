@@ -13,7 +13,7 @@ describe('Shopify#payout', () => {
   const shopify = common.shopify;
   const shopName = common.shopName;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list payouts (1/2)', () => {
     const output = fixtures.res.list;

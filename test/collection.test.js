@@ -9,7 +9,7 @@ describe('Shopify#collection', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a collection by its ID (1/2)', () => {
     const output = fixtures.res.get;

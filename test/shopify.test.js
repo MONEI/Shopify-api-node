@@ -123,7 +123,7 @@ describe('Shopify', () => {
     const url = { pathname: '/test', ...shopify.baseUrl };
     const scope = common.scope;
 
-    afterEach(() => expect(nock.isDone()).to.be.true);
+    afterEach(() => expect(nock.pendingMocks()).to.deep.equal([]));
 
     it('returns a RequestError when the request fails', () => {
       const message = 'Something wrong happened';
@@ -539,7 +539,7 @@ describe('Shopify', () => {
       }
     });
 
-    afterEach(() => expect(nock.isDone()).to.be.true);
+    afterEach(() => expect(nock.pendingMocks()).to.deep.equal([]));
 
     it('returns a RequestError when the request fails', () => {
       const message = 'Something wrong happened';

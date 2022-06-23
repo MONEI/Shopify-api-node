@@ -9,7 +9,7 @@ describe('Shopify#currency', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('gets a list of currencies enabled on a shop', () => {
     const output = fixtures.res.list;

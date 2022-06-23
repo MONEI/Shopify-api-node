@@ -8,7 +8,7 @@ describe('Shopify#apiPermission', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('deletes an api permission', () => {
     scope.delete('/admin/api_permissions/current.json').reply(200);

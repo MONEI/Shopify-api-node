@@ -9,7 +9,7 @@ describe('Shopify#applicationCredit', () => {
   const shopify = common.shopify;
   const scope = common.scope;
 
-  afterEach(() => expect(scope.isDone()).to.be.true);
+  afterEach(() => expect(scope.pendingMocks()).to.deep.equal([]));
 
   it('creates an application credit', () => {
     const input = fixtures.req.create;

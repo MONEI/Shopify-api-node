@@ -12,8 +12,8 @@ describe('Shopify#product', () => {
   const presentmentApiScope = common.presentmentApiScope;
 
   afterEach(() => {
-    expect(presentmentApiScope.isDone()).to.be.true;
-    expect(standardScope.isDone()).to.be.true;
+    expect(presentmentApiScope.pendingMocks()).to.deep.equal([]);
+    expect(standardScope.pendingMocks()).to.deep.equal([]);
   });
 
   it('gets a list of all products (1/4)', () => {
