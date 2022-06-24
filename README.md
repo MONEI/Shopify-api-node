@@ -676,8 +676,6 @@ shopify
 
 ## Become a master of the Shopify ecosystem by:
 
-- [Becoming a Shopify App Developer][becoming-a-shopify-app-developer]
-- [Checking out the roots][checking-out-the-roots]
 - [Talking To Other Masters][talking-to-other-masters]
 - [Reading API Docs][reading-api-docs]
 - [Learning from others][learning-from-others]
@@ -727,9 +725,6 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [api-call-limit]:
   https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
 [api-versioning]: https://help.shopify.com/en/api/versioning
-[becoming-a-shopify-app-developer]:
-  https://app.shopify.com/services/partners/signup?ref=microapps
-[checking-out-the-roots]: https://help.shopify.com/api/guides?ref=microapps
 [talking-to-other-masters]:
   https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
 [reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
