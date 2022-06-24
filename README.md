@@ -452,7 +452,7 @@ This feature is only available on version 2.24.0 and above.
   - `list([params])`
   - `search(params)`
   - `update(id, params)`
-- [giftCardAdjustment](https://help.shopify.com/en/api/reference/plus/gift_card_adjustment)
+- [giftCardAdjustment](https://shopify.dev/api/admin-rest/2022-04/resources/gift-card-adjustment)
   - `create(giftCardId, params)`
   - `get(giftCardId, id)`
   - `list(giftCardId)`
@@ -547,7 +547,7 @@ This feature is only available on version 2.24.0 and above.
   - `get(productId)`
   - `list([params])`
   - `productIds([params])`
-- [productResourceFeedback](https://help.shopify.com/en/api/reference/sales-channels/productresourcefeedback)
+- [productResourceFeedback](https://shopify.dev/api/admin-rest/2022-04/resources/product-resourcefeedback)
   - `create(productId[, params])`
   - `list(productId)`
 - productVariant
@@ -643,8 +643,8 @@ This feature is only available on version 2.24.0 and above.
   - `list([params])`
   - `update(id, params)`
 
-where `params` is a plain JavaScript object. See
-https://help.shopify.com/api/reference?ref=microapps for parameters details.
+where `params` is a plain JavaScript object. See the [Rest Admin API
+reference][reading-api-docs] for parameters details.
 
 ## GraphQL
 
@@ -719,18 +719,15 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
   https://img.shields.io/coveralls/MONEI/Shopify-api-node/master.svg
 [coverage-shopify-api-node]: https://coveralls.io/github/MONEI/Shopify-api-node
 [generate-private-app-credentials]:
-  https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials?ref=microapps
-[oauth]: https://help.shopify.com/api/guides/authentication/oauth?ref=microapps
+  https://shopify.dev/apps/auth/basic-http#step-2-generate-api-credentials
+[oauth]: https://shopify.dev/apps/auth/oauth
 [shopify-token]: https://github.com/lpinca/shopify-token
-[api-call-limit]:
-  https://help.shopify.com/api/guides/api-call-limit/?ref=microapps
-[api-versioning]: https://help.shopify.com/en/api/versioning
-[talking-to-other-masters]:
-  https://ecommerce.shopify.com/c/shopify-apps?ref=microapps
-[reading-api-docs]: https://help.shopify.com/api/reference/?ref=microapps
+[api-call-limit]: https://shopify.dev/api/usage/rate-limits
+[api-versioning]: https://shopify.dev/api/usage/versioning
+[talking-to-other-masters]: https://community.shopify.com/
+[reading-api-docs]: https://shopify.dev/api/admin-rest
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
-[paginated-rest-results]:
-  https://help.shopify.com/en/api/guides/paginated-rest-results
+[paginated-rest-results]: https://shopify.dev/api/usage/pagination-rest
 [polaris]: https://polaris.shopify.com/?ref=microapps
 [microapps]:
   http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
