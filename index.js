@@ -159,63 +159,60 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
             limit: this.options.maxRetries,
             // Don't clamp Shopify retry-after header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay: calculateRESTDelay
+            calculateDelay
           }
         : 0,
-    method
+    method,
+    hooks: {
+      afterResponse: [
+        (res) => {
+          this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+          return res;
+        }
+      ]
+    }
   };
 
   if (data) {
     options.json = key ? { [key]: data } : data;
   }
 
-  return got(uri, options).then(
-    (res) => {
-      const body = res.body;
+  return got(uri, options).then((res) => {
+    const body = res.body;
 
-      this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+    if (res.statusCode === 202 && res.headers['location']) {
+      const retryAfter = res.headers['retry-after'] * 1000 || 0;
+      const { pathname, search } = url.parse(res.headers['location']);
 
-      if (res.statusCode === 202 && res.headers['location']) {
-        const retryAfter = res.headers['retry-after'] * 1000 || 0;
-        const { pathname, search } = url.parse(res.headers['location']);
+      return delay(retryAfter).then(() => {
+        const uri = { pathname, ...this.baseUrl };
 
-        return delay(retryAfter).then(() => {
-          const uri = { pathname, ...this.baseUrl };
+        if (search) uri.search = search;
 
-          if (search) uri.search = search;
+        return this.request(uri, 'GET', key);
+      });
+    }
 
-          return this.request(uri, 'GET', key);
+    const data = key ? body[key] : body || {};
+
+    if (res.headers.link) {
+      const link = parseLinkHeader(res.headers.link);
+
+      if (link.next) {
+        Object.defineProperties(data, {
+          nextPageParameters: { value: link.next.query }
         });
       }
 
-      const data = key ? body[key] : body || {};
-
-      if (res.headers.link) {
-        const link = parseLinkHeader(res.headers.link);
-
-        if (link.next) {
-          Object.defineProperties(data, {
-            nextPageParameters: { value: link.next.query }
-          });
-        }
-
-        if (link.previous) {
-          Object.defineProperties(data, {
-            previousPageParameters: { value: link.previous.query }
-          });
-        }
+      if (link.previous) {
+        Object.defineProperties(data, {
+          previousPageParameters: { value: link.previous.query }
+        });
       }
-
-      return data;
-    },
-    (err) => {
-      this.updateLimits(
-        err.response && err.response.headers['x-shopify-shop-api-call-limit']
-      );
-
-      return Promise.reject(err);
     }
-  );
+
+    return data;
+  });
 };
 
 /**
@@ -262,7 +259,6 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
   const uri = { pathname, ...this.baseUrl };
   const json = variables !== undefined && variables !== null;
-  let attemptNumber = 0;
   const options = {
     headers: {
       ...this.baseHeaders,
@@ -279,65 +275,45 @@ Shopify.prototype.graphql = function graphql(data, variables) {
             limit: this.options.maxRetries,
             // Don't clamp Shopify retry-after header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay: (retryObject) => {
-              attemptNumber += 1;
-              return (
-                graphQLRetryMS(
-                  attemptNumber,
-                  this.options.maxRetries,
-                  retryObject.error
-                ) || retryObject.computedValue
-              );
-            }
+            calculateDelay
           }
         : 0,
     hooks: {
-      afterResponse:
-        this.options.maxRetries > 0
-          ? [
-              (response) => {
-                if (response.body && response.body.errors) {
-                  const retryDelay = graphQLRetryMS(
-                    attemptNumber,
-                    this.options.maxRetries,
-                    { response }
-                  );
+      afterResponse: [
+        (response) => {
+          if (response.body) {
+            if (response.body.extensions && response.body.extensions.cost) {
+              this.updateGraphqlLimits(response.body.extensions.cost);
+            }
 
-                  if (retryDelay) {
-                    // Make got consider this response errored and retry
-                    throw new Error('GraphQL cost limit exceeded, retrying');
-                  }
-                }
+            if (response.body.errors) {
+              // Make got consider this response errored and retry if needed
+              throw new Error(response.body.errors[0].message);
+            }
+          }
 
-                return response;
-              }
-            ]
-          : []
+          return response;
+        }
+      ],
+      beforeError: [errorForGraphQLError]
     }
   };
 
-  return got(uri, options).then((res) => {
-    if (res.body.extensions && res.body.extensions.cost) {
-      this.updateGraphqlLimits(res.body.extensions.cost);
-    }
-
-    if (res.body.errors) {
-      const first = res.body.errors[0];
-      const err = new Error(first.message);
-
-      err.locations = first.locations;
-      err.path = first.path;
-      err.extensions = first.extensions;
-      err.response = res;
-
-      throw err;
-    }
-
-    return res.body.data || {};
-  });
+  return got(uri, options).then(returnResponseData);
 };
 
 resources.registerAll(Shopify);
+
+/**
+ * Return the data of a GraphQL response object
+ *
+ * @param {Response} res Got response object
+ * @return {Object} The data
+ * @private
+ */
+function returnResponseData(res) {
+  return res.body.data;
+}
 
 /**
  * Returns a promise that resolves after a given amount of time.
@@ -438,29 +414,31 @@ function maybeRetryMS(error) {
 }
 
 /**
- * Return a duration after which to retry a graphql call, or null if it
- * shouldn't be retried
- *
- * @param {Number} attemptNumber Shopify graphql call attempt no
- * @param {Number} maxRetries Max retries in default option
- * @param {Object} error Error object from got call
- * @return {Boolean | undefined}
+ * Decorate a ResponseError object thrown by got with details from
+ * GraphQL errors in the response body
+ * @param {ResponseError} error
+ * @returns ResponseError
  * @private
  */
-function graphQLRetryMS(attemptNumber, maxRetries, error) {
-  if (attemptNumber <= maxRetries) {
-    return maybeRetryMS(error);
+function errorForGraphQLError(error) {
+  if (error.response && error.response.body.errors) {
+    const first = error.response.body.errors[0];
+
+    error.locations = first.locations;
+    error.path = first.path;
+    error.extensions = first.extensions;
   }
+  return error;
 }
 
 /**
- * Got `calculateDelay` hook function passed when calling the REST API
+ * Got `calculateDelay` hook function passed to decide how long to wait before retrying
  *
  * @param {Object} retryObject got's input for the retry logic
  * @return {Number}
  * @private
  */
-function calculateRESTDelay(retryObject) {
+function calculateDelay(retryObject) {
   return maybeRetryMS(retryObject.error) || retryObject.computedValue;
 }
 
