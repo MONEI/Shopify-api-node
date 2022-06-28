@@ -22,6 +22,7 @@ describe('Shopify', () => {
   const apiVersion = common.apiVersion;
   const password = common.password;
   const shopify = common.shopify;
+  const shopifyWithRetries = common.shopifyWithRetries;
   const shopName = common.shopName;
 
   it('exports the constructor', () => {
@@ -38,10 +39,9 @@ describe('Shopify', () => {
     expect(() => new Shopify({ password })).to.throw(Error, msg);
     expect(() => new Shopify({ accessToken, apiKey })).to.throw(Error, msg);
     expect(() => new Shopify({ accessToken, password })).to.throw(Error, msg);
-    expect(
-      () =>
-        new Shopify({ accessToken, password, maxRetries: 1, autoLimit: true })
-    ).to.throw(Error, msg);
+    expect(() => {
+      new Shopify({ accessToken, password, maxRetries: 1, autoLimit: true });
+    }).to.throw(Error, msg);
   });
 
   it('makes the new operator optional', () => {
@@ -125,6 +125,7 @@ describe('Shopify', () => {
 
   describe('Shopify#request', () => {
     const url = { pathname: '/test', ...shopify.baseUrl };
+    const addWorkingRESTRequestMock = common.addWorkingRESTRequestMock;
     const scope = common.scope;
 
     afterEach(() => expect(nock.pendingMocks()).to.deep.equal([]));
@@ -178,9 +179,7 @@ describe('Shopify', () => {
         },
         (err) => {
           expect(err).to.be.an.instanceof(got.TimeoutError);
-          expect(err.message).to.include(
-            "Timeout awaiting 'request' for 100ms"
-          );
+          expect(err.message).to.equal("Timeout awaiting 'request' for 100ms");
         }
       );
     });
@@ -534,23 +533,6 @@ describe('Shopify', () => {
       });
     });
 
-    const addWorkingRESTRequestMock = (scope) => {
-      scope.get('/admin/shop.json').reply(200, {
-        shop: {
-          name: 'My Cool Test Shop',
-          id: '1'
-        }
-      });
-    };
-
-    const shopifyWithRetries = new Shopify({
-      accessToken,
-      parseJson,
-      shopName,
-      stringifyJson,
-      maxRetries: 3
-    });
-
     it('retries 429 errors from Shopify according to the header', () => {
       scope
         .get('/admin/shop.json')
@@ -559,6 +541,7 @@ describe('Shopify', () => {
         .reply(429, 'too many requests', { 'Retry-After': '0.5' });
 
       addWorkingRESTRequestMock(scope);
+
       return shopifyWithRetries.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
@@ -572,10 +555,11 @@ describe('Shopify', () => {
         .reply(429, 'too many requests');
 
       addWorkingRESTRequestMock(scope);
+
       return shopifyWithRetries.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
-    }).timeout(15000);
+    }).timeout(8000);
 
     it('retries 429 errors from Shopify that have broken header values', () => {
       scope
@@ -583,19 +567,20 @@ describe('Shopify', () => {
         .reply(429, 'too many requests', { 'Retry-After': 'foobar' });
 
       addWorkingRESTRequestMock(scope);
+
       return shopifyWithRetries.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
-    }).timeout(5000);
+    });
 
     it("doesn't retry 404 errors", () => {
       scope.get('/admin/products/10.json').reply(404, {
         error: 'not found'
       });
 
-      return shopifyWithRetries.product.get('10').catch((err) => {
+      return shopifyWithRetries.product.get(10).catch((err) => {
         expect(err).to.be.an.instanceof(got.HTTPError);
-        expect(err.message).to.include('Response code 404 (Not Found)');
+        expect(err.message).to.equal('Response code 404 (Not Found)');
       });
     });
 
@@ -605,6 +590,7 @@ describe('Shopify', () => {
       });
 
       addWorkingRESTRequestMock(scope);
+
       return shopifyWithRetries.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
@@ -617,6 +603,7 @@ describe('Shopify', () => {
       });
 
       addWorkingRESTRequestMock(scope);
+
       return shopifyWithRetries.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
@@ -625,9 +612,7 @@ describe('Shopify', () => {
     it('retries a variety of errors in order', () => {
       const shopify = new Shopify({
         accessToken,
-        parseJson,
         shopName,
-        stringifyJson,
         maxRetries: 5,
         timeout: 200
       });
@@ -645,47 +630,25 @@ describe('Shopify', () => {
         .get('/admin/shop.json')
         .reply(500, 'sorry its broken')
         .get('/admin/shop.json')
-        .delay(500) // longer than API client configured timeout option
+        .delay(500) // Longer than API client configured timeout option.
         .reply(200, {
           shop: {
-            name: 'My Cool Test Shop',
-            id: '1'
+            id: 1,
+            name: 'My Cool Test Shop'
           }
         });
 
       addWorkingRESTRequestMock(scope);
+
       return shopify.shop.get().then((result) => {
         expect(result.name).equal('My Cool Test Shop');
       });
-    }).timeout(7000);
+    }).timeout(10000);
   });
 
   describe('Shopify#graphql', () => {
-    const addWorkingGraphQLRequestMock = (scope) => {
-      scope.post('/admin/api/graphql.json').reply(200, {
-        data: {
-          shop: {
-            name: 'My Cool Test Shop',
-            id: '1'
-          }
-        }
-      });
-    };
-
-    const shopifyWithRetries = new Shopify({
-      accessToken,
-      parseJson,
-      shopName,
-      stringifyJson,
-      maxRetries: 3
-    });
-
-    const scope = nock(`https://${shopName}.myshopify.com`, {
-      reqheaders: {
-        'User-Agent': `${pkg.name}/${pkg.version}`,
-        'X-Shopify-Access-Token': accessToken
-      }
-    });
+    const addWorkingGraphQLRequestMock = common.addWorkingGraphQLRequestMock;
+    const scope = common.scope;
 
     afterEach(() => expect(nock.pendingMocks()).to.deep.equal([]));
 
@@ -782,9 +745,7 @@ describe('Shopify', () => {
         },
         (err) => {
           expect(err).to.be.an.instanceof(got.TimeoutError);
-          expect(err.message).to.include(
-            "Timeout awaiting 'request' for 100ms"
-          );
+          expect(err.message).to.equal("Timeout awaiting 'request' for 100ms");
         }
       );
     });
@@ -984,7 +945,7 @@ describe('Shopify', () => {
       });
     });
 
-    it("doesn't retry errors from broken graphql queries", () => {
+    it("doesn't retry errors from broken GraphQL queries", () => {
       scope.post('/admin/api/graphql.json').reply(200, {
         errors: [
           {
@@ -998,8 +959,9 @@ describe('Shopify', () => {
           }
         ]
       });
+
       return shopifyWithRetries.graphql('query { shop ').catch((err) => {
-        expect(err.message).to.include('Parse error on "}" (RCURLY) at [4, 1]');
+        expect(err.message).to.equal('Parse error on "}" (RCURLY) at [4, 1]');
       });
     });
 
@@ -1013,27 +975,27 @@ describe('Shopify', () => {
         .then((result) => {
           expect(result.shop.name).equal('My Cool Test Shop');
         });
-    }).timeout(3000);
+    }).timeout(4000);
 
     it('retries timeout errors from Shopify', () => {
       const shopify = new Shopify({
         accessToken,
-        parseJson,
         shopName,
-        stringifyJson,
         maxRetries: 3,
         timeout: 900
       });
+
       scope
         .post('/admin/api/graphql.json')
         .delay(1000)
-        .reply(500, () => 'something went wrong');
+        .reply(500, 'something went wrong');
 
       addWorkingGraphQLRequestMock(scope);
+
       return shopify.graphql('query { shop { id name } }').then((result) => {
         expect(result.shop.name).equal('My Cool Test Shop');
       });
-    });
+    }).timeout(4000);
 
     it('retries network system level errors immediately', () => {
       scope.post('/admin/api/graphql.json').replyWithError({
@@ -1042,6 +1004,7 @@ describe('Shopify', () => {
       });
 
       addWorkingGraphQLRequestMock(scope);
+
       return shopifyWithRetries
         .graphql('query { shop { id name } }')
         .then((result) => {
@@ -1049,7 +1012,7 @@ describe('Shopify', () => {
         });
     });
 
-    it('retries graphql cost limit exceeded errors', () => {
+    it('retries GraphQL cost limit exceeded errors', () => {
       scope
         .post('/admin/api/graphql.json')
         .reply(200, {
@@ -1099,6 +1062,7 @@ describe('Shopify', () => {
         });
 
       addWorkingGraphQLRequestMock(scope);
+
       return shopifyWithRetries
         .graphql('query { shop { id name } }')
         .then((result) => {

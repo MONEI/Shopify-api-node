@@ -17,6 +17,11 @@ const shopifyWithPresentmentOption = new Shopify({
   presentmentPrices: true,
   shopName
 });
+const shopifyWithRetries = new Shopify({
+  accessToken,
+  shopName,
+  maxRetries: 3
+});
 
 const scope = nock(`https://${shopName}.myshopify.com`, {
   reqheaders: {
@@ -37,8 +42,42 @@ const presentmentApiScope = nock(`https://${shopName}.myshopify.com`, {
   badheaders: ['Authorization']
 });
 
+/**
+ * Add a working (200 status code) mock for the REST Admin API.
+ *
+ * @param {Scope} scope An instance of the `Scope` class of the nock module.
+ * @public
+ */
+function addWorkingRESTRequestMock(scope) {
+  scope.get('/admin/shop.json').reply(200, {
+    shop: {
+      id: 1,
+      name: 'My Cool Test Shop'
+    }
+  });
+}
+
+/**
+ * Add a working (200 status code) mock for the GraphQL Admin API.
+ *
+ * @param {Scope} scope An instance of the `Scope` class of the nock module.
+ * @public
+ */
+function addWorkingGraphQLRequestMock(scope) {
+  scope.post('/admin/api/graphql.json').reply(200, {
+    data: {
+      shop: {
+        id: 1,
+        name: 'My Cool Test Shop'
+      }
+    }
+  });
+}
+
 module.exports = {
   accessToken,
+  addWorkingGraphQLRequestMock,
+  addWorkingRESTRequestMock,
   apiKey,
   apiVersion,
   password,
@@ -46,5 +85,6 @@ module.exports = {
   scope,
   shopify,
   shopifyWithPresentmentOption,
+  shopifyWithRetries,
   shopName
 };

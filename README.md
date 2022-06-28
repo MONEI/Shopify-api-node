@@ -66,13 +66,13 @@ Creates a new `Shopify` instance.
 - `timeout` - Optional - The number of milliseconds before the request times
   out. If the request takes longer than `timeout`, it will be aborted. Defaults
   to `60000`, or 1 minute.
-- `maxRetries` - Optional -- The number of times to attempt to make the request
-  to Shopify before giving up. Defaults to 0, which means no automatic retries.
-  If set to a value greater than 0, `shopify-api-node` will make up to that many
-  retries. `shopify-api-node` will respect the `Retry-After` header for requests
-  to the REST API, and the throttled cost data for requests to the GraphQL API,
-  and retry the request after that time has elapsed. Mutually exclusive with the
-  `autoLimit` option.
+- `maxRetries` - Optional - The number of times to attempt to make the request
+  to Shopify before giving up. Defaults to `0`, which means no automatic
+  retries. If set to a value greater than `0`, `shopify-api-node` will make up
+  to that many retries. `shopify-api-node` will respect the `Retry-After` header
+  for requests to the REST API, and the throttled cost data for requests to the
+  GraphQL API, and retry the request after that time has elapsed. Mutually
+  exclusive with the `autoLimit` option.
 
 #### Return value
 
@@ -280,14 +280,14 @@ avoid 429 errors.
 
 The `maxRetries` option implements a retry based strategy for getting requests
 to Shopify, where when a 429 error occurs, the request is automatically retried
-after waiting. Shopify usually replies with a `Retry-After:` header indicating
-to the client when the rate limit is available, and so `shopify-api-node` will
-wait that long before retrying. If you are using `shopify-api-node` in many
-different processes, they will all be competing to use the same rate limit
-shopify enforces, so there is no guarantee that retrying after the `Retry-After`
-header delay will work. It is recommended to set `maxRetries` to a high value
-like `10` if you are making many concurrent requests in many processes to ensure
-each request is retried for long enough to succeed.
+after waiting. Shopify usually replies with a `Retry-After` header indicating to
+the client when the rate limit is available, and so `shopify-api-node` will wait
+that long before retrying. If you are using `shopify-api-node` in many different
+processes, they will all be competing to use the same rate limit shopify
+enforces, so there is no guarantee that retrying after the `Retry-After` header
+delay will work. It is recommended to set `maxRetries` to a high value like `10`
+if you are making many concurrent requests in many processes to ensure each
+request is retried for long enough to succeed.
 
 `autoLimit` and `maxRetries` can't be used simultaneously. Both are off by
 default.

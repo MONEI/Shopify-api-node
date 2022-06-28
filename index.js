@@ -9,7 +9,7 @@ const url = require('url');
 const pkg = require('./package');
 const resources = require('./resources');
 
-const RetryableErrorCodes = new Set([
+const retryableErrorCodes = new Set([
   'ETIMEDOUT',
   'ECONNRESET',
   'EADDRINUSE',
@@ -20,7 +20,7 @@ const RetryableErrorCodes = new Set([
   'EAI_AGAIN'
 ]);
 
-const RetryableStatusCodes = new Set([
+const retryableStatusCodes = new Set([
   408, 413, 429, 500, 502, 503, 504, 521, 522, 524
 ]);
 
@@ -41,7 +41,7 @@ const RetryableStatusCodes = new Set([
  * @param {Function} [options.stringifyJson] The function used to serialize to
  *     JSON
  * @param {Number} [options.maxRetries] Maximum number of automatic request
- *     retries, defaults to 0 (no retries)
+ *     retries
  * @constructor
  * @public
  */
@@ -52,7 +52,7 @@ function Shopify(options) {
     !options.shopName ||
     (!options.accessToken && (!options.apiKey || !options.password)) ||
     (options.accessToken && (options.apiKey || options.password)) ||
-    (options.autoLimit && options.maxRetries > 0)
+    (options.autoLimit && options.maxRetries)
   ) {
     throw new Error('Missing or invalid options');
   }
@@ -157,7 +157,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
       this.options.maxRetries > 0
         ? {
             limit: this.options.maxRetries,
-            // Don't clamp Shopify retry-after header values too low.
+            // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
             calculateDelay
           }
@@ -273,46 +273,67 @@ Shopify.prototype.graphql = function graphql(data, variables) {
       this.options.maxRetries > 0
         ? {
             limit: this.options.maxRetries,
-            // Don't clamp Shopify retry-after header values too low.
+            // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
             calculateDelay
           }
         : 0,
     hooks: {
       afterResponse: [
-        (response) => {
-          if (response.body) {
-            if (response.body.extensions && response.body.extensions.cost) {
-              this.updateGraphqlLimits(response.body.extensions.cost);
+        (res) => {
+          if (res.body) {
+            if (res.body.extensions && res.body.extensions.cost) {
+              this.updateGraphqlLimits(res.body.extensions.cost);
             }
 
-            if (response.body.errors) {
-              // Make got consider this response errored and retry if needed
-              throw new Error(response.body.errors[0].message);
+            if (res.body.errors) {
+              // Make Got consider this response errored and retry if needed.
+              throw new Error(res.body.errors[0].message);
             }
           }
 
-          return response;
+          return res;
         }
       ],
-      beforeError: [errorForGraphQLError]
+      beforeError: [decorateError]
     }
   };
 
-  return got(uri, options).then(returnResponseData);
+  return got(uri, options).then(responseData);
 };
 
 resources.registerAll(Shopify);
 
 /**
- * Return the data of a GraphQL response object
+ * Got `calculateDelay` hook function passed to decide how long to wait before
+ * retrying.
  *
- * @param {Response} res Got response object
- * @return {Object} The data
+ * @param {Object} retryObject Got's input for the retry logic
+ * @return {Number} The delay
  * @private
  */
-function returnResponseData(res) {
-  return res.body.data;
+function calculateDelay(retryObject) {
+  return maybeRetryMS(retryObject.error) || retryObject.computedValue;
+}
+
+/**
+ * Decorates an `Error` object with details from GraphQL errors in the response
+ * body.
+ *
+ * @param {Error} error The error to decorate
+ * @return {Error} The decorated error
+ * @private
+ */
+function decorateError(error) {
+  if (error.response && error.response.body.errors) {
+    const first = error.response.body.errors[0];
+
+    error.locations = first.locations;
+    error.path = first.path;
+    error.extensions = first.extensions;
+  }
+
+  return error;
 }
 
 /**
@@ -324,6 +345,55 @@ function returnResponseData(res) {
  */
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Given an error from Got, see if Shopify told us how long to wait before
+ * retrying.
+ *
+ * @param {Object} error Error object from Got call
+ * @return {(Number|null)} The duration in ms, or `null`
+ * @private
+ **/
+function maybeRetryMS(error) {
+  // For simplicity, retry network connectivity issues after a hardcoded 1s.
+  if (retryableErrorCodes.has(error.code)) {
+    return 1000;
+  }
+
+  const response = error.response;
+
+  if (response.headers && response.headers['retry-after']) {
+    return response.headers['retry-after'] * 1000 || null;
+  }
+
+  if (retryableStatusCodes.has(response.statusCode)) {
+    // Arbitrary 2 seconds, in case we get a 429 without a `Retry-After`
+    // response header, or 4xx/5xx series error that matches the Got retry
+    // defaults.
+    return 2 * 1000;
+  }
+
+  // Detect GraphQL request throttling.
+  if (response.body && typeof response.body === 'object') {
+    const body = response.body;
+
+    if (
+      body.errors &&
+      body.errors[0].extensions &&
+      body.errors[0].extensions.code == 'THROTTLED'
+    ) {
+      const costData = body.extensions.cost;
+      return (
+        ((costData.requestedQueryCost -
+          costData.throttleStatus.currentlyAvailable) /
+          costData.throttleStatus.restoreRate) *
+        1000
+      );
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -358,88 +428,14 @@ function reducer(acc, cur) {
 }
 
 /**
- * Given an error from got, see if Shopify told us how long to wait before
- * retrying. Return a duration in ms if we can, and otherwise return null.
+ * Returns the data of a GraphQL response object.
  *
- * @param {Object} error Error object from got call
- * @return {Boolean | null}
- * @private
- **/
-function maybeRetryMS(error) {
-  // for simplicity, retry network connectivity issues after a hardcoded 1s
-  if (RetryableErrorCodes.has(error.code)) {
-    return 1000;
-  }
-
-  const response = error.response;
-
-  if (response.headers && response.headers['retry-after']) {
-    const value = parseFloat(response.headers['retry-after']);
-    if (isFinite(value)) {
-      return value * 1000;
-    }
-
-    // We got a retry-after header but don't know how to parse it,
-    // assume retrying is unsafe as something has changed
-    return null;
-  }
-
-  if (RetryableStatusCodes.has(response.statusCode)) {
-    // Arbitrary 2 seconds, in case we get a 429 without a Retry-After
-    // response header, or 4xx/5xx series error that matches the got retry
-    // defaults
-    return 2 * 1000;
-  }
-
-  // detect graphql request throttling
-  if (response.body && typeof response.body === 'object') {
-    const body = response.body;
-
-    if (
-      body.errors &&
-      body.errors[0].extensions &&
-      body.errors[0].extensions.code == 'THROTTLED'
-    ) {
-      const costData = body.extensions.cost;
-      return (
-        ((costData.requestedQueryCost -
-          costData.throttleStatus.currentlyAvailable) /
-          costData.throttleStatus.restoreRate) *
-        1000
-      );
-    }
-  }
-
-  return null;
-}
-
-/**
- * Decorate a ResponseError object thrown by got with details from
- * GraphQL errors in the response body
- * @param {ResponseError} error
- * @returns ResponseError
+ * @param {Response} res Got response object
+ * @return {Object} The data
  * @private
  */
-function errorForGraphQLError(error) {
-  if (error.response && error.response.body.errors) {
-    const first = error.response.body.errors[0];
-
-    error.locations = first.locations;
-    error.path = first.path;
-    error.extensions = first.extensions;
-  }
-  return error;
-}
-
-/**
- * Got `calculateDelay` hook function passed to decide how long to wait before retrying
- *
- * @param {Object} retryObject got's input for the retry logic
- * @return {Number}
- * @private
- */
-function calculateDelay(retryObject) {
-  return maybeRetryMS(retryObject.error) || retryObject.computedValue;
+function responseData(res) {
+  return res.body.data;
 }
 
 module.exports = Shopify;
