@@ -52,7 +52,7 @@ Creates a new `Shopify` instance.
   bucket size. For example `{ calls: 2, interval: 1000, bucketSize: 35 }`
   specifies a limit of 2 requests per second with a burst of 35 requests. When
   set to `true` requests are limited as specified in the above example. Defaults
-  to `false`.
+  to `false`. Mutually exclusive with the `maxRetries` option.
 - `parseJson` - Optional - The function used to parse JSON. The function is
   passed a single argument. This option allows the use of a custom JSON parser
   that might be needed to properly handle long integer IDs. Defaults to
@@ -66,6 +66,13 @@ Creates a new `Shopify` instance.
 - `timeout` - Optional - The number of milliseconds before the request times
   out. If the request takes longer than `timeout`, it will be aborted. Defaults
   to `60000`, or 1 minute.
+- `maxRetries` - Optional -- The number of times to attempt to make the request
+  to Shopify before giving up. Defaults to 0, which means no automatic retries.
+  If set to a value greater than 0, `shopify-api-node` will make up to that many
+  retries. `shopify-api-node` will respect the `Retry-After` header for requests
+  to the REST API, and the throttled cost data for requests to the GraphQL API,
+  and retry the request after that time has elapsed. Mutually exclusive with the
+  `autoLimit` option.
 
 #### Return value
 
@@ -255,6 +262,35 @@ Each set of results may have the `nextPageParameters` and
 parameters needed to fetch the next and previous page of results.
 
 This feature is only available on version 2.24.0 and above.
+
+## Shopify rate limit avoidance
+
+`shopify-api-node` has two optional mechanisms for avoiding requests failing
+with `429 Rate Limit Exceeded` errors from Shopify.
+
+The `autoLimit` option implements a client side leaky bucket algorithm for
+delaying requests until Shopify is likely to accept them. When `autoLimit` is
+on, each `Shopify` instance will track how many requests have been made, and
+delay sending subsequent requests if the rate limit has been exceeded.
+`autoLimit` is very efficient because it almost entirely avoids sending requests
+which will return 429 errors, but, it does not coordinate between multiple
+`Shopify` instances or across multiple processes. If you're using
+`shopify-api-node` in many different processes, `autoLimit` will not correctly
+avoid 429 errors.
+
+The `maxRetries` option implements a retry based strategy for getting requests
+to Shopify, where when a 429 error occurs, the request is automatically retried
+after waiting. Shopify usually replies with a `Retry-After:` header indicating
+to the client when the rate limit is available, and so `shopify-api-node` will
+wait that long before retrying. If you are using `shopify-api-node` in many
+different processes, they will all be competing to use the same rate limit
+shopify enforces, so there is no guarantee that retrying after the `Retry-After`
+header delay will work. It is recommended to set `maxRetries` to a high value
+like `10` if you are making many concurrent requests in many processes to ensure
+each request is retried for long enough to succeed.
+
+`autoLimit` and `maxRetries` can't be used simultaneously. Both are off by
+default.
 
 ## Available resources and methods
 

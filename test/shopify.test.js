@@ -38,6 +38,10 @@ describe('Shopify', () => {
     expect(() => new Shopify({ password })).to.throw(Error, msg);
     expect(() => new Shopify({ accessToken, apiKey })).to.throw(Error, msg);
     expect(() => new Shopify({ accessToken, password })).to.throw(Error, msg);
+    expect(
+      () =>
+        new Shopify({ accessToken, password, maxRetries: 1, autoLimit: true })
+    ).to.throw(Error, msg);
   });
 
   it('makes the new operator optional', () => {
@@ -529,9 +533,153 @@ describe('Shopify', () => {
         expect(res).to.deep.equal(data);
       });
     });
+
+    const addWorkingRESTRequestMock = (scope) => {
+      scope.get('/admin/shop.json').reply(200, {
+        shop: {
+          name: 'My Cool Test Shop',
+          id: '1'
+        }
+      });
+    };
+
+    const shopifyWithRetries = new Shopify({
+      accessToken,
+      parseJson,
+      shopName,
+      stringifyJson,
+      maxRetries: 3
+    });
+
+    it('retries 429 errors from Shopify according to the header', () => {
+      scope
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests', { 'Retry-After': '0.5' })
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests', { 'Retry-After': '0.5' });
+
+      addWorkingRESTRequestMock(scope);
+      return shopifyWithRetries.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    });
+
+    it("retries 429 errors from Shopify that don't have a header", () => {
+      scope
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests')
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests');
+
+      addWorkingRESTRequestMock(scope);
+      return shopifyWithRetries.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    }).timeout(15000);
+
+    it('retries 429 errors from Shopify that have broken header values', () => {
+      scope
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests', { 'Retry-After': 'foobar' });
+
+      addWorkingRESTRequestMock(scope);
+      return shopifyWithRetries.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    }).timeout(5000);
+
+    it("doesn't retry 404 errors", () => {
+      scope.get('/admin/products/10.json').reply(404, {
+        error: 'not found'
+      });
+
+      return shopifyWithRetries.product.get('10').catch((err) => {
+        expect(err).to.be.an.instanceof(got.HTTPError);
+        expect(err.message).to.include('Response code 404 (Not Found)');
+      });
+    });
+
+    it('retries 500 errors from shopify', () => {
+      scope.get('/admin/shop.json').reply(500, {
+        error: 'something went wrong'
+      });
+
+      addWorkingRESTRequestMock(scope);
+      return shopifyWithRetries.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    }).timeout(4000);
+
+    it('retries network system level errors immediately', () => {
+      scope.get('/admin/shop.json').replyWithError({
+        message: 'the network is broken',
+        code: 'ECONNRESET'
+      });
+
+      addWorkingRESTRequestMock(scope);
+      return shopifyWithRetries.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    });
+
+    it('retries a variety of errors in order', () => {
+      const shopify = new Shopify({
+        accessToken,
+        parseJson,
+        shopName,
+        stringifyJson,
+        maxRetries: 5,
+        timeout: 200
+      });
+
+      scope
+        .get('/admin/shop.json')
+        .replyWithError({
+          message: 'the network is broken',
+          code: 'ECONNRESET'
+        })
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests', { 'Retry-After': '1' })
+        .get('/admin/shop.json')
+        .reply(429, 'too many requests', { 'Retry-After': '0.2' })
+        .get('/admin/shop.json')
+        .reply(500, 'sorry its broken')
+        .get('/admin/shop.json')
+        .delay(500) // longer than API client configured timeout option
+        .reply(200, {
+          shop: {
+            name: 'My Cool Test Shop',
+            id: '1'
+          }
+        });
+
+      addWorkingRESTRequestMock(scope);
+      return shopify.shop.get().then((result) => {
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    }).timeout(7000);
   });
 
   describe('Shopify#graphql', () => {
+    const addWorkingGraphQLRequestMock = (scope) => {
+      scope.post('/admin/api/graphql.json').reply(200, {
+        data: {
+          shop: {
+            name: 'My Cool Test Shop',
+            id: '1'
+          }
+        }
+      });
+    };
+
+    const shopifyWithRetries = new Shopify({
+      accessToken,
+      parseJson,
+      shopName,
+      stringifyJson,
+      maxRetries: 3
+    });
+
     const scope = nock(`https://${shopName}.myshopify.com`, {
       reqheaders: {
         'User-Agent': `${pkg.name}/${pkg.version}`,
@@ -835,5 +983,127 @@ describe('Shopify', () => {
         expect(res).to.deep.equal(data);
       });
     });
+
+    it("doesn't retry errors from broken graphql queries", () => {
+      scope.post('/admin/api/graphql.json').reply(200, {
+        errors: [
+          {
+            message: 'Parse error on "}" (RCURLY) at [4, 1]',
+            locations: [
+              {
+                line: 4,
+                column: 1
+              }
+            ]
+          }
+        ]
+      });
+      return shopifyWithRetries.graphql('query { shop ').catch((err) => {
+        expect(err.message).to.include('Parse error on "}" (RCURLY) at [4, 1]');
+      });
+    });
+
+    it('retries 500 errors from Shopify', () => {
+      scope.post('/admin/api/graphql.json').reply(500, 'something went wrong');
+
+      addWorkingGraphQLRequestMock(scope);
+
+      return shopifyWithRetries
+        .graphql('query { shop { id name } }')
+        .then((result) => {
+          expect(result.shop.name).equal('My Cool Test Shop');
+        });
+    }).timeout(3000);
+
+    it('retries timeout errors from Shopify', () => {
+      const shopify = new Shopify({
+        accessToken,
+        parseJson,
+        shopName,
+        stringifyJson,
+        maxRetries: 3,
+        timeout: 900
+      });
+      scope
+        .post('/admin/api/graphql.json')
+        .delay(1000)
+        .reply(500, () => 'something went wrong');
+
+      addWorkingGraphQLRequestMock(scope);
+      return shopify.graphql('query { shop { id name } }').then((result) => {
+        expect(result.shop.name).equal('My Cool Test Shop');
+      });
+    });
+
+    it('retries network system level errors immediately', () => {
+      scope.post('/admin/api/graphql.json').replyWithError({
+        message: 'the network is broken',
+        code: 'ECONNRESET'
+      });
+
+      addWorkingGraphQLRequestMock(scope);
+      return shopifyWithRetries
+        .graphql('query { shop { id name } }')
+        .then((result) => {
+          expect(result.shop.name).equal('My Cool Test Shop');
+        });
+    });
+
+    it('retries graphql cost limit exceeded errors', () => {
+      scope
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          errors: [
+            {
+              message: 'Throttled',
+              extensions: {
+                code: 'THROTTLED',
+                documentation: 'https://shopify.dev/api/usage/rate-limits'
+              }
+            }
+          ],
+          extensions: {
+            cost: {
+              requestedQueryCost: 732,
+              actualQueryCost: null,
+              throttleStatus: {
+                maximumAvailable: 1000,
+                currentlyAvailable: 728,
+                restoreRate: 50
+              }
+            }
+          }
+        })
+        .post('/admin/api/graphql.json')
+        .reply(200, {
+          errors: [
+            {
+              message: 'Throttled',
+              extensions: {
+                code: 'THROTTLED',
+                documentation: 'https://shopify.dev/api/usage/rate-limits'
+              }
+            }
+          ],
+          extensions: {
+            cost: {
+              requestedQueryCost: 732,
+              actualQueryCost: null,
+              throttleStatus: {
+                maximumAvailable: 1000,
+                currentlyAvailable: 675,
+                restoreRate: 50
+              }
+            }
+          }
+        });
+
+      addWorkingGraphQLRequestMock(scope);
+      return shopifyWithRetries
+        .graphql('query { shop { id name } }')
+        .then((result) => {
+          expect(result.shop.name).equal('My Cool Test Shop');
+        });
+    }).timeout(3000);
   });
 });

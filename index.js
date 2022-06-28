@@ -9,6 +9,21 @@ const url = require('url');
 const pkg = require('./package');
 const resources = require('./resources');
 
+const RetryableErrorCodes = new Set([
+  'ETIMEDOUT',
+  'ECONNRESET',
+  'EADDRINUSE',
+  'ECONNREFUSED',
+  'EPIPE',
+  'ENOTFOUND',
+  'ENETUNREACH',
+  'EAI_AGAIN'
+]);
+
+const RetryableStatusCodes = new Set([
+  408, 413, 429, 500, 502, 503, 504, 521, 522, 524
+]);
+
 /**
  * Creates a Shopify instance.
  *
@@ -25,6 +40,8 @@ const resources = require('./resources');
  * @param {Function} [options.parseJson] The function used to parse JSON
  * @param {Function} [options.stringifyJson] The function used to serialize to
  *     JSON
+ * @param {Number} [options.maxRetries] Maximum number of automatic request
+ *     retries, defaults to 0 (no retries)
  * @constructor
  * @public
  */
@@ -34,7 +51,8 @@ function Shopify(options) {
     !options ||
     !options.shopName ||
     (!options.accessToken && (!options.apiKey || !options.password)) ||
-    (options.accessToken && (options.apiKey || options.password))
+    (options.accessToken && (options.apiKey || options.password)) ||
+    (options.autoLimit && options.maxRetries > 0)
   ) {
     throw new Error('Missing or invalid options');
   }
@@ -44,6 +62,7 @@ function Shopify(options) {
     parseJson: JSON.parse,
     stringifyJson: JSON.stringify,
     timeout: 60000,
+    maxRetries: 0,
     ...options
   };
 
@@ -134,61 +153,66 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
-    retry: 0,
-    method
+    retry:
+      this.options.maxRetries > 0
+        ? {
+            limit: this.options.maxRetries,
+            // Don't clamp Shopify retry-after header values too low.
+            maxRetryAfter: Infinity,
+            calculateDelay
+          }
+        : 0,
+    method,
+    hooks: {
+      afterResponse: [
+        (res) => {
+          this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+          return res;
+        }
+      ]
+    }
   };
 
   if (data) {
     options.json = key ? { [key]: data } : data;
   }
 
-  return got(uri, options).then(
-    (res) => {
-      const body = res.body;
+  return got(uri, options).then((res) => {
+    const body = res.body;
 
-      this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+    if (res.statusCode === 202 && res.headers['location']) {
+      const retryAfter = res.headers['retry-after'] * 1000 || 0;
+      const { pathname, search } = url.parse(res.headers['location']);
 
-      if (res.statusCode === 202 && res.headers['location']) {
-        const retryAfter = res.headers['retry-after'] * 1000 || 0;
-        const { pathname, search } = url.parse(res.headers['location']);
+      return delay(retryAfter).then(() => {
+        const uri = { pathname, ...this.baseUrl };
 
-        return delay(retryAfter).then(() => {
-          const uri = { pathname, ...this.baseUrl };
+        if (search) uri.search = search;
 
-          if (search) uri.search = search;
+        return this.request(uri, 'GET', key);
+      });
+    }
 
-          return this.request(uri, 'GET', key);
+    const data = key ? body[key] : body || {};
+
+    if (res.headers.link) {
+      const link = parseLinkHeader(res.headers.link);
+
+      if (link.next) {
+        Object.defineProperties(data, {
+          nextPageParameters: { value: link.next.query }
         });
       }
 
-      const data = key ? body[key] : body || {};
-
-      if (res.headers.link) {
-        const link = parseLinkHeader(res.headers.link);
-
-        if (link.next) {
-          Object.defineProperties(data, {
-            nextPageParameters: { value: link.next.query }
-          });
-        }
-
-        if (link.previous) {
-          Object.defineProperties(data, {
-            previousPageParameters: { value: link.previous.query }
-          });
-        }
+      if (link.previous) {
+        Object.defineProperties(data, {
+          previousPageParameters: { value: link.previous.query }
+        });
       }
-
-      return data;
-    },
-    (err) => {
-      this.updateLimits(
-        err.response && err.response.headers['x-shopify-shop-api-call-limit']
-      );
-
-      return Promise.reject(err);
     }
-  );
+
+    return data;
+  });
 };
 
 /**
@@ -243,33 +267,53 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
-    retry: 0,
     method: 'POST',
-    body: json ? this.options.stringifyJson({ query: data, variables }) : data
+    body: json ? this.options.stringifyJson({ query: data, variables }) : data,
+    retry:
+      this.options.maxRetries > 0
+        ? {
+            limit: this.options.maxRetries,
+            // Don't clamp Shopify retry-after header values too low.
+            maxRetryAfter: Infinity,
+            calculateDelay
+          }
+        : 0,
+    hooks: {
+      afterResponse: [
+        (response) => {
+          if (response.body) {
+            if (response.body.extensions && response.body.extensions.cost) {
+              this.updateGraphqlLimits(response.body.extensions.cost);
+            }
+
+            if (response.body.errors) {
+              // Make got consider this response errored and retry if needed
+              throw new Error(response.body.errors[0].message);
+            }
+          }
+
+          return response;
+        }
+      ],
+      beforeError: [errorForGraphQLError]
+    }
   };
 
-  return got(uri, options).then((res) => {
-    if (res.body.extensions && res.body.extensions.cost) {
-      this.updateGraphqlLimits(res.body.extensions.cost);
-    }
-
-    if (res.body.errors) {
-      const first = res.body.errors[0];
-      const err = new Error(first.message);
-
-      err.locations = first.locations;
-      err.path = first.path;
-      err.extensions = first.extensions;
-      err.response = res;
-
-      throw err;
-    }
-
-    return res.body.data || {};
-  });
+  return got(uri, options).then(returnResponseData);
 };
 
 resources.registerAll(Shopify);
+
+/**
+ * Return the data of a GraphQL response object
+ *
+ * @param {Response} res Got response object
+ * @return {Object} The data
+ * @private
+ */
+function returnResponseData(res) {
+  return res.body.data;
+}
 
 /**
  * Returns a promise that resolves after a given amount of time.
@@ -311,6 +355,91 @@ function reducer(acc, cur) {
   else acc.previous = link;
 
   return acc;
+}
+
+/**
+ * Given an error from got, see if Shopify told us how long to wait before
+ * retrying. Return a duration in ms if we can, and otherwise return null.
+ *
+ * @param {Object} error Error object from got call
+ * @return {Boolean | null}
+ * @private
+ **/
+function maybeRetryMS(error) {
+  // for simplicity, retry network connectivity issues after a hardcoded 1s
+  if (RetryableErrorCodes.has(error.code)) {
+    return 1000;
+  }
+
+  const response = error.response;
+
+  if (response.headers && response.headers['retry-after']) {
+    const value = parseFloat(response.headers['retry-after']);
+    if (isFinite(value)) {
+      return value * 1000;
+    }
+
+    // We got a retry-after header but don't know how to parse it,
+    // assume retrying is unsafe as something has changed
+    return null;
+  }
+
+  if (RetryableStatusCodes.has(response.statusCode)) {
+    // Arbitrary 2 seconds, in case we get a 429 without a Retry-After
+    // response header, or 4xx/5xx series error that matches the got retry
+    // defaults
+    return 2 * 1000;
+  }
+
+  // detect graphql request throttling
+  if (response.body && typeof response.body === 'object') {
+    const body = response.body;
+
+    if (
+      body.errors &&
+      body.errors[0].extensions &&
+      body.errors[0].extensions.code == 'THROTTLED'
+    ) {
+      const costData = body.extensions.cost;
+      return (
+        ((costData.requestedQueryCost -
+          costData.throttleStatus.currentlyAvailable) /
+          costData.throttleStatus.restoreRate) *
+        1000
+      );
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Decorate a ResponseError object thrown by got with details from
+ * GraphQL errors in the response body
+ * @param {ResponseError} error
+ * @returns ResponseError
+ * @private
+ */
+function errorForGraphQLError(error) {
+  if (error.response && error.response.body.errors) {
+    const first = error.response.body.errors[0];
+
+    error.locations = first.locations;
+    error.path = first.path;
+    error.extensions = first.extensions;
+  }
+  return error;
+}
+
+/**
+ * Got `calculateDelay` hook function passed to decide how long to wait before retrying
+ *
+ * @param {Object} retryObject got's input for the retry logic
+ * @return {Number}
+ * @private
+ */
+function calculateDelay(retryObject) {
+  return maybeRetryMS(retryObject.error) || retryObject.computedValue;
 }
 
 module.exports = Shopify;
