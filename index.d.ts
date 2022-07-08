@@ -762,6 +762,7 @@ declare namespace Shopify {
     accessToken: string;
     apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
+    maxRetries?: number;
     presentmentPrices?: boolean;
     shopName: string;
     timeout?: number;
@@ -771,6 +772,7 @@ declare namespace Shopify {
     apiKey: string;
     apiVersion?: string;
     autoLimit?: boolean | IAutoLimit;
+    maxRetries?: number;
     password: string;
     presentmentPrices?: boolean;
     shopName: string;
