@@ -584,6 +584,47 @@ describe('Shopify', () => {
       });
     });
 
+    it("doesn't retry 422 errors that return an error string", () => {
+      scope.put('/admin/products/10.json').reply(422, {
+        error: 'the product was invalid'
+      });
+
+      return shopifyWithRetries.product.update(10).catch((err) => {
+        expect(err).to.be.an.instanceof(got.HTTPError);
+        expect(err.message).to.equal(
+          'Response code 422 (Unprocessable Entity)'
+        );
+      });
+    });
+
+    it("doesn't retry 422 errors that return an errors array", () => {
+      scope.put('/admin/products/10.json').reply(422, {
+        errors: ['the product was invalid']
+      });
+
+      return shopifyWithRetries.product.update(10).catch((err) => {
+        expect(err).to.be.an.instanceof(got.HTTPError);
+        expect(err.message).to.equal(
+          'Response code 422 (Unprocessable Entity)'
+        );
+      });
+    });
+
+    it("doesn't retry 422 errors that return an errors object", () => {
+      scope.put('/admin/products/10.json').reply(422, {
+        errors: {
+          title: 'is required'
+        }
+      });
+
+      return shopifyWithRetries.product.update(10).catch((err) => {
+        expect(err).to.be.an.instanceof(got.HTTPError);
+        expect(err.message).to.equal(
+          'Response code 422 (Unprocessable Entity)'
+        );
+      });
+    });
+
     it('retries 500 errors from shopify', () => {
       scope.get('/admin/shop.json').reply(500, {
         error: 'something went wrong'

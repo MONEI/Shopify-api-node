@@ -380,6 +380,7 @@ function maybeRetryMS(error) {
 
     if (
       body.errors &&
+      Array.isArray(body.errors) &&
       body.errors[0].extensions &&
       body.errors[0].extensions.code == 'THROTTLED'
     ) {
