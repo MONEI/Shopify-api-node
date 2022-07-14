@@ -379,7 +379,6 @@ function maybeRetryMS(error) {
     const body = response.body;
 
     if (
-      body.errors &&
       Array.isArray(body.errors) &&
       body.errors[0].extensions &&
       body.errors[0].extensions.code == 'THROTTLED'
