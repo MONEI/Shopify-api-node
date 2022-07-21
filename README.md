@@ -433,6 +433,9 @@ default.
 - dispute
   - `get(id)`
   - `list([params])`
+- disputeEvidence
+  - `get(disputeId)`
+  - `update(disputeId, params)`
 - draftOrder
   - `complete(id[, params])`
   - `count()`

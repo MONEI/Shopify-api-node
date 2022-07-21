@@ -286,6 +286,13 @@ declare class Shopify {
     get: (id: number) => Promise<Shopify.IDispute>;
     list: (params?: any) => Promise<Shopify.IPaginatedResult<Shopify.IDispute>>;
   };
+  disputeEvidence: {
+    get: (disputeId: number) => Promise<Shopify.IDisputeEvidence>;
+    update: (
+      disputeId: number,
+      params: Shopify.IUpdateDisputeEvidence
+    ) => Promise<Shopify.IDisputeEvidence>;
+  };
   draftOrder: {
     complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
     count: () => Promise<number>;
@@ -1513,6 +1520,60 @@ declare namespace Shopify {
     evidence_due_by: string;
     evidence_sent_on: string;
     finalized_on: string;
+  }
+
+  interface IDisputeEvidenceAddress {
+    address1: string;
+    address2: string;
+    city: string;
+    country: string;
+    country_code: string;
+    id: number;
+    province: string;
+    province_code: string;
+    zip: string;
+  }
+
+  interface IDisputeEvidenceFulfillment {
+    shipping_carrier: number;
+    shipping_date: string;
+    shipping_tracking_number: string;
+  }
+
+  interface IDisputeEvidenceFiles {
+    cancellation_policy_file_id: number | null;
+    customer_communication_file_id: number | null;
+    customer_signature_file_id: number | null;
+    refund_policy_file_id: number | null;
+    service_documentation_file_id: number | null;
+    shipping_documentation_file_id: number | null;
+    uncategorized_file_id: number | null;
+  }
+
+  interface IDisputeEvidence {
+    access_activity_log: string | null;
+    billing_address: IDisputeEvidenceAddress;
+    cancellation_policy_disclosure: string | null;
+    cancellation_rebuttal: string | null;
+    created_at: string;
+    customer_email_address: string;
+    customer_first_name: string;
+    customer_last_name: string;
+    dispute_evidence_files: IDisputeEvidenceFiles;
+    fulfillments: IDisputeEvidenceFulfillment[];
+    id: number;
+    payments_dispute_id: number;
+    product_description: string;
+    refund_policy_disclosure: string | null;
+    refund_refusal_explanation: string | null;
+    shipping_address: IDisputeEvidenceAddress;
+    submitted_by_merchant_on: string | null;
+    uncategorized_text: string;
+    updated_at: string;
+  }
+
+  interface IUpdateDisputeEvidence {
+    refund_refusal_explanation: string;
   }
 
   interface IDraftOrderNoteAttribute {
