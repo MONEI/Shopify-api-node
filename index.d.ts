@@ -1,4 +1,4 @@
-// Type definitions for shopify-api-node 2.10.0
+// Type definitions for shopify-api-node
 // Project: shopify-api-node
 // Definitions by: Rich Buggy <rich@buggy.id.au>
 
