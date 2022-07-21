@@ -293,6 +293,13 @@ declare class Shopify {
       params: Shopify.IUpdateDisputeEvidence
     ) => Promise<Shopify.IDisputeEvidence>;
   };
+  disputeFileUpload: {
+    create: (
+      disputeId: number,
+      params: Shopify.ICreateDisputeFileUpload
+    ) => Promise<Shopify.IDisputeFileUpload>;
+    delete: (id: number) => Promise<void>;
+  };
   draftOrder: {
     complete: (id: number, params?: any) => Promise<Shopify.IDraftOrder>;
     count: () => Promise<number>;
@@ -1574,6 +1581,36 @@ declare namespace Shopify {
 
   interface IUpdateDisputeEvidence {
     refund_refusal_explanation: string;
+  }
+
+  type DisputeFileUploadDisputeEvidenceType =
+    | 'cancellation_policy_file'
+    | 'customer_communication_file'
+    | 'customer_signature_file'
+    | 'refund_policy_file'
+    | 'service_documentation_file'
+    | 'shipping_documentation_file'
+    | 'uncategorized_file';
+
+  interface IDisputeFileUpload {
+    created_at: string;
+    dispute_evidence_id: number;
+    dispute_evidence_type: DisputeFileUploadDisputeEvidenceType;
+    file_size: number;
+    file_type: string;
+    filename: string;
+    id: number;
+    original_filename: string;
+    shop_id: number;
+    updated_at: string;
+    url: string;
+  }
+
+  interface ICreateDisputeFileUpload {
+    document_type: DisputeFileUploadDisputeEvidenceType;
+    filename: string;
+    mimetype: string;
+    data: string;
   }
 
   interface IDraftOrderNoteAttribute {

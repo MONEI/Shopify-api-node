@@ -436,6 +436,9 @@ default.
 - disputeEvidence
   - `get(disputeId)`
   - `update(disputeId, params)`
+- disputeFileUpload
+  - `create(disputeId, params)`
+  - `delete(disputeId, id)`
 - draftOrder
   - `complete(id[, params])`
   - `count()`

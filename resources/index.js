@@ -27,6 +27,7 @@ const map = {
   discountCodeCreationJob: 'discount-code-creation-job',
   dispute: 'dispute',
   disputeEvidence: 'dispute-evidence',
+  disputeFileUpload: 'dispute-file-upload',
   draftOrder: 'draft-order',
   event: 'event',
   fulfillment: 'fulfillment',
