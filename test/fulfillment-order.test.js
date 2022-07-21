@@ -105,4 +105,21 @@ describe('Shopify#fulfillmentOrder', () => {
       expect(data).to.deep.equal(output.original_fulfillment_order);
     });
   });
+
+  it('reschedules the fulfill_at time of a scheduled fulfillment order', () => {
+    const input = fixtures.req.setFulfillmentOrdersDeadline;
+
+    scope
+      .post(
+        '/admin/fulfillment_orders/set_fulfillment_orders_deadline.json',
+        input
+      )
+      .reply(200, {});
+
+    return shopify.fulfillmentOrder
+      .setFulfillmentOrdersDeadline(input)
+      .then((data) => {
+        expect(data).to.deep.equal({});
+      });
+  });
 });

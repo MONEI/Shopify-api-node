@@ -367,6 +367,9 @@ declare class Shopify {
       id: number,
       locationId: number
     ) => Promise<Shopify.IFulfillmentOrder>;
+    setFulfillmentOrdersDeadline: (
+      params: Shopify.ISetFulfillmentOrdersDeadline
+    ) => Promise<void>;
   };
   fulfillmentRequest: {
     accept: (
@@ -1804,6 +1807,11 @@ declare namespace Shopify {
     location: ILocationForMoveLocation;
     movable: boolean;
     message: string;
+  }
+
+  interface ISetFulfillmentOrdersDeadline {
+    fulfillment_deadline: string;
+    fulfillment_order_ids: number[];
   }
 
   interface ICreateFulfillmentRequestFulfillmentOrderLineItem {

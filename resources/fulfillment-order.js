@@ -100,4 +100,19 @@ FulfillmentOrder.prototype.locationsForMove = function locationsForMove(id) {
   return this.shopify.request(url, 'GET', 'locations_for_move');
 };
 
+/**
+ * Sets the latest date and time by which the fulfillment orders need to be
+ * fulfilled.
+ *
+ * @param {Object} params An object containing the new fulfillment deadline and
+ *     and the IDs of the fulfillment orders for which the deadline is being set
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.setFulfillmentOrdersDeadline =
+  function setFulfillmentOrdersDeadline(params) {
+    const url = this.buildUrl('set_fulfillment_orders_deadline');
+    return this.shopify.request(url, 'POST', undefined, params);
+  };
+
 module.exports = FulfillmentOrder;
