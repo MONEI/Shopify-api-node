@@ -3195,6 +3195,8 @@ declare namespace Shopify {
     | 'subscription_billing_attempts/challenged'
     | 'subscription_billing_attempts/failure'
     | 'subscription_billing_attempts/success'
+    | 'subscription_contracts/create'
+    | 'subscription_contracts/update'
     | 'tender_transactions/create'
     | 'themes/create'
     | 'themes/delete'
