@@ -19,10 +19,11 @@ const retryableErrorCodes = new Set([
   'ENETUNREACH',
   'EAI_AGAIN'
 ]);
+const retryableErrorCodesArray = Array.from(retryableErrorCodes);
 
-const retryableStatusCodes = new Set([
+const retryableStatusCodesArray = [
   408, 413, 429, 500, 502, 503, 504, 521, 522, 524
-]);
+];
 
 /**
  * Creates a Shopify instance.
@@ -159,7 +160,10 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
             limit: this.options.maxRetries,
             // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay
+            calculateDelay,
+            methods: [method],
+            statusCodes: retryableStatusCodesArray,
+            errorCodes: retryableErrorCodesArray
           }
         : 0,
     method,
@@ -275,7 +279,10 @@ Shopify.prototype.graphql = function graphql(data, variables) {
             limit: this.options.maxRetries,
             // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay
+            calculateDelay,
+            methods: ['POST'],
+            statusCodes: retryableStatusCodesArray,
+            errorCodes: retryableErrorCodesArray
           }
         : 0,
     hooks: {
@@ -303,18 +310,6 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 };
 
 resources.registerAll(Shopify);
-
-/**
- * Got `calculateDelay` hook function passed to decide how long to wait before
- * retrying.
- *
- * @param {Object} retryObject Got's input for the retry logic
- * @return {Number} The delay
- * @private
- */
-function calculateDelay(retryObject) {
-  return maybeRetryMS(retryObject.error) || retryObject.computedValue;
-}
 
 /**
  * Decorates an `Error` object with details from GraphQL errors in the response
@@ -351,31 +346,21 @@ function delay(ms) {
  * Given an error from Got, see if Shopify told us how long to wait before
  * retrying.
  *
- * @param {Object} error Error object from Got call
- * @return {(Number|null)} The duration in ms, or `null`
+ * @param {Object} retryObject Got's input for the retry logic
+ * @return {Number} The duration in ms
  * @private
  **/
-function maybeRetryMS(error) {
-  // For simplicity, retry network connectivity issues after a hardcoded 1s.
-  if (retryableErrorCodes.has(error.code)) {
-    return 1000;
-  }
-
+function calculateDelay(retryObject) {
+  const { error, computedValue } = retryObject;
   const response = error.response;
 
-  if (response.headers && response.headers['retry-after']) {
-    return response.headers['retry-after'] * 1000 || null;
-  }
-
-  if (retryableStatusCodes.has(response.statusCode)) {
-    // Arbitrary 2 seconds, in case we get a 429 without a `Retry-After`
-    // response header, or 4xx/5xx series error that matches the Got retry
-    // defaults.
-    return 2 * 1000;
-  }
-
   // Detect GraphQL request throttling.
-  if (response.body && typeof response.body === 'object') {
+  if (
+    response &&
+    response.statusCode === 200 &&
+    response.body &&
+    typeof response.body === 'object'
+  ) {
     const body = response.body;
 
     if (
@@ -393,7 +378,25 @@ function maybeRetryMS(error) {
     }
   }
 
-  return null;
+  // Stop retrying if the attempt limit has been reached or the request is not
+  // retryable.
+  if (computedValue === 0) {
+    return 0;
+  }
+
+  // For simplicity, retry network connectivity issues after a hardcoded 1s.
+  if (retryableErrorCodes.has(error.code)) {
+    return 1000;
+  }
+
+  if (response.headers && response.headers['retry-after']) {
+    return response.headers['retry-after'] * 1000 || computedValue;
+  }
+
+  // Arbitrary 2 seconds, in case we get a 429 without a `Retry-After`
+  // response header, or 4xx/5xx series error that matches the Got retry
+  // defaults.
+  return 2 * 1000;
 }
 
 /**

@@ -573,6 +573,22 @@ describe('Shopify', () => {
       });
     });
 
+    it('honors the maxRetries option', () => {
+      let attempts = 0;
+      scope
+        .get('/admin/shop.json')
+        .times(4)
+        .reply(429, () => {
+          attempts++;
+          return 'too many requests';
+        });
+
+      return shopifyWithRetries.shop.get().catch((result) => {
+        expect(result.response.statusCode).equal(429);
+        expect(attempts).equal(4);
+      });
+    }).timeout(8000);
+
     it("doesn't retry 404 errors", () => {
       scope.get('/admin/products/10.json').reply(404, {
         error: 'not found'
