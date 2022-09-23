@@ -575,6 +575,7 @@ describe('Shopify', () => {
 
     it('honors the maxRetries option', () => {
       let attempts = 0;
+
       scope
         .get('/admin/shop.json')
         .times(4)
@@ -589,7 +590,7 @@ describe('Shopify', () => {
       });
     }).timeout(8000);
 
-    it("doesn't retry 404 errors", () => {
+    it('does not retry 404 errors', () => {
       scope.get('/admin/products/10.json').reply(404, {
         error: 'not found'
       });
@@ -600,7 +601,7 @@ describe('Shopify', () => {
       });
     });
 
-    it("doesn't retry 422 errors that return an error string", () => {
+    it('does not retry 422 errors that return an error string', () => {
       scope.put('/admin/products/10.json').reply(422, {
         error: 'the product was invalid'
       });
@@ -613,7 +614,7 @@ describe('Shopify', () => {
       });
     });
 
-    it("doesn't retry 422 errors that return an errors array", () => {
+    it('does not retry 422 errors that return an errors array', () => {
       scope.put('/admin/products/10.json').reply(422, {
         errors: ['the product was invalid']
       });
@@ -626,7 +627,7 @@ describe('Shopify', () => {
       });
     });
 
-    it("doesn't retry 422 errors that return an errors object", () => {
+    it('does not retry 422 errors that return an errors object', () => {
       scope.put('/admin/products/10.json').reply(422, {
         errors: {
           title: 'is required'
@@ -1002,7 +1003,7 @@ describe('Shopify', () => {
       });
     });
 
-    it("doesn't retry errors from broken GraphQL queries", () => {
+    it('does not retry errors from broken GraphQL queries', () => {
       scope.post('/admin/api/graphql.json').reply(200, {
         errors: [
           {

@@ -157,13 +157,13 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     retry:
       this.options.maxRetries > 0
         ? {
+            calculateDelay,
+            errorCodes: retryableErrorCodesArray,
             limit: this.options.maxRetries,
             // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay,
             methods: [method],
-            statusCodes: retryableStatusCodesArray,
-            errorCodes: retryableErrorCodesArray
+            statusCodes: retryableStatusCodesArray
           }
         : 0,
     method,
@@ -276,13 +276,13 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     retry:
       this.options.maxRetries > 0
         ? {
+            calculateDelay,
+            errorCodes: retryableErrorCodesArray,
             limit: this.options.maxRetries,
             // Don't clamp Shopify `Retry-After` header values too low.
             maxRetryAfter: Infinity,
-            calculateDelay,
             methods: ['POST'],
-            statusCodes: retryableStatusCodesArray,
-            errorCodes: retryableErrorCodesArray
+            statusCodes: retryableStatusCodesArray
           }
         : 0,
     hooks: {
@@ -359,23 +359,19 @@ function calculateDelay(retryObject) {
     response &&
     response.statusCode === 200 &&
     response.body &&
-    typeof response.body === 'object'
+    typeof response.body === 'object' &&
+    Array.isArray(response.body.errors) &&
+    response.body.errors[0].extensions &&
+    response.body.errors[0].extensions.code == 'THROTTLED'
   ) {
-    const body = response.body;
+    const costData = response.body.extensions.cost;
 
-    if (
-      Array.isArray(body.errors) &&
-      body.errors[0].extensions &&
-      body.errors[0].extensions.code == 'THROTTLED'
-    ) {
-      const costData = body.extensions.cost;
-      return (
-        ((costData.requestedQueryCost -
-          costData.throttleStatus.currentlyAvailable) /
-          costData.throttleStatus.restoreRate) *
-        1000
-      );
-    }
+    return (
+      ((costData.requestedQueryCost -
+        costData.throttleStatus.currentlyAvailable) /
+        costData.throttleStatus.restoreRate) *
+      1000
+    );
   }
 
   // Stop retrying if the attempt limit has been reached or the request is not
