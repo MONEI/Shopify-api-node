@@ -1780,7 +1780,7 @@ declare namespace Shopify {
     variant_inventory_management: string;
   }
 
-type FulfillmentEventStatus =
+  type FulfillmentEventStatus =
     | 'attempted_delivery'
     | 'confirmed'
     | 'delivered'
