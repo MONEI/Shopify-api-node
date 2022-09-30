@@ -1781,11 +1781,16 @@ declare namespace Shopify {
   }
 
   type FulfillmentEventStatus =
+    | 'attempted_delivery'
     | 'confirmed'
     | 'delivered'
     | 'failure'
     | 'in_transit'
-    | 'out_for_delivery';
+    | 'label_printed'
+    | 'label_purchased'
+    | 'out_for_delivery'
+    | 'picked_up'
+    | 'ready_for_pickup';
 
   interface IFulfillmentEvent {
     address1: string | null;
