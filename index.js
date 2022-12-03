@@ -154,31 +154,41 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
-    retry:
-      this.options.maxRetries > 0
-        ? {
-            calculateDelay,
-            errorCodes: retryableErrorCodesArray,
-            limit: this.options.maxRetries,
-            // Don't clamp Shopify `Retry-After` header values too low.
-            maxRetryAfter: Infinity,
-            methods: [method],
-            statusCodes: retryableStatusCodesArray
-          }
-        : 0,
-    method,
-    hooks: {
-      afterResponse: [
-        (res) => {
-          this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
-          return res;
-        }
-      ]
-    }
+    method
   };
+
+  const afterResponse = (res) => {
+    this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
+    return res;
+  };
+
+  if (this.options.hooks) {
+    options.hooks = { ...this.options.hooks };
+    options.hooks.afterResponse = [afterResponse];
+
+    if (this.options.hooks.afterResponse) {
+      options.hooks.afterResponse.push(...this.options.hooks.afterResponse);
+    }
+  } else {
+    options.hooks = { afterResponse: [afterResponse] };
+  }
 
   if (data) {
     options.json = key ? { [key]: data } : data;
+  }
+
+  if (this.options.maxRetries > 0) {
+    options.retry = {
+      calculateDelay,
+      errorCodes: retryableErrorCodesArray,
+      limit: this.options.maxRetries,
+      // Don't clamp Shopify `Retry-After` header values too low.
+      maxRetryAfter: Infinity,
+      methods: [method],
+      statusCodes: retryableStatusCodesArray
+    };
+  } else {
+    options.retry = 0;
   }
 
   return got(uri, options).then((res) => {
@@ -272,39 +282,56 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     timeout: this.options.timeout,
     responseType: 'json',
     method: 'POST',
-    body: json ? this.options.stringifyJson({ query: data, variables }) : data,
-    retry:
-      this.options.maxRetries > 0
-        ? {
-            calculateDelay,
-            errorCodes: retryableErrorCodesArray,
-            limit: this.options.maxRetries,
-            // Don't clamp Shopify `Retry-After` header values too low.
-            maxRetryAfter: Infinity,
-            methods: ['POST'],
-            statusCodes: retryableStatusCodesArray
-          }
-        : 0,
-    hooks: {
-      afterResponse: [
-        (res) => {
-          if (res.body) {
-            if (res.body.extensions && res.body.extensions.cost) {
-              this.updateGraphqlLimits(res.body.extensions.cost);
-            }
-
-            if (Array.isArray(res.body.errors)) {
-              // Make Got consider this response errored and retry if needed.
-              throw new Error(res.body.errors[0].message);
-            }
-          }
-
-          return res;
-        }
-      ],
-      beforeError: [decorateError]
-    }
+    body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
+
+  const afterResponse = (res) => {
+    if (res.body) {
+      if (res.body.extensions && res.body.extensions.cost) {
+        this.updateGraphqlLimits(res.body.extensions.cost);
+      }
+
+      if (Array.isArray(res.body.errors)) {
+        // Make Got consider this response errored and retry if needed.
+        throw new Error(res.body.errors[0].message);
+      }
+    }
+
+    return res;
+  };
+
+  if (this.options.hooks) {
+    options.hooks = { ...this.options.hooks };
+    options.hooks.afterResponse = [afterResponse];
+    options.hooks.beforeError = [decorateError];
+
+    if (this.options.hooks.afterResponse) {
+      options.hooks.afterResponse.push(...this.options.hooks.afterResponse);
+    }
+
+    if (this.options.hooks.beforeError) {
+      options.hooks.beforeError.push(...this.options.hooks.beforeError);
+    }
+  } else {
+    options.hooks = {
+      afterResponse: [afterResponse],
+      beforeError: [decorateError]
+    };
+  }
+
+  if (this.options.maxRetries > 0) {
+    options.retry = {
+      calculateDelay,
+      errorCodes: retryableErrorCodesArray,
+      limit: this.options.maxRetries,
+      // Don't clamp Shopify `Retry-After` header values too low.
+      maxRetryAfter: Infinity,
+      methods: ['POST'],
+      statusCodes: retryableStatusCodesArray
+    };
+  } else {
+    options.retry = 0;
+  }
 
   return got(uri, options).then(responseData);
 };

@@ -702,6 +702,87 @@ describe('Shopify', () => {
         expect(result.name).equal('My Cool Test Shop');
       });
     }).timeout(10000);
+
+    it('calls hooks passed as options when accessing resources', () => {
+      function beforeRequest() {
+        beforeRequest.called = true;
+      }
+
+      function afterResponse(x) {
+        afterResponse.called = true;
+        return x;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        hooks: {
+          beforeRequest: [beforeRequest],
+          afterResponse: [afterResponse]
+        }
+      });
+
+      addWorkingRESTRequestMock(scope);
+
+      return shopify.shop.get().then(() => {
+        expect(beforeRequest.called).to.be.true;
+        expect(afterResponse.called).to.be.true;
+      });
+    });
+
+    it('calls hooks passed as options when making raw requests', () => {
+      function beforeRequest() {
+        beforeRequest.called = true;
+      }
+
+      function afterResponse(x) {
+        afterResponse.called = true;
+        return x;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        hooks: {
+          beforeRequest: [beforeRequest],
+          afterResponse: [afterResponse]
+        }
+      });
+
+      scope.get('/test').reply(200, {});
+
+      return shopify.request(url, 'GET').then(() => {
+        expect(beforeRequest.called).to.be.true;
+        expect(afterResponse.called).to.be.true;
+      });
+    });
+
+    it('calls the beforeRetry hook for retried requests', () => {
+      function beforeRetry() {
+        beforeRetry.called = true;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        maxRetries: 3,
+        hooks: {
+          beforeRetry: [beforeRetry]
+        }
+      });
+
+      scope.get('/admin/shop.json').replyWithError({
+        message: 'the network is broken',
+        code: 'ECONNRESET'
+      });
+
+      addWorkingRESTRequestMock(scope);
+
+      return shopify.shop.get().then((result) => {
+        expect(beforeRetry.called).to.be.true;
+        expect(result.name).equal('My Cool Test Shop');
+      });
+    });
   });
 
   describe('Shopify#graphql', () => {
@@ -1127,5 +1208,90 @@ describe('Shopify', () => {
           expect(result.shop.name).equal('My Cool Test Shop');
         });
     }).timeout(3000);
+
+    it('calls hooks passed as options when making graphql requests', () => {
+      function beforeRequest() {
+        beforeRequest.called = true;
+      }
+
+      function afterResponse(x) {
+        afterResponse.called = true;
+        return x;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        hooks: {
+          beforeRequest: [beforeRequest],
+          afterResponse: [afterResponse]
+        }
+      });
+
+      scope.post('/admin/api/graphql.json').reply(200, {
+        data: { foo: 'bar' }
+      });
+
+      return shopify.graphql('query').then(() => {
+        expect(beforeRequest.called).to.be.true;
+        expect(afterResponse.called).to.be.true;
+      });
+    });
+
+    it('calls the beforeRetry hook for retried requests', () => {
+      function beforeRetry() {
+        beforeRetry.called = true;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        maxRetries: 3,
+        hooks: {
+          beforeRetry: [beforeRetry]
+        }
+      });
+
+      scope.post('/admin/api/graphql.json').replyWithError({
+        message: 'the network is broken',
+        code: 'ECONNRESET'
+      });
+
+      addWorkingGraphQLRequestMock(scope);
+
+      return shopify.graphql('query { shop { id name } }').then(() => {
+        expect(beforeRetry.called).to.be.true;
+      });
+    });
+
+    it('calls the beforeError hook for errors', () => {
+      function beforeError(x) {
+        beforeError.called = true;
+        return x;
+      }
+
+      const shopify = new Shopify({
+        accessToken,
+        shopName,
+        hooks: {
+          beforeError: [beforeError]
+        }
+      });
+
+      const message = 'Something wrong happened';
+
+      scope.post('/admin/api/graphql.json').replyWithError(message);
+
+      return shopify.graphql('query { shop { id name } }').then(
+        () => {
+          throw new Error('Test invalidation');
+        },
+        (err) => {
+          expect(beforeError.called).to.be.true;
+          expect(err).to.be.an.instanceof(got.RequestError);
+          expect(err.message).to.equal(message);
+        }
+      );
+    });
   });
 });
