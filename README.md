@@ -73,6 +73,11 @@ Creates a new `Shopify` instance.
   for requests to the REST API, and the throttled cost data for requests to the
   GraphQL API, and retry the request after that time has elapsed. Mutually
   exclusive with the `autoLimit` option.
+- `hooks` - Optional - A list of `got`
+  [request hooks](https://github.com/sindresorhus/got/tree/v11#hooks) to attach
+  to all outgoing requests, like `beforeRetry`, `afterResponse`, etc. Hooks
+  should be provided in the same format that Got expects them and will receive
+  the same arguments Got passes unchanged.
 
 #### Return value
 
@@ -716,6 +721,34 @@ shopify
   .then((customers) => console.log(customers))
   .catch((err) => console.error(err));
 ```
+
+## Hooks
+
+`shopify-api-node` supports being passed hooks which are called by `got` (the
+underlying request library) during the request lifecycle.
+
+For example, we can log every error that is encountered when using the
+`maxRetries` option:
+
+```js
+const shopify = new Shopify({
+  shopName: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+  // enable automatic retries for this client
+  maxRetries: 3,
+  // pass the `beforeRetry` hook down to Got
+  hooks: {
+    beforeRetry: [
+      (options, error, retryCount) => {
+        console.warn("Error encountered making Shopify request, retrying", error);
+			}
+    ]
+  }
+});
+```
+
+For more information on the available `got` hooks, see the
+[`got` v11 hooks documentation](https://github.com/sindresorhus/got/tree/v11#hooks).
 
 ## Become a master of the Shopify ecosystem by:
 

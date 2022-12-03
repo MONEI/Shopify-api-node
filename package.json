@@ -32,7 +32,8 @@
     "lint-staged": "^13.0.0",
     "mocha": "^8.0.1",
     "nock": "^13.0.1",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "sinon": "^15.0.0"
   },
   "scripts": {
     "test": "c8 --reporter=lcov --reporter=text mocha",

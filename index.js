@@ -168,11 +168,13 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
         : 0,
     method,
     hooks: {
+      ...this.options.hooks,
       afterResponse: [
         (res) => {
           this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
           return res;
-        }
+        },
+        ...((this.options.hooks && this.options.hooks.afterResponse) || [])
       ]
     }
   };
@@ -286,6 +288,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
           }
         : 0,
     hooks: {
+      ...this.options.hooks,
       afterResponse: [
         (res) => {
           if (res.body) {
@@ -300,9 +303,13 @@ Shopify.prototype.graphql = function graphql(data, variables) {
           }
 
           return res;
-        }
+        },
+        ...((this.options.hooks && this.options.hooks.afterResponse) || [])
       ],
-      beforeError: [decorateError]
+      beforeError: [
+        decorateError,
+        ...((this.options.hooks && this.options.hooks.beforeError) || [])
+      ]
     }
   };
 
