@@ -755,7 +755,7 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [npm-shopify-api-node-badge]: https://img.shields.io/npm/v/shopify-api-node.svg
 [npm-shopify-api-node]: https://www.npmjs.com/package/shopify-api-node
 [ci-shopify-api-node-badge]:
-  https://img.shields.io/github/workflow/status/MONEI/Shopify-api-node/CI/master?label=CI
+  https://img.shields.io/github/actions/workflow/status/MONEI/Shopify-api-node/ci.yml?branch=master&label=CI
 [ci-shopify-api-node]:
   https://github.com/MONEI/Shopify-api-node/actions?query=workflow%3ACI+branch%3Amaster
 [coverage-shopify-api-node-badge]:
