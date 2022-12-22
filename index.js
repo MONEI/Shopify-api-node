@@ -295,7 +295,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
             if (res.body.errors) {
               // Make Got consider this response errored and retry if needed.
-              throw new Error(res.body.errors[0].message);
+              throw new Error(Array.isArray(res.body.errors) ? res.body.errors[0].message : res.body.errors);
             }
           }
 
