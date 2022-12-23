@@ -1960,6 +1960,7 @@ declare namespace Shopify {
     updated_at: string;
     disabled_at: string;
     expires_on: string;
+    initial_value: string;
   }
 
   interface IGiftCardAdjustment {
