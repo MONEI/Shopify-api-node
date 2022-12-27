@@ -122,4 +122,16 @@ describe('Shopify#fulfillmentOrder', () => {
         expect(data).to.deep.equal({});
       });
   });
+
+  it('retrieves a list of fulfillments for a specific fulfillment order', () => {
+    const output = fixtures.res.fulfillments;
+
+    scope
+      .get('/admin/fulfillment_orders/846904592/fulfillments.json')
+      .reply(200, output);
+
+    return shopify.fulfillmentOrder
+      .fulfillments(846904592)
+      .then((data) => expect(data).to.deep.equal(output.fulfillments));
+  });
 });

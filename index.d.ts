@@ -385,6 +385,9 @@ declare class Shopify {
     setFulfillmentOrdersDeadline: (
       params: Shopify.ISetFulfillmentOrdersDeadline
     ) => Promise<void>;
+    fulfillments: (
+      id: number
+    ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
   };
   fulfillmentRequest: {
     accept: (

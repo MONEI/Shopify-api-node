@@ -115,4 +115,16 @@ FulfillmentOrder.prototype.setFulfillmentOrdersDeadline =
     return this.shopify.request(url, 'POST', undefined, params);
   };
 
+/**
+ * Lists fulfillments for a fulfillment order.
+ *
+ * @param {Number} id Fulfillment order ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.fulfillments = function fulfillments(id) {
+  const url = this.buildUrl(`${id}/fulfillments`);
+  return this.shopify.request(url, 'GET', 'fulfillments');
+};
+
 module.exports = FulfillmentOrder;
