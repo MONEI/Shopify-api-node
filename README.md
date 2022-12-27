@@ -454,6 +454,7 @@ default.
   - `list([params])`
 - fulfillment
   - `cancel(orderId, id)`
+  - `cancelV2(id)`
   - `complete(orderId, id)`
   - `count(orderId[, params)`
   - `create(orderId, params)`

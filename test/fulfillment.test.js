@@ -142,7 +142,7 @@ describe('Shopify#fulfillment', () => {
       .then((data) => expect(data).to.deep.equal(output.fulfillment));
   });
 
-  it('cancels a pending fulfillment', () => {
+  it('cancels a fulfillment for a specific order ID', () => {
     const output = fixtures.res.cancel;
 
     scope
@@ -151,6 +151,18 @@ describe('Shopify#fulfillment', () => {
 
     return shopify.fulfillment
       .cancel(450789469, 255858046)
+      .then((data) => expect(data).to.deep.equal(output.fulfillment));
+  });
+
+  it('cancels a fulfillment', () => {
+    const output = fixtures.res.cancel;
+
+    scope
+      .post('/admin/fulfillments/255858046/cancel.json', {})
+      .reply(200, output);
+
+    return shopify.fulfillment
+      .cancelV2(255858046)
       .then((data) => expect(data).to.deep.equal(output.fulfillment));
   });
 

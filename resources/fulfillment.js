@@ -69,6 +69,20 @@ Fulfillment.prototype.cancel = function cancel(orderId, id) {
 };
 
 /**
+ * Cancels a fulfillment.
+ *
+ * @param {Number} id Fulfillment ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+Fulfillment.prototype.cancelV2 = function cancelV2(id) {
+  const url = base.buildUrl.call(this, `${id}/cancel`);
+  return this.shopify
+    .request(url, 'POST', undefined, {})
+    .then((body) => body[this.key]);
+};
+
+/**
  * Creates a fulfillment for one or many fulfillment orders. The fulfillment
  * orders are associated with the same order and are assigned to the same
  * location.

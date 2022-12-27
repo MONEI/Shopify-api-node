@@ -319,6 +319,7 @@ declare class Shopify {
   };
   fulfillment: {
     cancel: (orderId: number, id: number) => Promise<Shopify.IFulfillment>;
+    cancelV2: (id: number) => Promise<Shopify.IFulfillment>;
     complete: (orderId: number, id: number) => Promise<Shopify.IFulfillment>;
     count: (orderId: number, params?: any) => Promise<number>;
     create: (orderId: number, params: any) => Promise<Shopify.IFulfillment>;
