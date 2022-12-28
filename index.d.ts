@@ -2196,7 +2196,7 @@ declare namespace Shopify {
     | 'offsite';
 
   interface IOrderDiscountCode {
-    amount: number;
+    amount: string;
     code: string;
     type: OrderDiscountCodeType;
   }
