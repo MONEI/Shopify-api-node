@@ -293,7 +293,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
               this.updateGraphqlLimits(res.body.extensions.cost);
             }
 
-            if (res.body.errors) {
+            if (Array.isArray(res.body.errors)) {
               // Make Got consider this response errored and retry if needed.
               throw new Error(res.body.errors[0].message);
             }
@@ -320,7 +320,7 @@ resources.registerAll(Shopify);
  * @private
  */
 function decorateError(error) {
-  if (error.response && error.response.body.errors) {
+  if (error.response && Array.isArray(error.response.body.errors)) {
     const first = error.response.body.errors[0];
 
     error.locations = first.locations;
