@@ -347,7 +347,11 @@ resources.registerAll(Shopify);
  * @private
  */
 function decorateError(error) {
-  if (error.response && Array.isArray(error.response.body.errors)) {
+  if (
+    error.response &&
+    error.response.body &&
+    Array.isArray(error.response.body.errors)
+  ) {
     const first = error.response.body.errors[0];
 
     error.locations = first.locations;
