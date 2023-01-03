@@ -32,10 +32,12 @@
     "lint-staged": "^13.0.0",
     "mocha": "^8.0.1",
     "nock": "^13.0.1",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "tsd": "^0.25.0"
   },
   "scripts": {
     "test": "c8 --reporter=lcov --reporter=text mocha",
+    "test:types": "tsd",
     "watch": "mocha -w",
     "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\"",
     "prepare": "husky install"
