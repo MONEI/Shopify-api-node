@@ -1,7 +1,7 @@
 // Type definitions for shopify-api-node
 // Project: shopify-api-node
 // Definitions by: Rich Buggy <rich@buggy.id.au>
-import { Got } from 'got';
+import { Hooks } from 'got';
 
 /*~ This is the module template file for class modules.
  *~ You should rename it to index.d.ts and place it in a folder with the same name as the module.
@@ -788,7 +788,7 @@ declare namespace Shopify {
     presentmentPrices?: boolean;
     shopName: string;
     timeout?: number;
-    hooks?: Got.Hooks;
+    hooks?: Hooks;
   }
 
   export interface IPrivateShopifyConfig {
@@ -800,7 +800,7 @@ declare namespace Shopify {
     presentmentPrices?: boolean;
     shopName: string;
     timeout?: number;
-    hooks?: Got.Hooks;
+    hooks?: Hooks;
   }
 
   export interface ICallLimits {
