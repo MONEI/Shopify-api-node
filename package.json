@@ -3,6 +3,7 @@
   "version": "3.12.0",
   "description": "Shopify API bindings for Node.js",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "directories": {
     "test": "test"
   },
@@ -13,7 +14,7 @@
     "resources",
     "mixins",
     "index.js",
-    "index.d.ts"
+    "types/index.d.ts"
   ],
   "dependencies": {
     "got": "^11.1.4",
