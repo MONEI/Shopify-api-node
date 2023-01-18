@@ -1892,6 +1892,22 @@ declare namespace Shopify {
     province: string;
     zip: string;
   }
+  
+  interface IFulfillmentOrderFulfillmentHolds {
+    reason: string;
+    reason_notes: string;
+  }
+  
+  interface IFulfillmentOrderInternationalDuties {
+    incoterm: "DAP" | "DDP;
+  }
+  
+  interface IFulfillmentOrderDeliveryMethod {
+    id: number;
+    method_type: "local" | "none" | "pick_up" | "retail" | "shipping";
+    min_delivery_date_time: string;
+    max_delivery_date_time: string;
+  }
 
   interface IFulfillmentOrder {
     assigned_location: IFulfillmentOrderAssignedLocation;
@@ -1906,6 +1922,9 @@ declare namespace Shopify {
     shop_id: number;
     status: FulfillmentOrderStatus;
     supported_actions: FulfillmentOrderSupportedAction[];
+    fulfillment_holds: IFulfillmentOrderFulfillmentHolds;
+    international_duties: IFulfillmentOrderInternationalDuties;
+    delivery_method: IFulfillmentOrderDeliveryMethod;
   }
 
   interface ILocationForMoveLocation {
