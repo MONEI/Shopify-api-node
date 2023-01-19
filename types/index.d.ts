@@ -1892,19 +1892,19 @@ declare namespace Shopify {
     province: string;
     zip: string;
   }
-  
+
   interface IFulfillmentOrderFulfillmentHolds {
     reason: string;
     reason_notes: string;
   }
-  
+
   interface IFulfillmentOrderInternationalDuties {
-    incoterm: "DAP" | "DDP";
+    incoterm: 'DAP' | 'DDP';
   }
-  
+
   interface IFulfillmentOrderDeliveryMethod {
     id: number;
-    method_type: "local" | "none" | "pick_up" | "retail" | "shipping";
+    method_type: 'local' | 'none' | 'pick_up' | 'retail' | 'shipping';
     min_delivery_date_time: string;
     max_delivery_date_time: string;
   }
