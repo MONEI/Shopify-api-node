@@ -1924,7 +1924,7 @@ declare namespace Shopify {
     supported_actions: FulfillmentOrderSupportedAction[];
     fulfillment_holds: IFulfillmentOrderFulfillmentHolds[];
     international_duties: IFulfillmentOrderInternationalDuties;
-    delivery_method: IFulfillmentOrderDeliveryMethod;
+    delivery_method: IFulfillmentOrderDeliveryMethod | null;
   }
 
   interface ILocationForMoveLocation {
