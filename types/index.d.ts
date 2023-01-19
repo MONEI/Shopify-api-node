@@ -1899,7 +1899,7 @@ declare namespace Shopify {
   }
   
   interface IFulfillmentOrderInternationalDuties {
-    incoterm: "DAP" | "DDP;
+    incoterm: "DAP" | "DDP";
   }
   
   interface IFulfillmentOrderDeliveryMethod {
