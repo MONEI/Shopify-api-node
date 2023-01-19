@@ -1922,7 +1922,7 @@ declare namespace Shopify {
     shop_id: number;
     status: FulfillmentOrderStatus;
     supported_actions: FulfillmentOrderSupportedAction[];
-    fulfillment_holds: IFulfillmentOrderFulfillmentHolds;
+    fulfillment_holds: IFulfillmentOrderFulfillmentHolds[];
     international_duties: IFulfillmentOrderInternationalDuties;
     delivery_method: IFulfillmentOrderDeliveryMethod;
   }
