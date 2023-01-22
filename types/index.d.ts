@@ -2874,23 +2874,25 @@ declare namespace Shopify {
   interface IShop {
     address1: string;
     address2: string;
+    checkout_api_supported: boolean;
     city: string;
+    cookie_consent_level: string;
     country: string;
     country_code: string;
     country_name: string;
+    county_taxes: true | null;
     created_at: string;
-    county_taxes: string;
-    customer_email: string | null;
     currency: string;
+    customer_email: string;
     domain: string;
     eligible_for_card_reader_giveaway: boolean;
     eligible_for_payments: boolean;
-    enabled_presentment_currencies: string[];
     email: string;
+    enabled_presentment_currencies: string[];
     finances: boolean;
     force_ssl?: boolean;
     google_apps_domain: string | null;
-    google_apps_login_enabled: any | null;
+    google_apps_login_enabled: true | null;
     has_discounts: boolean;
     has_gift_cards: boolean;
     has_storefront: boolean;
@@ -2920,6 +2922,7 @@ declare namespace Shopify {
     tax_shipping: boolean | null;
     taxes_included: true | null;
     timezone: string;
+    transactional_sms_disabled: boolean;
     updated_at: string;
     weight_unit: string;
     zip: string;
