@@ -370,7 +370,13 @@ function decorateError(error) {
  * @private
  */
 function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve) => {
+    const now = new Date().getTime();
+    while (new Date().getTime() < now + ms) {
+      /* Do nothing */
+    }
+    resolve(null);
+  });
 }
 
 /**
