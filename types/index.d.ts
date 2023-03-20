@@ -1860,7 +1860,9 @@ declare namespace Shopify {
     | 'closed'
     | 'in_progress'
     | 'incomplete'
-    | 'open';
+    | 'open'
+    | 'on_hold'
+    | 'scheduled';
 
   type FulfillmentOrderSupportedAction =
     | 'cancel_fulfillment_order'
