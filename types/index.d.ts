@@ -1387,6 +1387,7 @@ declare namespace Shopify {
   interface ICustomer {
     accepts_marketing: boolean;
     addresses?: ICustomerAddress[];
+    admin_graphql_api_id: string;
     created_at: string;
     currency: string;
     default_address: ICustomerAddress;
@@ -2356,6 +2357,7 @@ declare namespace Shopify {
   }
 
   interface IOrder {
+    admin_graphql_api_id: string;
     app_id: number;
     billing_address: ICustomerAddress;
     browser_ip: string | null;
@@ -2563,6 +2565,7 @@ declare namespace Shopify {
   }
 
   interface IProduct {
+    admin_graphql_api_id: string;
     body_html: string;
     created_at: string;
     handle: string;
