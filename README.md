@@ -243,6 +243,21 @@ shopify.metafield
   );
 ```
 
+Update metafield ID 123 for variant 12345:
+
+```js
+shopify.metafield
+  .updateV2(
+    123,
+    'variants',
+    12345,
+    {metafield:{id: 123, value: 'test'}}
+  ).then(
+    (metafield) => console.log(metafield),
+    (err) => console.error(err)
+  );
+```
+
 ## Pagination
 
 [Pagination][paginated-rest-results] in API version 2019-07 and above can be
