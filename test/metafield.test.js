@@ -76,7 +76,7 @@ describe('Shopify#metafield', () => {
       .then((data) => expect(data).to.deep.equal(output.metafield));
   });
 
-  it('updates a metafield', () => {
+  it('updates a metafield (1/2)', () => {
     const input = fixtures.req.update;
     const output = fixtures.res.update;
 
@@ -84,6 +84,22 @@ describe('Shopify#metafield', () => {
 
     return shopify.metafield
       .update(721389482, input.metafield)
+      .then((data) => expect(data).to.deep.equal(output.metafield));
+  });
+
+  it('updates a metafield (2/2)', () => {
+    const input = fixtures.req.update;
+    const output = fixtures.res.update;
+
+    scope
+      .put(
+        '/admin/variants/123456789/metafields/721389482.json',
+        input.metafield
+      )
+      .reply(200, output);
+
+    return shopify.metafield
+      .updateV2(721389482, 'variants', 123456789, input.metafield)
       .then((data) => expect(data).to.deep.equal(output.metafield));
   });
 
