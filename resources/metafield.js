@@ -34,6 +34,6 @@ Metafield.prototype.updateV2 = function(metaFieldId, resource, resourceId, param
   if (!this.name === urlString) this.name = urlString;
   const url = this.buildUrl(metaFieldId);
   return this.shopify.request(url, 'PUT', undefined, params);
-}
+};
 
 module.exports = Metafield;
