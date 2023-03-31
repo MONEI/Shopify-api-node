@@ -3,6 +3,7 @@
 const assign = require('lodash/assign');
 
 const base = require('../mixins/base');
+const baseChild = require('../mixins/base-child');
 
 /**
  * Creates a Metafield instance.
@@ -14,6 +15,7 @@ const base = require('../mixins/base');
 function Metafield(shopify) {
   this.shopify = shopify;
 
+  this.parentName = '';
   this.name = 'metafields';
   this.key = 'metafield';
 }
@@ -35,9 +37,8 @@ Metafield.prototype.updateV2 = function (
   resourceId,
   params
 ) {
-  const urlString = `${resource}/${resourceId}/${this.name}`;
-  if (!this.name === urlString) this.name = urlString;
-  const url = this.buildUrl(metaFieldId);
+  this.parentName = resource;
+  const url = baseChild.buildUrl.call(this, resourceId, metaFieldId);
   return this.shopify.request(url, 'PUT', undefined, params);
 };
 
