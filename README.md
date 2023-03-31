@@ -551,6 +551,7 @@ default.
   - `get(id[, params])`
   - `list([params])`
   - `update(id, params)`
+  - `updateV2(id, resource, resourceId, params)`
 - order
   - `cancel(id[, params])`
   - `close(id)`
