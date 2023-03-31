@@ -481,6 +481,11 @@ declare class Shopify {
       params?: any
     ) => Promise<Shopify.IPaginatedResult<Shopify.IMetafield>>;
     update: (id: number, params: any) => Promise<Shopify.IMetafield>;
+    updateV2: (
+      id: number,
+      resource: string,
+      resourceId: number
+    ) => Promise<Shopify.IMetafield>;
   };
   on(
     event: 'callLimits',
