@@ -29,7 +29,12 @@ assign(Metafield.prototype, base);
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-Metafield.prototype.updateV2 = function(metaFieldId, resource, resourceId, params) {
+Metafield.prototype.updateV2 = function (
+  metaFieldId,
+  resource,
+  resourceId,
+  params
+) {
   const urlString = `${resource}/${resourceId}/${this.name}`;
   if (!this.name === urlString) this.name = urlString;
   const url = this.buildUrl(metaFieldId);
