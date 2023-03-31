@@ -92,14 +92,11 @@ describe('Shopify#metafield', () => {
     const output = fixtures.res.update;
 
     scope
-      .put(
-        '/admin/variants/123456789/metafields/721389482.json',
-        input.metafield
-      )
+      .put('/admin/variants/123456789/metafields/721389482.json', input)
       .reply(200, output);
 
     return shopify.metafield
-      .updateV2(721389482, 'variants', 123456789, input.metafield)
+      .updateV2(721389482, 'variants', 123456789, input)
       .then((data) => expect(data).to.deep.equal(output.metafield));
   });
 
