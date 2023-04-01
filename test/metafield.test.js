@@ -97,7 +97,7 @@ describe('Shopify#metafield', () => {
 
     return shopify.metafield
       .updateV2(721389482, 'variants', 123456789, input)
-      .then((data) => expect(data).to.deep.equal(output.metafield));
+      .then((data) => expect(data).to.deep.equal(output));
   });
 
   it('deletes a metafield', () => {
