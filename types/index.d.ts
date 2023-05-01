@@ -1054,6 +1054,7 @@ declare namespace Shopify {
 
   interface IAsset {
     attachment?: string;
+    checksum: string;
     content_type: string;
     created_at: string;
     key: string;
