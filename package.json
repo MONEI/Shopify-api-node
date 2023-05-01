@@ -1,6 +1,6 @@
 {
   "name": "shopify-api-node",
-  "version": "3.12.3",
+  "version": "3.12.4",
   "description": "Shopify API bindings for Node.js",
   "main": "index.js",
   "types": "types/index.d.ts",
