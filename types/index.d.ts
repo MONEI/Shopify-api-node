@@ -2365,6 +2365,7 @@ declare namespace Shopify {
     cancelled_at: string | null;
     cart_token: string;
     client_details: IOrderClientDetails;
+    checkout_token: string | null;
     closed_at: string | null;
     confirmed: boolean;
     created_at: string;
