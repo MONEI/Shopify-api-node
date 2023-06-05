@@ -2,7 +2,7 @@
 
 const assign = require('lodash/assign');
 
-const base = require('../mixins/base');
+const baseChild = require('../mixins/base-child');
 
 /**
  * Creates a Metafield instance.
@@ -18,6 +18,6 @@ function Metafield(shopify) {
   this.key = 'metafield';
 }
 
-assign(Metafield.prototype, base);
+assign(Metafield.prototype, baseChild);
 
 module.exports = Metafield;
