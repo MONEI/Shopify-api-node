@@ -34,7 +34,7 @@
     "mocha": "^8.0.1",
     "nock": "^13.0.1",
     "prettier": "^2.0.2",
-    "tsd": "^0.25.0"
+    "tsd": "^0.27.0"
   },
   "scripts": {
     "test": "c8 --reporter=lcov --reporter=text mocha",
