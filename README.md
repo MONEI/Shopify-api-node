@@ -74,10 +74,10 @@ Creates a new `Shopify` instance.
   GraphQL API, and retry the request after that time has elapsed. Mutually
   exclusive with the `autoLimit` option.
 - `hooks` - Optional - A list of `got`
-  [request hooks](https://github.com/sindresorhus/got/tree/v11#hooks) to attach
-  to all outgoing requests, like `beforeRetry`, `afterResponse`, etc. Hooks
-  should be provided in the same format that Got expects them and will receive
-  the same arguments Got passes unchanged.
+  [request hooks](https://github.com/sindresorhus/got/tree/v11.8.6#hooks) to
+  attach to all outgoing requests, like `beforeRetry`, `afterResponse`, etc.
+  Hooks should be provided in the same format that Got expects them and will
+  receive the same arguments Got passes unchanged.
 
 #### Return value
 
