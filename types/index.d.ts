@@ -3238,6 +3238,7 @@ declare namespace Shopify {
     | 'fulfillment_orders/placed_on_hold'
     | 'fulfillment_orders/rescheduled'
     | 'fulfillment_orders/scheduled_fulfillment_order_ready'
+    | 'fulfillment_orders/split'
     | 'fulfillments/create'
     | 'fulfillments/update'
     | 'inventory_items/create'
