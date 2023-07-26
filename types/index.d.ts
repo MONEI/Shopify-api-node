@@ -3248,6 +3248,7 @@ declare namespace Shopify {
     | 'inventory_levels/disconnect'
     | 'inventory_levels/update'
     | 'locales/create'
+    | 'locales/destroy'
     | 'locales/update'
     | 'locations/activate'
     | 'locations/create'
