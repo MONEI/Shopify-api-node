@@ -3232,6 +3232,7 @@ declare namespace Shopify {
     | 'fulfillment_orders/hold_released'
     | 'fulfillment_orders/line_items_prepared_for_local_delivery'
     | 'fulfillment_orders/line_items_prepared_for_pickup'
+    | 'fulfillment_orders/merged'
     | 'fulfillment_orders/moved'
     | 'fulfillment_orders/order_routing_complete'
     | 'fulfillment_orders/placed_on_hold'
