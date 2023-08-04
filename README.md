@@ -232,7 +232,7 @@ shopify.metafield
   .create({
     key: 'warehouse',
     value: 25,
-    value_type: 'integer',
+    type: 'integer',
     namespace: 'inventory',
     owner_resource: 'product',
     owner_id: 632910392
