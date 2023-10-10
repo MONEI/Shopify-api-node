@@ -2368,6 +2368,7 @@ declare namespace Shopify {
     checkout_token: string | null;
     closed_at: string | null;
     confirmed: boolean;
+    contact_email: string | null;
     created_at: string;
     currency: string;
     current_subtotal_price: string;
@@ -2428,6 +2429,7 @@ declare namespace Shopify {
     total_discounts_set: IMoneySet;
     total_line_items_price: string;
     total_line_items_price_set: IMoneySet;
+    total_outstanding: string;
     total_price: string;
     total_price_set: IMoneySet;
     total_shipping_price_set: IMoneySet;
