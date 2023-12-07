@@ -3338,6 +3338,7 @@ declare namespace Shopify {
     topic: WebhookTopic;
   }
 
+  // prettier-ignore
   export type WebhookType<T extends WebhookTopic> = T extends 'app/uninstalled'
     ? IShop
     : T extends 'carts/create'
