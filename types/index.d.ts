@@ -789,6 +789,7 @@ declare namespace Shopify {
     shopName: string;
     timeout?: number;
     hooks?: Hooks;
+    proxy?:IProxyConfig;
   }
 
   export interface IPrivateShopifyConfig {
@@ -801,6 +802,12 @@ declare namespace Shopify {
     shopName: string;
     timeout?: number;
     hooks?: Hooks;
+    proxy?:IProxyConfig;
+  }
+
+  export interface IProxyConfig {
+    host:string;
+    port:number;
   }
 
   export interface ICallLimits {

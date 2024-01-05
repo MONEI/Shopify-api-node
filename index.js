@@ -5,9 +5,11 @@ const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const got = require('got');
 const url = require('url');
+const tunnel = require('tunnel');
 
 const pkg = require('./package');
 const resources = require('./resources');
+
 
 const retryableErrorCodes = new Set([
   'ETIMEDOUT',
@@ -100,6 +102,10 @@ function Shopify(options) {
       'Basic ' +
       Buffer.from(`${options.apiKey}:${options.password}`).toString('base64');
   }
+  this.proxy = null;
+  if (options.proxy) {
+    this.proxy = {...options.proxy};
+  }
 
   if (options.autoLimit) {
     const conf = transform(
@@ -156,6 +162,19 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     responseType: 'json',
     method
   };
+
+  if(this.proxy){
+    const agentHttps = tunnel.httpsOverHttp({
+      proxy: {...this.proxy}
+    });
+    const agentHttp = tunnel.httpOverHttp({
+      proxy: {...this.proxy}
+    });
+    options.agent = {
+      http:agentHttp,
+      https:agentHttps
+    }
+  }
 
   const afterResponse = (res) => {
     this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);

@@ -78,6 +78,9 @@ Creates a new `Shopify` instance.
   attach to all outgoing requests, like `beforeRetry`, `afterResponse`, etc.
   Hooks should be provided in the same format that Got expects them and will
   receive the same arguments Got passes unchanged.
+- `proxy` - When your computer or server encounters network errors, timeouts, 
+  etc. while accessing Shopify, if you have a proxy server, you can set the 
+  proxy IP(host) and port(port) to resolve issues related to access timeouts and slowness..
 
 #### Return value
 

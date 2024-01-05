@@ -27,6 +27,16 @@ new Shopify({
   }
 });
 
+// Can be constructed with Got proxy.
+new Shopify({
+  shopName: 'my-shopify-store.myshopify.com',
+  accessToken: '111',
+  proxy: {
+    host:'127.0.0.1',
+    port:7890
+  }
+});
+
 expectType<number>(client.callLimits.remaining);
 expectType<number>(client.callLimits.current);
 expectType<number>(client.callLimits.max);
