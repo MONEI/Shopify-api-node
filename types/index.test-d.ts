@@ -31,9 +31,15 @@ new Shopify({
 new Shopify({
   shopName: 'my-shopify-store.myshopify.com',
   accessToken: '111',
-  proxy: {
-    host:'127.0.0.1',
-    port:7890
+  agent: {
+    // https: new HttpsProxyAgent({
+    //   keepAlive: true,
+    //   keepAliveMsecs: 1000,
+    //   maxSockets: 256,
+    //   maxFreeSockets: 256,
+    //   scheduling: 'lifo',
+    //   proxy: 'https://localhost:8080'
+    // })
   }
 });
 

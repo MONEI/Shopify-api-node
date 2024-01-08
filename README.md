@@ -78,9 +78,10 @@ Creates a new `Shopify` instance.
   attach to all outgoing requests, like `beforeRetry`, `afterResponse`, etc.
   Hooks should be provided in the same format that Got expects them and will
   receive the same arguments Got passes unchanged.
-- `proxy` - When your computer or server encounters network errors, timeouts, 
-  etc. while accessing Shopify, if you have a proxy server, you can set the 
-  proxy IP(host) and port(port) to resolve issues related to access timeouts and slowness..
+- `agent` - Optional - A list of `got`
+  [request agent](https://github.com/sindresorhus/got/tree/v11.8.6?tab=readme-ov-file#agent)
+  This is necessary because a request to one protocol might redirect to another. 
+  In such a scenario, Got will switch over to the right protocol agent for you.
 
 #### Return value
 

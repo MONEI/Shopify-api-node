@@ -5,7 +5,6 @@ const EventEmitter = require('events');
 const stopcock = require('stopcock');
 const got = require('got');
 const url = require('url');
-const tunnel = require('tunnel');
 
 const pkg = require('./package');
 const resources = require('./resources');
@@ -102,10 +101,6 @@ function Shopify(options) {
       'Basic ' +
       Buffer.from(`${options.apiKey}:${options.password}`).toString('base64');
   }
-  this.proxy = null;
-  if (options.proxy) {
-    this.proxy = {...options.proxy};
-  }
 
   if (options.autoLimit) {
     const conf = transform(
@@ -163,17 +158,8 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     method
   };
 
-  if(this.proxy){
-    const agentHttps = tunnel.httpsOverHttp({
-      proxy: {...this.proxy}
-    });
-    const agentHttp = tunnel.httpOverHttp({
-      proxy: {...this.proxy}
-    });
-    options.agent = {
-      http:agentHttp,
-      https:agentHttps
-    }
+  if (this.options.agent) {
+    options.agent = { ...this.options.agent };
   }
 
   const afterResponse = (res) => {
@@ -303,6 +289,10 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     method: 'POST',
     body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
+
+  if (this.options.agent) {
+    options.agent = { ...this.options.agent };
+  }
 
   const afterResponse = (res) => {
     if (res.body) {
