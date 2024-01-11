@@ -158,10 +158,6 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     method
   };
 
-  if (this.options.agent) {
-    options.agent = { ...this.options.agent };
-  }
-
   const afterResponse = (res) => {
     this.updateLimits(res.headers['x-shopify-shop-api-call-limit']);
     return res;
