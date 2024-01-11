@@ -154,6 +154,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
+    agent: this.options.agent,
     method
   };
 
