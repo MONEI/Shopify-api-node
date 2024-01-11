@@ -27,7 +27,7 @@ new Shopify({
   }
 });
 
-// Can be constructed with Got proxy.
+// Accepts the `agent` option.
 new Shopify({
   shopName: 'my-shopify-store.myshopify.com',
   accessToken: '111',
