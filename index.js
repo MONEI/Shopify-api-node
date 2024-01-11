@@ -9,7 +9,6 @@ const url = require('url');
 const pkg = require('./package');
 const resources = require('./resources');
 
-
 const retryableErrorCodes = new Set([
   'ETIMEDOUT',
   'ECONNRESET',
