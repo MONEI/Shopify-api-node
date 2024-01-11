@@ -283,6 +283,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     timeout: this.options.timeout,
     responseType: 'json',
     method: 'POST',
+    agent: this.options.agent,
     body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
 
