@@ -802,7 +802,7 @@ declare namespace Shopify {
     shopName: string;
     timeout?: number;
     hooks?: Hooks;
-    agent?:Agents;
+    agent?: Agents;
   }
 
   export interface ICallLimits {
