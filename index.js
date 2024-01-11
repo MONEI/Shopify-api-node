@@ -287,10 +287,6 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
 
-  if (this.options.agent) {
-    options.agent = { ...this.options.agent };
-  }
-
   const afterResponse = (res) => {
     if (res.body) {
       if (res.body.extensions && res.body.extensions.cost) {
