@@ -78,10 +78,10 @@ Creates a new `Shopify` instance.
   attach to all outgoing requests, like `beforeRetry`, `afterResponse`, etc.
   Hooks should be provided in the same format that Got expects them and will
   receive the same arguments Got passes unchanged.
-- `agent` - Optional - A list of `got`
-  [request agent](https://github.com/sindresorhus/got/tree/v11.8.6?tab=readme-ov-file#agent)
-  This is necessary because a request to one protocol might redirect to another. 
-  In such a scenario, Got will switch over to the right protocol agent for you.
+- `agent` - Optional - An object that is passed as the `agent` option to `got`.
+  This allows to use a proxy server. See
+  [Got documentation](https://github.com/sindresorhus/got/tree/v11.8.6?tab=readme-ov-file#proxies)
+  for more details.
 
 #### Return value
 
