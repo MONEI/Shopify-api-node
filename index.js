@@ -154,6 +154,7 @@ Shopify.prototype.request = function request(uri, method, key, data, headers) {
     parseJson: this.options.parseJson,
     timeout: this.options.timeout,
     responseType: 'json',
+    agent: this.options.agent,
     method
   };
 
@@ -282,6 +283,7 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     timeout: this.options.timeout,
     responseType: 'json',
     method: 'POST',
+    agent: this.options.agent,
     body: json ? this.options.stringifyJson({ query: data, variables }) : data
   };
 

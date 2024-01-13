@@ -27,6 +27,22 @@ new Shopify({
   }
 });
 
+// Accepts the `agent` option.
+new Shopify({
+  shopName: 'my-shopify-store.myshopify.com',
+  accessToken: '111',
+  agent: {
+    // https: new HttpsProxyAgent({
+    //   keepAlive: true,
+    //   keepAliveMsecs: 1000,
+    //   maxSockets: 256,
+    //   maxFreeSockets: 256,
+    //   scheduling: 'lifo',
+    //   proxy: 'https://localhost:8080'
+    // })
+  }
+});
+
 expectType<number>(client.callLimits.remaining);
 expectType<number>(client.callLimits.current);
 expectType<number>(client.callLimits.max);
