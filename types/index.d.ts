@@ -1387,8 +1387,15 @@ declare namespace Shopify {
 
   type CustomerState = 'declined' | 'disabled' | 'enabled' | 'invited';
 
+  interface IEmailMarketingConsent {
+    state: string;
+    opt_in_level: string | null;
+    consent_updated_at: string;
+  }
+
   interface ICustomer {
-    accepts_marketing: boolean;
+    accepts_marketing?: boolean;
+    email_marketing_consent?: IEmailMarketingConsent,
     addresses?: ICustomerAddress[];
     created_at: string;
     currency: string;
@@ -2186,7 +2193,8 @@ declare namespace Shopify {
   }
 
   interface IOrderCustomer {
-    accepts_marketing: boolean;
+    accepts_marketing?: boolean;
+    email_marketing_consent?: IEmailMarketingConsent,
     created_at: string;
     default_address: ICustomerAddress;
     email: string;
