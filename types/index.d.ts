@@ -1395,7 +1395,7 @@ declare namespace Shopify {
 
   interface ICustomer {
     accepts_marketing?: boolean;
-    email_marketing_consent?: IEmailMarketingConsent,
+    email_marketing_consent?: IEmailMarketingConsent;
     addresses?: ICustomerAddress[];
     created_at: string;
     currency: string;
@@ -2194,7 +2194,7 @@ declare namespace Shopify {
 
   interface IOrderCustomer {
     accepts_marketing?: boolean;
-    email_marketing_consent?: IEmailMarketingConsent,
+    email_marketing_consent?: IEmailMarketingConsent;
     created_at: string;
     default_address: ICustomerAddress;
     email: string;
