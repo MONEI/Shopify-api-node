@@ -766,9 +766,6 @@ For more information on the available `got` hooks, see the
 (add yours!)
 
 - [Sample Node Express app by Shopify][sample-node-express-app-by-shopify]
-- [Wholesaler][wholesaler]
-- [Wholesaler & Customer Pricing][wholesaler-customer-pricing]
-- [Wholesaler PRO][wholesaler-pro]
 - [Youtube Traffic][youtube-traffic]
 - [Shipatron][shipatron]
 - [UPC Code Manager][upc-code-manager]
@@ -776,9 +773,8 @@ For more information on the available `got` hooks, see the
 
 ## Supported by:
 
-[microapps][microapps]
+[MONEI][monei]
 
-Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 
 ## License
 
@@ -806,16 +802,8 @@ Used in our live products: [MoonMail][moonmail] & [MONEI][monei]
 [learning-from-others]: https://stackoverflow.com/questions/tagged/shopify
 [paginated-rest-results]: https://shopify.dev/api/usage/pagination-rest
 [polaris]: https://polaris.shopify.com/?ref=microapps
-[microapps]:
-  http://microapps.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
-[moonmail]:
-  https://moonmail.io/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [monei]:
-  https://monei.net/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
-[wholesaler]: https://apps.shopify.com/wholesaler?ref=microapps
-[wholesaler-customer-pricing]:
-  https://apps.shopify.com/wholesaler-pro-1?ref=microapps
-[wholesaler-pro]: https://apps.shopify.com/wholesaler-pro-2?ref=microapps
+  https://monei.com/?utm_source=shopify-api-node-module-repo-readme&utm_medium=click&utm_campaign=github
 [youtube-traffic]: https://apps.shopify.com/youtube-traffic?ref=microapps
 [shipatron]: https://shipatron.io
 [upc-code-manager]: https://apps.shopify.com/upc-code-manager-1
