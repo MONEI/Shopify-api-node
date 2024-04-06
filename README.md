@@ -775,7 +775,6 @@ For more information on the available `got` hooks, see the
 
 [MONEI][monei]
 
-
 ## License
 
 [MIT](LICENSE)
