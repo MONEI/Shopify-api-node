@@ -25,9 +25,10 @@
   "devDependencies": {
     "c8": "^7.3.0",
     "chai": "^4.1.2",
-    "eslint": "^8.0.0",
+    "eslint": "^9.2.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "globals": "^15.2.0",
     "husky": "^8.0.1",
     "json-bigint": "^1.0.0",
     "lint-staged": "^15.2.0",
@@ -40,7 +41,7 @@
     "test": "c8 --reporter=lcov --reporter=text mocha",
     "test:types": "tsd",
     "watch": "mocha -w",
-    "lint": "eslint --ignore-path .gitignore . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\"",
+    "lint": "eslint . && prettier --check --ignore-path .gitignore \"**/*.{json,md,ts,yaml,yml}\"",
     "prepare": "husky install"
   },
   "repository": "MONEI/Shopify-api-node",
