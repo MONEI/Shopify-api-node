@@ -16,6 +16,7 @@ jobs:
           - 16
           - 18
           - 20
+          - 22
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,10 +24,10 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm run lint
-        if: matrix.node == 20
+        if: matrix.node == 22
       - run: npm test
       - run: npm run test:types
       - uses: coverallsapp/github-action@v2
-        if: matrix.node == 20
+        if: matrix.node == 22
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
