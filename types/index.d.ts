@@ -996,32 +996,32 @@ declare namespace Shopify {
   }
 
   interface ICreateArticle {
-    author: string;
-    body_html: string;
+    author?: string;
+    body_html?: string;
     handle?: string;
-    image?: IBase64Image;
+    image?: ICreateArticleImage;
     metafields?: ICreateObjectMetafield[];
     published?: boolean;
     published_at?: string;
     summary_html?: string | null;
     tags?: string;
     template_suffix?: string | null;
-    title: string;
+    title?: string;
     user_id?: number;
   }
 
   interface IUpdateArticle {
-    author: string;
-    body_html: string;
+    author?: string;
+    body_html?: string;
     handle?: string;
-    image?: IBase64Image;
+    image?: ICreateArticleImage;
     metafields?: ICreateObjectMetafield[];
     published?: boolean;
     published_at?: string;
     summary_html?: string | null;
     tags?: string;
     template_suffix?: string | null;
-    title: string;
+    title?: string;
     user_id?: number;
   }
 
@@ -1034,8 +1034,10 @@ declare namespace Shopify {
     alt: string | null;
   }
 
-  interface IBase64Image {
-    attachment: string;
+  interface ICreateArticleImage {
+    attachment?: string;
+    src?: string;
+    alt?: string;
   }
 
   interface IObjectMetafield {
