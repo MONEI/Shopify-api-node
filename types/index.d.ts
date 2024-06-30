@@ -1408,7 +1408,7 @@ declare namespace Shopify {
     last_name: string;
     metafield?: IObjectMetafield; // From https://help.shopify.com/api/reference/customer but not visible in test API call
     phone: string;
-    multipass_identifier: null;
+    multipass_identifier: string | null;
     last_order_id: number | null;
     last_order_name: string | null;
     note: string | null;
