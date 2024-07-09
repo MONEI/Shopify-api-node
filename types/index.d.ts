@@ -1488,6 +1488,12 @@ declare namespace Shopify {
     value_type: ValueType;
   }
 
+  interface IDiscountAllocation {
+    amount: string;
+    amount_set: IMoneySet;
+    discount_application_index: number;
+  }
+
   interface IDiscountCode {
     created_at: string;
     id: number;
@@ -1779,6 +1785,7 @@ declare namespace Shopify {
     total_discount: string;
     fulfillment_status: IFulfillmentStatus;
     tax_lines: IFulfillmentLineItemTaxLine[];
+    discount_allocations: IDiscountAllocation[];
   }
 
   interface IFulfillment {
