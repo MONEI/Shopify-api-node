@@ -2311,6 +2311,7 @@ declare namespace Shopify {
   }
 
   interface IOrderLineItem {
+    current_quantity?: number;
     discount_allocations: ILineItemDiscountAllocation[];
     fulfillable_quantity: number;
     fulfillment_service: string;
