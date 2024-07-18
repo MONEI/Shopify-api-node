@@ -3233,6 +3233,11 @@ declare namespace Shopify {
     | 'customers/update'
     | 'customers_email_marketing_consent/update'
     | 'customers_marketing_consent/update'
+    | 'discounts/create'
+    | 'discounts/delete'
+    | 'discounts/redeemcode_added'
+    | 'discounts/redeemcode_removed'
+    | 'discounts/update'
     | 'disputes/create'
     | 'disputes/update'
     | 'domains/create'
@@ -3399,6 +3404,16 @@ declare namespace Shopify {
     ? ICustomerSavedSearch
     : T extends 'customer_groups/delete'
     ? IDeletedItem
+    : T extends 'discounts/create'
+    ? IDiscountUpsertWebhook
+    : T extends 'discounts/delete'
+    ? IDiscountDeleteWebhook
+    : T extends 'discounts/redeemcode_added'
+    ? IDiscountRedeemCodeWebhook
+    : T extends 'discounts/redeemcode_removed'
+    ? IDiscountRedeemCodeWebhook
+    : T extends 'discounts/update'
+    ? IDiscountUpsertWebhook
     : T extends 'draft_orders/create'
     ? IDraftOrder
     : T extends 'draft_orders/update'
@@ -3527,5 +3542,29 @@ declare namespace Shopify {
     phone_required?: boolean;
     min_delivery_date?: string;
     max_delivery_date?: string;
+  }
+
+  type DiscountStatus = 'ACTIVE' | 'EXPIRED' | 'SCHEDULED';
+
+  interface IDiscountUpsertWebhook {
+    admin_graphql_api_id: string;
+    title: string;
+    status: DiscountStatus;
+    created_at: string;
+    updated_at: string;
+  }
+
+  interface IDiscountDeleteWebhook {
+    admin_graphql_api_id: string;
+    deleted_at: string;
+  }
+
+  interface IDiscountRedeemCodeWebhook {
+    admin_graphql_api_id: string;
+    redeem_code: {
+      id: string;
+      code: string;
+    };
+    updated_at: string;
   }
 }
