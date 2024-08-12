@@ -1,0 +1,7 @@
+{
+  "fulfillment_hold": {
+    "reason": "inventory_out_of_stock",
+    "reason_notes": "Not enough inventory to complete this work.",
+    "fulfillment_order_line_items": [{ "id": 1058737493, "quantity": 1 }]
+  }
+}

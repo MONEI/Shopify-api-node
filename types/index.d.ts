@@ -389,6 +389,7 @@ declare class Shopify {
     fulfillments: (
       id: number
     ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
+    hold: (id: number, params: any) => Promise<Shopify.IFulfillmentOrder>;
   };
   fulfillmentRequest: {
     accept: (

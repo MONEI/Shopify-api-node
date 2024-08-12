@@ -127,4 +127,19 @@ FulfillmentOrder.prototype.fulfillments = function fulfillments(id) {
   return this.shopify.request(url, 'GET', 'fulfillments');
 };
 
+/**
+ * Halts all fulfillment work on a fulfillment order with
+ * status OPEN and changes the status of the fulfillment order to ON_HOLD.
+ *
+ * @param {Number} id Order ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.hold = function hold(id, params) {
+  const url = this.buildUrl(`${id}/hold`);
+  return this.shopify
+    .request(url, 'POST', undefined, params)
+    .then((body) => body[this.key]);
+};
+
 module.exports = FulfillmentOrder;
