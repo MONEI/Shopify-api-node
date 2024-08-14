@@ -131,14 +131,26 @@ FulfillmentOrder.prototype.fulfillments = function fulfillments(id) {
  * Halts all fulfillment work on a fulfillment order with
  * status OPEN and changes the status of the fulfillment order to ON_HOLD.
  *
- * @param {Number} id Order ID
- * @return {Promise} Promise that resolves with the result
+ * @param {Number} id Fulfillment Order id (fulfillment_order_id).
+ * @param {Object} params
+ * @param {String} params.reason 'awaiting_paymet' | 'high_risk_of_fraud'
+ *     | 'incorrect_address' | 'inventory_out_of_stock' | 'other'.
+ * @param {String} params.reason_notes (optiona) Additional information about
+ *     the fulfillment hold reason.
+ * @param {Boolean} params.notify_merchant (optional) Whether the merchant
+ *     should receive a notification about the fulfillment hold.
+ *     If set to true, then the merchant will be notified on the Shopify
+ *     mobile app (if they use it to manage their store).
+ *     The default value is false.
+ * @param {Array} params.fulfillment_order_line_items (optional)  array of
+ *     fulfillment order line item ids and the quantity of each to move.
+ * @return {Promise} Promise that resolves with the result.
  * @public
  */
 FulfillmentOrder.prototype.hold = function hold(id, params) {
   const url = this.buildUrl(`${id}/hold`);
   return this.shopify
-    .request(url, 'POST', undefined, params)
+    .request(url, 'POST', undefined, { fulfillment_hold: params })
     .then((body) => body[this.key]);
 };
 
