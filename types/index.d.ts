@@ -389,7 +389,10 @@ declare class Shopify {
     fulfillments: (
       id: number
     ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
-    hold: (id: number, params: any) => Promise<Shopify.IFulfillmentOrder>;
+    hold: (
+      id: number,
+      params: Shopify.IHoldFulfillmentOrder
+    ) => Promise<Shopify.IFulfillmentOrder>;
   };
   fulfillmentRequest: {
     accept: (
@@ -3567,5 +3570,23 @@ declare namespace Shopify {
       code: string;
     };
     updated_at: string;
+  }
+
+  interface IHoldFulfillmentOrder {
+    reason:
+      | 'awaiting_payment'
+      | 'high_risk_of_fraud'
+      | 'incorrect_address'
+      | 'inventory_out_of_stock'
+      | 'other';
+    reason_notes?: string;
+    notify_merchant: boolean;
+    line_items: IUpdateFulfillmentOrderLineItem;
+    fulfillment_order_id: number;
+  }
+
+  interface IUpdateFulfillmentOrderLineItem {
+    id: number;
+    quantity: number;
   }
 }
