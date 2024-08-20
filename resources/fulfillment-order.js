@@ -128,8 +128,8 @@ FulfillmentOrder.prototype.fulfillments = function fulfillments(id) {
 };
 
 /**
- * Halts all fulfillment work on a fulfillment order with
- * status OPEN and changes the status of the fulfillment order to ON_HOLD.
+ * Halts all fulfillment work on a fulfillment order with status `OPEN` and
+ * changes the status of the fulfillment order to `ON_HOLD`.
  *
  * @param {Number} id Fulfillment Order ID
  * @param {Object} params An object containing the reason for the fulfillment
