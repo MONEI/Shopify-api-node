@@ -482,12 +482,13 @@ default.
 - fulfillmentOrder
   - `cancel(id, params)`
   - `close(id[, message])`
+  - `fulfillments(id)`
   - `get(id)`
+  - `hold(id, params)`
   - `list([params])`
   - `locationsForMove(id)`
   - `move(id, locationId)`
   - `setFulfillmentOrdersDeadline(params)`
-  - `fulfillments(id)`
 - fulfillmentRequest
   - `accept(fulfillmentOrderId[, message])`
   - `create(fulfillmentOrderId, params)`

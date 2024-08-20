@@ -143,8 +143,10 @@ describe('Shopify#fulfillmentOrder', () => {
       .post('/admin/fulfillment_orders/1046000789/hold.json', input)
       .reply(200, output);
 
-    return shopify.fulfillmentOrder.hold(1046000789).then((data) => {
-      expect(data).to.deep.equal(output.fulfillment_order);
-    });
+    return shopify.fulfillmentOrder
+      .hold(1046000789, input.fulfillment_hold)
+      .then((data) => {
+        expect(data).to.deep.equal(output.fulfillment_order);
+      });
   });
 });

@@ -3572,6 +3572,11 @@ declare namespace Shopify {
     updated_at: string;
   }
 
+  interface IFulfillmentHoldFulfillmentOrderLineItem {
+    id: number;
+    quantity: number;
+  }
+
   interface IFulfillmentHold {
     reason:
       | 'awaiting_payment'
@@ -3581,11 +3586,6 @@ declare namespace Shopify {
       | 'other';
     reason_notes?: string;
     notify_merchant?: boolean;
-    fulfillment_order_line_items?: IUpdateFulfillmentOrderLineItem[];
-  }
-
-  interface IUpdateFulfillmentOrderLineItem {
-    id: number;
-    quantity: number;
+    fulfillment_order_line_items?: IFulfillmentHoldFulfillmentOrderLineItem[];
   }
 }
