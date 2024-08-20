@@ -149,4 +149,16 @@ describe('Shopify#fulfillmentOrder', () => {
         expect(data).to.deep.equal(output.fulfillment_order);
       });
   });
+
+  it('releases the fulfillment hold on a fulfillment order', () => {
+    const output = fixtures.res.releaseHold;
+
+    scope
+      .post('/admin/fulfillment_orders/1046000790/release_hold.json', {})
+      .reply(200, output);
+
+    return shopify.fulfillmentOrder.releaseHold(1046000790).then((data) => {
+      expect(data).to.deep.equal(output.fulfillment_order);
+    });
+  });
 });

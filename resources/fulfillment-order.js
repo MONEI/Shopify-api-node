@@ -144,4 +144,19 @@ FulfillmentOrder.prototype.hold = function hold(id, params) {
     .then((body) => body[this.key]);
 };
 
+/**
+ * Release the fulfillment hold on a fulfillment order and changes the status of
+ * the fulfillment order to `OPEN` or `SCHEDULED`.
+ *
+ * @param {Number} id Fulfillment Order ID
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.releaseHold = function releaseHold(id) {
+  const url = this.buildUrl(`${id}/release_hold`);
+  return this.shopify
+    .request(url, 'POST', undefined, {})
+    .then((body) => body[this.key]);
+};
+
 module.exports = FulfillmentOrder;

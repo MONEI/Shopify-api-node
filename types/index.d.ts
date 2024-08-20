@@ -376,23 +376,24 @@ declare class Shopify {
       params: Shopify.IFulfillmentOrder
     ) => Promise<Shopify.IFulfillmentOrder>;
     close: (id: number, message?: string) => Promise<Shopify.IFulfillmentOrder>;
+    fulfillments: (
+      id: number
+    ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
     get: (id: number) => Promise<Shopify.IFulfillmentOrder>;
+    hold: (
+      id: number,
+      params: Shopify.IFulfillmentHold
+    ) => Promise<Shopify.IFulfillmentOrder>;
     list: (params?: any) => Promise<Shopify.IFulfillmentOrder[]>;
     locationsForMove: (id: number) => Promise<Shopify.ILocationForMove[]>;
     move: (
       id: number,
       locationId: number
     ) => Promise<Shopify.IFulfillmentOrder>;
+    releaseHold: (id: number) => Promise<Shopify.IFulfillmentOrder>;
     setFulfillmentOrdersDeadline: (
       params: Shopify.ISetFulfillmentOrdersDeadline
     ) => Promise<void>;
-    fulfillments: (
-      id: number
-    ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
-    hold: (
-      id: number,
-      params: Shopify.IFulfillmentHold
-    ) => Promise<Shopify.IFulfillmentOrder>;
   };
   fulfillmentRequest: {
     accept: (

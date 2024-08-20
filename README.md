@@ -488,6 +488,7 @@ default.
   - `list([params])`
   - `locationsForMove(id)`
   - `move(id, locationId)`
+  - `releaseHold(id)`
   - `setFulfillmentOrdersDeadline(params)`
 - fulfillmentRequest
   - `accept(fulfillmentOrderId[, message])`
