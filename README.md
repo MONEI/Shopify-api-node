@@ -480,7 +480,7 @@ default.
   - `list(orderId, fulfillmentId[, params])`
   - `update(orderId, fulfillmentId, id, params)`
 - fulfillmentOrder
-  - `cancel(id, params)`
+  - `cancel(id)`
   - `close(id[, message])`
   - `fulfillments(id)`
   - `get(id)`

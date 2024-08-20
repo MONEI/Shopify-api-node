@@ -40,15 +40,14 @@ describe('Shopify#fulfillmentOrder', () => {
   });
 
   it('cancels a fulfillment order', () => {
-    const input = fixtures.req.cancel;
     const output = fixtures.res.cancel;
 
     scope
-      .post('/admin/fulfillment_orders/1025578640/cancel.json', input)
+      .post('/admin/fulfillment_orders/1046000791/cancel.json', {})
       .reply(200, output);
 
     return shopify.fulfillmentOrder
-      .cancel(1025578640, input.fulfillment_order)
+      .cancel(1046000791)
       .then((data) => expect(data).to.deep.equal(output.fulfillment_order));
   });
 

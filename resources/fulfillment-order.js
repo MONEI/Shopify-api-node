@@ -41,13 +41,14 @@ FulfillmentOrder.prototype.list = function list(params) {
  * Marks a fulfillment order as cancelled.
  *
  * @param {Number} id Fulfillment order ID
- * @param {Object} params Fulfillment order properties
  * @return {Promise} Promise that resolves with the result
  * @public
  */
-FulfillmentOrder.prototype.cancel = function cancel(id, params) {
+FulfillmentOrder.prototype.cancel = function cancel(id) {
   const url = this.buildUrl(`${id}/cancel`);
-  return this.shopify.request(url, 'POST', this.key, params);
+  return this.shopify
+    .request(url, 'POST', undefined, {})
+    .then((body) => body[this.key]);
 };
 
 /**

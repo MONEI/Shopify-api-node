@@ -371,10 +371,7 @@ declare class Shopify {
     ) => Promise<Shopify.IFulfillmentEvent>;
   };
   fulfillmentOrder: {
-    cancel: (
-      id: number,
-      params: Shopify.IFulfillmentOrder
-    ) => Promise<Shopify.IFulfillmentOrder>;
+    cancel: (id: number) => Promise<Shopify.IFulfillmentOrder>;
     close: (id: number, message?: string) => Promise<Shopify.IFulfillmentOrder>;
     fulfillments: (
       id: number
