@@ -134,4 +134,19 @@ describe('Shopify#fulfillmentOrder', () => {
       .fulfillments(1046000823)
       .then((data) => expect(data).to.deep.equal(output.fulfillments));
   });
+
+  it('applies a fulfillment hold on an open fulfillment order', () => {
+    const input = fixtures.req.hold;
+    const output = fixtures.res.hold;
+
+    scope
+      .post('/admin/fulfillment_orders/1046000789/hold.json', input)
+      .reply(200, output);
+
+    return shopify.fulfillmentOrder
+      .hold(1046000789, input.fulfillment_hold)
+      .then((data) => {
+        expect(data).to.deep.equal(output.fulfillment_order);
+      });
+  });
 });
