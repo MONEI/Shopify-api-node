@@ -391,7 +391,7 @@ declare class Shopify {
     ) => Promise<Shopify.IPaginatedResult<Shopify.IFulfillment>>;
     hold: (
       id: number,
-      params: Shopify.IHoldFulfillmentOrder
+      params: Shopify.IFulfillmentHold
     ) => Promise<Shopify.IFulfillmentOrder>;
   };
   fulfillmentRequest: {
@@ -3572,7 +3572,7 @@ declare namespace Shopify {
     updated_at: string;
   }
 
-  interface IHoldFulfillmentOrder {
+  interface IFulfillmentHold {
     reason:
       | 'awaiting_payment'
       | 'high_risk_of_fraud'
@@ -3580,9 +3580,8 @@ declare namespace Shopify {
       | 'inventory_out_of_stock'
       | 'other';
     reason_notes?: string;
-    notify_merchant: boolean;
-    line_items: IUpdateFulfillmentOrderLineItem;
-    fulfillment_order_id: number;
+    notify_merchant?: boolean;
+    fulfillment_order_line_items?: IUpdateFulfillmentOrderLineItem[];
   }
 
   interface IUpdateFulfillmentOrderLineItem {
