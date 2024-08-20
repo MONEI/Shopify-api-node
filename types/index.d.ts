@@ -391,6 +391,10 @@ declare class Shopify {
       locationId: number
     ) => Promise<Shopify.IFulfillmentOrder>;
     releaseHold: (id: number) => Promise<Shopify.IFulfillmentOrder>;
+    reschedule: (
+      id: number,
+      deadline: string
+    ) => Promise<Shopify.IFulfillmentOrder>;
     setFulfillmentOrdersDeadline: (
       params: Shopify.ISetFulfillmentOrdersDeadline
     ) => Promise<void>;

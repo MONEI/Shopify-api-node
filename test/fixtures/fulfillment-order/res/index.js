@@ -9,3 +9,4 @@ exports.list = require('./list');
 exports.locationsForMove = require('./locations-for-move');
 exports.move = require('./move');
 exports.releaseHold = require('./release-hold');
+exports.reschedule = require('./reschedule');

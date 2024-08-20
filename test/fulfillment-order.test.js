@@ -161,4 +161,19 @@ describe('Shopify#fulfillmentOrder', () => {
       expect(data).to.deep.equal(output.fulfillment_order);
     });
   });
+
+  it('reschedules the fulfill_at time of a scheduled fulfillment order', () => {
+    const input = fixtures.req.reschedule;
+    const output = fixtures.res.reschedule;
+
+    scope
+      .post('/admin/fulfillment_orders/1046000788/reschedule.json', input)
+      .reply(200, output);
+
+    return shopify.fulfillmentOrder
+      .reschedule(1046000788, '2025-08-24 10:26 UTC')
+      .then((data) => {
+        expect(data).to.deep.equal(output.fulfillment_order);
+      });
+  });
 });

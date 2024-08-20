@@ -159,4 +159,22 @@ FulfillmentOrder.prototype.releaseHold = function releaseHold(id) {
     .then((body) => body[this.key]);
 };
 
+/**
+ * Reschedules a scheduled fulfillment order. Updates the value of the
+ * `fulfill_at field` on a scheduled fulfillment order. The fulfillment order
+ * will be marked as ready for fulfillment at this date and time.
+ *
+ * @param {Number} id Fulfillment Order ID
+ * @param {String} deadline The new fulfillment deadline of the fulfillment
+ *     order
+ * @return {Promise} Promise that resolves with the result
+ * @public
+ */
+FulfillmentOrder.prototype.reschedule = function reschedule(id, deadline) {
+  const url = this.buildUrl(`${id}/reschedule`);
+  return this.shopify.request(url, 'POST', this.key, {
+    new_fulfill_at: deadline
+  });
+};
+
 module.exports = FulfillmentOrder;
