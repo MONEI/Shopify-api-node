@@ -2393,6 +2393,7 @@ declare namespace Shopify {
     client_details: IOrderClientDetails;
     checkout_token: string | null;
     closed_at: string | null;
+    confirmation_number: string;
     confirmed: boolean;
     contact_email: string | null;
     created_at: string;
