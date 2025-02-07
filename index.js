@@ -273,13 +273,12 @@ Shopify.prototype.graphql = function graphql(data, variables) {
   pathname += '/graphql.json';
 
   const uri = { pathname, ...this.baseUrl };
-  const json = variables !== undefined && variables !== null;
   const options = {
     agent: this.options.agent,
-    body: json ? this.options.stringifyJson({ query: data, variables }) : data,
+    body: this.options.stringifyJson({ query: data, variables }),
     headers: {
       ...this.baseHeaders,
-      'Content-Type': json ? 'application/json' : 'application/graphql'
+      'Content-Type': 'application/json'
     },
     method: 'POST',
     parseJson: this.options.parseJson,
