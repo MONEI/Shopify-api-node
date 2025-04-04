@@ -917,6 +917,134 @@ describe('Shopify', () => {
       );
     });
 
+    it('throws an error on protected customer data errors by default', () => {
+      const shopify = new Shopify({ shopName, accessToken });
+
+      scope.post('/admin/api/graphql.json').reply(200, {
+        errors: [
+          {
+            message:
+              'This app is not approved to use the email field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+            path: ['customers', 'edges', '0', 'node', 'email'],
+            extensions: {
+              code: 'ACCESS_DENIED',
+              documentation:
+                'https://partners.shopify.com/1/apps/1/customer_data',
+              requiredAccess:
+                'Shopify approval is required before using the email field.'
+            }
+          }
+        ]
+      });
+
+      return shopify.graphql('query').then(
+        () => {
+          throw new Error('Test invalidation');
+        },
+        (err) => {
+          expect(err).to.be.an.instanceof(Error);
+          expect(err.message).to.equal(
+            'This app is not approved to use the email field. See https://partners.shopify.com/1/apps/1/customer_data for more details.'
+          );
+        }
+      );
+    });
+
+    it('calls a provided onProtectedCustomerDataError hook when a protected customer data error occurs', () => {
+      const customerDataErrors = [
+        {
+          message:
+            'This app is not approved to use the email field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+          path: ['customers', 'edges', '0', 'node', 'email'],
+          extensions: {
+            code: 'ACCESS_DENIED',
+            documentation:
+              'https://partners.shopify.com/1/apps/1/customer_data',
+            requiredAccess:
+              'Shopify approval is required before using the email field.'
+          }
+        },
+        {
+          message:
+            'This app is not approved to use the firstName field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+          path: ['customers', 'edges', '0', 'node', 'firstName'],
+          extensions: {
+            code: 'ACCESS_DENIED',
+            documentation:
+              'https://partners.shopify.com/1/apps/1/customer_data',
+            requiredAccess:
+              'Shopify approval is required before using the firstName field.'
+          }
+        }
+      ];
+
+      let calledWithErrors = undefined;
+
+      const shopify = new Shopify({
+        shopName,
+        accessToken,
+        onProtectedCustomerDataError: (errors) => {
+          calledWithErrors = errors;
+        }
+      });
+
+      scope.post('/admin/api/graphql.json').reply(200, {
+        errors: customerDataErrors
+      });
+
+      return shopify.graphql('query').then(() => {
+        expect(calledWithErrors).to.deep.equal(customerDataErrors);
+      });
+    });
+
+    it('throws an error if the onProtectedCustomerDataError hook is provided but not all errors are customer data errors', () => {
+      const shopify = new Shopify({ shopName, accessToken });
+
+      scope.post('/admin/api/graphql.json').reply(200, {
+        errors: [
+          {
+            message: "Field 'foo' doesn't exist on type 'QueryRoot'",
+            locations: [
+              {
+                line: 1,
+                column: 3
+              }
+            ],
+            path: ['query', 'foo'],
+            extensions: {
+              code: 'undefinedField',
+              typeName: 'QueryRoot',
+              fieldName: 'foo'
+            }
+          },
+          {
+            message:
+              'This app is not approved to use the email field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+            path: ['customers', 'edges', '0', 'node', 'email'],
+            extensions: {
+              code: 'ACCESS_DENIED',
+              documentation:
+                'https://partners.shopify.com/1/apps/1/customer_data',
+              requiredAccess:
+                'Shopify approval is required before using the email field.'
+            }
+          }
+        ]
+      });
+
+      return shopify.graphql('query').then(
+        () => {
+          throw new Error('Test invalidation');
+        },
+        (err) => {
+          expect(err).to.be.an.instanceof(Error);
+          expect(err.message).to.equal(
+            "Field 'foo' doesn't exist on type 'QueryRoot'"
+          );
+        }
+      );
+    });
+
     it('uses basic auth as intended', () => {
       const shopify = new Shopify({ shopName, apiKey, password });
 

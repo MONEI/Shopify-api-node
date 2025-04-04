@@ -786,6 +786,16 @@ declare namespace Shopify {
     interval: number;
   }
 
+  export interface IProtectedCustomerDataError {
+    message: string;
+    path: string[];
+    extension: {
+      code: 'ACCESS_DENIED';
+      documentation: string;
+      requiredAccess: string;
+    };
+  }
+
   export interface IPublicShopifyConfig {
     accessToken: string;
     apiVersion?: string;
@@ -796,6 +806,9 @@ declare namespace Shopify {
     timeout?: number;
     hooks?: Hooks;
     agent?: Agents;
+    onProtectedCustomerDataError?: (
+      errors: IProtectedCustomerDataError[]
+    ) => void;
   }
 
   export interface IPrivateShopifyConfig {

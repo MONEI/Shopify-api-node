@@ -6,6 +6,8 @@ const stopcock = require('stopcock');
 const got = require('got');
 const url = require('url');
 
+const isPlainObject = require('lodash/isPlainObject');
+
 const pkg = require('./package');
 const resources = require('./resources');
 
@@ -292,9 +294,27 @@ Shopify.prototype.graphql = function graphql(data, variables) {
         this.updateGraphqlLimits(res.body.extensions.cost);
       }
 
+      // see https://shopify.dev/docs/apps/launch/protected-customer-data#graphql-admin-api-request-with-unapproved-fields
       if (Array.isArray(res.body.errors)) {
-        // Make Got consider this response errored and retry if needed.
-        throw new Error(res.body.errors[0].message);
+        const isProtectedCustomerDataError = res.body.errors.every((error) => {
+          return (
+            error &&
+            isPlainObject(error.extensions) &&
+            error.extensions.code === 'ACCESS_DENIED' &&
+            error.extensions.documentation &&
+            error.extensions.requiredAccess
+          );
+        });
+
+        if (
+          isProtectedCustomerDataError &&
+          this.options.onProtectedCustomerDataError
+        ) {
+          this.options.onProtectedCustomerDataError(res.body.errors);
+        } else {
+          // Make Got consider this response errored and retry if needed.
+          throw new Error(res.body.errors[0].message);
+        }
       }
     }
 
