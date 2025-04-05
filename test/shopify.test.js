@@ -917,6 +917,81 @@ describe('Shopify', () => {
       );
     });
 
+    it('can add a hook to not throw an error when the response has errors', () => {
+      const customerDataErrors = [
+        {
+          message:
+            'This app is not approved to use the email field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+          path: ['customers', 'edges', '0', 'node', 'email'],
+          extensions: {
+            code: 'ACCESS_DENIED',
+            documentation:
+              'https://partners.shopify.com/1/apps/1/customer_data',
+            requiredAccess:
+              'Shopify approval is required before using the email field.'
+          }
+        },
+        {
+          message:
+            'This app is not approved to use the firstName field. See https://partners.shopify.com/1/apps/1/customer_data for more details.',
+          path: ['customers', 'edges', '0', 'node', 'firstName'],
+          extensions: {
+            code: 'ACCESS_DENIED',
+            documentation:
+              'https://partners.shopify.com/1/apps/1/customer_data',
+            requiredAccess:
+              'Shopify approval is required before using the firstName field.'
+          }
+        }
+      ];
+
+      let calledWithErrors = undefined;
+
+      const shopify = new Shopify({
+        shopName,
+        accessToken,
+        hooks: {
+          afterResponse: [
+            (res) => {
+              if (res.body && res.body.errors) {
+                calledWithErrors = res.body.errors;
+
+                res.body.errors = undefined;
+              }
+
+              return res;
+            }
+          ]
+        }
+      });
+
+      scope.post('/admin/api/graphql.json').reply(200, {
+        data: {
+          customers: {
+            edges: [
+              {
+                node: {
+                  id: 'gid://shopify/Customer/1234567890',
+                  email: null,
+                  firstName: null
+                }
+              }
+            ]
+          }
+        },
+        errors: customerDataErrors
+      });
+
+      return shopify.graphql('query').then((result) => {
+        expect(calledWithErrors).to.deep.equal(customerDataErrors);
+        expect(result.customers.edges[0].node.id).to.equal(
+          'gid://shopify/Customer/1234567890'
+        );
+        expect(result.customers.edges[0].node.email).to.equal(null);
+        expect(result.customers.edges[0].node.firstName).to.equal(null);
+      });
+    });
+
     it('uses basic auth as intended', () => {
       const shopify = new Shopify({ shopName, apiKey, password });
 
