@@ -286,16 +286,17 @@ Shopify.prototype.graphql = function graphql(data, variables) {
     timeout: this.options.timeout
   };
 
-  const afterResponse = (res) => {
-    if (res.body) {
-      if (res.body.extensions && res.body.extensions.cost) {
-        this.updateGraphqlLimits(res.body.extensions.cost);
-      }
+  const updateGqlLimits = (res) => {
+    if (res.body && res.body.extensions && res.body.extensions.cost) {
+      this.updateGraphqlLimits(res.body.extensions.cost);
+    }
 
-      if (Array.isArray(res.body.errors)) {
-        // Make Got consider this response errored and retry if needed.
-        throw new Error(res.body.errors[0].message);
-      }
+    return res;
+  };
+
+  const maybeError = (res) => {
+    if (res.body && Array.isArray(res.body.errors)) {
+      throw new Error(res.body.errors[0].message);
     }
 
     return res;
@@ -303,19 +304,21 @@ Shopify.prototype.graphql = function graphql(data, variables) {
 
   if (this.options.hooks) {
     options.hooks = { ...this.options.hooks };
-    options.hooks.afterResponse = [afterResponse];
+    options.hooks.afterResponse = [updateGqlLimits];
     options.hooks.beforeError = [decorateError];
 
     if (this.options.hooks.afterResponse) {
       options.hooks.afterResponse.push(...this.options.hooks.afterResponse);
     }
 
+    options.hooks.afterResponse.push(maybeError);
+
     if (this.options.hooks.beforeError) {
       options.hooks.beforeError.push(...this.options.hooks.beforeError);
     }
   } else {
     options.hooks = {
-      afterResponse: [afterResponse],
+      afterResponse: [updateGqlLimits, maybeError],
       beforeError: [decorateError]
     };
   }
